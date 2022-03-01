@@ -20,7 +20,7 @@ class CreateOffersTable extends Migration
             $table->string('title_en');
             $table->text('body_ar');
             $table->text('body_en');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->date('date');
 
             $table->timestamps();

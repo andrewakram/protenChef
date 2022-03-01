@@ -17,7 +17,7 @@ class CreatePagesTable extends Migration
             $table->id();
             $table->text('body_ar');
             $table->text('body_en');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->enum('type', ['about', 'terms', 'privacy','other'])->default('other');
             $table->timestamps();
         });
