@@ -96,18 +96,18 @@ class AuthController extends Controller
                 $user->active = 1;
                 $user->save();
 
-                $jwt_token = JWTAuth::attempt(['phone'=>$request->phone]);
-
+                $jwt_token = JWTAuth::fromUser($user);
                 $data = (new UsersResources($user))->token($jwt_token);
                 return response()->json(msgdata($request, success(), trans('lang.success'), $data));
             } else {
 
-                $jwt_token = JWTAuth::attempt(['phone'=>$request->phone]);
+                $jwt_token = JWTAuth::fromUser($user);
                 $data = (new UsersResources($user))->token($jwt_token);
                 return response()->json(msgdata($request, success(), trans('lang.success'), $data));
             }
         } else {
-            return response()->json(msg($request, failed(), trans('lang.codeError')));
+            $this->sendCode($request->phone, $type);
+            return response()->json(msg($request, failed(), trans('lang.codeErrorSentAgain')));
         }
 
 
@@ -128,10 +128,10 @@ class AuthController extends Controller
             [
                 'code' => $code,
                 'type' => $type,
-                'expire_at' => Carbon::now()->addHour()->toDateTimeString()
+                'expired_at' => Carbon::now()->addHour()->toDateTimeString()
             ]
         );
 
-        return response()->json(msg($request, success(), trans('lang.CodeSent')));
+        return response()->json(msg("request", success(), trans('lang.CodeSent')));
     }
 }

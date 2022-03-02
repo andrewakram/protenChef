@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Verfication extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'phone', 'code', 'type', 'expired_at'
+    ];
 }
