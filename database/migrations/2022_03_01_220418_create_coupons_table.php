@@ -19,7 +19,7 @@ class CreateCouponsTable extends Migration
             $table->enum('type', ['fixed','percent'])->default('fixed');
             $table->double('amount');
             $table->double('min_order_total')->nullable();
-            $table->string('expired_at');
+            $table->date('expired_at');
             $table->timestamps();
         });
     }
