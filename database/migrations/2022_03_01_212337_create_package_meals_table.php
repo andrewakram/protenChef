@@ -17,9 +17,9 @@ class CreatePackageMealsTable extends Migration
             $table->id();
             $table->foreignId('meal_id')->references('id')->on('meals')->onDelete('cascade');
             $table->foreignId('package_id')->references('id')->on('packages')->onDelete('cascade');
-            $table->string('day');
-            $table->string('week');
-
+            $table->foreignId('meal_type_id')->references('id')->on('meal_types')->onDelete('cascade');
+            $table->string('day')->comment('from saturday to friday');
+            $table->string('week')->comment('1 => for first week in month , 2 => for second week in month');
             $table->timestamps();
         });
     }

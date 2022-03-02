@@ -19,7 +19,7 @@ class CreatePackageTypesTable extends Migration
             $table->string('title_en');
             $table->string('image')->nullable();
             $table->string('days_count')->nullable();
-            $table->tinyInteger('type')->default(1);
+            $table->tinyInteger('type')->default(1)->comment('for package without fraiday or satrday');
             $table->timestamps();
         });
     }
