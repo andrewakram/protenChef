@@ -53,7 +53,7 @@ class AuthController extends Controller
             'device_token' => 'required'
         ]);
         if ($validator->fails()) {
-            return response()->json(['status' => 401, 'msg' => $validator->messages()->first(), 'data' => (object)[]]);
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
 
         $data = new User();
@@ -76,38 +76,36 @@ class AuthController extends Controller
             'code' => 'required|min:4',
         ]);
         if ($validator->fails()) {
-            return response()->json(['status' => 401, 'msg' => $validator->messages()->first(), 'data' => (object)[]]);
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
 
         $user = User::where('phone', $request->phone)->first();
-        if ($user->active == 0) {
-            $type = "activate";
-        } else {
-            $type = "reset";
-        }
+
+        $type = $user->active == 0 ? "activate" : "reset";
 
         $verfication = Verfication::where('phone', $request->phone)
             ->where('code', $request->code)
             ->where('type', $type)
-            ->where('expired_at', '>', Carbon::now()->toDateTimeString())
             ->first();
+
+
         if ($verfication) {
+            if (!$verfication->expired_at > Carbon::now()->toDateTimeString()) {
+                return response()->json(msg($request, failed(), trans('lang.codeExpired')));
+            }
             if ($type == "activate") {
                 $user->active = 1;
                 $user->save();
-
                 $jwt_token = JWTAuth::fromUser($user);
                 $data = (new UsersResources($user))->token($jwt_token);
-                return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+                return response()->json(msgdata($request, success(), trans('lang.Verified_success'), $data));
             } else {
-
                 $jwt_token = JWTAuth::fromUser($user);
                 $data = (new UsersResources($user))->token($jwt_token);
-                return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+                return response()->json(msgdata($request, success(), trans('lang.Verified_success'), $data));
             }
         } else {
-            $this->sendCode($request->phone, $type);
-            return response()->json(msg($request, failed(), trans('lang.codeErrorSentAgain')));
+            return response()->json(msg($request, failed(), trans('lang.codeError')));
         }
 
 
@@ -132,6 +130,29 @@ class AuthController extends Controller
             ]
         );
 
-        return response()->json(msg("request", success(), trans('lang.CodeSent')));
+        return true;
+    }
+
+    public
+    function resendCode(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+//            'phone' => 'required|min:12|regex:/(966)[0-9]{8}/',
+            'phone' => 'required|exists:users,phone',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+        }
+        $user = User::where('phone', $request->phone)->first();
+
+        $type = $user->active == 0 ? "activate" : "reset";
+
+        $this->sendCode($request->phone, $type);
+
+//        $jwt_token = JWTAuth::fromUser($user);
+//        $data = (new UsersResources($user))->token($jwt_token);
+        return response()->json(msg($request, success(), trans('lang.success')));
+
     }
 }

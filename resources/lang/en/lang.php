@@ -14,5 +14,10 @@ return [
     */
     'phoneOrPasswordIncorrect'=>'phone Or Password Incorrect',
     'success'=>'done successfully',
+    'not_active'=>'user not active',
+    'CodeSent'=>'Code Sent successfully',
+    'Verified_success'=>'Code Verified successfully',
+    'codeError'=>'Code invalid ',
+
 
 ];
