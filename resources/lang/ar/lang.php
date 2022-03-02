@@ -15,5 +15,10 @@ return [
 
     'phoneOrPasswordIncorrect'=>'رقم الجوال او كلمة المرور خطأ',
     'success'=>'تمت بنجاح',
+    'not_active'=>'الحساب غير مفعل',
+    'CodeSent'=>'تم ارسال الرمز بنجاح',
+    'Verified_success'=>'تم تاكيد الرمز بنجاح',
+    'codeError'=>'الرمز غير صحيح ',
+    'codeExpired'=>'الرمز غير صالح ! ',
 
 ];

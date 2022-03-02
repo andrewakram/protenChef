@@ -18,6 +18,7 @@ return [
     'CodeSent'=>'Code Sent successfully',
     'Verified_success'=>'Code Verified successfully',
     'codeError'=>'Code invalid ',
+    'codeExpired'=>'codeExpired ',
 
 
 ];

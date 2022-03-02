@@ -15,6 +15,12 @@ use TymonJWTAuthExceptionsJWTException;
 
 class AuthController extends Controller
 {
+    public function unauthrized(Request $request)
+    {
+
+        return response()->json(msg($request, not_authoize(), trans('lang.not_authoize')));
+
+    }
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [

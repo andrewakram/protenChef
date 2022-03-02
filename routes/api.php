@@ -20,20 +20,29 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-//not auth
-Route::group(['prefix' => "V1",'namespace'=>'V1'], function () {
-	//main screens
-    Route::get('/screens', [HomeController::class, 'screens']);
-	Route::post('/login', [AuthController::class, 'login']);
-	Route::post('/sign-up', [AuthController::class, 'SignUp']);
-	Route::post('/verify', [AuthController::class, 'Verify']);
-
- });
 
 //should login first authorization
-Route::group([ 'prefix' => "V1",'namespace'=>'V1'], function () {
-    //home
-    Route::get('/home', [HomeController::class, 'home']);
-    Route::get('/package_types/{package_id}', [PackagesController::class, 'package_types']);
+Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
+    Route::group(['prefix' => "app"], function () {
+        //main screens
+        Route::get('/screens', [HomeController::class, 'screens']);
+        Route::get('/settings', [HomeController::class, 'settings']);
+    });
+    Route::group(['prefix' => "auth"], function () {
+        //auth
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/sign-up', [AuthController::class, 'SignUp']);
+        Route::post('/verify', [AuthController::class, 'Verify']);
+        Route::post('/resend-code', [AuthController::class, 'resendCode']);
+    });
+
+    Route::group(['prefix' => "user", 'middleware' => 'auth:api'], function () {
+        //home
+        Route::get('/home', [HomeController::class, 'home']);
+        Route::get('/package_types/{package_id}', [PackagesController::class, 'package_types']);
+
+    });
+
+    Route::get('/unauthrized', [AuthController::class, 'unauthrized'])->name('login');
 
 });
