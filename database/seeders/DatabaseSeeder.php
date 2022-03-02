@@ -13,8 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
         $this->call(ScreenSeeder::class);
         $this->call(SliderSeeder::class);
         $this->call(PackageSeeder::class);
@@ -26,5 +24,10 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingSeeder::class);
         $this->call(CouponSeeder::class);
         $this->call(DemoAccountsSeeder::class);
+        $this->call(PackageTypePriceSeeder::class);
+        $this->call(PackageMealTypeSeeder::class);
+        $this->call(PackageMealSeeder::class);
+        $this->call(LocationSeeder::class);
+        $this->call(NotificationSeeder::class);
     }
 }
