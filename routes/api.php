@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([ 'prefix' => "V1",'namespace'=>'V1'], function () {
 	//main screens
     Route::get('/screens', [HomeController::class, 'screens']);
+    Route::get('/settings', [HomeController::class, 'settings']);
     //auth
 	Route::post('/login', [AuthController::class, 'login']);
 	Route::post('/sign-up', [AuthController::class, 'SignUp']);

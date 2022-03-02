@@ -8,9 +8,11 @@ use App\Http\Resources\PackageResources;
 use App\Http\Resources\ScreenResources;
 use App\Http\Resources\SliderResources;
 use App\Http\Resources\UsersResources;
+use App\Models\BusinessSetting;
 use App\Models\Offer;
 use App\Models\Package;
 use App\Models\Screen;
+use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,5 +42,13 @@ class HomeController extends Controller
         $screens = Screen::get();
         $screens = (ScreenResources::collection($screens));
         return response()->json(msgdata($request, success(), trans('lang.success'), $screens));
+    }
+    public function settings(Request $request)
+    {
+        $settings = Setting::get();
+
+
+//        $screens = (ScreenResources::collection($screens));
+        return response()->json(msgdata($request, success(), trans('lang.success'), $settings));
     }
 }
