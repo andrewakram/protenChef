@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UsersResources;
 use App\Models\User;
+use App\Models\Verfication;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Auth;
@@ -29,7 +31,7 @@ class AuthController extends Controller
             return response()->json(msg($request, not_authoize(), trans('lang.phoneOrPasswordIncorrect')));
         } else {
             $user = Auth::user();
-            if ($user->active == 0){
+            if ($user->active == 0) {
                 return response()->json(msg($request, not_active(), trans('lang.not_active')));
 
             }
@@ -48,8 +50,7 @@ class AuthController extends Controller
 //            'phone' => 'required|min:12|regex:/(966)[0-9]{8}/',
             'phone' => 'required|unique:users',
             'password' => 'required|min:6|confirmed',
-
-
+            'device_token' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first(), 'data' => (object)[]]);
@@ -61,19 +62,76 @@ class AuthController extends Controller
         $data->password = $request->password;
         $data->save();
 
-        $ver
+        $this->sendCode($data->phone, "activate");
 
-        $input = $request->only('phone', 'password');
-        if (!$jwt_token = JWTAuth::attempt($input)) {
-            return response()->json(msg($request, not_authoize(), trans('lang.phoneOrPasswordIncorrect')));
-        } else {
-            $user = Auth::user();
-            $user->fcm_token = $request->device_token;
-            $user->save();
+        return response()->json(msg($request, success(), trans('lang.CodeSent')));
 
-            $data = (new UsersResources($user))->token($jwt_token);
-            return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+    }
+
+    public function Verify(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+//            'phone' => 'required|min:12|regex:/(966)[0-9]{8}/',
+            'phone' => 'required|exists:users,phone',
+            'code' => 'required|min:4',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first(), 'data' => (object)[]]);
         }
 
+        $user = User::where('phone', $request->phone)->first();
+        if ($user->active == 0) {
+            $type = "activate";
+        } else {
+            $type = "reset";
+        }
+
+        $verfication = Verfication::where('phone', $request->phone)
+            ->where('code', $request->code)
+            ->where('type', $type)
+            ->where('expired_at', '>', Carbon::now()->toDateTimeString())
+            ->first();
+        if ($verfication) {
+            if ($type == "activate") {
+                $user->active = 1;
+                $user->save();
+
+                $jwt_token = JWTAuth::attempt(['phone'=>$request->phone]);
+
+                $data = (new UsersResources($user))->token($jwt_token);
+                return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+            } else {
+
+                $jwt_token = JWTAuth::attempt(['phone'=>$request->phone]);
+                $data = (new UsersResources($user))->token($jwt_token);
+                return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+            }
+        } else {
+            return response()->json(msg($request, failed(), trans('lang.codeError')));
+        }
+
+
+    }
+
+    public
+    function sendCode($phone, $type)
+    {
+
+        $code = rand(0000, 9999);
+        $code = 1111;
+
+        Verfication::updateOrcreate
+        (
+            [
+                'phone' => $phone,
+            ],
+            [
+                'code' => $code,
+                'type' => $type,
+                'expire_at' => Carbon::now()->addHour()->toDateTimeString()
+            ]
+        );
+
+        return response()->json(msg($request, success(), trans('lang.CodeSent')));
     }
 }

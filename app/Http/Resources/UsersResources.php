@@ -18,6 +18,8 @@ class UsersResources extends JsonResource
         $this->token = $value;
         return $this;
     }
+
+
     public function toArray($request)
     {
         return [
@@ -33,6 +35,7 @@ class UsersResources extends JsonResource
             'provider' => $this->provider ? $this->provider : "",
             'social_id' => $this->social_id ? $this->social_id : "",
             'token' => $this->token ? $this->token : "",
+            'is_completed'=>$this->age ? 1 : 0
 
         ];
     }

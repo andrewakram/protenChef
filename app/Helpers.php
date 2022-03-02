@@ -192,6 +192,7 @@ function not_active()
 }
 
 
+
 function upload($file, $dir)
 {
     $image = time() . uniqid() . '.' . $file->getClientOriginalExtension();
