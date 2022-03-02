@@ -16,4 +16,22 @@ class Admin extends Model
             $this->attributes['password'] = bcrypt($password);
         }
     }
+
+    public function getImageAttribute($image)
+    {
+        if (!empty($image)) {
+            return asset('uploads/Admin') . '/' . $image;
+        }
+        return asset('uploads/default.jpg');
+    }
+
+    public function setImageAttribute($image)
+    {
+
+        if (is_file($image)) {
+            $imageFields = upload($image, 'Admin');
+            $this->attributes['file'] = $imageFields;
+        }
+
+    }
 }
