@@ -20,5 +20,6 @@ return [
     'Verified_success'=>'تم تاكيد الرمز بنجاح',
     'codeError'=>'الرمز غير صحيح ',
     'codeExpired'=>'الرمز غير صالح ! ',
+    'you_should_choose_valid_location'=>'يجب اختيار عنوان صحيح ',
 
 ];
