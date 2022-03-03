@@ -21,6 +21,7 @@ class AuthController extends Controller
         return response()->json(msg($request, not_authoize(), trans('lang.not_authoize')));
 
     }
+
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -69,6 +70,47 @@ class AuthController extends Controller
         $data->save();
 
         $this->sendCode($data->phone, "activate");
+
+        return response()->json(msg($request, success(), trans('lang.CodeSent')));
+
+    }
+
+    public function ForgetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+//            'phone' => 'required|min:12|regex:/(966)[0-9]{8}/',
+            'phone' => 'required|exists:users',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+        }
+
+        $this->sendCode($request->phone, "reset");
+
+        return response()->json(msg($request, success(), trans('lang.CodeSent')));
+
+    }
+
+    public function changePassword(Request $request)
+    {
+
+
+        $validator = Validator::make($request->all(), [
+             'password' => 'required|min:6|confirmed',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+        }
+
+        $user = auth()->user();
+        $user->password = $request->password;
+        $user->save();
+        $token = $request->bearerToken();
+
+        $data = (new UsersResources($user))->token($token);
+        return response()->json(msgdata($request, success(), trans('lang.passwordChangedSuccess'), $data));
+
 
         return response()->json(msg($request, success(), trans('lang.CodeSent')));
 

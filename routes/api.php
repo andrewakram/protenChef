@@ -34,6 +34,11 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
         Route::post('/sign-up', [AuthController::class, 'SignUp']);
         Route::post('/verify', [AuthController::class, 'Verify']);
         Route::post('/resend-code', [AuthController::class, 'resendCode']);
+        Route::post('/forget-password', [AuthController::class, 'ForgetPassword']);
+        Route::group(['middleware' => 'auth:api'], function () {
+            Route::post('/change-password', [AuthController::class, 'changePassword']);
+        });
+
     });
 
     Route::group(['prefix' => "user", 'middleware' => 'auth:api'], function () {
