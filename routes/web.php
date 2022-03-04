@@ -16,3 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group([
+        'prefix' => 'admin',
+        'namespace'=> 'App\Http\Controllers'
+    ],function () {
+
+    Route::group(['namespace'=> 'admin'],function () {
+        Route::get('login', 'AuthController@login_view');
+        Route::post('login', 'AuthController@login')->name('login');
+        Route::get('logout', 'AuthController@logout')->name('logout');
+    });
+
+    Route::get('home', 'HomeController@index')->name('home');
+});
