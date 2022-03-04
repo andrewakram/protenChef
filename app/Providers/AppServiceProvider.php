@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $languages = ['ar', 'en'];
         App::setLocale('ar');
+        Schedule::defaultStringLength(255);
         date_default_timezone_set('Asia/Riyadh');
 
         $lang = request()->header('lang');
