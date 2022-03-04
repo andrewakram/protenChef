@@ -64,7 +64,6 @@ class AuthController extends Controller
         }
 
         $data = new User();
-        $data->name = $request->phone;
         $data->phone = $request->phone;
         $data->password = $request->password;
         $data->save();
