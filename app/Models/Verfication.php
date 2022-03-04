@@ -5,7 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Verfications extends Model
+class Verfication extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'phone', 'code', 'type', 'expired_at'
+    ];
 }

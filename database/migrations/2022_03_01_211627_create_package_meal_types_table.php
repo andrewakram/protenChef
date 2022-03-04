@@ -17,8 +17,7 @@ class CreatePackageMealTypesTable extends Migration
             $table->id();
             $table->foreignId('package_type_price_id')->references('id')->on('package_type_prices')->onDelete('cascade');
             $table->foreignId('meal_type_id')->references('id')->on('meal_types')->onDelete('cascade');
-            $table->double('price')->nullable();
-
+            $table->double('price')->nullable()->comment('null => main meal , numeric => additional meal');
             $table->timestamps();
         });
     }

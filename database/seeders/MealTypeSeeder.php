@@ -51,6 +51,12 @@ class MealTypeSeeder extends Seeder
                 'image' => 'sweets.png',
                 'type' => 'sub',
             ],
+            [
+                'title_ar' => 'سناكس',
+                'title_en' => 'snakes',
+                'image' => 'sweets.png',
+                'type' => 'sub',
+            ],
 
         ];
         foreach ($data as $get) {

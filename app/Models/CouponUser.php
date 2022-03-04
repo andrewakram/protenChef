@@ -15,10 +15,10 @@ class CouponUser extends Model
 
     ];
 
-    public function user(){
+    public function User(){
         return $this->belongsTo(User::class,'user_id');
     }
-    public function coupon(){
+    public function Coupon(){
         return $this->belongsTo(Coupon::class,'coupon_id');
     }
 }
