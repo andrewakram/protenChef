@@ -97,7 +97,7 @@ class AuthController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-             'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6|confirmed',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
@@ -112,18 +112,18 @@ class AuthController extends Controller
         return response()->json(msgdata($request, success(), trans('lang.passwordChangedSuccess'), $data));
 
 
-
     }
+
     public function UpdateProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
-             'name' => 'required',
-             'email' => 'nullable',
-             'image' => 'nullable|',
-             'gender' => 'required|in:male,female',
-             'age' => 'required',
-             'weight' => 'required',
-             'height' => 'required',
+            'name' => 'required',
+            'email' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg',
+            'gender' => 'required|in:male,female',
+            'age' => 'required',
+            'weight' => 'required',
+            'height' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
@@ -142,8 +142,6 @@ class AuthController extends Controller
 
         $data = (new UsersResources($user))->token($token);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
-
-
 
 
     }
