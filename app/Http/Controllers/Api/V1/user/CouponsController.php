@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Api\V1\user;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CouponResources;
+use App\Http\Resources\LocationResources;
 use App\Http\Resources\OfferResources;
 use App\Http\Resources\PackageResources;
 use App\Http\Resources\PackageTypePriceResources;
 use App\Http\Resources\ScreenResources;
 use App\Http\Resources\SliderResources;
 use App\Http\Resources\UsersResources;
+use App\Models\CouponUser;
+use App\Models\Location;
 use App\Models\Offer;
 use App\Models\Package;
 use App\Models\PackageType;
@@ -22,21 +26,15 @@ use Auth;
 use JWTAuth;
 use TymonJWTAuthExceptionsJWTException;
 
-class PackagesController extends Controller
+class CouponsController extends Controller
 {
 
-    public function package_types(Request $request, $package_id)
+    public function coupons(Request $request)
     {
-        $package = Package::find($package_id);
-        if(!$package){
-            return response()->json(['status' => 401, 'msg' => 'you_should_choose_valid_package']);
-
-        }
-        $package_type_prices = PackageTypePrice::where('package_id', $package_id)->get();
-        $data['package'] = (new PackageResources($package));
-        $data['package_types_prices'] = (PackageTypePriceResources::collection($package_type_prices));
+        $user_id = auth()->user()->id;
+        $locations = CouponUser::where('user_id', $user_id)->where('used',0)->get();
+        $data = (CouponResources::collection($locations));
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
-
 
 }

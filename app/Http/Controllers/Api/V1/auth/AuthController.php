@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function unauthrized(Request $request)
     {
 
-        return response()->json(msg($request, not_authoize(), trans('lang.not_authoize')));
+        return response()->json(msg($request, not_authoize(), trans('lang.not_authorize')));
 
     }
 

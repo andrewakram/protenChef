@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\auth\AuthController;
 use App\Http\Controllers\Api\V1\user\HomeController;
 use App\Http\Controllers\Api\V1\user\PackagesController;
 use App\Http\Controllers\Api\V1\user\LocationsController;
+use App\Http\Controllers\Api\V1\user\CouponsController;
 use App\Http\Controllers\Api\V1\app\SettingsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
         //main screens
         Route::get('/screens', [HomeController::class, 'screens']);
         Route::get('/settings', [SettingsController::class, 'settings']);
+        Route::get('/pages/{type}', [SettingsController::class, 'pages']);
     });
     Route::group(['prefix' => "auth"], function () {
         //auth
@@ -52,6 +54,10 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
         Route::get('/locations', [LocationsController::class, 'locations']);
         Route::post('/location/create', [LocationsController::class, 'create']);
         Route::get('/location/delete/{id}', [LocationsController::class, 'delete']);
+        Route::get('/location/make_main/{id}', [LocationsController::class, 'make_main']);
+
+//        coupons
+        Route::get('/coupons', [CouponsController::class, 'coupons']);
 
     });
 

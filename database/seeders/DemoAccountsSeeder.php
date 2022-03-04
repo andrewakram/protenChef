@@ -52,6 +52,7 @@ class DemoAccountsSeeder extends Seeder
                 'age' => '26',
                 'weight' => '76',
                 'height' => '176',
+                'active' => 1,
                 'fcm_token' => 'sadsdadklsadsalndksaljksaldsad',
                 'provider' => 'other',
             ]);

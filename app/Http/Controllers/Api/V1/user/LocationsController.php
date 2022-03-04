@@ -63,13 +63,28 @@ class LocationsController extends Controller
         return response()->json(msgdata($request, success(), trans('lang.success'), $location));
     }
 
+    public function make_main(Request $request, $id)
+    {
+        $user_id = auth()->user()->id;
+        $location = Location::where('user_id', $user_id)->whereId($id)->first();
+        if ($location) {
+            Location::where('user_id', $user_id)->update(['type'=>'sub']);
+            $location->type = 'main';
+            $location->save();
+            return response()->json(msg($request, success(), trans('lang.success')));
+
+        } else {
+            return response()->json(['status' => 401, 'msg' => trans('lang.you_should_choose_valid_location')]);
+        }
+    }
+
     public function delete(Request $request, $id)
     {
         $user_id = auth()->user()->id;
         $locations = Location::where('user_id', $user_id)->whereId($id)->first();
-        if($locations){
+        if ($locations) {
             $locations->delete();
-        }else{
+        } else {
             return response()->json(['status' => 401, 'msg' => trans('lang.you_should_choose_valid_location')]);
 
         }

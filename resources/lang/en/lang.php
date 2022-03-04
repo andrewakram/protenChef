@@ -19,6 +19,10 @@ return [
     'Verified_success'=>'Code Verified successfully',
     'codeError'=>'Code invalid ',
     'codeExpired'=>'codeExpired ',
+    'you_should_choose_valid_location'=>'you should choose valid location',
+    'not_authorize'=>'you should login first',
+    'page_not_found'=>'page not found',
+    'you_should_choose_valid_package' => 'you should choose valid package',
 
 
 ];
