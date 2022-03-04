@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
