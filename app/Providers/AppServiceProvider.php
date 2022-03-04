@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $languages = ['ar', 'en'];
         App::setLocale('ar');
-        Schedule::defaultStringLength(255);
+        Schema::defaultStringLength(255);
         date_default_timezone_set('Asia/Riyadh');
 
         $lang = request()->header('lang');
