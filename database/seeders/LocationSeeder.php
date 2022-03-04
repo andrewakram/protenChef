@@ -30,7 +30,7 @@ class LocationSeeder extends Seeder
             $data['user_id'] = $user->id;
             $data['lat'] = '30.5764207';
             $data['lng'] = '31.5052933';
-            $data['type'] = 'main';
+            $data['type'] = 'sub';
             $data['title'] = 'منزل الغشام';
             $data['body'] = 'هاشم الأشقر النزهة الجديدة - الغشام - الشرقية - مصر';
             $data['bulding_num'] = '1';
@@ -40,7 +40,7 @@ class LocationSeeder extends Seeder
             $data['user_id'] = $user->id;
             $data['lat'] = '30.5764207';
             $data['lng'] = '31.5052933';
-            $data['type'] = 'main';
+            $data['type'] = 'sub';
             $data['title'] = 'منزل القومية';
             $data['body'] = 'هاشم الأشقر النزهة الجديدة الزقازيق - مصر';
             $data['bulding_num'] = '25';

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UsersResources;
@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function unauthrized(Request $request)
     {
 
-        return response()->json(msg($request, not_authoize(), trans('lang.not_authoize')));
+        return response()->json(msg($request, not_authoize(), trans('lang.not_authorize')));
 
     }
 

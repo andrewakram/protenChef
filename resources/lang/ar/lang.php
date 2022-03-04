@@ -13,12 +13,17 @@ return [
     |
     */
 
-    'phoneOrPasswordIncorrect'=>'رقم الجوال او كلمة المرور خطأ',
-    'success'=>'تمت بنجاح',
-    'not_active'=>'الحساب غير مفعل',
-    'CodeSent'=>'تم ارسال الرمز بنجاح',
-    'Verified_success'=>'تم تاكيد الرمز بنجاح',
-    'codeError'=>'الرمز غير صحيح ',
-    'codeExpired'=>'الرمز غير صالح ! ',
+    'phoneOrPasswordIncorrect' => 'رقم الجوال او كلمة المرور خطأ',
+    'success' => 'تمت بنجاح',
+    'not_active' => 'الحساب غير مفعل',
+    'CodeSent' => 'تم ارسال الرمز بنجاح',
+    'Verified_success' => 'تم تاكيد الرمز بنجاح',
+    'codeError' => 'الرمز غير صحيح ',
+    'codeExpired' => 'الرمز غير صالح ! ',
+    'you_should_choose_valid_location' => 'يجب اختيار عنوان صحيح ',
+    'not_authorize' => 'يجب تسجيل الدخول اولا',
+    'page_not_found' => 'الصفحه غير موجوده',
+    'you_should_choose_valid_package' => 'يجب اختيار باقة صحيحه',
+
 
 ];

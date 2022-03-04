@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OfferResources;
@@ -42,13 +42,5 @@ class HomeController extends Controller
         $screens = Screen::get();
         $screens = (ScreenResources::collection($screens));
         return response()->json(msgdata($request, success(), trans('lang.success'), $screens));
-    }
-    public function settings(Request $request)
-    {
-        $settings = Setting::get();
-
-
-//        $screens = (ScreenResources::collection($screens));
-        return response()->json(msgdata($request, success(), trans('lang.success'), $settings));
     }
 }

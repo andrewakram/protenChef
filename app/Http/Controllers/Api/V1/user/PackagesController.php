@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OfferResources;
@@ -27,7 +27,11 @@ class PackagesController extends Controller
 
     public function package_types(Request $request, $package_id)
     {
-        $package = Package::findOrFail($package_id);
+        $package = Package::find($package_id);
+        if(!$package){
+            return response()->json(['status' => 401, 'msg' => 'you_should_choose_valid_package']);
+
+        }
         $package_type_prices = PackageTypePrice::where('package_id', $package_id)->get();
         $data['package'] = (new PackageResources($package));
         $data['package_types_prices'] = (PackageTypePriceResources::collection($package_type_prices));
