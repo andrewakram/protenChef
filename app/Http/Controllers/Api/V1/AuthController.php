@@ -112,9 +112,42 @@ class AuthController extends Controller
         return response()->json(msgdata($request, success(), trans('lang.passwordChangedSuccess'), $data));
 
 
-        return response()->json(msg($request, success(), trans('lang.CodeSent')));
 
     }
+    public function UpdateProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+             'name' => 'required',
+             'email' => 'nullable',
+             'image' => 'nullable|',
+             'gender' => 'required|in:male,female',
+             'age' => 'required',
+             'weight' => 'required',
+             'height' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+        }
+
+        $user = auth()->user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->image = $request->image;
+        $user->gender = $request->gender;
+        $user->age = $request->age;
+        $user->weight = $request->weight;
+        $user->height = $request->height;
+        $user->save();
+        $token = $request->bearerToken();
+
+        $data = (new UsersResources($user))->token($token);
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+
+
+
+
+    }
+
 
     public function Verify(Request $request)
     {
