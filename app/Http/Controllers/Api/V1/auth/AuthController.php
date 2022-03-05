@@ -35,7 +35,7 @@ class AuthController extends Controller
         }
         $input = $request->only('phone', 'password');
         if (!$jwt_token = JWTAuth::attempt($input)) {
-            return response()->json(msg($request, not_authoize(), trans('lang.phoneOrPasswordIncorrect')));
+            return response()->json(msg($request, failed() , trans('lang.phoneOrPasswordIncorrect')));
         } else {
             $user = Auth::user();
             if ($user->active == 0) {
