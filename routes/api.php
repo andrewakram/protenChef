@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\auth\AuthController;
 use App\Http\Controllers\Api\V1\user\HomeController;
+use App\Http\Controllers\Api\V1\user\MySubscribersControllers;
 use App\Http\Controllers\Api\V1\user\PackagesController;
 use App\Http\Controllers\Api\V1\user\LocationsController;
 use App\Http\Controllers\Api\V1\user\CouponsController;
@@ -59,6 +60,10 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
 
 //        coupons
         Route::get('/coupons', [CouponsController::class, 'coupons']);
+
+//        subscribtions
+        Route::get('/recent-subscribes', [MySubscribersControllers::class, 'RecentSubscribes']);
+        Route::get('/previous-subscribes', [MySubscribersControllers::class, 'previousSubscribes']);
 
     });
 
