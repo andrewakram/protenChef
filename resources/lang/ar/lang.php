@@ -24,6 +24,8 @@ return [
     'not_authorize' => 'يجب تسجيل الدخول اولا',
     'page_not_found' => 'الصفحه غير موجوده',
     'you_should_choose_valid_package' => 'يجب اختيار باقة صحيحه',
+    'you_should_choose_valid_package_type' => 'يجب اختيار نوع باقة صحيحه',
+    'you_should_choose_valid_MealTypee' => 'يجب اختيار نوع وجبة صحيحه',
 
 
 ];

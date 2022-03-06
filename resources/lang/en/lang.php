@@ -23,6 +23,8 @@ return [
     'not_authorize'=>'you should login first',
     'page_not_found'=>'page not found',
     'you_should_choose_valid_package' => 'you should choose valid package',
+    'you_should_choose_valid_package_type' => 'you should choose valid package type',
+    'you_should_choose_valid_MealTypee' => 'you should choose valid meal type',
 
 
 ];
