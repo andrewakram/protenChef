@@ -35,12 +35,14 @@ class AuthController extends Controller
         }
         $input = $request->only('phone', 'password');
         if (!$jwt_token = JWTAuth::attempt($input)) {
-            return response()->json(msg($request, not_authoize(), trans('lang.phoneOrPasswordIncorrect')));
+            return response()->json(msg($request, failed() , trans('lang.phoneOrPasswordIncorrect')));
         } else {
             $user = Auth::user();
             if ($user->active == 0) {
                 return response()->json(msg($request, not_active(), trans('lang.not_active')));
-
+            }
+            if ($user->suspend == 1) {
+                return response()->json(msg($request, not_authoize(), trans('lang.suspended')));
             }
             $user->fcm_token = $request->device_token;
             $user->save();
@@ -64,7 +66,6 @@ class AuthController extends Controller
         }
 
         $data = new User();
-        $data->name = $request->phone;
         $data->phone = $request->phone;
         $data->password = $request->password;
         $data->save();
@@ -97,7 +98,7 @@ class AuthController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-             'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6|confirmed',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
@@ -112,9 +113,40 @@ class AuthController extends Controller
         return response()->json(msgdata($request, success(), trans('lang.passwordChangedSuccess'), $data));
 
 
-        return response()->json(msg($request, success(), trans('lang.CodeSent')));
+    }
+
+    public function UpdateProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg',
+            'gender' => 'required|in:male,female',
+            'age' => 'required',
+            'weight' => 'required',
+            'height' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+        }
+
+        $user = auth()->user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->image = $request->image;
+        $user->gender = $request->gender;
+        $user->age = $request->age;
+        $user->weight = $request->weight;
+        $user->height = $request->height;
+        $user->save();
+        $token = $request->bearerToken();
+
+        $data = (new UsersResources($user))->token($token);
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+
 
     }
+
 
     public function Verify(Request $request)
     {
