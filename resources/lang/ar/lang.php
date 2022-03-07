@@ -26,6 +26,7 @@ return [
     'you_should_choose_valid_package' => 'يجب اختيار باقة صحيحه',
     'you_should_choose_valid_package_type' => 'يجب اختيار نوع باقة صحيحه',
     'you_should_choose_valid_MealTypee' => 'يجب اختيار نوع وجبة صحيحه',
+    'you_should_choose_valid_meal' => 'يجب اختيار وجبة صحيحه',
 
 
 ];

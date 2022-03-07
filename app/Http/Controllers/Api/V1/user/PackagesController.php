@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api\V1\user;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MealResources;
 use App\Http\Resources\PackageMealResources;
 use App\Http\Resources\PackageMealTypeResources;
 use App\Http\Resources\PackageResources;
 use App\Http\Resources\PackageTypePriceResources;
+use App\Models\Meal;
 use App\Models\MealType;
 use App\Models\Package;
 use App\Models\PackageMeal;
@@ -50,6 +52,17 @@ class PackagesController extends Controller
             $package_type_prices = PackageMealType::where('price', '!=', null)->where('package_type_price_id', $package_pricec_id)->get();
         }
         $data = (PackageMealTypeResources::collection($package_type_prices));
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+    }
+
+    public function meal_details(Request $request, $id )
+    {
+        $meal = Meal::find($id);
+        if (!$meal) {
+            return response()->json(['status' => 401, 'msg' => trans('lang.you_should_choose_valid_meal')]);
+        }
+
+        $data = (new MealResources($meal));
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
 

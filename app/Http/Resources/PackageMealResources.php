@@ -7,22 +7,23 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class PackageMealResources extends JsonResource
 {
     private static $periods;
+
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
 
         $meal_date = '';
-        foreach (self::$periods as $row){
+        foreach (self::$periods as $row) {
             $current_Time = strtotime($row);
             $day = date("l", $current_Time);
             $selected_date = date("Y-m-d", $current_Time);
             $week_number = date('w', $current_Time);
-            if($day == $this->day && $week_number == $this->week){
+            if ($day == $this->day && $week_number == $this->week) {
                 $meal_date = $row;
             }
         }
@@ -32,7 +33,7 @@ class PackageMealResources extends JsonResource
             'day' => $this->day,
             'week' => $this->week,
             'date' => $this->week,
-            'image' => $this->MealType->image,
+            'image' => $this->Meal->Image->image,
             'meal_date' => $meal_date,
         ];
     }

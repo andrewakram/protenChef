@@ -29,21 +29,11 @@ class Meal extends Model
         }
     }
 
-    public function getImageAttribute($image)
+    public function Image()
     {
-        if (!empty($image)) {
-            return asset('uploads/Meal') . '/' . $image;
-        }
-        return asset('uploads/default.jpg');
+        return $this->hasOne(MealImage::class, 'meal_id');
     }
 
-    public function setImageAttribute($image)
-    {
-        if (is_file($image)) {
-            $imageFields = upload($image, 'Meal');
-            $this->attributes['file'] = $imageFields;
-        }
 
-    }
 
 }
