@@ -52,7 +52,7 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
         Route::get('/home', [HomeController::class, 'home']);
         Route::get('/package_types/{package_id}', [PackagesController::class, 'package_types']);
         Route::get('/package_meal_types/{type}/{package_pricec_id}', [PackagesController::class, 'package_meal_types']);
-        Route::get('/package_menu_meals/{package_id}/{meal_type_id}/{started_date}', [PackagesController::class, 'package_menu_meals']);
+        Route::get('/package_menu_meals', [PackagesController::class, 'package_menu_meals']);
 
         //locations
         Route::get('/locations', [LocationsController::class, 'locations']);
