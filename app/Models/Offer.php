@@ -9,6 +9,7 @@ class Offer extends Model
 {
     use HasFactory;
 
+    protected $fillable=['title_ar','title_en','body_ar','body_en','active','image','date'];
 
     public function scopeActive($query)
     {
