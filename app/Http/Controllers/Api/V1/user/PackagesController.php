@@ -120,12 +120,11 @@ class PackagesController extends Controller
             foreach ($package_type_prices as $row){
                 $output[] = $row;
             }
-
-
         }
 
 
-        $data = PackageMealResources::collection($package_type_prices);
+
+        $data = PackageMealResources::collection($output);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
 
