@@ -26,6 +26,6 @@ return [
     'you_should_choose_valid_package_type' => 'you should choose valid package type',
     'you_should_choose_valid_MealTypee' => 'you should choose valid meal type',
     'you_should_choose_valid_meal' => 'you should choose valid meal',
+    'passwordChangedSuccess' => 'password Changed Success',
 
-
-];
+];م
