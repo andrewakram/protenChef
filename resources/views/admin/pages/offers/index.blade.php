@@ -191,7 +191,7 @@
                                 <th class=" min-w-10px">#</th>
                                 <th class=" min-w-100px">الصورة</th>
                                 <th class=" min-w-100px">العنوان</th>
-                                <th class=" min-w-100px">الوصف</th>
+{{--                                <th class=" min-w-100px">الوصف</th>--}}
                                 <th class=" min-w-100px">الحالة</th>
                                 <th class=" min-w-100px">التاريخ</th>
                                 <th class=" min-w-100px">العمليات</th>
@@ -217,29 +217,6 @@
         <!--end::Post-->
     </div>
     <!--end::Content-->
-
-    {{-- Delete Modal --}}
-    <div id="single" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">تأكيد</h4>
-                </div>
-                <div class="modal-body">
-                    <h5> هل أنت متأكد أنك تريد الحذف؟ </h5>
-                    <form id="delete_form" method="post" action="{{route('admin.offers.delete')}}">
-                        @csrf
-                        <input type="hidden" name="row_id" id="row_id">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" data-dismiss="modal" class="btn red delete_btn">حذف</button>
-                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">إلغاء</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 @endsection
 
@@ -326,7 +303,7 @@
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
                     {"data": "image", "searchable": false, "orderable": false},
                     {"data": "title_ar", "searchable": false, "orderable": false},
-                    {"data": "body_ar", "searchable": false, "orderable": false},
+                    // {"data": "body_ar", "searchable": false, "orderable": false},
                     {"data": "active", "searchable": false, "orderable": false},
                     {"data": "date", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
@@ -400,4 +377,48 @@
         })
     </script>
 
+<script>
+    $(document).on("click", ".delete", function () {
+        var id = $(this).data('id');
+        var btn = $(this);
+        Swal.fire({
+            title: "تحذير.هل انت متأكد؟!",
+            text: "",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#f64e60",
+            confirmButtonText: "نعم",
+            cancelButtonText: "لا",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }).then(function (result) {
+            if (result.value) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    url: '{{route('admin.offers.delete')}}',
+                    type: "post",
+                    data: {'row_id':  id, _token: CSRF_TOKEN},
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.message == "Success") {
+                            btn.parents("tr").remove();
+                            Swal.fire("نجاح", "تم الحذف بنجاح", "success");
+                            // location.reload();
+                        } else {
+                            Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                        }
+                    },
+                    fail: function (xhrerrorThrown) {
+                        Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                    }
+                });
+                // result.dismiss can be 'cancel', 'overlay',
+                // 'close', and 'timer'
+            } else if (result.dismiss === 'cancel') {
+                Swal.fire("ألغاء", "تم الالغاء", "error");
+            }
+        });
+    });
+
+</script>
 @endsection

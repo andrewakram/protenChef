@@ -1,6 +1,61 @@
 
-{{--<script src="{{asset('admin/dist/assets/plugins/global/plugins.bundle.js')}}"></script>--}}
-{{--<script src="{{asset('admin/dist/assets/js/scripts.bundle.js')}}"></script>--}}
+
+<?php
+$errors = session()->get("errors");
+?>
+@if( session()->has("errors"))
+    <?php
+    $e = implode(' - ', $errors->all());
+    ?>
+
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: "برجاء التأكد من البيانات.",
+            text: "{{$e}} ",
+            type: "error",
+            timer: 5000,
+            showConfirmButton: false
+        });
+    </script>
+
+@endif
+
+@if( session()->has("error"))
+    <?php
+    $e = session()->get("error");
+    ?>
+
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: "برجاء التأكد من البيانات.",
+            text: "{{$e}} ",
+            type: "error",
+            timer: 5000,
+            showConfirmButton: false
+        });
+    </script>
+
+@endif
+
+@if( session()->has("success"))
+    <?php
+    $e = session()->get("success");
+    ?>
+
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: "تمت العملية بنجاح.",
+            text: "{{$e}} ",
+            type: "success",
+            timer: 5000,
+            showConfirmButton: false
+        });
+    </script>
+
+@endif
 {{--<script>--}}
 {{--    toastr.options = {--}}
 {{--        "closeButton": true,--}}
@@ -19,8 +74,6 @@
 {{--        "hideMethod": "fadeOut"--}}
 {{--    };--}}
 
-{{--    toastr.error("{{$error_message}}" , "عفوا !" );--}}
-</script>
-<script>
+{{--    toastr.error("erorr" , "عفوا !" );--}}
+{{--</script>--}}
 
-</script>

@@ -5,6 +5,7 @@
 <script src="{{ url('admin/dist/') }}/assets/js/scripts.bundle.js"></script>
 <!--end::Global Javascript Bundle-->
 <!--begin::Page Vendors Javascript(used by this page)-->
+
 <script src="{{ url('admin/dist/') }}/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
 <script src="{{ url('admin/dist/') }}/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <!--end::Page Vendors Javascript-->

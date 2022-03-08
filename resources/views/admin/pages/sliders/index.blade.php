@@ -376,7 +376,8 @@
 
     <script>
         $(document).on("click", ".delete", function () {
-
+            var id = $(this).data('id');
+            var btn = $(this);
             Swal.fire({
                 title: "تحذير.هل انت متأكد؟!",
                 text: "",
@@ -393,11 +394,11 @@
                     $.ajax({
                         url: '{{route('admin.sliders.delete')}}',
                         type: "post",
-                        data: {'id':  $(this).data('id'), _token: CSRF_TOKEN},
+                        data: {'row_id':  id, _token: CSRF_TOKEN},
                         dataType: "JSON",
                         success: function (data) {
                             if (data.message == "Success") {
-                                $("input:checkbox:checked").parents("tr").remove();
+                                btn.parents("tr").remove();
                                 Swal.fire("نجاح", "تم الحذف بنجاح", "success");
                                 // location.reload();
                             } else {
