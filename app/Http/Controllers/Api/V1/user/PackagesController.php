@@ -122,10 +122,8 @@ class PackagesController extends Controller
             }
         }
 
-
-
-        $data = PackageMealResources::collection($output);
-        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+        $data = PackageMealResources::collection($output)->collection->groupBy('date');
+        return response()->json(msgdata($request, success(), trans('lang.success'),  $data));
     }
 
 
