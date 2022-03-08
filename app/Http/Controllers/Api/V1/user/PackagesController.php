@@ -54,7 +54,8 @@ class PackagesController extends Controller
         $data = (PackageMealTypeResources::collection($package_type_prices));
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
-    public function package_price_details(Request $request ,$package_pricec_id)
+
+    public function package_price_details(Request $request, $package_pricec_id)
     {
         $package = PackageTypePrice::find($package_pricec_id);
         if (!$package) {
@@ -69,7 +70,7 @@ class PackagesController extends Controller
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
 
-    public function meal_details(Request $request, $id )
+    public function meal_details(Request $request, $id)
     {
         $meal = Meal::find($id);
         if (!$meal) {
@@ -86,7 +87,7 @@ class PackagesController extends Controller
         $validator = Validator::make($request->all(), [
             'meal_type_id' => 'required|exists:meal_types,id',
             'package_type_price_id' => 'required|exists:package_type_prices,id',
-            'selected_date' => 'required|after:'.$two_dayes
+            'selected_date' => 'required|after:' . $two_dayes
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
@@ -104,26 +105,28 @@ class PackagesController extends Controller
             $dates[] = $date->format('Y-m-d');
         }
 
-        foreach ($dates as $date){
+        foreach ($dates as $date) {
             $weekNumber = Carbon::parse($date)->weekNumberInMonth; //1   //2  //3   //4
             $is_odd = $weekNumber % 2;
-            $is_odd == 0 ? $weekNumber = 2 :$weekNumber = 1;
+            $is_odd == 0 ? $weekNumber = 2 : $weekNumber = 1;
             $package_type_prices = PackageMeal::where('package_id', $package_type_price->package_id)
                 ->where('meal_type_id', $request->meal_type_id)
-                ->where('day',Carbon::parse($date)->format('l'))
-                ->where('week',$weekNumber)
+                ->where('day', Carbon::parse($date)->format('l'))
+                ->where('week', $weekNumber)
                 ->with('Meal')
                 ->get()->map(function ($item) use ($date) {
-                $item->date = $date;
-                return $item;
-            });
-            foreach ($package_type_prices as $row){
+                    $item->date = $date;
+                    return $item;
+                });
+            foreach ($package_type_prices as $row) {
+
                 $output[] = $row;
+
             }
         }
 
         $data = PackageMealResources::collection($output)->collection->groupBy('date');
-        return response()->json(msgdata($request, success(), trans('lang.success'),  $data));
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data->values()));
     }
 
 
