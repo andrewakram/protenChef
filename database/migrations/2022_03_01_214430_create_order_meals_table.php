@@ -16,7 +16,8 @@ class CreateOrderMealsTable extends Migration
         Schema::create('order_meals', function (Blueprint $table) {
             $table->id();
             $table->enum('status', ['pending','delivered'])->default('pending');
-            $table->foreignId('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreignId('order_id')->references('id')
+                ->on('orders')->onDelete('cascade');
             $table->bigInteger('meal_id');
             $table->string('meal_title_ar');
             $table->string('meal_title_en');

@@ -257,7 +257,7 @@
             $("#slider_table").DataTable({
                 "dom": "<'card-header border-0 p-0 pt-6'<'card-title' <'d-flex align-items-center position-relative my-1'f> r> <'card-toolbar' <'d-flex justify-content-end add_button'B> r>>  <'row'l r> <''t><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
                 processing: true,
-                bLengthChange: false,
+                bLengthChange: true,
                 serverSide: true,
                 autoWidth: false,
                 responsive: true,

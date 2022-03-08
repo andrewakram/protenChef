@@ -154,7 +154,7 @@ class SliderController extends Controller
                         </a>';
 //                }
 //                if ($auth->can('sliders.delete')) {
-                    $buttons .= '<a class="btn btn-secondary btn-sm delete m-1" data-id="'.$row->id.'" data-toggle="modal" href="#single">
+                    $buttons .= '<a class="btn btn-secondary btn-sm delete m-1" data-id="'.$row->id.'"  >
                             <i class="fa fa-trash"></i>
                             حذف
                         </a>';

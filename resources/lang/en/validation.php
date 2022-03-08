@@ -157,6 +157,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+
+        'selected_date'=>'selected date',
+
+    ],
 
 ];

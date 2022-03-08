@@ -216,28 +216,6 @@
     </div>
     <!--end::Content-->
 
-    {{-- Delete Modal --}}
-    <div id="single" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">تأكيد</h4>
-                </div>
-                <div class="modal-body">
-                    <h5> هل أنت متأكد أنك تريد الحذف؟ </h5>
-                    <form id="delete_form" method="post" action="{{route('admin.sliders.delete')}}">
-                        @csrf
-                        <input type="hidden" name="row_id" id="row_id">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" data-dismiss="modal" class="btn red delete_btn">حذف</button>
-                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">إلغاء</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 @endsection
 
@@ -394,6 +372,50 @@
         $('.delete_multi_btn').on('click',function () {
             $('#delete_multi_form').submit();
         })
+    </script>
+
+    <script>
+        $(document).on("click", ".delete", function () {
+
+            Swal.fire({
+                title: "تحذير.هل انت متأكد؟!",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#f64e60",
+                confirmButtonText: "نعم",
+                cancelButtonText: "لا",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function (result) {
+                if (result.value) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: '{{route('admin.sliders.delete')}}',
+                        type: "post",
+                        data: {'id':  $(this).data('id'), _token: CSRF_TOKEN},
+                        dataType: "JSON",
+                        success: function (data) {
+                            if (data.message == "Success") {
+                                $("input:checkbox:checked").parents("tr").remove();
+                                Swal.fire("نجاح", "تم الحذف بنجاح", "success");
+                                // location.reload();
+                            } else {
+                                Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                            }
+                        },
+                        fail: function (xhrerrorThrown) {
+                            Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                        }
+                    });
+                    // result.dismiss can be 'cancel', 'overlay',
+                    // 'close', and 'timer'
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire("ألغاء", "تم الالغاء", "error");
+                }
+            });
+        });
+
     </script>
 
 @endsection

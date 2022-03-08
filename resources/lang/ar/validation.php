@@ -244,6 +244,7 @@ return [
         'branch_email'=>'البريد الاليكترونى للفرع',
         'branch_phone'=>'رقم جوال الفرع',
         'branch_password'=>'الرقم السري للفرع',
+        'selected_date'=>'اليوم المختار',
 
 
 
