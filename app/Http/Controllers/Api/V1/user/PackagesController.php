@@ -54,6 +54,20 @@ class PackagesController extends Controller
         $data = (PackageMealTypeResources::collection($package_type_prices));
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
+    public function package_price_details(Request $request ,$package_pricec_id)
+    {
+        $package = PackageTypePrice::find($package_pricec_id);
+        if (!$package) {
+            return response()->json(['status' => 401, 'msg' => trans('lang.you_should_choose_valid_package_type')]);
+        }
+        $main_meal_types = PackageMealType::where('price', null)->where('package_type_price_id', $package_pricec_id)->get();
+        $additional_meal_types = PackageMealType::where('price', '!=', null)->where('package_type_price_id', $package_pricec_id)->get();
+
+        $data['package_price_Data'] = (new PackageTypePriceResources($package));
+        $data['main_meal_types'] = (PackageMealTypeResources::collection($main_meal_types));
+        $data['additional_meal_types'] = (PackageMealTypeResources::collection($additional_meal_types));
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+    }
 
     public function meal_details(Request $request, $id )
     {
@@ -82,41 +96,36 @@ class PackagesController extends Controller
         //generate finall day
         $package_type_price = PackageTypePrice::findOrFail($request->package_type_price_id);
 //        $package_type_price->PackageType
-        $final_date = Carbon::now()->addDay(32);
+        $final_date = $two_dayes->addDays(28);
         $period = CarbonPeriod::create($request->selected_date, $final_date);
         // Iterate over the period
-        $week = 1;
-        $day = 1;
-        $period_details=[];
-        foreach ($period as $dt) {
-            array_push($period_details,$dt->format("Y-m-d"));
-//            if (in_array($dt->format("l"), $days)) {
-//                $course_data = new Episode_course_days;
-//                $course_data->date = $dt->format("Y-m-d");
-//                $course_data->episode_id = $episode->id;
-//                $course_data->week_id = $week;
-//                $course_data->day_id = $day;
-//                //to generate starting date ...
-//                $s_date = $dt->format("Y-m-d");
-//                $s_Time = $episode->time_from;
-//                $start = $s_date . ' ' . $s_Time;
-//                $final_Start = date("Y-m-d H:i", strtotime($start));
-//                $final_Start_carbon = Carbon::createFromFormat('Y-m-d H:i', $final_Start);
-//                $course_data->started_at = $final_Start;
-//                //add 10 minutes to start date to notify students
-//                $notify_at = $final_Start_carbon->subMinute(10);
-//                $course_data->notify_at = $notify_at;
-//                $course_data->save();
-//                if ($day == count($days)) {
-//                    $day = 1;
-//                    $week = $week + 1;
-//                } else {
-//                    $day = $day + 1;
-//                }
-//            }
+
+        foreach ($period as $date) {
+            $dates[] = $date->format('Y-m-d');
         }
-        $package_type_prices = PackageMeal::where('package_id', $package_type_price->package_id)->where('meal_type_id', $request->meal_type_id)->get();
-        $data = PackageMealResources::customCollection($package_type_prices, $period_details)->response()->getData(true);
+
+        foreach ($dates as $date){
+            $weekNumber = Carbon::parse($date)->weekNumberInMonth; //1   //2  //3   //4
+            $is_odd = $weekNumber % 2;
+            $is_odd == 0 ? $weekNumber = 2 :$weekNumber = 1;
+            $package_type_prices = PackageMeal::where('package_id', $package_type_price->package_id)
+                ->where('meal_type_id', $request->meal_type_id)
+                ->where('day',Carbon::parse($date)->format('l'))
+                ->where('week',$weekNumber)
+                ->with('Meal')
+                ->get()->map(function ($item) use ($date) {
+                $item->date = $date;
+                return $item;
+            });
+            foreach ($package_type_prices as $row){
+                $output[] = $row;
+            }
+
+
+        }
+
+
+        $data = PackageMealResources::collection($package_type_prices);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
 

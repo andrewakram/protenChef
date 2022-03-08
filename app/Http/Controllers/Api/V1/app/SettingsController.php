@@ -31,6 +31,12 @@ class SettingsController extends Controller
 //        $screens = (ScreenResources::collection($screens));
         return response()->json(msgdata($request, success(), trans('lang.success'), $settings));
     }
+    public function custom_settings(Request $request,$key)
+    {
+        $key = $key .'_'.$request->header('lang');
+        $data = Setting::where('key',$key)->first()->value;
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+    }
     public function pages(Request $request,$type)
     {
         $page = Page::where('type',$type)->first();
