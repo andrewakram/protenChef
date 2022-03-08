@@ -9,6 +9,7 @@ class Offer extends Model
 {
     use HasFactory;
 
+    protected $fillable=['title_ar','title_en','body_ar','body_en','active','image','date'];
 
     public function scopeActive($query)
     {
@@ -38,16 +39,19 @@ class Offer extends Model
     public function getImageAttribute($image)
     {
         if (!empty($image)) {
-            return asset('uploads/Offer') . '/' . $image;
+            return asset('uploads/Slider') . '/' . $image;
         }
-        return asset('uploads/default.jpg');
+        return asset('default.png');
     }
 
     public function setImageAttribute($image)
     {
         if (is_file($image)) {
-            $imageFields = upload($image, 'Offer');
-            $this->attributes['file'] = $imageFields;
+//            $imageFields = upload($image, 'Slider');
+//            $this->attributes['image'] = $imageFields;
+            $img_name = time().uniqid().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('/uploads/Slider/'),$img_name);
+            $this->attributes['image'] = $img_name ;
         }
 
     }
