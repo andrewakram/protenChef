@@ -161,11 +161,11 @@ class AuthController extends Controller
 
         $user = User::where('phone', $request->phone)->first();
 
-        $type = $user->active == 0 ? "activate" : "reset";
+//        $type = $user->active == 0 ? "activate" : "reset";
 
         $verfication = Verfication::where('phone', $request->phone)
             ->where('code', $request->code)
-            ->where('type', $type)
+//            ->where('type', $type)
             ->first();
 
 
@@ -173,17 +173,17 @@ class AuthController extends Controller
             if (!$verfication->expired_at > Carbon::now()->toDateTimeString()) {
                 return response()->json(msg($request, failed(), trans('lang.codeExpired')));
             }
-            if ($type == "activate") {
+//            if ($type == "activate") {
                 $user->active = 1;
                 $user->save();
                 $jwt_token = JWTAuth::fromUser($user);
                 $data = (new UsersResources($user))->token($jwt_token);
                 return response()->json(msgdata($request, success(), trans('lang.Verified_success'), $data));
-            } else {
-                $jwt_token = JWTAuth::fromUser($user);
-                $data = (new UsersResources($user))->token($jwt_token);
-                return response()->json(msgdata($request, success(), trans('lang.Verified_success'), $data));
-            }
+//            } else {
+//                $jwt_token = JWTAuth::fromUser($user);
+//                $data = (new UsersResources($user))->token($jwt_token);
+//                return response()->json(msgdata($request, success(), trans('lang.Verified_success'), $data));
+//            }
         } else {
             return response()->json(msg($request, failed(), trans('lang.codeError')));
         }
