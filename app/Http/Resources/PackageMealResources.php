@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class PackageMealResources extends JsonResource
 {
 
+    private static $dates;
 
     /**
      * Transform the resource into an array.
@@ -17,16 +18,31 @@ class PackageMealResources extends JsonResource
     public function toArray($request)
     {
 
-        return [
+        $data = [
             'id' => $this->id,
             'title' => $this->Meal->title,
             'day' => $this->day, //Sunday
             'date' => $this->date, //1   //2
             'week' => $this->week, //1   //2
             'image' => $this->Meal->Image->image,
-            'selected' => 0,
-//            'meal_date' => $meal_date,
+            'selected' => in_array($this->date, self::$dates) ? 1 : 0,
+
         ];
+        if (($key = array_search($this->date, self::$dates)) !== false) {
+            unset(self::$dates[$key]);
+        }
+
+        return $data;
+
+
+    }
+
+    public static function customCollection($resource, $dates): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+
+        //you can add as many params as you want.
+        self::$dates = $dates;
+        return parent::collection($resource);
     }
 
 
