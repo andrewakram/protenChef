@@ -17,7 +17,7 @@ class CreateCouponUsersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
-            $table->tinyInteger('used')->default(1)->comment('0->not_used and 1->Used');
+            $table->tinyInteger('used')->default(0)->comment('0->not_used and 1->Used');
 
             $table->timestamps();
         });
