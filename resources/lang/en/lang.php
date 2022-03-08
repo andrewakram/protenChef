@@ -28,4 +28,4 @@ return [
     'you_should_choose_valid_meal' => 'you should choose valid meal',
     'passwordChangedSuccess' => 'password Changed Success',
 
-];م
+];
