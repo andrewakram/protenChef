@@ -1,16 +1,16 @@
 <base href="">
 <title>
-    Peoten Chef
+    Proten Chef
 </title>
 <meta charset="utf-8" />
-<meta name="description" content="Peoten Chef" />
-<meta name="keywords" content="Peoten Chef" />
+<meta name="description" content="Proten Chef" />
+<meta name="keywords" content="Proten Chef" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="Peoten Chef" />
-<meta property="og:url" content="https://keenthemes.com/metronic" />
-<meta property="og:site_name" content="Peoten Chef" />
+<meta property="og:title" content="Proten Chef" />
+<meta property="og:url" content="http://tesolutionspro.com/metronic" />
+<meta property="og:site_name" content="Proten Chef" />
 <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
 <link rel="shortcut icon" href="{{asset('/')}}/default.png" />
 <!--begin::Fonts-->
@@ -24,3 +24,5 @@
 <link href="{{ url('admin/dist/') }}/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css" />
 <link href="{{ url('admin/dist/') }}/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" />
 <!--end::Global Stylesheets Bundle-->
+
+@yield('style')

@@ -13,8 +13,8 @@ var KTModalCreateProjectSettings = function () {
 	var initForm = function() {
 		// Project logo
 		// For more info about Dropzone plugin visit:  https://www.dropzonejs.com/#usage
-		var myDropzone = new Dropzone("#kt_modal_create_project_settings_logo", { 
-			url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
+		var myDropzone = new Dropzone("#kt_modal_create_project_settings_logo", {
+			url: "http://tesolutionspro.com/scripts/void.php", // Set the url for your upload script location
             paramName: "file", // The name that will be used to transfer the file
             maxFiles: 10,
             maxFilesize: 10, // MB
@@ -26,7 +26,7 @@ var KTModalCreateProjectSettings = function () {
                     done();
                 }
             }
-		});  
+		});
 
 		// Due date. For more info, please visit the official plugin site: https://flatpickr.js.org/
 		var releaseDate = $(form.querySelector('[name="settings_release_date"]'));
@@ -84,7 +84,7 @@ var KTModalCreateProjectSettings = function () {
 						}
 					}
 				},
-				
+
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger(),
 					bootstrap: new FormValidation.plugins.Bootstrap5({
@@ -102,7 +102,7 @@ var KTModalCreateProjectSettings = function () {
 			// Prevent default button action
 			e.preventDefault();
 
-			// Disable button to avoid multiple click 
+			// Disable button to avoid multiple click
 			nextButton.disabled = true;
 
 			// Validate form before submit
@@ -121,10 +121,10 @@ var KTModalCreateProjectSettings = function () {
 
 							// Enable button
 							nextButton.disabled = false;
-							
+
 							// Go to next step
 							stepper.goNext();
-						}, 1500);   						
+						}, 1500);
 					} else {
 						// Enable button
 						nextButton.disabled = false;
@@ -141,7 +141,7 @@ var KTModalCreateProjectSettings = function () {
 						});
 					}
 				});
-			}			
+			}
 		});
 
 		previousButton.addEventListener('click', function () {

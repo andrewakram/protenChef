@@ -23,7 +23,7 @@ class AuthController extends Controller
         if(Auth::guard('admin')->attempt([
             'email' => $request->email,
             'password' => $request->password,
-            'active' => 1,
+//            'active' => 1,
         ]))
         {
             return redirect(route('home'));

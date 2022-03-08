@@ -16,3 +16,5 @@
 <script src="{{ url('admin/dist/') }}/assets/js/custom/modals/users-search.js"></script>
 <!--end::Page Custom Javascript-->
 <!--end::Javascript-->
+
+@yield('script')

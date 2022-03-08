@@ -4,18 +4,18 @@
 <!--begin::Head-->
 <head>
     <base href="../../../">
-    <title>Peoten Chef</title>
+    <title>Proten Chef</title>
     <meta charset="utf-8" />
-    <meta name="description" content="Peoten Chef" />
-    <meta name="keywords" content="Peoten Chef" />
+    <meta name="description" content="Proten Chef" />
+    <meta name="keywords" content="Proten Chef" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Peoten Chef" />
-    <meta property="og:url" content="https://keenthemes.com/metronic" />
+    <meta property="og:title" content="Proten Chef" />
+    <meta property="og:url" content="http://tesolutionspro.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{ url('admin/dist/') }}/assets/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="{{asset('/')}}/default.png" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -23,6 +23,9 @@
     <link href="{{ url('admin/dist/') }}/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css" />
     <link href="{{ url('admin/dist/') }}/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+
+    @include('admin.includes.css')
+
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -31,33 +34,42 @@
 <!--begin::Root-->
 <div class="d-flex flex-column flex-root">
     <!--begin::Authentication - Sign-in -->
-    <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/sketchy-1/14.png">
+    <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed"
+         style="background-position: center;
+             background-repeat: no-repeat;
+             background-size: cover;
+             background-image: url({{asset('/')}}background.png)">
         <!--begin::Content-->
         <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
             <!--begin::Logo-->
-            <a href="../../demo1/dist/index.html" class="mb-12">
-                <img alt="Logo" src="assets/media/logos/logo-1.svg" class="h-40px" />
+            <a href="{{asset('/')}}" class="mb-12">
+                <img alt="Logo" src="{{asset('/')}}default.png" class="h-120px w-300px"
+                     style="background-color: white; border-radius: 5px;padding: 10px"  />
             </a>
             <!--end::Logo-->
             <!--begin::Wrapper-->
             <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                 <!--begin::Form-->
-                <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="#">
+                <form action="{{route('admin.login')}}" method="post" class="form w-100"  id="kt_sign_in_form1" >
+                    @csrf
                     <!--begin::Heading-->
                     <div class="text-center mb-10">
-                        <!--begin::Title-->
-                        <h1 class="text-dark mb-3">Sign In to Metronic</h1>
-                        <!--end::Title-->
                         <!--begin::Link-->
-                        <div class="text-gray-400 fw-bold fs-4">New Here?
-                            <a href="../../demo1/dist/authentication/layouts/basic/sign-up.html" class="link-primary fw-bolder">Create an Account</a></div>
+                        <div class="text-gray-400 fw-bold fs-4">
+                            <a href="" class=" fw-bolder" style="color: #F48120">Proten Chef</a>
+                        </div>
+                        <br>
                         <!--end::Link-->
+                        <!--begin::Title-->
+                        <h1 class="text-dark mb-3">تسجيل الدخول بلوحة التحكم</h1>
+                        <!--end::Title-->
+
                     </div>
                     <!--begin::Heading-->
                     <!--begin::Input group-->
                     <div class="fv-row mb-10">
                         <!--begin::Label-->
-                        <label class="form-label fs-6 fw-bolder text-dark">Email</label>
+                        <label class="form-label fs-6 fw-bolder text-dark">البريد الالكتروني</label>
                         <!--end::Label-->
                         <!--begin::Input-->
                         <input class="form-control form-control-lg form-control-solid" type="text" name="email" autocomplete="off" />
@@ -69,10 +81,10 @@
                         <!--begin::Wrapper-->
                         <div class="d-flex flex-stack mb-2">
                             <!--begin::Label-->
-                            <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
+                            <label class="form-label fw-bolder text-dark fs-6 mb-0">كلمة المرور</label>
                             <!--end::Label-->
                             <!--begin::Link-->
-                            <a href="../../demo1/dist/authentication/layouts/basic/password-reset.html" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
+{{--                            <a href="../../demo1/dist/authentication/layouts/basic/password-reset.html" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>--}}
                             <!--end::Link-->
                         </div>
                         <!--end::Wrapper-->
@@ -84,26 +96,26 @@
                     <!--begin::Actions-->
                     <div class="text-center">
                         <!--begin::Submit button-->
-                        <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-                            <span class="indicator-label">Continue</span>
-                            <span class="indicator-progress">Please wait...
+                        <button type="submit" id="kt_sign_in_submit" class="btn btn-lg  w-100 mb-5"  style="background-color: #F48120">
+                            <span class="indicator-label">تسجيل</span>
+                            <span class="indicator-progress">جاري التحميل . . .
 									<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                         <!--end::Submit button-->
                         <!--begin::Separator-->
-                        <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
+{{--                        <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>--}}
                         <!--end::Separator-->
                         <!--begin::Google link-->
-                        <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-                            <img alt="Logo" src="assets/media/svg/brand-logos/google-icon.svg" class="h-20px me-3" />Continue with Google</a>
+{{--                        <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">--}}
+{{--                            <img alt="Logo" src="assets/media/svg/brand-logos/google-icon.svg" class="h-20px me-3" />Continue with Google</a>--}}
                         <!--end::Google link-->
                         <!--begin::Google link-->
-                        <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-                            <img alt="Logo" src="assets/media/svg/brand-logos/facebook-4.svg" class="h-20px me-3" />Continue with Facebook</a>
+{{--                        <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">--}}
+{{--                            <img alt="Logo" src="assets/media/svg/brand-logos/facebook-4.svg" class="h-20px me-3" />Continue with Facebook</a>--}}
                         <!--end::Google link-->
                         <!--begin::Google link-->
-                        <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100">
-                            <img alt="Logo" src="assets/media/svg/brand-logos/apple-black.svg" class="h-20px me-3" />Continue with Apple</a>
+{{--                        <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100">--}}
+{{--                            <img alt="Logo" src="assets/media/svg/brand-logos/apple-black.svg" class="h-20px me-3" />Continue with Apple</a>--}}
                         <!--end::Google link-->
                     </div>
                     <!--end::Actions-->
@@ -114,15 +126,15 @@
         </div>
         <!--end::Content-->
         <!--begin::Footer-->
-        <div class="d-flex flex-center flex-column-auto p-10">
-            <!--begin::Links-->
-            <div class="d-flex align-items-center fw-bold fs-6">
-                <a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
-                <a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
-                <a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>
-            </div>
-            <!--end::Links-->
-        </div>
+{{--        <div class="d-flex flex-center flex-column-auto p-10">--}}
+{{--            <!--begin::Links-->--}}
+{{--            <div class="d-flex align-items-center fw-bold fs-6">--}}
+{{--                <a href="http://tesolutionspro.com" class="text-muted text-hover-primary px-2">About</a>--}}
+{{--                <a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>--}}
+{{--                <a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>--}}
+{{--            </div>--}}
+{{--            <!--end::Links-->--}}
+{{--        </div>--}}
         <!--end::Footer-->
     </div>
     <!--end::Authentication - Sign-in-->

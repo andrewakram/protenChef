@@ -17,6 +17,8 @@ class CreateAdminsTable extends Migration
             $table->id();
             $table->string('name');
             $table->enum('type', ['super', 'admin'])->default('admin');
+            $table->tinyInteger('active')->default(1);
+            $table->tinyInteger('suspend')->default(0);
             $table->string('email')->unique();
             $table->string('phone')->unique();
             $table->string('password');
