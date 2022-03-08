@@ -40,7 +40,7 @@ class SliderController extends Controller
         $row->url = $request->url;
         $row->active = $request->active;
         $row->save();
-        session()->flash('success', 'تم الإضافة بنجاح');
+            session()->flash('success', 'تم الإضافة بنجاح');
         return redirect()->route('admin.sliders');
     }
 
@@ -90,7 +90,7 @@ class SliderController extends Controller
             'row_id' => 'required|exists:sliders,id',
         ]);
         if (!is_array($validator) && $validator->fails()) {
-            return redirect()->back()->withErrors($validator);
+            return response()->json(['message' => 'Failed']);
         }
 
         $row = Slider::where('id',$request->row_id)->first();
@@ -99,7 +99,7 @@ class SliderController extends Controller
 //        }
         $row->delete();
         session()->flash('success', 'تم الحذف بنجاح');
-        return redirect()->back();
+        return response()->json(['message' => 'Success']);
     }
     public function deleteMulti(Request $request)
     {

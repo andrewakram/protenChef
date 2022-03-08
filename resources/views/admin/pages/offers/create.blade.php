@@ -74,28 +74,8 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Input-->
-                                <div class="position-relative d-flex align-items-center">
-                                    <!--begin::Icon-->
-                                    <div class="symbol symbol-20px me-4 position-absolute ms-4">
-                                        <span class="symbol-label bg-secondary">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                            <span class="svg-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
-                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
-                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon-->
-                                        </span>
-                                    </div>
-                                    <!--end::Icon-->
-                                    <!--begin::Datepicker-->
-                                    <input class="form-control form-control-solid ps-12" placeholder="Select a date" name="due_date" />
-                                    <!--end::Datepicker-->
-                                </div>
-                                <!--end::Input-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid" type="date"  name="date" placeholder="إحتر التاريخ" id="kt_calendar_datepicker_end_date" />                                <!--end::Input-->                                <!--end::Input-->
                                 <!--begin::Description-->
                             {{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
                             <!--end::Description-->

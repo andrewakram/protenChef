@@ -97,10 +97,10 @@ class OfferController extends Controller
     public function delete(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'row_id' => 'required|exists:offers,id',
+            'row_id' => 'required|exists:sliders,id',
         ]);
         if (!is_array($validator) && $validator->fails()) {
-            return redirect()->back()->withErrors($validator);
+            return response()->json(['message' => 'Failed']);
         }
 
         $row = Offer::where('id',$request->row_id)->first();
@@ -109,7 +109,7 @@ class OfferController extends Controller
 //        }
         $row->delete();
         session()->flash('success', 'تم الحذف بنجاح');
-        return redirect()->back();
+        return response()->json(['message' => 'Success']);
     }
     public function deleteMulti(Request $request)
     {
@@ -164,7 +164,7 @@ class OfferController extends Controller
                         </a>';
 //                }
 //                if ($auth->can('sliders.delete')) {
-                    $buttons .= '<a class="btn btn-secondary btn-sm delete m-1" data-id="'.$row->id.'" data-toggle="modal" href="#single">
+                    $buttons .= '<a class="btn btn-secondary btn-sm delete m-1" data-id="'.$row->id.'" >
                             <i class="fa fa-trash"></i>
                             حذف
                         </a>';
