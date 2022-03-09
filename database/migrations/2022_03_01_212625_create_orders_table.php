@@ -23,9 +23,9 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('package_type_id');
             $table->string('package_type_ar');
             $table->string('package_type_en');
-            $table->string('lat');
-            $table->string('lng');
-            $table->string('location_body');
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
+            $table->string('location_body')->nullable();
             $table->date('start_date');
             $table->double('package_price')->default(0);
             $table->double('shipping_price')->default(0);

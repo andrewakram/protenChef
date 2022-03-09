@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Verfication;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use JWTAuth;
@@ -99,12 +100,20 @@ class AuthController extends Controller
 
         $validator = Validator::make($request->all(), [
             'password' => 'required|min:6|confirmed',
+            'old_password' => 'nullable',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
 
         $user = auth()->user();
+        if ($request->old_password){
+            $old_password = Hash::check($request->old_password,$user->password);
+            if ($old_password != true){
+                return response()->json(msg($request, failed(), trans('lang.old_passwordError')));
+
+            }
+        }
         $user->password = $request->password;
         $user->save();
         $token = $request->bearerToken();

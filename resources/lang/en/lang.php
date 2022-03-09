@@ -26,6 +26,11 @@ return [
     'you_should_choose_valid_package_type' => 'you should choose valid package type',
     'you_should_choose_valid_MealTypee' => 'you should choose valid meal type',
     'you_should_choose_valid_meal' => 'you should choose valid meal',
+     'old_passwordError' => 'old password incorrect',
+    'passwordChangedSuccess' => 'password Changed successfully',
+    'coupon_used_before' => 'coupon used before',
+    'should_have_min_order_cost' => 'should have min order cost to apply coupon',
+    'you_should_choose_valid_coupon' => 'you should choose valid coupon',
 
 
 ];
