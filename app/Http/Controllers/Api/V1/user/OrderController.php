@@ -78,17 +78,19 @@ class OrderController extends Controller
 
 
         //generate location
-        $location = Location::findOrFail($request->location_id);
-        $order_data['lat'] = $location->lat;
-        $order_data['lng'] = $location->lng;
-        $order_data['location_body'] = $location->body;
+        if ($request->location_id) {
+            $location = Location::findOrFail($request->location_id);
+            $order_data['lat'] = $location->lat;
+            $order_data['lng'] = $location->lng;
+            $order_data['location_body'] = $location->body;
+        }
         //end generate location
 
         //coupon check if exists
-        if($request->coupon_code){
-            $coupon = Coupon::where('code',$request->coupon_code)->first();
-            $exists_coupon = CouponUser::where('user_id',$user_id)->where('coupon_id',$coupon->id)->first();
-            if($exists_coupon){
+        if ($request->coupon_code) {
+            $coupon = Coupon::where('code', $request->coupon_code)->first();
+            $exists_coupon = CouponUser::where('user_id', $user_id)->where('coupon_id', $coupon->id)->first();
+            if ($exists_coupon) {
                 return response()->json(['status' => 401, 'msg' => trans('lang.coupon_used_before')]);
             }
 
@@ -113,7 +115,9 @@ class OrderController extends Controller
                 $additional_price = $additional_price + $row['price'];
             }
         }
-
+        if (!$request->discount_price) {
+            $request->discount_price = 0;
+        }
         //End additional price
         $total = $price + $additional_price + $delivery_cost - $request->discount_price;
         $order_data['total_price'] = $total;
@@ -145,8 +149,8 @@ class OrderController extends Controller
                 OrderAddition::create($order_addition_data);
             }
         }
-        if($request->coupon_code){
-            $coupon = Coupon::where('code',$request->coupon_code)->first();
+        if ($request->coupon_code) {
+            $coupon = Coupon::where('code', $request->coupon_code)->first();
             $user_coupon_data['user_id'] = $user_id;
             $user_coupon_data['coupon_id'] = $coupon->id;
             $user_coupon_data['used'] = 1;
