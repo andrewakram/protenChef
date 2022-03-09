@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1\user;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MealResources;
 use App\Http\Resources\PackageMealResources;
+use App\Http\Resources\PackageMealTypeAdditinalResources;
+use App\Http\Resources\PackageMealTypeMainResources;
 use App\Http\Resources\PackageMealTypeResources;
 use App\Http\Resources\PackageResources;
 use App\Http\Resources\PackageTypePriceResources;
@@ -66,7 +68,7 @@ class PackagesController extends Controller
 
         $data['package_price_Data'] = (new PackageTypePriceResources($package));
         $data['main_meal_types'] = (PackageMealTypeResources::collection($main_meal_types));
-        $data['additional_meal_types'] = (PackageMealTypeResources::collection($additional_meal_types));
+        $data['additional_meal_types'] = (PackageMealTypeAdditinalResources::collection($additional_meal_types));
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
 
@@ -93,13 +95,13 @@ class PackagesController extends Controller
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
 
-//create selected period
-        //generate finall day
+    //create selected period
+    //generate finall day
         $package_type_price = PackageTypePrice::findOrFail($request->package_type_price_id);
-//        $package_type_price->PackageType
+    //$package_type_price->PackageType
         $final_date = $two_dayes->addDays(28);
         $period = CarbonPeriod::create($request->selected_date, $final_date);
-        // Iterate over the period
+    // Iterate over the period
 
         foreach ($period as $date) {
             $dates[] = $date->format('Y-m-d');

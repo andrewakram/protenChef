@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\user\MySubscribersControllers;
 use App\Http\Controllers\Api\V1\user\PackagesController;
 use App\Http\Controllers\Api\V1\user\LocationsController;
 use App\Http\Controllers\Api\V1\user\CouponsController;
+use App\Http\Controllers\Api\V1\user\OrderController;
 use App\Http\Controllers\Api\V1\app\SettingsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,11 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
         Route::get('/package_price_details/{package_pricec_id}', [PackagesController::class, 'package_price_details']);
         Route::get('/package_menu_meals', [PackagesController::class, 'package_menu_meals']);
         Route::get('/meal/details/{id}', [PackagesController::class, 'meal_details']);
+
+        //order
+        Route::post('/make_order', [OrderController::class, 'make_order']);
+        Route::post('/apply/coupon', [OrderController::class, 'apply_coupon']);
+
 
         //locations
         Route::get('/locations', [LocationsController::class, 'locations']);

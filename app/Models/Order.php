@@ -9,6 +9,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $guarded = [''];
+
     public function OrderMeals()
     {
         return $this->hasMany(OrderMeal::class, 'order_id');
@@ -18,7 +20,6 @@ class Order extends Model
     {
         return $this->hasMany(OrderMeal::class, 'order_id')->where('status', 'delivered');
     }
-
 
 
 }
