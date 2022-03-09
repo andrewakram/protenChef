@@ -40,5 +40,18 @@
         border: 7px solid #000000 !important;
         border-radius: 5px;
     }
+    .btn-danger{
+        background-color: #ea4335!important;
+    }
+    .btn-warning{
+        background-color: #fbbc05!important;
+    }
+    .btn-success{
+        background-color: #0ac630!important;
+    }
+    .page-link{
+        background-color: #F48120!important;
+        color: #3F4254!important;
+    }
 
 </style>
