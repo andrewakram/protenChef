@@ -40,10 +40,9 @@ class OrderController extends Controller
             'package_type_id' => 'required|exists:package_type_prices,id',
             'location_id' => 'nullable|exists:locations,id',
             'selected_meal' => 'required|array',
-            'order_additions' => 'required|array',
+            'order_additions' => 'nullable|array',
             'coupon_code' => 'nullable|exists:coupons,code',
             'discount_price' => 'nullable|numeric',
-
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
@@ -52,7 +51,7 @@ class OrderController extends Controller
         $user_id = auth()->user()->id;
         $order_data['user_id'] = $user_id;
 
-        $packageTypePrice = PackageTypePrice::findOrFail($request->package_type_id);
+        $packageTypePrice = PackageTypePrice::find($request->package_type_id);
         $price = $packageTypePrice->price;
 
         $order_data['package_id'] = $packageTypePrice->package_id;
@@ -79,7 +78,7 @@ class OrderController extends Controller
 
         //generate location
         if ($request->location_id) {
-            $location = Location::findOrFail($request->location_id);
+            $location = Location::find($request->location_id);
             $order_data['lat'] = $location->lat;
             $order_data['lng'] = $location->lng;
             $order_data['location_body'] = $location->body;
@@ -91,9 +90,8 @@ class OrderController extends Controller
             $coupon = Coupon::where('code', $request->coupon_code)->first();
             $exists_coupon = CouponUser::where('user_id', $user_id)->where('coupon_id', $coupon->id)->first();
             if ($exists_coupon) {
-                return response()->json(['status' => 401, 'msg' => trans('lang.coupon_used_before')]);
+                return response()->json(msg($request, failed(), trans('lang.coupon_used_before')));
             }
-
         }
         //end coupon check
         // generate order number
@@ -115,16 +113,21 @@ class OrderController extends Controller
                 $additional_price = $additional_price + $row['price'];
             }
         }
+        //End additional price
+        //Begin Discount
         if (!$request->discount_price) {
             $request->discount_price = 0;
         }
-        //End additional price
+        $order_data['discount_price'] = $request->discount_price;
+        //End Discount
+
+        //Begin generate total bill
         $total = $price + $additional_price + $delivery_cost - $request->discount_price;
         $order_data['total_price'] = $total;
-        $order_data['discount_price'] = $request->discount_price;
+        //End generate total bill
+
         $order = Order::create($order_data);
-
-
+        //add meals to order
         if ($request->selected_meal) {
             foreach ($request->selected_meal as $row) {
                 $package_meal = PackageMeal::findOrFail($row['meal_id']);
@@ -136,19 +139,18 @@ class OrderController extends Controller
                 $order_meal_data['meal_body_en'] = $package_meal->Meal->body_en;
                 $order_meal_data['date'] = $row['date'];
                 $order_meal_data['meal_type_id'] = $row['meal_type_id '];
-
                 OrderMeal::create($order_meal_data);
             }
         }
         if ($request->order_additions) {
             foreach ($request->order_additions as $row) {
-
                 $order_addition_data['price'] = $row['price'];
                 $order_addition_data['order_id'] = $order->id;
                 $order_addition_data['meal_type_id'] = $row['meal_type_id'];
                 OrderAddition::create($order_addition_data);
             }
         }
+        //add user to coupon usage to avoid user to use this coupon again
         if ($request->coupon_code) {
             $coupon = Coupon::where('code', $request->coupon_code)->first();
             $user_coupon_data['user_id'] = $user_id;
@@ -156,6 +158,8 @@ class OrderController extends Controller
             $user_coupon_data['used'] = 1;
             CouponUser::create($user_coupon_data);
         }
+        //end coupon usage to avoid user to use this coupon again
+
         return response()->json(msgdata($request, success(), trans('lang.success'), $order));
     }
 
@@ -174,7 +178,7 @@ class OrderController extends Controller
         if ($exists_coupon) {
             $code_used = CouponUser::where('user_id', $user_id)->where('coupon_id', $exists_coupon->id)->first();
             if ($code_used) {
-                return response()->json(['status' => 401, 'msg' => trans('lang.coupon_used_before')]);
+                return response()->json(msg($request, failed(), trans('lang.coupon_used_before')));
             }
             $data['done'] = true;
             $price = $request->price;
