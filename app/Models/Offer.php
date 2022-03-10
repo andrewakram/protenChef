@@ -39,7 +39,7 @@ class Offer extends Model
     public function getImageAttribute($image)
     {
         if (!empty($image)) {
-            return asset('uploads/Slider') . '/' . $image;
+            return asset('uploads/Offer') . '/' . $image;
         }
         return asset('default.png');
     }
