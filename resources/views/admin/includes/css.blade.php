@@ -50,7 +50,7 @@
         background-color: #0ac630!important;
     }
     .page-link{
-        background-color: #F48120!important;
+        background-color: rgba(255, 136, 33, 0.71) !important;
         color: #3F4254!important;
     }
 

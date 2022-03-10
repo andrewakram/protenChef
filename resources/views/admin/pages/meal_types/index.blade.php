@@ -21,7 +21,13 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class=" fs-3 fw-bold my-1 ms-1" style="color: #F48120">السلايدر</small>
+                        <small class=" fs-3 fw-bold my-1 ms-1" style="color: #F48120">
+                            @if($type == "main")
+                                الفترات الأساسية للوجبات
+                            @else
+                                إضافات الوجبات
+                            @endif
+                        </small>
                         <!--end::Description-->
                     </h1>
                     <!--end::Title-->
@@ -120,7 +126,7 @@
 {{--                    </div>--}}
                     <!--end::Wrapper-->
                     <!--begin::Button-->
-                    <a href="{{route('admin.sliders.create')}}" class="btn btn-sm btn-success"
+                    <a href="{{route('admin.meal-types.create',[$type])}}" class="btn btn-sm btn-success"
 {{--                       data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id=""--}}
                     >
                         <i class="fa fa-plus"></i>
@@ -192,8 +198,8 @@
 {{--                                </th>--}}
                                 <th class=" min-w-10px">#</th>
                                 <th class=" min-w-100px">الصورة</th>
-                                <th class=" min-w-100px">العنوان</th>
-                                <th class=" min-w-100px">الحالة</th>
+                                <th class=" min-w-100px">العنوان (بالعربي)</th>
+                                <th class=" min-w-100px">العنوان (بالإنجليزي)</th>
                                 <th class=" min-w-100px">العمليات</th>
 
                             </tr>
@@ -299,12 +305,12 @@
 
 
                 ],
-                ajax: '{{ route('admin.sliders.datatable') }}',
+                ajax: '{{ route('admin.meal-types.datatable',[$type]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
                     {"data": "image", "searchable": false, "orderable": false},
-                    {"data": "title", "searchable": false, "orderable": false},
-                    {"data": "active", "searchable": false, "orderable": false},
+                    {"data": "title_ar", "searchable": false, "orderable": false},
+                    {"data": "title_en", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });
@@ -394,7 +400,7 @@
                 if (result.value) {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '{{route('admin.sliders.delete')}}',
+                        url: '{{route('admin.meal-types.delete')}}',
                         type: "post",
                         data: {'row_id':  id, _token: CSRF_TOKEN},
                         dataType: "JSON",

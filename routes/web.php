@@ -55,6 +55,30 @@ Route::group([
                 Route::post('/delete', 'OfferController@delete')->name('.delete');
                 Route::post('/delete-multi', 'OfferController@deleteMulti')->name('.deleteMulti');
             });
+
+            Route::group(['prefix' => 'coupons', 'as' => '.coupons'], function () {
+                Route::get('/', 'CouponController@index');
+                Route::get('getData', 'CouponController@getData')->name('.datatable');
+                Route::get('/create', 'CouponController@create')->name('.create');
+                Route::post('/store', 'CouponController@store')->name('.store');
+                Route::get('/edit/{id}', 'CouponController@edit')->name('.edit');
+                Route::post('/update', 'CouponController@update')->name('.update');
+                Route::get('/show/{id}', 'CouponController@show')->name('.show');
+                Route::post('/delete', 'CouponController@delete')->name('.delete');
+                Route::post('/delete-multi', 'CouponController@deleteMulti')->name('.deleteMulti');
+            });
+
+            Route::group(['prefix' => 'meal-types', 'as' => '.meal-types'], function () {
+                Route::get('/{type}', 'MealTypeController@index');
+                Route::get('getData/{type}', 'MealTypeController@getData')->name('.datatable');
+                Route::get('/create/{type}', 'MealTypeController@create')->name('.create');
+                Route::post('/store', 'MealTypeController@store')->name('.store');
+                Route::get('/edit/{id}', 'MealTypeController@edit')->name('.edit');
+                Route::post('/update', 'MealTypeController@update')->name('.update');
+                Route::get('/show/{id}', 'MealTypeController@show')->name('.show');
+                Route::post('/delete', 'MealTypeController@delete')->name('.delete');
+                Route::post('/delete-multi', 'MealTypeController@deleteMulti')->name('.deleteMulti');
+            });
         });
 
     });

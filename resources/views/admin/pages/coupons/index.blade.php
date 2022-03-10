@@ -21,7 +21,7 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class=" fs-3 fw-bold my-1 ms-1" style="color: #F48120">السلايدر</small>
+                        <small class=" fs-3 fw-bold my-1 ms-1" style="color: #F48120">كوبونات الخصم</small>
                         <!--end::Description-->
                     </h1>
                     <!--end::Title-->
@@ -120,7 +120,7 @@
 {{--                    </div>--}}
                     <!--end::Wrapper-->
                     <!--begin::Button-->
-                    <a href="{{route('admin.sliders.create')}}" class="btn btn-sm btn-success"
+                    <a href="{{route('admin.coupons.create')}}" class="btn btn-sm btn-success"
 {{--                       data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id=""--}}
                     >
                         <i class="fa fa-plus"></i>
@@ -191,9 +191,11 @@
 {{--                                    </div>--}}
 {{--                                </th>--}}
                                 <th class=" min-w-10px">#</th>
-                                <th class=" min-w-100px">الصورة</th>
-                                <th class=" min-w-100px">العنوان</th>
-                                <th class=" min-w-100px">الحالة</th>
+                                <th class=" min-w-100px">كود الخصم</th>
+                                <th class=" min-w-100px">قيمة الخصم</th>
+                                <th class=" min-w-100px">أقل قيمة للطلب لتطبيق الخصم</th>
+                                <th class=" min-w-100px">نوع الخصم</th>
+                                <th class=" min-w-100px">تاريخ الإنتهاء</th>
                                 <th class=" min-w-100px">العمليات</th>
 
                             </tr>
@@ -299,12 +301,14 @@
 
 
                 ],
-                ajax: '{{ route('admin.sliders.datatable') }}',
+                ajax: '{{ route('admin.coupons.datatable') }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
-                    {"data": "image", "searchable": false, "orderable": false},
-                    {"data": "title", "searchable": false, "orderable": false},
-                    {"data": "active", "searchable": false, "orderable": false},
+                    {"data": "code", "searchable": false, "orderable": false},
+                    {"data": "amount", "searchable": false, "orderable": false},
+                    {"data": "min_order_total", "searchable": false, "orderable": false},
+                    {"data": "type", "searchable": false, "orderable": false},
+                    {"data": "expired_at", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });
@@ -394,7 +398,7 @@
                 if (result.value) {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '{{route('admin.sliders.delete')}}',
+                        url: '{{route('admin.coupons.delete')}}',
                         type: "post",
                         data: {'row_id':  id, _token: CSRF_TOKEN},
                         dataType: "JSON",
