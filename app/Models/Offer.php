@@ -44,15 +44,15 @@ class Offer extends Model
         return asset('default.png');
     }
 
-    public function setImageAttribute($image)
-    {
-        if (is_file($image)) {
-//            $imageFields = upload($image, 'Slider');
-//            $this->attributes['image'] = $imageFields;
-            $img_name = time().uniqid().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('/uploads/Slider/'),$img_name);
-            $this->attributes['image'] = $img_name ;
-        }
-
-    }
+//    public function setImageAttribute($image)
+//    {
+//        if (is_file($image)) {
+////            $imageFields = upload($image, 'Slider');
+////            $this->attributes['image'] = $imageFields;
+//            $img_name = time().uniqid().'.'.$image->getClientOriginalExtension();
+//            $image->move(public_path('/uploads/Slider/'),$img_name);
+//            $this->attributes['image'] = $img_name ;
+//        }
+//
+//    }
 }

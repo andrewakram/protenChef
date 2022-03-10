@@ -37,12 +37,12 @@ class Screen extends Model
         return asset('uploads/default.jpg');
     }
 
-    public function setImageAttribute($image)
-    {
-        if (is_file($image)) {
-            $imageFields = upload($image, 'Screen');
-            $this->attributes['file'] = $imageFields;
-        }
-
-    }
+//    public function setImageAttribute($image)
+//    {
+//        if (is_file($image)) {
+//            $imageFields = upload($image, 'Screen');
+//            $this->attributes['file'] = $imageFields;
+//        }
+//
+//    }
 }
