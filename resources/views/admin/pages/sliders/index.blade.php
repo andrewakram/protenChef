@@ -4,7 +4,6 @@
     <link href="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet"
           type="text/css"/>
 @endsection
-
 @section('content')
 
     <!--begin::Content-->
