@@ -9,6 +9,7 @@ class PackageType extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title_ar','title_en','days_count','type','image'];
     protected $appends = ['title'];
 
 
@@ -19,5 +20,25 @@ class PackageType extends Model
         } else {
             return $this->title_en;
         }
+    }
+
+    public function getImageAttribute($image)
+    {
+        if (!empty($image)) {
+            return asset('uploads/PackageType') . '/' . $image;
+        }
+        return asset('default.png');
+    }
+
+    public function setImageAttribute($image)
+    {
+        if (is_file($image)) {
+//            $imageFields = upload($image, 'Slider');
+//            $this->attributes['image'] = $imageFields;
+            $img_name = time().uniqid().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('/uploads/PackageType/'),$img_name);
+            $this->attributes['image'] = $img_name ;
+        }
+
     }
 }
