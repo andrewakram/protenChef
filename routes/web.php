@@ -80,6 +80,18 @@ Route::group([
                 Route::post('/delete-multi', 'MealTypeController@deleteMulti')->name('.deleteMulti');
             });
 
+            Route::group(['prefix' => 'packages', 'as' => '.packages'], function () {
+                Route::get('/', 'PackageController@index');
+                Route::get('getData', 'PackageController@getData')->name('.datatable');
+                Route::get('/create', 'PackageController@create')->name('.create');
+                Route::post('/store', 'PackageController@store')->name('.store');
+                Route::get('/edit/{id}', 'PackageController@edit')->name('.edit');
+                Route::post('/update', 'PackageController@update')->name('.update');
+                Route::get('/show/{id}', 'PackageController@show')->name('.show');
+                Route::post('/delete', 'PackageController@delete')->name('.delete');
+                Route::post('/delete-multi', 'PackageController@deleteMulti')->name('.deleteMulti');
+            });
+
             Route::group(['prefix' => 'package-types', 'as' => '.package-types'], function () {
                 Route::get('/', 'PackageTypeController@index');
                 Route::get('getData', 'PackageTypeController@getData')->name('.datatable');
@@ -90,6 +102,18 @@ Route::group([
                 Route::get('/show/{id}', 'PackageTypeController@show')->name('.show');
                 Route::post('/delete', 'PackageTypeController@delete')->name('.delete');
                 Route::post('/delete-multi', 'PackageTypeController@deleteMulti')->name('.deleteMulti');
+            });
+
+            Route::group(['prefix' => 'package-type-prices', 'as' => '.package-type-prices'], function () {
+                Route::get('/', 'PackageTypePriceController@index');
+                Route::get('getData', 'PackageTypePriceController@getData')->name('.datatable');
+                Route::get('/create', 'PackageTypePriceController@create')->name('.create');
+                Route::post('/store', 'PackageTypePriceController@store')->name('.store');
+                Route::get('/edit/{id}', 'PackageTypePriceController@edit')->name('.edit');
+                Route::post('/update', 'PackageTypePriceController@update')->name('.update');
+                Route::get('/show/{id}', 'PackageTypePriceController@show')->name('.show');
+                Route::post('/delete', 'PackageTypePriceController@delete')->name('.delete');
+                Route::post('/delete-multi', 'PackageTypePriceController@deleteMulti')->name('.deleteMulti');
             });
         });
 

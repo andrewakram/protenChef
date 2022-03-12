@@ -10,6 +10,7 @@ class PackageType extends Model
     use HasFactory;
 
     protected $fillable = ['title_ar','title_en','days_count','type','image'];
+
     protected $appends = ['title'];
 
 
