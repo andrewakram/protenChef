@@ -95,13 +95,13 @@ class PackagesController extends Controller
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
 
-    //create selected period
-    //generate finall day
+        //create selected period
+        //generate finall day
         $package_type_price = PackageTypePrice::findOrFail($request->package_type_price_id);
-    //$package_type_price->PackageType
+        //$package_type_price->PackageType
         $final_date = $two_dayes->addDays(28);
         $period = CarbonPeriod::create($request->selected_date, $final_date);
-    // Iterate over the period
+        // Iterate over the period
 
         foreach ($period as $date) {
             $dates[] = $date->format('Y-m-d');
@@ -111,21 +111,22 @@ class PackagesController extends Controller
             $weekNumber = Carbon::parse($date)->weekNumberInMonth; //1   //2  //3   //4
             $is_odd = $weekNumber % 2;
             $is_odd == 0 ? $weekNumber = 2 : $weekNumber = 1;
-            $package_type_prices = PackageMeal::where('package_id', $package_type_price->package_id)
-                ->where('meal_type_id', $request->meal_type_id)
-                ->where('day', Carbon::parse($date)->format('l'))
-                ->where('week', $weekNumber)
-                ->with('Meal')
-                ->get()->map(function ($item) use ($date) {
-                    $item->date = $date;
-                    return $item;
-                });
+            $package_type_prices =
+                PackageMeal::where('package_id', $package_type_price->package_id)
+                    ->where('meal_type_id', $request->meal_type_id)
+                    ->where('day', Carbon::parse($date)->format('l'))
+                    ->where('week', $weekNumber)
+                    ->with('Meal')
+                    ->get()->map(function ($item) use ($date) {
+                        $item->date = $date;
+                        return $item;
+                    });
             foreach ($package_type_prices as $row) {
                 $output[] = $row;
             }
         }
 
-        $data = PackageMealResources::customCollection($output,$dates)->collection->groupBy('date');
+        $data = PackageMealResources::customCollection($output, $dates)->collection->groupBy('date');
         return response()->json(msgdata($request, success(), trans('lang.success'), $data->values()));
     }
 

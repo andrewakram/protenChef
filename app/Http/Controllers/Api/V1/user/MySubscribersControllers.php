@@ -16,6 +16,7 @@ use App\Models\PackageMeal;
 use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 
 class MySubscribersControllers extends Controller
@@ -78,6 +79,13 @@ class MySubscribersControllers extends Controller
         $data['meal_types'] = $meal_types;
         $data['order_meals'] = $order_meals;
         $data['location'] = $location;
+        $working_hours_ar = Setting::where('key', "working_hours_ar")->first()->value;
+        $working_hours_en = Setting::where('key', "working_hours_en")->first()->value;
+        if (App::getLocale() == "ar") {
+            $data['working_hours'] = $working_hours_ar;
+        } else {
+            $data['working_hours'] = $working_hours_en;
+        }
         $data['package_price'] = $package_price;
         $data['shipping_price'] = $shipping_price;
         $data['discount_price'] = $discount_price;
@@ -85,11 +93,10 @@ class MySubscribersControllers extends Controller
         $data['total_price'] = $total_price;
         $frozen_meals = OrderMeal::where('order_id', $id)
             ->where('old_date', '!=', null)
-            ->select('date', 'old_date','order_id')
-            ->groupBy('date', 'old_date','order_id')
+            ->select('date', 'old_date', 'order_id')
+            ->groupBy('date', 'old_date', 'order_id')
             ->get()
-            ->makeHidden(['meal_title', 'meal_body'])
-//           ->values()
+            ->makeHidden(['meal_title', 'meal_body'])//           ->values()
         ;
 
         $data['frozen_meals'] = $frozen_meals;
