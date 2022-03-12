@@ -9,6 +9,8 @@ class Meal extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title_ar', 'body_ar','title_en', 'body_en','meal_type_id'];
+
     protected $appends = ['title', 'body'];
 
     public function getTitleAttribute()
@@ -32,6 +34,11 @@ class Meal extends Model
     public function Image()
     {
         return $this->hasOne(MealImage::class, 'meal_id');
+    }
+
+    public function MealType()
+    {
+        return $this->belongsTo(MealType::class, 'meal_type_id');
     }
 
 

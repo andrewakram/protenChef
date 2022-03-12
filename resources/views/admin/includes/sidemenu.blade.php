@@ -8,7 +8,7 @@
     <div class="aside-logo flex-column-auto h-160px" id="kt_aside_logo" style="background-color: white">
         <!--begin::Logo-->
         <a href="{{asset('/')}}">
-            <img alt="Logo" src="{{asset('/')}}/default.png" class="h-80px logo p-5"
+            <img alt="Logo" src="{{asset('/')}}/default2.png" class="h-80px logo p-5"
                  width="200px" height="350px"/>
         </a>
         <!--end::Logo-->
@@ -77,66 +77,6 @@
                         <span class="menu-title">الرئيسية</span>
                     </a>
                 </div>
-                <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'sliders') active @endif" href="{{route('admin.sliders')}}">
-										<span class="menu-icon">
-											<!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
-											<span class="svg-icon svg-icon-2">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                                     viewBox="0 0 24 25" fill="none">
-													<path opacity="0.3"
-                                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
-                                                          fill="black"/>
-													<path
-                                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
-                                                        fill="black"/>
-												</svg>
-											</span>
-                                            <!--end::Svg Icon-->
-										</span>
-                        <span class="menu-title">السلايدر</span>
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'offers') active @endif" href="{{route('admin.offers')}}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                     viewBox="0 0 24 25" fill="none">
-                                    <path opacity="0.3"
-                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
-                                          fill="black"/>
-                                    <path
-                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
-                                        fill="black"/>
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">العروض</span>
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'coupons') active @endif" href="{{route('admin.coupons')}}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                     viewBox="0 0 24 25" fill="none">
-                                    <path opacity="0.3"
-                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
-                                          fill="black"/>
-                                    <path
-                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
-                                        fill="black"/>
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">كوبونات الخصم</span>
-                    </a>
-                </div>
 
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
@@ -183,6 +123,95 @@
                         <span class="menu-title">إضافات الوجبات</span>
                     </a>
                 </div>
+                <div class="menu-item">
+                    <a class="menu-link @if(request()->segment(2) == 'meals') active @endif" href="{{route('admin.meals')}}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
+                                     viewBox="0 0 24 25" fill="none">
+                                    <path opacity="0.3"
+                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
+                                          fill="black"/>
+                                    <path
+                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
+                                        fill="black"/>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title"> الوجبات</span>
+                    </a>
+                </div>
+
+
+                <div class="menu-item">
+                    <div class="menu-content pt-8 pb-2">
+                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">الباقات</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link @if(request()->segment(2) == 'packages' ) active @endif" href="{{route('admin.package-types')}}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
+                                     viewBox="0 0 24 25" fill="none">
+                                    <path opacity="0.3"
+                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
+                                          fill="black"/>
+                                    <path
+                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
+                                        fill="black"/>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">الباقات</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link @if(request()->segment(2) == 'package-types' ) active @endif" href="{{route('admin.package-types')}}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
+                                     viewBox="0 0 24 25" fill="none">
+                                    <path opacity="0.3"
+                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
+                                          fill="black"/>
+                                    <path
+                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
+                                        fill="black"/>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">أنواع الباقات</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link @if(request()->segment(2) == 'package-type-prices' ) active @endif" href="{{route('admin.package-type-prices')}}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
+                                     viewBox="0 0 24 25" fill="none">
+                                    <path opacity="0.3"
+                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
+                                          fill="black"/>
+                                    <path
+                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
+                                        fill="black"/>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">خطط أسعار الباقات</span>
+                    </a>
+                </div>
+
+
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -535,75 +564,6 @@
                         </div>
                     </div>
                 </div>
-
-
-                <div class="menu-item">
-                    <div class="menu-content pt-8 pb-2">
-                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">الباقات</span>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'packages' ) active @endif" href="{{route('admin.package-types')}}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                     viewBox="0 0 24 25" fill="none">
-                                    <path opacity="0.3"
-                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
-                                          fill="black"/>
-                                    <path
-                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
-                                        fill="black"/>
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">الباقات</span>
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'package-types' ) active @endif" href="{{route('admin.package-types')}}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                     viewBox="0 0 24 25" fill="none">
-                                    <path opacity="0.3"
-                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
-                                          fill="black"/>
-                                    <path
-                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
-                                        fill="black"/>
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">أنواع الباقات</span>
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'package-type-prices' ) active @endif" href="{{route('admin.package-type-prices')}}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                     viewBox="0 0 24 25" fill="none">
-                                    <path opacity="0.3"
-                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
-                                          fill="black"/>
-                                    <path
-                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
-                                        fill="black"/>
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">خطط أسعار الباقات</span>
-                    </a>
-                </div>
-
-
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
@@ -1293,13 +1253,95 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="menu-item">
+                    <a class="menu-link @if(request()->segment(2) == 'screens') active @endif" href="{{route('admin.screens')}}">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
+                                                     viewBox="0 0 24 25" fill="none">
+													<path opacity="0.3"
+                                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
+                                                          fill="black"/>
+													<path
+                                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
+                                                        fill="black"/>
+												</svg>
+											</span>
+                                            <!--end::Svg Icon-->
+										</span>
+                        <span class="menu-title">الشاشات الترحيبية</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link @if(request()->segment(2) == 'sliders') active @endif" href="{{route('admin.sliders')}}">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
+                                                     viewBox="0 0 24 25" fill="none">
+													<path opacity="0.3"
+                                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
+                                                          fill="black"/>
+													<path
+                                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
+                                                        fill="black"/>
+												</svg>
+											</span>
+                                            <!--end::Svg Icon-->
+										</span>
+                        <span class="menu-title">السلايدر</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link @if(request()->segment(2) == 'offers') active @endif" href="{{route('admin.offers')}}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
+                                     viewBox="0 0 24 25" fill="none">
+                                    <path opacity="0.3"
+                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
+                                          fill="black"/>
+                                    <path
+                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
+                                        fill="black"/>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">العروض</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link @if(request()->segment(2) == 'coupons') active @endif" href="{{route('admin.coupons')}}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
+                                     viewBox="0 0 24 25" fill="none">
+                                    <path opacity="0.3"
+                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
+                                          fill="black"/>
+                                    <path
+                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
+                                        fill="black"/>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">كوبونات الخصم</span>
+                    </a>
+                </div>
+
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">عن التطبيق</span>
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'package-types' ) active @endif" href="{{route('admin.package-types')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'pages' && request()->segment(4) == 'about' ) active @endif" href="{{route('admin.pages.edit',['about'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -1319,7 +1361,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'package-types' ) active @endif" href="{{route('admin.package-types')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'pages' && request()->segment(4) == 'terms' ) active @endif" href="{{route('admin.pages.edit',['terms'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -1339,7 +1381,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'package-types' ) active @endif" href="{{route('admin.package-types')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'package-types' && request()->segment(4) == 'frozen' ) active @endif" href="{{route('admin.pages.edit',['frozen'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">

@@ -15,6 +15,7 @@ class CreateScreensTable extends Migration
     {
         Schema::create('screens', function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('active')->default(1)->comment('0->unactive and 1->Active');
             $table->string('title_ar');
             $table->string('title_en');
             $table->text('body_ar');

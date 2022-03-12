@@ -43,8 +43,8 @@
         <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
             <!--begin::Logo-->
             <a href="{{asset('/')}}" class="mb-12">
-                <img alt="Logo" src="{{asset('/')}}default.png" class="h-120px w-300px"
-                     style="background-color: white; border-radius: 5px;padding: 10px"  />
+                <img alt="Logo" src="{{asset('/')}}default.png" class=" "
+                     style="background-color: white; border-radius: 5px;padding: 10px;height:160px;width: 300px"  />
             </a>
             <!--end::Logo-->
             <!--begin::Wrapper-->
@@ -55,10 +55,10 @@
                     <!--begin::Heading-->
                     <div class="text-center mb-10">
                         <!--begin::Link-->
-                        <div class="text-gray-400 fw-bold fs-4">
-                            <a href="" class=" fw-bolder" style="color: #F48120">Proten Chef</a>
-                        </div>
-                        <br>
+{{--                        <div class="text-gray-400 fw-bold fs-4">--}}
+{{--                            <a href="" class=" fw-bolder" style="color: #F48120">Proten Chef</a>--}}
+{{--                        </div>--}}
+{{--                        <br>--}}
                         <!--end::Link-->
                         <!--begin::Title-->
                         <h1 class="text-dark mb-3">تسجيل الدخول بلوحة التحكم</h1>

@@ -9,6 +9,8 @@ class Screen extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title_ar','title_en','body_ar','body_en','active','image'];
+
     protected $appends = ['title', 'body'];
 
     public function getTitleAttribute()
@@ -34,15 +36,19 @@ class Screen extends Model
         if (!empty($image)) {
             return asset('uploads/Screen') . '/' . $image;
         }
-        return asset('uploads/default.jpg');
+        return asset('default.png');
     }
 
-//    public function setImageAttribute($image)
-//    {
-//        if (is_file($image)) {
-//            $imageFields = upload($image, 'Screen');
-//            $this->attributes['file'] = $imageFields;
-//        }
-//
-//    }
+    public function setImageAttribute($image)
+    {
+        if (is_file($image)) {
+//            $imageFields = upload($image, 'Slider');
+//            $this->attributes['image'] = $imageFields;
+            $img_name = time().uniqid().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('/uploads/Screen/'),$img_name);
+            $this->attributes['image'] = $img_name ;
+        }
+
+    }
+
 }

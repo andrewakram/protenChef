@@ -32,6 +32,31 @@ Route::group([
         Route::get('logout', 'AuthController@logout')->name('.logout');
 
         Route::group(['middleware' => 'auth:admin'], function () {
+
+            Route::group(['prefix' => 'pages', 'as' => '.pages'], function () {
+                Route::get('/{type}', 'PageController@index');
+                Route::get('getData/{type}', 'PageController@getData')->name('.datatable');
+                Route::get('/create/{type}', 'PageController@create')->name('.create');
+                Route::post('/store', 'PageController@store')->name('.store');
+                Route::get('/edit/{type}', 'PageController@edit')->name('.edit');
+                Route::post('/update', 'PageController@update')->name('.update');
+                Route::get('/show/{id}', 'PageController@show')->name('.show');
+                Route::post('/delete', 'PageController@delete')->name('.delete');
+                Route::post('/delete-multi', 'PageController@deleteMulti')->name('.deleteMulti');
+            });
+
+            Route::group(['prefix' => 'screens', 'as' => '.screens'], function () {
+                Route::get('/', 'ScreenController@index');
+                Route::get('getData', 'ScreenController@getData')->name('.datatable');
+                Route::get('/create', 'ScreenController@create')->name('.create');
+                Route::post('/store', 'ScreenController@store')->name('.store');
+                Route::get('/edit/{id}', 'ScreenController@edit')->name('.edit');
+                Route::post('/update', 'ScreenController@update')->name('.update');
+                Route::get('/show/{id}', 'ScreenController@show')->name('.show');
+                Route::post('/delete', 'ScreenController@delete')->name('.delete');
+                Route::post('/delete-multi', 'ScreenController@deleteMulti')->name('.deleteMulti');
+            });
+
             Route::group(['prefix' => 'sliders', 'as' => '.sliders'], function () {
                 Route::get('/', 'SliderController@index');
                 Route::get('getData', 'SliderController@getData')->name('.datatable');
@@ -78,6 +103,18 @@ Route::group([
                 Route::get('/show/{id}', 'MealTypeController@show')->name('.show');
                 Route::post('/delete', 'MealTypeController@delete')->name('.delete');
                 Route::post('/delete-multi', 'MealTypeController@deleteMulti')->name('.deleteMulti');
+            });
+
+            Route::group(['prefix' => 'meals', 'as' => '.meals'], function () {
+                Route::get('/', 'MealController@index');
+                Route::get('getData', 'MealController@getData')->name('.datatable');
+                Route::get('/create', 'MealController@create')->name('.create');
+                Route::post('/store', 'MealController@store')->name('.store');
+                Route::get('/edit/{id}', 'MealController@edit')->name('.edit');
+                Route::post('/update', 'MealController@update')->name('.update');
+                Route::get('/show/{id}', 'MealController@show')->name('.show');
+                Route::post('/delete', 'MealController@delete')->name('.delete');
+                Route::post('/delete-multi', 'MealController@deleteMulti')->name('.deleteMulti');
             });
 
             Route::group(['prefix' => 'packages', 'as' => '.packages'], function () {
