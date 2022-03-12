@@ -15,7 +15,7 @@
                 <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
-                        إضافة عرض
+                        إضافة سلايدر
                     </h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
@@ -31,7 +31,7 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.sliders')}}" class="text-muted text-hover-primary">العرض</a>
+                            <a href="{{route('admin.sliders')}}" class="text-muted text-hover-primary">السلايدر</a>
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -148,7 +148,7 @@
                         <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">
                             <!--begin:::Tab item-->
                             <li class="nav-item">
-                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">بيانات العرض</a>
+                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">بيانات السلايدر</a>
                             </li>
                             <!--end:::Tab item-->
                             <!--begin:::Tab item-->
@@ -167,7 +167,7 @@
                                     <div class="card card-flush py-4">
                                         <div class="card-header">
                                             <div class="card-title">
-                                                <h2>بيانات العرض</h2>
+                                                <h2>بيانات السلايدر</h2>
                                             </div>
                                         </div>
                                         <br>
@@ -177,10 +177,10 @@
                                             <!--begin::Input group-->
                                             <div class="mb-10 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required form-label">عنوان العرض</label>
+                                                <label class="required form-label">عنوان السلايدر</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" required name="title" class="form-control mb-2" placeholder="عنوان العرض" value="" />
+                                                <input type="text" required name="title" class="form-control mb-2" placeholder="عنوان السلايدر" value="" />
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
 {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}
@@ -190,10 +190,10 @@
 
                                             <div class="mb-10 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required form-label">رابط توجيه العرض</label>
+                                                <label class="required form-label">رابط توجيه السلايدر</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" required name="url" class="form-control mb-2" placeholder="رابط توجيه العرض" value="" />
+                                                <input type="text" required name="url" class="form-control mb-2" placeholder="رابط توجيه السلايدر" value="" />
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
                                             {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}

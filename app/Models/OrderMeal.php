@@ -9,6 +9,7 @@ class OrderMeal extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
     protected $appends = ['meal_title', 'meal_body'];
     public function getMealTitleAttribute()
     {

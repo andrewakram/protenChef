@@ -241,7 +241,7 @@
                                                 <label class="required form-label">وصف العرض (بالعربي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" required name="body_ar" class="form-control mb-2" placeholder="وصف العرض (بالعربي)" value="{{$row->body_ar}}" />
+                                                <textarea required name="body_ar" class="form-control mb-2" placeholder="وصف العرض (بالعربي)">{{$row->body_ar}}</textarea>
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
                                             {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}
@@ -253,7 +253,7 @@
                                                 <label class="required form-label">وصف العرض (بالإنجليزي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" required name="body_en" class="form-control mb-2" placeholder="وصف العرض (بالإنجليزي)" value="{{$row->body_en}}" />
+                                                <textarea required name="body_en" class="form-control mb-2" placeholder="وصف العرض (بالإنجليزي)">{{$row->body_en}}</textarea>
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
                                             {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}

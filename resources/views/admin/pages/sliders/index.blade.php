@@ -4,7 +4,6 @@
     <link href="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet"
           type="text/css"/>
 @endsection
-
 @section('content')
 
     <!--begin::Content-->
@@ -120,9 +119,11 @@
 {{--                    </div>--}}
                     <!--end::Wrapper-->
                     <!--begin::Button-->
-                    <a href="{{route('admin.sliders.create')}}" class="btn btn-sm btn-secondary"
+                    <a href="{{route('admin.sliders.create')}}" class="btn btn-sm btn-success"
 {{--                       data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id=""--}}
-                    >أضف</a>
+                    >
+                        <i class="fa fa-plus"></i>
+                        أضف</a>
                     <!--end::Button-->
                 </div>
                 <!--end::Actions-->
@@ -233,7 +234,7 @@
             $("#slider_table").DataTable({
                 "dom": "<'card-header border-0 p-0 pt-6'<'card-title' <'d-flex align-items-center position-relative my-1'f> r> <'card-toolbar' <'d-flex justify-content-end add_button'B> r>>  <'row'l r> <''t><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
                 processing: true,
-                bLengthChange: false,
+                bLengthChange: true,
                 serverSide: true,
                 autoWidth: false,
                 responsive: true,

@@ -17,12 +17,12 @@ class MealImage extends Model
         return asset('uploads/default.jpg');
     }
 
-    public function setImageAttribute($image)
-    {
-        if (is_file($image)) {
-            $imageFields = upload($image, 'Meal');
-            $this->attributes['file'] = $imageFields;
-        }
-
-    }
+//    public function setImageAttribute($image)
+//    {
+//        if (is_file($image)) {
+//            $imageFields = upload($image, 'Meal');
+//            $this->attributes['file'] = $imageFields;
+//        }
+//
+//    }
 }

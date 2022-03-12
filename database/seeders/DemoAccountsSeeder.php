@@ -57,5 +57,22 @@ class DemoAccountsSeeder extends Seeder
                 'provider' => 'other',
             ]);
         }
+        //ngar account
+        $exists_cust = User::where('phone', '01030407100')->first();
+        if (!$exists_cust) {
+            $customer = User::updateOrCreate([
+                'name' => 'mostafa elnagar',
+                'email' => 'mostafa@demo.com',
+                'phone' => '01030407100',
+                'password' => '123456',
+                'gender' => 'male',
+                'age' => '26',
+                'weight' => '76',
+                'height' => '176',
+                'active' => 1,
+                'fcm_token' => '05f92d71a159c9a8',
+                'provider' => 'other',
+            ]);
+        }
     }
 }

@@ -158,15 +158,13 @@ class OfferController extends Controller
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
 //                if ($auth->can('sliders.update')) {
-                    $buttons .= '<a href="'.route('admin.offers.edit',[$row->id]).'" class="btn btn-secondary btn-sm m-1">
+                    $buttons .= '<a href="'.route('admin.offers.edit',[$row->id]).'" class="btn btn-primary btn-sm btn-circle m-1" title="تعديل">
                             <i class="fa fa-edit"></i>
-                            تعديل
                         </a>';
 //                }
 //                if ($auth->can('sliders.delete')) {
-                    $buttons .= '<a class="btn btn-secondary btn-sm delete m-1" data-id="'.$row->id.'" >
+                    $buttons .= '<a class="btn btn-danger btn-sm delete btn-circle m-1" data-id="'.$row->id.'" title="حذف">
                             <i class="fa fa-trash"></i>
-                            حذف
                         </a>';
 //                }
                 return $buttons;

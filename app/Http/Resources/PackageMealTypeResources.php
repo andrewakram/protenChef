@@ -18,6 +18,7 @@ class PackageMealTypeResources extends JsonResource
             'id' => $this->id,
             'title' => $this->MealType->title,
             'image' => $this->MealType->image,
+
         ];
     }
 }

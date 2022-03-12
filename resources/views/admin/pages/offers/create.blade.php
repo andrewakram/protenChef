@@ -31,7 +31,7 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.offers')}}" class="text-muted text-hover-primary">العرض</a>
+                            <a href="{{route('admin.offers')}}" class="text-muted text-hover-primary">العروض</a>
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -241,7 +241,7 @@
                                                 <label class="required form-label">وصف العرض (بالعربي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" required name="body_ar" class="form-control mb-2" placeholder="وصف العرض (بالعربي)" value="" />
+                                                <textarea required name="body_ar" class="form-control mb-2" placeholder="وصف العرض (بالعربي)"></textarea>
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
                                             {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}
@@ -253,7 +253,7 @@
                                                 <label class="required form-label">وصف العرض (بالإنجليزي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" required name="body_en" class="form-control mb-2" placeholder="وصف العرض (بالإنجليزي)" value="" />
+                                                <textarea required name="body_en" class="form-control mb-2" placeholder="وصف العرض (بالإنجليزي)" ></textarea>
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
                                             {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}

@@ -3,6 +3,16 @@
 <link href="{{asset('admin/dist/assets/css/style.bundle.rtl.css')}}" rel="stylesheet" type="text/css" />
 
 <style>
+    .app-f-color {
+        color: #F48120 !important;
+    }
+    .app-bg-color {
+        background-color: #F48120 !important;
+    }
+    .svg-icon-orange {
+        transition: fill 0.3s ease;
+        fill: #F48120 !important;
+    }
     @font-face {
         font-family: 'din';
         src: url({{asset('din.ttf')}}) format('opentype');
@@ -39,6 +49,19 @@
     .aside.aside-dark .aside-logo {
         border: 7px solid #000000 !important;
         border-radius: 5px;
+    }
+    .btn-danger{
+        background-color: #ea4335!important;
+    }
+    .btn-warning{
+        background-color: #fbbc05!important;
+    }
+    .btn-success{
+        background-color: #0ac630!important;
+    }
+    .page-link{
+        background-color: rgba(255, 136, 33, 0.71) !important;
+        color: #3F4254!important;
     }
 
 </style>

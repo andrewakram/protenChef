@@ -9,6 +9,8 @@ class PackageTypePrice extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['package_id','package_type_id','active','price'];
+
     public function scopeActive($query)
     {
         return $query->where('active', 1);
