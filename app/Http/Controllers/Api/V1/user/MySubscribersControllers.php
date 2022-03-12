@@ -7,12 +7,16 @@ use App\Http\Resources\MealTypeResources;
 use App\Http\Resources\OrderAdditionResources;
 use App\Http\Resources\OrderMealsResources;
 use App\Http\Resources\OrdersResources;
+use App\Models\Meal;
 use App\Models\MealType;
 use App\Models\Order;
 use App\Models\OrderAddition;
 use App\Models\OrderMeal;
+use App\Models\PackageMeal;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MySubscribersControllers extends Controller
 {
@@ -81,11 +85,17 @@ class MySubscribersControllers extends Controller
         $data['total_price'] = $total_price;
         $frozen_meals = OrderMeal::where('order_id', $id)
             ->where('old_date', '!=', null)
-            ->select('id', 'date', 'old_date')
+            ->select('date', 'old_date','order_id')
+            ->groupBy('date', 'old_date','order_id')
             ->get()
-            ->makeHidden(['meal_title', 'meal_body']);
+            ->makeHidden(['meal_title', 'meal_body'])
+//           ->values()
+        ;
 
         $data['frozen_meals'] = $frozen_meals;
+        $freeze_days = (int)Setting::where('key', "freeze_days")->first()->value;
+
+        $data['remain_frozen_meals'] = $freeze_days - $frozen_meals->count();
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
 
@@ -108,4 +118,85 @@ class MySubscribersControllers extends Controller
 
 
     }
+
+    public function OrderDays(Request $request, $id)
+    {
+        $order_days = Order::whereId($id)->with('OrderMeals', function ($q) {
+            $q->where('status', 'pending');
+
+        })->first();
+
+        $dates = [];
+        foreach ($order_days->OrderMeals as $orderMeal) {
+            if (!in_array($orderMeal->date, $dates)) {
+                array_push($dates, $orderMeal->date);
+            }
+
+        }
+
+        return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
+
+
+    }
+
+
+    public function freezeDay(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'order_id' => 'required|exists:orders,id'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+        }
+        $order_days = Order::whereId($request->order_id)->with('OrderMeals', function ($q) {
+            $q->where('status', 'pending');
+
+        })->first();
+
+        $dates = [];
+        foreach ($order_days->OrderMeals as $orderMeal) {
+            if (!in_array($orderMeal->date, $dates)) {
+                array_push($dates, $orderMeal->date);
+            }
+
+        }
+
+        $validator = Validator::make($request->all(), [
+            'old_date' => 'required|in:' . implode(',', $dates),
+            'new_date' => 'required|not_in:' . implode(',', $dates),
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+        }
+
+        $orderMeals = OrderMeal::where('order_id', $request->order_id)
+            ->where('date', $request->old_date)
+            ->get();
+
+        foreach ($orderMeals as $orderMeal) {
+            $weekNumber = Carbon::parse($request->new_date)->weekNumberInMonth; //1   //2  //3   //4
+            $is_odd = $weekNumber % 2;
+            $is_odd == 0 ? $weekNumber = 2 : $weekNumber = 1;
+            $package_type_prices = PackageMeal::where('package_id', $orderMeal->Order->package_id)
+                ->where('meal_type_id', $orderMeal->meal_type_id)
+                ->where('day', Carbon::parse($request->new_date)->format('l'))
+                ->where('week', $weekNumber)
+                ->with('Meal')
+                ->first();
+
+            $meal = Meal::find($package_type_prices->meal_id);
+            $orderMeal->meal_id = $meal->id;
+            $orderMeal->meal_title_ar = $meal->title_ar;
+            $orderMeal->meal_title_en = $meal->title_en;
+            $orderMeal->meal_body_ar = $meal->body_ar;
+            $orderMeal->meal_body_en = $meal->body_en;
+            $orderMeal->old_date = $request->old_date;
+            $orderMeal->date = $request->new_date;
+            $orderMeal->save();
+        }
+        return response()->json(msg($request, success(), trans('lang.success')));
+
+    }
+
+
 }

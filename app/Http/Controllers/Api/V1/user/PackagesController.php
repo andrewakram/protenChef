@@ -121,9 +121,7 @@ class PackagesController extends Controller
                     return $item;
                 });
             foreach ($package_type_prices as $row) {
-
                 $output[] = $row;
-
             }
         }
 

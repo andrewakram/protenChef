@@ -20,7 +20,6 @@ class OrderMealsResources extends JsonResource
             'id' => $this->id,
             'status' => $this->status,
             'meal_title' => $this->meal_title,
-            'meal_body' => $this->meal_body,
             'image' => $this->Meal ? $this->Meal->Image->image : asset('uploads/default.jpg'),
             'date' => Carbon::parse($this->date)->translatedFormat('d/m/Y l'),
 

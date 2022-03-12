@@ -78,7 +78,9 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
         //order details
         Route::get('/order-details/{order_id}/{meal_type_id?}', [MySubscribersControllers::class, 'OrderDetails']);
         //order details
-        Route::get('/cancel-order/{order_id}/', [MySubscribersControllers::class, 'cancelOrder']);
+        Route::get('/cancel-order/{order_id}', [MySubscribersControllers::class, 'cancelOrder']);
+        Route::get('/order-days/{order_id}', [MySubscribersControllers::class, 'OrderDays']);
+        Route::post('/freeze-day', [MySubscribersControllers::class, 'freezeDay']);
 
     });
 
