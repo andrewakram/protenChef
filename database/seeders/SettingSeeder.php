@@ -88,6 +88,9 @@ class SettingSeeder extends Seeder
             ], [
                 'key' => 'working_hours_en',
                 'value' => 'From 9 am to 11 amً',
+            ], [
+                'key' => 'freeze_days',
+                'value' => "5",
             ],
 
         ];

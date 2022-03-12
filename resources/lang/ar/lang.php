@@ -29,7 +29,8 @@ return [
     'you_should_choose_valid_meal' => 'يجب اختيار وجبة صحيحه',
      'old_passwordError' => 'كلمة المرور القديمة غير صحيحه',
     'passwordChangedSuccess' => 'تم تغيير كلمة المرور بنجاح',
+     'not_found' => 'غير موجود',
     'coupon_used_before' => 'تم استخدام الكوبون من قبل',
     'should_have_min_order_cost' => 'يجب ان يكون سعر الباقة اكبر من السعر الادنى للكوبون',
     'you_should_choose_valid_coupon' => 'يجب اختيار كوبون صحيح',
-];
+ ];
