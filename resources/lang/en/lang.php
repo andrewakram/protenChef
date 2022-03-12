@@ -28,6 +28,6 @@ return [
     'you_should_choose_valid_meal' => 'you should choose valid meal',
      'old_passwordError' => 'old password incorrect',
     'passwordChangedSuccess' => 'password Changed successfully',
-    'passwordChangedSuccess' => 'password Changed Success',
+    'not_found' => 'not found',
 
 ];

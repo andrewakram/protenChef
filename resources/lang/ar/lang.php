@@ -29,4 +29,5 @@ return [
     'you_should_choose_valid_meal' => 'يجب اختيار وجبة صحيحه',
      'old_passwordError' => 'كلمة المرور القديمة غير صحيحه',
     'passwordChangedSuccess' => 'تم تغيير كلمة المرور بنجاح',
+    'not_found' => 'غير موجود',
 ];

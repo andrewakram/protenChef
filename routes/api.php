@@ -69,6 +69,10 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
 //        subscribtions
         Route::get('/recent-subscribes', [MySubscribersControllers::class, 'RecentSubscribes']);
         Route::get('/previous-subscribes', [MySubscribersControllers::class, 'previousSubscribes']);
+        //order details
+        Route::get('/order-details/{order_id}/{meal_type_id?}', [MySubscribersControllers::class, 'OrderDetails']);
+        //order details
+        Route::get('/cancel-order/{order_id}/', [MySubscribersControllers::class, 'cancelOrder']);
 
     });
 

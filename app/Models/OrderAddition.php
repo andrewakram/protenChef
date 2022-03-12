@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class OrderAddition extends Model
 {
     use HasFactory;
+
+    public function mealType(){
+        return $this->belongsTo(MealType::class,'meal_type_id');
+    }
 }
