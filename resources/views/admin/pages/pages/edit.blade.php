@@ -194,7 +194,7 @@
 
                                             <div class="mb-10 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required form-label">وصف الوجبات (بالعربي)</label>
+                                                <label class="required form-label">وصف الصفحات (بالعربي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <textarea id="editor1" name="body_ar"
@@ -208,7 +208,7 @@
 
                                             <div class="mb-10 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required form-label">وصف الوجبات (بالإنجليزي)</label>
+                                                <label class="required form-label">وصف الصفحات (بالإنجليزي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <textarea id="editor2" name="body_en"
