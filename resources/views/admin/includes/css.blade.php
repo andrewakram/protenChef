@@ -3,6 +3,16 @@
 <link href="{{asset('admin/dist/assets/css/style.bundle.rtl.css')}}" rel="stylesheet" type="text/css" />
 
 <style>
+    .app-f-color {
+        color: #F48120 !important;
+    }
+    .app-bg-color {
+        background-color: #F48120 !important;
+    }
+    .svg-icon-orange {
+        transition: fill 0.3s ease;
+        fill: #F48120 !important;
+    }
     @font-face {
         font-family: 'din';
         src: url({{asset('din.ttf')}}) format('opentype');
