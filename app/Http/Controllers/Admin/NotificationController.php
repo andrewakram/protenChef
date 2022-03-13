@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Coupon;
-use App\Models\CouponUser;
+use App\Models\Notification;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
@@ -12,63 +12,64 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class CouponController extends Controller
+class NotificationController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.coupons.index');
+        return view('admin.pages.notifications.index');
     }
 
     public function create()
     {
         $users = User::orderBy('id','desc')->select('id','name','phone')->get();
-        return view('admin.pages.coupons.create',compact('users'));
+        return view('admin.pages.notifications.create',compact('users'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'code' => 'required',
-            'type' => 'required|in:fixed,percent',
-            'amount' => 'required|numeric|min:1',
-            'min_order_total' => 'required|numeric|min:1',
-            'expired_at' => 'required',
+            'title' => 'required',
+            'body' => 'required',
+            'model_type' => 'required|in:other,Coupon,Order,Meal,Offer',
             'user_id' => 'sometimes',
+            'model_id' => 'sometimes',
         ]);
         if (!is_array($validator) && $validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }
 
-        $row = Coupon::create([
-            'code' => $request->code,
-            'type' => $request->type,
-            'amount' => $request->amount,
-            'min_order_total' => $request->min_order_total,
-            'expired_at' => $request->expired_at,
-        ]);
         if(sizeof($request->user_id) > 0){
             foreach ($request->user_id as $user_id){
-                CouponUser::create([
-                    'user_id' => $user_id ,
-                    'coupon_id' => $row->id ,
-                    'used' => 0,
+                Notification::create([
+                    'title' => $request->title,
+                    'body' => $request->body,
+                    'model_type' => $request->model_type,
+                    'model_id' => isset($request->model_id) ? $request->model_id : NULL,
+                    'user_id' => $request->model_id,
                 ]);
             }
+        }else{
+            Notification::create([
+                'title' => $request->title,
+                'body' => $request->body,
+                'model_type' => $request->model_type,
+                'model_id' => $request->model_id,
+            ]);
         }
             session()->flash('success', 'تم الإضافة بنجاح');
-        return redirect()->route('admin.coupons');
+        return redirect()->route('admin.notifications');
     }
 
     public function edit($id)
     {
         $users = User::orderBy('id','desc')->select('id','name','phone')->get();
-        $coupon_users_array = CouponUser::where('coupon_id',$id)->pluck('user_id')->toArray();
-        $row = Coupon::where('id',$id)->first();
+        $coupon_users_array = NotificationUser::where('coupon_id',$id)->pluck('user_id')->toArray();
+        $row = Notification::where('id',$id)->first();
         if (!$row){
             session()->flash('error', 'الحقل غير موجود');
             return redirect()->back();
         }
-        return view('admin.pages.coupons.edit',compact('row','users','coupon_users_array'));
+        return view('admin.pages.notifications.edit',compact('row','users','coupon_users_array'));
     }
 
     public function update(Request $request)
@@ -90,12 +91,12 @@ class CouponController extends Controller
 //                unlinkFile($city->getOriginal('image'), 'cities');
 //            }
 //        }
-        $row = Coupon::whereId($request->row_id)->first();
+        $row = Notification::whereId($request->row_id)->first();
         $row->update($request->except('row_id','_token'));
         $row->save();
 
         session()->flash('success', 'تم التعديل بنجاح');
-        return redirect()->route('admin.coupons');
+        return redirect()->route('admin.notifications');
     }
 
     public function delete(Request $request)
@@ -107,7 +108,7 @@ class CouponController extends Controller
             return response()->json(['message' => 'Failed']);
         }
 
-        $row = Coupon::where('id',$request->row_id)->first();
+        $row = Notification::where('id',$request->row_id)->first();
 //        if (!empty($city->getOriginal('image'))){
 //            unlinkFile($city->getOriginal('image'), 'cities');
 //        }
@@ -130,7 +131,7 @@ class CouponController extends Controller
     }
     public function destroy($id)
     {
-        $row = Coupon::where('id',$id)->first();
+        $row = Notification::where('id',$id)->first();
 //        if (!empty($city->getOriginal('image'))){
 //            unlinkFile($city->getOriginal('image'), 'cities');
 //        }
@@ -140,26 +141,28 @@ class CouponController extends Controller
     public function getData()
     {
         $auth = Auth::guard('admin')->user();
-        $model = Coupon::query();
+        $model = Notification::query();
 
         return DataTables::eloquent($model)
             ->addIndexColumn()
-            ->editColumn('image',function ($row){
-                return '<a class="symbol symbol-50px"><span class="symbol-label" style="background-image:url('.$row->image.');"></span></a>';
-            })
             ->editColumn('type',function ($row){
-                if ($row->type == "fixed"){
-                    return "<b class='badge badge-success'>خصم ثابت</b>";
-                }else{
-                    return "<b class='badge badge-danger'>خصم نسبة</b>";
+//                ('other', 'Coupon', 'Order', 'Meal', 'Offer')
+                if ($row->model_type == "other"){
+                    return "<b class='badge badge-dark'>بدون</b>";
+                }elseif($row->model_type == "Coupon"){
+                    return "<b class='badge badge-success'>كوبون</b>";
+                }elseif($row->model_type == "Order"){
+                    return "<b class='badge badge-warning'>طلب</b>";
+                }elseif($row->model_type == "Meal"){
+                    return "<b class='badge badge-info'>وجبة</b>";
+                }elseif($row->model_type == "Offer"){
+                    return "<b class='badge badge-danger'>عرض</b>";
                 }
             })
-            ->editColumn('amount',function ($row){
-                return "<b class='badge badge-dark'>$row->amount </b> " ." ريال";
+            ->editColumn('created_at',function ($row){
+                return Carbon::parse($row->created_at)->format("Y-m-d (H:i) A");
             })
-            ->editColumn('min_order_total',function ($row){
-                return "<b class='badge badge-dark'>$row->min_order_total </b> " ." ريال";
-            })
+
 //            ->addColumn('select',function ($row){
 //                return '<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
 //                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="'.$row->id.'" />
@@ -168,7 +171,7 @@ class CouponController extends Controller
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
 //                if ($auth->can('sliders.update')) {
-//                    $buttons .= '<a href="'.route('admin.coupons.edit',[$row->id]).'" class="btn btn-primary btn-circle btn-sm m-1" title="تعديل">
+//                    $buttons .= '<a href="'.route('admin.notifications.edit',[$row->id]).'" class="btn btn-primary btn-circle btn-sm m-1" title="تعديل">
 //                            <i class="fa fa-edit"></i>
 //                        </a>';
 //                }
@@ -179,7 +182,7 @@ class CouponController extends Controller
 //                }
                 return $buttons;
             })
-            ->rawColumns(['actions','type','amount','min_order_total'])
+            ->rawColumns(['actions','type','created_at'])
             ->make();
 
     }

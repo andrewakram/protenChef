@@ -15,7 +15,7 @@
                 <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
-                        إضافة كوبون خصم
+                        إضافة إشعار
                     </h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
@@ -31,7 +31,7 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.coupons')}}" class="text-muted text-hover-primary">كوبونات الخصم</a>
+                            <a href="{{route('admin.notifications')}}" class="text-muted text-hover-primary">الإشعارات</a>
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -51,79 +51,10 @@
             <!--begin::Container-->
             <div id="kt_content_container" class="container-xxl">
                 <!--begin::Form-->
-                <form action="{{route('admin.coupons.store')}}" method="post" enctype="multipart/form-data" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10" >
+                <form action="{{route('admin.notifications.store')}}" method="post" enctype="multipart/form-data" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10" >
                     @csrf
                     <!--begin::Aside column-->
                     <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px">
-                        <!--begin::date-->
-                        <div class="card card-flush py-4">
-                            <!--begin::Card header-->
-                            <div class="card-header">
-                                <!--begin::Card title-->
-                                <div class="card-title">
-                                    <h2>تاريخ إنتهاء الصلاحية</h2>
-                                </div>
-                                <!--end::Card title-->
-                                <!--begin::Card toolbar-->
-                                <div class="card-toolbar">
-                                    <div class="rounded-circle bg-danger w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
-                                </div>
-                                <!--begin::Card toolbar-->
-                            </div>
-                            <!--end::Card header-->
-                            <!--begin::Card body-->
-                            <div class="card-body pt-0">
-                                <!--begin::Input-->
-                                <!--begin::Input-->
-                                <input class="form-control form-control-solid" type="date"  name="expired_at" placeholder="إحتر التاريخ" id="kt_calendar_datepicker_end_date" />                                <!--end::Input-->                                <!--end::Input-->
-                                <!--begin::Description-->
-                            {{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
-                            <!--end::Description-->
-                                <!--begin::Datepicker-->
-                            {{--                                <div class="d-none mt-10">--}}
-                            {{--                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>--}}
-                            {{--                                    <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" />--}}
-                            {{--                                </div>--}}
-                            <!--end::Datepicker-->
-                            </div>
-                            <!--end::Card body-->
-                        </div>
-                        <!--end::date-->
-
-                        <!--begin::date-->
-                        <div class="card card-flush py-4">
-                            <!--begin::Card header-->
-                            <div class="card-header">
-                                <!--begin::Card title-->
-                                <div class="card-title">
-                                    <h2>قيمة الخصم</h2>
-                                </div>
-                                <!--end::Card title-->
-                                <!--begin::Card toolbar-->
-                                <div class="card-toolbar">
-                                    <div class="rounded-circle bg-primary w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
-                                </div>
-                                <!--begin::Card toolbar-->
-                            </div>
-                            <!--end::Card header-->
-                            <!--begin::Card body-->
-                            <div class="card-body pt-0">
-                                <!--begin::Input-->
-                                <!--begin::Input-->
-                                <input type="number" required name="amount" class="form-control mb-2" placeholder="قيمة الكوبون" value="" />
-                                <!--begin::Description-->
-                            {{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
-                            <!--end::Description-->
-                                <!--begin::Datepicker-->
-                            {{--                                <div class="d-none mt-10">--}}
-                            {{--                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>--}}
-                            {{--                                    <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" />--}}
-                            {{--                                </div>--}}
-                            <!--end::Datepicker-->
-                            </div>
-                            <!--end::Card body-->
-                        </div>
-                        <!--end::date-->
 
                         <!--begin::Status-->
                         <div class="card card-flush py-4">
@@ -131,12 +62,12 @@
                             <div class="card-header">
                                 <!--begin::Card title-->
                                 <div class="card-title">
-                                    <h2>نوع الخصم</h2>
+                                    <h2>نوع الإشعار</h2>
                                 </div>
                                 <!--end::Card title-->
                                 <!--begin::Card toolbar-->
                                 <div class="card-toolbar">
-                                    <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+                                    <div class="rounded-circle bg-info w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
                                 </div>
                                 <!--begin::Card toolbar-->
                             </div>
@@ -144,21 +75,24 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <select name="type" required class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="إختر الحالة" id="kt_ecommerce_add_product_status_select">
+                                <select name="model_type" required class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="إختر نوع الإشعار" id="kt_ecommerce_add_product_status_select">
                                     <option></option>
-                                    <option value="fixed" selected="selected">خصم ثابت</option>
-                                    <option value="percent">خصم نسبة</option>
+                                    <option value="other" selected="selected">بدون</option>
+                                    <option value="Coupon">خال بكوبون</option>
+                                    <option value="Order">خاص بطلب</option>
+                                    <option value="Meal">خاص بوجبة</option>
+                                    <option value="Offer">خاص بعرض</option>
                                 </select>
                                 <!--end::Select2-->
                                 <!--begin::Description-->
-{{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
-                                <!--end::Description-->
+                            {{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
+                            <!--end::Description-->
                                 <!--begin::Datepicker-->
-{{--                                <div class="d-none mt-10">--}}
-{{--                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>--}}
-{{--                                    <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" />--}}
-{{--                                </div>--}}
-                                <!--end::Datepicker-->
+                            {{--                                <div class="d-none mt-10">--}}
+                            {{--                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>--}}
+                            {{--                                    <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" />--}}
+                            {{--                                </div>--}}
+                            <!--end::Datepicker-->
                             </div>
                             <!--end::Card body-->
                         </div>
@@ -173,7 +107,7 @@
                             <!--begin:::Tab item-->
                             <li class="nav-item">
                                 <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">
-                                    بيانات كوبون الخصم
+                                    بيانات الإشعار
                                 </a>
                             </li>
                             <!--end:::Tab item-->
@@ -193,46 +127,22 @@
                                     <div class="card card-flush py-4">
                                         <div class="card-header">
                                             <div class="card-title">
-                                                <h2>بيانات كوبون الخصم</h2>
+                                                <h2>بيانات الإشعار</h2>
                                             </div>
                                         </div>
                                         <br>
                                         <br>
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
-                                            <!--begin::Input group-->
-                                            <div class="mb-10 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="required form-label">كود الخصم</label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" required name="code" class="form-control mb-2" placeholder="كود الخصم" value="" />
-                                                <!--end::Input-->
-                                                <!--begin::Description-->
-</div>
-                                            <!--end::Input group-->
 
-                                            <div class="mb-10 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="required form-label">أقل قيمة للطلب لتطبيق الخصم</label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="number" required name="min_order_total" class="form-control mb-2" placeholder="أقل قيمة للطلب لتطبيق الخصم" value="" />
-                                                <!--end::Input-->
-                                                <!--begin::Description-->
-                                            {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}
-                                            <!--end::Description-->
-                                            </div>
-                                            <!--end::Input group-->
-
-                                            <div class="mb-10 fv-row">
+                                            <div class="mb-10 fv-row" >
                                                 <!--begin::Label-->
                                                 <label class=" form-label">إختر المستخدمين ]إذا كنت تريد إرسال الكوبون لمستخدم بعينه[</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <div class="row">
-                                                    <div class="col-lg-8">
-                                                        <select name="user_id[]" class="form-select mb-2 js-example-basic-multiple" multiple="multiple" data-control="select2" data-hide-search="false" data-placeholder="إختر المستخدمين" id="kt_ecommerce_add_product_status_select">
+                                                    <div class="col-lg-6" >
+                                                        <select name="user_id[]" class="form-select mb-2 js-example-basic-multiple" multiple="multiple" data-control="select2" data-hide-search="false" data-placeholder="إختر المستخدمين" >
                                                             <option></option>
                                                             @foreach($users as $user)
                                                                 <option value="{{$user->id}}" >{{$user->name}} ( {{$user->phone}} )</option>
@@ -244,9 +154,35 @@
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
                                                 <div class="text-danger fs-7">ملحوظة: إذا لم تقم بتحديد المستخدمين سيتم إرسال الكوبون لجميع المستخدمين</div>
+                                                <!--end::Description-->
+                                            </div>
+                                            <!--end::Input group-->
+
+                                            <!--begin::Input group-->
+                                            <div class="mb-10 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">العنوان</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" required name="title" class="form-control mb-2" placeholder="العنوان" value="" />
+                                                <!--end::Input-->
+                                                <!--begin::Description-->
+</div>
+                                            <!--end::Input group-->
+
+                                            <div class="mb-10 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">المحتوي</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <textarea required name="body" class="form-control mb-2" placeholder="المحتوي"></textarea>
+                                                <!--end::Input-->
+                                                <!--begin::Description-->
+                                            {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}
                                             <!--end::Description-->
                                             </div>
                                             <!--end::Input group-->
+
 
                                         </div>
                                         <!--end::Card header-->
@@ -260,7 +196,7 @@
                         <!--end::Tab content-->
                         <div class="d-flex justify-content-end">
                             <!--begin::Button-->
-                            <a href="{{route('admin.coupons')}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">عودة</a>
+                            <a href="{{route('admin.notifications')}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">عودة</a>
                             <!--end::Button-->
                             <!--begin::Button-->
                             <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-secondary">

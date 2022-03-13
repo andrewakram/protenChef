@@ -93,6 +93,18 @@ Route::group([
                 Route::post('/delete-multi', 'CouponController@deleteMulti')->name('.deleteMulti');
             });
 
+            Route::group(['prefix' => 'notifications', 'as' => '.notifications'], function () {
+                Route::get('/', 'NotificationController@index');
+                Route::get('getData', 'NotificationController@getData')->name('.datatable');
+                Route::get('/create', 'NotificationController@create')->name('.create');
+                Route::post('/store', 'NotificationController@store')->name('.store');
+                Route::get('/edit/{id}', 'NotificationController@edit')->name('.edit');
+                Route::post('/update', 'NotificationController@update')->name('.update');
+                Route::get('/show/{id}', 'NotificationController@show')->name('.show');
+                Route::post('/delete', 'NotificationController@delete')->name('.delete');
+                Route::post('/delete-multi', 'NotificationController@deleteMulti')->name('.deleteMulti');
+            });
+
             Route::group(['prefix' => 'meal-types', 'as' => '.meal-types'], function () {
                 Route::get('/{type}', 'MealTypeController@index');
                 Route::get('getData/{type}', 'MealTypeController@getData')->name('.datatable');
