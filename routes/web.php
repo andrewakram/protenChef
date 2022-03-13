@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ZoneController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,7 @@ Route::group([
         Route::get('home', 'HomeController@index')->name('home');
     });
 
-    Route::group(['namespace' => 'Admin','as' => 'admin'], function () {
+    Route::group(['namespace' => 'Admin', 'as' => 'admin'], function () {
         Route::get('login', 'AuthController@login_view')->name('login-view');
         Route::post('login', 'AuthController@login')->name('.login');
         Route::get('logout', 'AuthController@logout')->name('.logout');
@@ -151,6 +153,23 @@ Route::group([
                 Route::get('/show/{id}', 'PackageTypePriceController@show')->name('.show');
                 Route::post('/delete', 'PackageTypePriceController@delete')->name('.delete');
                 Route::post('/delete-multi', 'PackageTypePriceController@deleteMulti')->name('.deleteMulti');
+            });
+
+            Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {
+                Route::get('/', [SettingController::class, 'index']);
+                Route::group(['prefix' => 'zones', 'as' => '.zones'], function () {
+                    Route::get('/', [ZoneController::class, 'index']);
+                    Route::get('getData', [ZoneController::class, 'getData'] )->name('.datatable');
+                    Route::post('/store', [ZoneController::class, 'store'])->name('.store');
+                    Route::get('get-all-zone-cordinates/{id?}', [ZoneController::class, 'get_all_zone_cordinates'])->name('.zoneCoordinates');
+                    Route::post('search', [ZoneController::class, 'search'] )->name('.search');
+
+                    Route::get('/edit/{id}', [ZoneController::class, 'edit'])->name('.edit');
+                    Route::post('/update/{id}', [ZoneController::class, 'update'])->name('.update');
+
+                    Route::post('/delete',  [ZoneController::class, 'delete'])->name('.delete');
+
+                });
             });
         });
 
