@@ -89,7 +89,7 @@ class PackagesController extends Controller
         $validator = Validator::make($request->all(), [
             'meal_type_id' => 'required|exists:meal_types,id',
             'package_type_price_id' => 'required|exists:package_type_prices,id',
-            'selected_date' => 'required|after:' . $two_dayes
+            'selected_date' => 'required|after_or_equal:' . $two_dayes
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
