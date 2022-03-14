@@ -94,6 +94,9 @@ class PackagesController extends Controller
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
+        //main meals
+        $main_meal_types = PackageMealType::where('price', null)->where('package_type_price_id', $request->package_type_price_id)->get();
+        $data['main_meal_types'] = (PackageMealTypeResources::collection($main_meal_types));
 
         //create selected period
         //generate finall day
@@ -126,8 +129,8 @@ class PackagesController extends Controller
             }
         }
 
-        $data = PackageMealResources::customCollection($output, $dates);
-        return response()->json(msgdata($request, success(), trans('lang.success'), $data->values()));
+        $data['meals'] = PackageMealResources::customCollection($output, $dates)->values();
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
 
 
