@@ -85,6 +85,7 @@ class PackagesController extends Controller
 
     public function package_menu_meals(Request $request)
     {
+        $lang = request()->header('lang');
         $two_dayes = Carbon::now()->addDays(2);
         $validator = Validator::make($request->all(), [
             'meal_type_id' => 'required|exists:meal_types,id',
@@ -114,14 +115,21 @@ class PackagesController extends Controller
             $weekNumber = Carbon::parse($date)->weekNumberInMonth; //1   //2  //3   //4
             $is_odd = $weekNumber % 2;
             $is_odd == 0 ? $weekNumber = 2 : $weekNumber = 1;
+            if($lang == 'ar'){
+                $selected_date = \Carbon\Carbon::parse($date);
+                $inserted_date = $selected_date->translatedFormat('l');
+            }else{
+                $inserted_date = $date ;
+            }
+
             $package_type_prices =
                 PackageMeal::where('package_id', $package_type_price->package_id)
                     ->where('meal_type_id', $request->meal_type_id)
                     ->where('day', Carbon::parse($date)->format('l'))
                     ->where('week', $weekNumber)
                     ->with('Meal')
-                    ->get()->map(function ($item) use ($date) {
-                        $item->date = $date;
+                    ->get()->map(function ($item) use ($inserted_date) {
+                        $item->date = $inserted_date;
                         return $item;
                     });
             foreach ($package_type_prices as $row) {
