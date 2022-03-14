@@ -85,15 +85,19 @@ class PackagesController extends Controller
 
     public function package_menu_meals(Request $request)
     {
-        $two_dayes = Carbon::now()->addDay(2);
+        $lang = request()->header('lang');
+        $two_dayes = Carbon::now()->addDays(2);
         $validator = Validator::make($request->all(), [
             'meal_type_id' => 'required|exists:meal_types,id',
             'package_type_price_id' => 'required|exists:package_type_prices,id',
-            'selected_date' => 'required|after:' . $two_dayes
+            'selected_date' => 'required|after_or_equal:' . $two_dayes
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
+        //main meals
+        $main_meal_types = PackageMealType::where('price', null)->where('package_type_price_id', $request->package_type_price_id)->get();
+        $data['main_meal_types'] = (PackageMealTypeResources::collection($main_meal_types));
 
         //create selected period
         //generate finall day
@@ -111,14 +115,21 @@ class PackagesController extends Controller
             $weekNumber = Carbon::parse($date)->weekNumberInMonth; //1   //2  //3   //4
             $is_odd = $weekNumber % 2;
             $is_odd == 0 ? $weekNumber = 2 : $weekNumber = 1;
+            if($lang == 'ar'){
+                $selected_date = \Carbon\Carbon::parse($date);
+                $inserted_date = $selected_date->translatedFormat('l');
+            }else{
+                $inserted_date = $date ;
+            }
+
             $package_type_prices =
                 PackageMeal::where('package_id', $package_type_price->package_id)
                     ->where('meal_type_id', $request->meal_type_id)
                     ->where('day', Carbon::parse($date)->format('l'))
                     ->where('week', $weekNumber)
                     ->with('Meal')
-                    ->get()->map(function ($item) use ($date) {
-                        $item->date = $date;
+                    ->get()->map(function ($item) use ($inserted_date) {
+                        $item->date = $inserted_date;
                         return $item;
                     });
             foreach ($package_type_prices as $row) {
@@ -126,8 +137,8 @@ class PackagesController extends Controller
             }
         }
 
-        $data = PackageMealResources::customCollection($output, $dates)->collection->groupBy('date');
-        return response()->json(msgdata($request, success(), trans('lang.success'), $data->values()));
+        $data['meals'] = PackageMealResources::customCollection($output, $dates)->values();
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
 
 
