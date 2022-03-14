@@ -33,6 +33,26 @@ function send_notification($title, $body, $details, $image, $data, $token)
     return $result;
 }
 
+if (!function_exists('settings')) {
+    function settings($key)
+    {
+        $result = App\Models\Setting::select('id','key','value')->where('id',$key)->first();
+        return $result['value'];
+    }
+}
+
+if (!function_exists('format_coordiantes')) {
+    function format_coordiantes($coordinates)
+    {
+        $data = [];
+        foreach($coordinates as $coord)
+        {
+            $data[] = (object)['lat'=>$coord->getlat(), 'lng'=>$coord->getlng()];
+        }
+        return $data;
+    }
+}
+
 
 if (!function_exists('sendResponse')) {
     function sendResponse($status = null, $msg = null, $data = null)

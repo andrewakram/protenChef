@@ -316,7 +316,7 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <!--begin::Advance Table Widget 4-->
                         <div class="card card-custom card-stretch gutter-b">
                             <!--begin::Header-->
@@ -325,7 +325,7 @@
                                     <span class="card-label font-weight-bolder text-dark">أحدث الطلبات</span>
                                 </h3>
                                 <div class="card-toolbar">
-                                    <a href="#" class="btn btn-warning font-weight-bolder font-size-sm mr-3">كل
+                                    <a href="#" style="color: white;" class="btn app-bg-color font-weight-bolder font-size-sm mr-3">كل
                                         الطلبات</a>
                                 </div>
                             </div>
@@ -370,54 +370,6 @@
                             <!--end::Body-->
                         </div>
                         <!--end::Advance Table Widget 4-->
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card card-custom card-stretch gutter-b">
-                            <div class="card-header border-0">
-                                <h3 class="card-title font-weight-bolder text-dark">احدث العملاء</h3>
-                                <div class="card-toolbar">
-                                    <div class="dropdown dropdown-inline">
-                                        <a href="#"
-                                           class="btn btn-light-warning btn-sm font-weight-bolder">كل العملاء</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-2">
-                                <div class="table-responsive">
-                                    <table
-                                        class="table table-head-custom table-head-bg table-borderless table-vertical-center">
-                                        <tbody>
-                                        @if(count($newest_customers) >0)
-                                            @foreach($newest_customers as $row)
-                                                <tr>
-                                                    <td class="pl-0 py-8">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="symbol symbol-50 flex-shrink-0 mr-4">
-                                                                <div class="symbol symbol-40 symbol-sm flex-shrink-0">
-                                                                    <img class="" src="{{$row->image}}"
-                                                                         alt="photo">
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <a href="javascript:void(this)"
-                                                                   class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{$row->name}}</a>
-                                                                <span
-                                                                    class="text-muted font-weight-bold d-block">{{$row->phone}}</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                        <span
-                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$row->created_at->format('Y-m-d')}}</span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
