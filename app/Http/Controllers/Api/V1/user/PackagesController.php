@@ -85,7 +85,7 @@ class PackagesController extends Controller
 
     public function package_menu_meals(Request $request)
     {
-        $two_dayes = Carbon::now()->addDay(2);
+        $two_dayes = Carbon::now()->addDays(2);
         $validator = Validator::make($request->all(), [
             'meal_type_id' => 'required|exists:meal_types,id',
             'package_type_price_id' => 'required|exists:package_type_prices,id',
