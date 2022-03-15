@@ -152,7 +152,8 @@ class ZoneController extends Controller
         $zone->deliveryman_wise_topic = 'zone_' . $id . '_delivery_man';
         $zone->save();
         session()->flash('success', 'تم التعديل بنجاح');
-        return redirect()->route('admin.settings.zones');
+        return redirect()->back();
+//        return redirect()->route('admin.settings.zones');
     }
 
     public function delete(Request $request)

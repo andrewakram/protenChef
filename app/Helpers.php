@@ -36,7 +36,7 @@ function send_notification($title, $body, $details, $image, $data, $token)
 if (!function_exists('settings')) {
     function settings($key)
     {
-        $result = App\Models\Setting::select('id','key','value')->where('id',$key)->first();
+        $result = App\Models\Setting::select('id','key','value')->where('key',$key)->first();
         return $result['value'];
     }
 }

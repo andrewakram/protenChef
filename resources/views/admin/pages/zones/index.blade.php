@@ -357,7 +357,7 @@
         function initialize() {
 
                 @php
-                    $default_location= settings(23) ;
+                    $default_location= settings('default_location') ;
 
                     $default_location = json_decode($default_location, true);
                 @endphp

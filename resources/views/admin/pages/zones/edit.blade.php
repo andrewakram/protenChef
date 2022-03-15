@@ -17,7 +17,7 @@
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
-                       تعديل المنطقة
+                        إعدادات مناطق التوصيل
                     </h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
@@ -26,10 +26,10 @@
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.settings.zones')}}" class="text-muted text-hover-primary">إعدادات مناطق التوصيل</a>
-                        </li>
-                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+{{--                        <li class="breadcrumb-item text-muted">--}}
+{{--                            <a href="{{route('admin.settings.zones')}}" class="text-muted text-hover-primary">إعدادات مناطق التوصيل</a>--}}
+{{--                        </li>--}}
+{{--                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>--}}
                         <li class="breadcrumb-item text-muted">
                             <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
                         </li>
@@ -137,8 +137,8 @@
                                                 <span class="indicator-progress">إنتظر قليلا . . .
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                             </button>
-                                            <a href="{{route('admin.settings.zones')}}" id="kt_ecommerce_add_product_cancel"
-                                               class="btn btn-light me-5">عودة</a>
+{{--                                            <a href="{{route('admin.settings.zones')}}" id="kt_ecommerce_add_product_cancel"--}}
+{{--                                               class="btn btn-light me-5">عودة</a>--}}
                                         </div>
                                     </div>
                                     <!--end::General options-->
