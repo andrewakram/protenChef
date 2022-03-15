@@ -86,11 +86,11 @@ class PackagesController extends Controller
     public function package_menu_meals(Request $request)
     {
         $lang = request()->header('lang');
-        $two_dayes = Carbon::now()->addDays(2);
+        $two_dayes = Carbon::now()->addDay(1);
         $validator = Validator::make($request->all(), [
             'meal_type_id' => 'required|exists:meal_types,id',
             'package_type_price_id' => 'required|exists:package_type_prices,id',
-            'selected_date' => 'required|after_or_equal:' . $two_dayes
+            'selected_date' => 'required|after:' . $two_dayes
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
@@ -103,7 +103,7 @@ class PackagesController extends Controller
         //generate finall day
         $package_type_price = PackageTypePrice::findOrFail($request->package_type_price_id);
         //$package_type_price->PackageType
-        $final_date = $two_dayes->addDays(28);
+        $final_date = $two_dayes->addDays(29);
         $period = CarbonPeriod::create($request->selected_date, $final_date);
         // Iterate over the period
 
@@ -115,12 +115,12 @@ class PackagesController extends Controller
             $weekNumber = Carbon::parse($date)->weekNumberInMonth; //1   //2  //3   //4
             $is_odd = $weekNumber % 2;
             $is_odd == 0 ? $weekNumber = 2 : $weekNumber = 1;
-            if($lang == 'ar'){
-                $selected_date = \Carbon\Carbon::parse($date);
-                $inserted_date = $selected_date->translatedFormat('l');
-            }else{
-                $inserted_date = $date ;
-            }
+//            if($lang == 'ar'){
+//                $selected_date = \Carbon\Carbon::parse($date);
+//                $inserted_date = $selected_date->translatedFormat('l');
+//            }else{
+//                $inserted_date = \Carbon\Carbon::parse($date)->format('Y-m-d');
+//            }
 
             $package_type_prices =
                 PackageMeal::where('package_id', $package_type_price->package_id)
@@ -128,8 +128,8 @@ class PackagesController extends Controller
                     ->where('day', Carbon::parse($date)->format('l'))
                     ->where('week', $weekNumber)
                     ->with('Meal')
-                    ->get()->map(function ($item) use ($inserted_date) {
-                        $item->date = $inserted_date;
+                    ->get()->map(function ($item) use ($date) {
+                        $item->date = $date;
                         return $item;
                     });
             foreach ($package_type_prices as $row) {
