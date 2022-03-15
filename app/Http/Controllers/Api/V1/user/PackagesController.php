@@ -115,12 +115,12 @@ class PackagesController extends Controller
             $weekNumber = Carbon::parse($date)->weekNumberInMonth; //1   //2  //3   //4
             $is_odd = $weekNumber % 2;
             $is_odd == 0 ? $weekNumber = 2 : $weekNumber = 1;
-//            if($lang == 'ar'){
-//                $selected_date = \Carbon\Carbon::parse($date);
-//                $inserted_date = $selected_date->translatedFormat('l');
-//            }else{
-//                $inserted_date = \Carbon\Carbon::parse($date)->format('Y-m-d');
-//            }
+            if($lang == 'ar'){
+                $selected_date = \Carbon\Carbon::parse($date);
+                $inserted_date = $selected_date->translatedFormat('l');
+            }else{
+                $inserted_date = \Carbon\Carbon::parse($date)->format('Y-m-d');
+            }
 
             $package_type_prices =
                 PackageMeal::where('package_id', $package_type_price->package_id)
@@ -128,7 +128,12 @@ class PackagesController extends Controller
                     ->where('day', Carbon::parse($date)->format('l'))
                     ->where('week', $weekNumber)
                     ->with('Meal')
-                    ->get()->map(function ($item) use ($date) {
+                    ->get()->map(function ($item) use ($date,$lang) {
+                        if($lang == 'ar') {
+                            $selected_date = \Carbon\Carbon::parse($item->day);
+                            $inserted_date = $selected_date->translatedFormat('l');
+                            $item->day =  $inserted_date ;
+                        }
                         $item->date = $date;
                         return $item;
                     });
