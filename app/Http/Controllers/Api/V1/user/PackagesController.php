@@ -88,15 +88,20 @@ class PackagesController extends Controller
         $lang = request()->header('lang');
         $two_dayes = Carbon::now()->addDay(1);
         $validator = Validator::make($request->all(), [
-            'meal_type_id' => 'required|exists:meal_types,id',
+            'meal_type_id' => 'nullable|exists:meal_types,id',
             'package_type_price_id' => 'required|exists:package_type_prices,id',
             'selected_date' => 'required|after:' . $two_dayes
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
+        if($request->meal_type_id == null){
+            $main_meal_types = PackageMealType::where('price', null)->where('package_type_price_id', $request->package_type_price_id)->orderBy('id','asc')->first();
+
+            $request->meal_type_id = $main_meal_types->id ;
+        }
         //main meals
-        $main_meal_types = PackageMealType::where('price', null)->where('package_type_price_id', $request->package_type_price_id)->get();
+        $main_meal_types = PackageMealType::where('price', null)->where('package_type_price_id', $request->package_type_price_id)->orderBy('id','asc')->get();
         $data['main_meal_types'] = (PackageMealTypeResources::collection($main_meal_types));
 
         //create selected period
