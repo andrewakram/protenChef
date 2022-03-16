@@ -283,7 +283,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'packages' ) active @endif" href="{{route('admin.package-types')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'packages' ) active @endif" href="{{route('admin.packages')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">

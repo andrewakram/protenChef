@@ -16,7 +16,8 @@ use App\Http\Controllers\Admin\ZoneController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+//    return view('welcome');
+    return redirect()->route('admin.login');
 });
 
 Route::group([

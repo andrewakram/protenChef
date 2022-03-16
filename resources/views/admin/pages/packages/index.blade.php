@@ -123,11 +123,8 @@
 {{--                    </div>--}}
                     <!--end::Wrapper-->
                     <!--begin::Button-->
-                    <a href="{{route('admin.packages.create')}}" class="btn btn-sm btn-success"
-{{--                       data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id=""--}}
-                    >
-                        <i class="fa fa-plus"></i>
-                        أضف</a>
+{{--                    <a href="{{route('admin.packages.create')}}" class="btn btn-sm btn-success">--}}
+{{--                        <i class="fa fa-plus"></i> أضف</a>--}}
                     <!--end::Button-->
                 </div>
                 <!--end::Actions-->

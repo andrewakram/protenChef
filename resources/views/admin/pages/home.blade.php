@@ -17,7 +17,7 @@
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
-                        <h1 class=" fs-3 fw-bold my-1 ms-1 app-f-color" >الرئيسية</h1>
+                        <h1 class=" fs-3 fw-bold my-1 ms-1 app-f-color">الرئيسية</h1>
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
@@ -40,7 +40,7 @@
                             <!--begin::Card body-->
                             <div class="card-body p-9">
                                 <!--begin::Heading-->
-                                <div class="fs-2hx fw-bolder">237</div>
+                                <div class="fs-2hx fw-bolder">{{$data['orders']}}</div>
                                 <div class="fs-4 fw-bold text-gray-400 mb-7">الطلبات</div>
                                 <!--end::Heading-->
                                 <!--begin::Wrapper-->
@@ -56,21 +56,24 @@
                                         <div class="d-flex fs-6 fw-bold align-items-center mb-3">
                                             <div class="bullet bg-primary me-3"></div>
                                             <div class="text-gray-400">الطلبات الحالية</div>
-                                            <div class="ms-auto fw-bolder text-gray-700">30</div>
+                                            <div
+                                                class="ms-auto fw-bolder text-gray-700">{{$data['current_orders']}}</div>
                                         </div>
                                         <!--end::Label-->
                                         <!--begin::Label-->
                                         <div class="d-flex fs-6 fw-bold align-items-center mb-3">
                                             <div class="bullet bg-success me-3"></div>
                                             <div class="text-gray-400">الطلبات المكتملة</div>
-                                            <div class="ms-auto fw-bolder text-gray-700">45</div>
+                                            <div
+                                                class="ms-auto fw-bolder text-gray-700">{{$data['finished_orders']}}</div>
                                         </div>
                                         <!--end::Label-->
                                         <!--begin::Label-->
                                         <div class="d-flex fs-6 fw-bold align-items-center">
-                                            <div class="bullet bg-gray-300 me-3"></div>
+                                            <div class="bullet bg-danger me-3"></div>
                                             <div class="text-gray-400">الطلبات المرفوضه</div>
-                                            <div class="ms-auto fw-bolder text-gray-700">25</div>
+                                            <div
+                                                class="ms-auto fw-bolder text-gray-700">{{$data['canceled_orders']}}</div>
                                         </div>
                                         <!--end::Label-->
                                     </div>
@@ -86,64 +89,18 @@
                         <!--begin::Budget-->
                         <div class="card h-100">
                             <div class="card-body p-9">
-                                <div class="fs-2hx fw-bolder">$3,290.00</div>
+                                <div class="fs-2hx fw-bolder">${{$data['sum_income']}}</div>
                                 <div class="fs-4 fw-bold text-gray-400 mb-7">المبيعات</div>
-                                <div class="fs-6 d-flex justify-content-between mb-4">
-                                    <div class="fw-bold">الباقة الاولي</div>
-                                    <div class="d-flex fw-bolder">
-                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr007.svg-->
-                                        <span class="svg-icon svg-icon-3 me-1 svg-icon-success">
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                             viewBox="0 0 24 24" fill="none">
-															<path
-                                                                d="M13.4 10L5.3 18.1C4.9 18.5 4.9 19.1 5.3 19.5C5.7 19.9 6.29999 19.9 6.69999 19.5L14.8 11.4L13.4 10Z"
-                                                                fill="black"/>
-															<path opacity="0.3"
-                                                                  d="M19.8 16.3L8.5 5H18.8C19.4 5 19.8 5.4 19.8 6V16.3Z"
-                                                                  fill="black"/>
-														</svg>
-													</span>
-                                        <!--end::Svg Icon-->$6,570
+                                @foreach($data['packages'] as $row)
+                                    <div class="fs-6 d-flex justify-content-between mb-4">
+                                        <div class="fw-bold">{{$row->title}}</div>
+                                        <div class="d-flex fw-bolder">
+                                            <!--end::Svg Icon-->${{$row->sum_package_income}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="separator separator-dashed"></div>
-                                <div class="fs-6 d-flex justify-content-between my-4">
-                                    <div class="fw-bold">الباقة الثانية</div>
-                                    <div class="d-flex fw-bolder">
-                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr006.svg-->
-                                        <span class="svg-icon svg-icon-3 me-1 svg-icon-danger">
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                             viewBox="0 0 24 24" fill="none">
-															<path
-                                                                d="M13.4 14.8L5.3 6.69999C4.9 6.29999 4.9 5.7 5.3 5.3C5.7 4.9 6.29999 4.9 6.69999 5.3L14.8 13.4L13.4 14.8Z"
-                                                                fill="black"/>
-															<path opacity="0.3"
-                                                                  d="M19.8 8.5L8.5 19.8H18.8C19.4 19.8 19.8 19.4 19.8 18.8V8.5Z"
-                                                                  fill="black"/>
-														</svg>
-													</span>
-                                        <!--end::Svg Icon-->$408
-                                    </div>
-                                </div>
-                                <div class="separator separator-dashed"></div>
-                                <div class="fs-6 d-flex justify-content-between mt-4">
-                                    <div class="fw-bold">الباقة الثالثه</div>
-                                    <div class="d-flex fw-bolder">
-                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr007.svg-->
-                                        <span class="svg-icon svg-icon-3 me-1 svg-icon-success">
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                             viewBox="0 0 24 24" fill="none">
-															<path
-                                                                d="M13.4 10L5.3 18.1C4.9 18.5 4.9 19.1 5.3 19.5C5.7 19.9 6.29999 19.9 6.69999 19.5L14.8 11.4L13.4 10Z"
-                                                                fill="black"/>
-															<path opacity="0.3"
-                                                                  d="M19.8 16.3L8.5 5H18.8C19.4 5 19.8 5.4 19.8 6V16.3Z"
-                                                                  fill="black"/>
-														</svg>
-													</span>
-                                        <!--end::Svg Icon-->$920
-                                    </div>
-                                </div>
+                                    <div class="separator separator-dashed"></div>
+                                @endforeach
+
                             </div>
                         </div>
                         <!--end::Budget-->
@@ -153,49 +110,23 @@
                         <div class="card h-100">
                             <div class="card-body p-9">
                                 <!--begin::Heading-->
-                                <div class="fs-2hx fw-bolder">49</div>
+                                <div class="fs-2hx fw-bolder">{{$data['customers']}}</div>
                                 <div class="fs-4 fw-bold text-gray-400 mb-7">العملاء</div>
                                 <!--end::Heading-->
                                 <!--begin::Users group-->
                                 <div class="symbol-group symbol-hover mb-9">
-                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                         title="Alan Warden">
-                                        <span class="symbol-label bg-warning text-inverse-warning fw-bolder">A</span>
-                                    </div>
-                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                         title="Michael Eberon">
-                                        <img alt="Pic" src="{{ asset('admin/dist/assets/media/avatars/150-12.jpg')}}"/>
-                                    </div>
-                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                         title="Michelle Swanston">
-                                        <img alt="Pic" src="{{ asset('admin/dist/assets/media/avatars/150-13.jpg')}}"/>
-                                    </div>
-                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                         title="Francis Mitcham">
-                                        <img alt="Pic" src="{{ asset('admin/dist/assets/media/avatars/150-5.jpg')}}"/>
-                                    </div>
-                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                         title="Susan Redwood">
-                                        <span class="symbol-label bg-primary text-inverse-primary fw-bolder">S</span>
-                                    </div>
-                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                         title="Perry Matthew">
-                                        <span class="symbol-label bg-info text-inverse-info fw-bolder">P</span>
-                                    </div>
-                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                         title="Barry Walter">
-                                        <img alt="Pic" src="{{ asset('admin/dist/assets/media/avatars/150-7.jpg')}}"/>
-                                    </div>
-                                    <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
-                                       data-bs-target="#kt_modal_view_users">
-                                        <span class="symbol-label bg-dark text-gray-300 fs-8 fw-bolder">+42</span>
-                                    </a>
+                                    @foreach($data['last_customers'] as $row )
+                                        <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
+                                           data-bs-target="#kt_modal_view_users">
+                                            <img alt="Pic"
+                                                 src="{{$row->image}}"/>
+                                        </a>
+                                    @endforeach
                                 </div>
                                 <!--end::Users group-->
                                 <!--begin::Actions-->
                                 <div class="d-flex">
-                                    <a href="#" class="btn btn-primary btn-sm me-3" data-bs-toggle="modal"
-                                       data-bs-target="#kt_modal_view_users">كل العملاء</a>
+                                    <a href="{{route('admin.users')}}" class="btn btn-primary btn-sm me-3">كل العملاء</a>
                                 </div>
                                 <!--end::Actions-->
                             </div>
@@ -227,8 +158,8 @@
 													</svg>
 												</span>
                                 <!--end::Svg Icon-->
-                                <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">+3000</div>
-                                <div class="fw-bold text-gray-100">New Customers</div>
+                                <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">{{$data['offers']}}</div>
+                                <div class="fw-bold text-gray-100">العروض</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -256,8 +187,8 @@
 												</span>
                                 <!--end::Svg Icon-->
 
-                                <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">500M$</div>
-                                <div class="fw-bold text-gray-400">عدد الوجبات</div>
+                                <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">{{$data['meals']}}</div>
+                                <div class="fw-bold text-gray-400">الوجبات</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -281,8 +212,8 @@
 													</svg>
 												</span>
                                 <!--end::Svg Icon-->
-                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">$50,000</div>
-                                <div class="fw-bold text-white">Milestone Reached</div>
+                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{$data['coupons']}}</div>
+                                <div class="fw-bold text-white">كوبونات الخصم</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -306,8 +237,8 @@
 													</svg>
 												</span>
                                 <!--end::Svg Icon-->
-                                <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">500M$</div>
-                                <div class="fw-bold text-gray-400">عدد الوجبات</div>
+                                <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">{{$data['price_plans']}}</div>
+                                <div class="fw-bold text-gray-400">خطط الاسعار</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -324,18 +255,21 @@
                                 <h3 class="card-title align-items-start flex-column">
                                     <span class="card-label font-weight-bolder text-dark">أحدث الطلبات</span>
                                 </h3>
-
                                 <div class="card-toolbar ">
-                                    <a href="{{route('admin.orders',['pending'])}}" style="color: white;" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
+                                    <a href="{{route('admin.orders',['pending'])}}" style="color: white;"
+                                       class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
                                         الطلبات قيد الموافقة</a>
 
-                                    <a href="{{route('admin.orders',['accepted'])}}" style="color: white;" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
+                                    <a href="{{route('admin.orders',['accepted'])}}" style="color: white;"
+                                       class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
                                         الطلبات الحالية</a>
 
-                                    <a href="{{route('admin.orders',['finished'])}}" style="color: white;" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
+                                    <a href="{{route('admin.orders',['finished'])}}" style="color: white;"
+                                       class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
                                         الطلبات المنتهية</a>
 
-                                    <a href="{{route('admin.orders',['canceled'])}}" style="color: white;" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
+                                    <a href="{{route('admin.orders',['canceled'])}}" style="color: white;"
+                                       class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
                                         الطلبات الملغية</a>
                                 </div>
                             </div>
@@ -359,14 +293,15 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($newest_orders as $key => $row)
-                                                    <td >
+                                            @foreach($newest_orders as $key => $row)
+                                                <tr>
+                                                    <td>
                                                         <span class="fw-bolder">{{$key+1}}</span>
                                                     </td>
-                                                    <td >
+                                                    <td>
                                                         <span class="fw-bolder">{{$row->order_num }}</span>
                                                     </td>
-                                                    <td >
+                                                    <td>
                                                         <span class="fw-bolder">
                                                             @if($row->status == 'pending')
                                                                 <b class='badge badge-warning'>قيد الموافقة</b>
@@ -379,33 +314,37 @@
                                                             @endif
                                                         </span>
                                                     </td>
-                                                    <td >
+                                                    <td>
                                                         <span class="fw-bolder">
-                                                            <a href="{{route('admin.users.edit',[$row->user_id])}}" class="" title="العميل">
+                                                            <a href="{{route('admin.users.edit',[$row->user_id])}}"
+                                                               class="" title="العميل">
                                                                 {{$row->User->name}}
                                                             </a>
                                                         </span>
                                                     </td>
-                                                    <td >
+                                                    <td>
                                                         <span class="fw-bolder">{{$row->package_name_ar }}</span>
                                                     </td>
-                                                    <td >
+                                                    <td>
                                                         <span class="fw-bolder">{{$row->package_type_ar }}</span>
                                                     </td>
-                                                    <td >
+                                                    <td>
                                                         <span class="fw-bolder">{{$row->start_date }}</span>
                                                     </td>
-                                                    <td >
+                                                    <td>
                                                         <span class="fw-bolder">{{$row->created_at }}</span>
                                                     </td>
-                                                    <td >
+                                                    <td>
                                                         <span class="fw-bolder">
-                                                            <a href="{{route('admin.orders.edit',[$row->id])}}" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل">
+                                                            <a href="{{route('admin.orders.edit',[$row->id])}}"
+                                                               class="btn btn-success btn-circle btn-sm m-1"
+                                                               title="عرض التفاصيل">
                                                                 <i class="fa fa-eye"></i>
                                                             </a>
                                                         </span>
                                                     </td>
-                                                @endforeach
+                                                </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -426,13 +365,64 @@
 
 @endsection
 @section('script')
-<!--begin::Page Vendors Javascript(used by this page)-->
-<script src="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-<script src="{{ asset('admin/dist/assets/js/custom/apps/projects/list/list.js')}}"></script>
-<script src="{{ asset('admin/dist/assets/js/custom/widgets.js')}}"></script>
-<script src="{{ asset('admin/dist/assets/js/custom/apps/chat/chat.js')}}"></script>
-<script src="{{ asset('admin/dist/assets/js/custom/modals/upgrade-plan.js')}}"></script>
-<script src="{{ asset('admin/dist/assets/js/custom/modals/create-app.js')}}"></script>
-<script src="{{ asset('admin/dist/assets/js/custom/modals/users-search.js')}}"></script>
-<!--end::Page Vendors Javascript-->
+    <!--begin::Page Vendors Javascript(used by this page)-->
+    <script src="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+    {{--    <script src="{{ asset('admin/dist/assets/js/custom/apps/projects/list/list.js')}}"></script>--}}
+    <script>
+        "use strict";
+        var KTProjectList = {
+            init: function () {
+                !function () {
+                    var t = document.getElementById("kt_project_list_chart");
+                    if (t) {
+                        var e = t.getContext("2d");
+                        new Chart(e, {
+                            type: "doughnut",
+                            data: {
+                                datasets: [{
+                                    data: {!! $orders_numbers_chart !!} ,
+                                    backgroundColor: ["#00A3FF", "#50CD89", "#dc3545"]
+                                }],
+                                labels: ["الطلبات الحالية", "الطلبات المكتملة", "الطلبات المرفوضة"]
+                            },
+                            options: {
+                                chart: {fontFamily: "inherit"},
+                                cutout: "75%",
+                                cutoutPercentage: 65,
+                                responsive: !0,
+                                maintainAspectRatio: !1,
+                                title: {display: !1},
+                                animation: {animateScale: !0, animateRotate: !0},
+                                tooltips: {
+                                    enabled: !0,
+                                    intersect: !1,
+                                    mode: "nearest",
+                                    bodySpacing: 5,
+                                    yPadding: 10,
+                                    xPadding: 10,
+                                    caretPadding: 0,
+                                    displayColors: !1,
+                                    backgroundColor: "#20D489",
+                                    titleFontColor: "#ffffff",
+                                    cornerRadius: 4,
+                                    footerSpacing: 0,
+                                    titleSpacing: 0
+                                },
+                                plugins: {legend: {display: !1}}
+                            }
+                        })
+                    }
+                }()
+            }
+        };
+        KTUtil.onDOMContentLoaded((function () {
+            KTProjectList.init()
+        }));
+    </script>
+    <script src="{{ asset('admin/dist/assets/js/custom/widgets.js')}}"></script>
+    <script src="{{ asset('admin/dist/assets/js/custom/apps/chat/chat.js')}}"></script>
+    <script src="{{ asset('admin/dist/assets/js/custom/modals/upgrade-plan.js')}}"></script>
+    <script src="{{ asset('admin/dist/assets/js/custom/modals/create-app.js')}}"></script>
+    <script src="{{ asset('admin/dist/assets/js/custom/modals/users-search.js')}}"></script>
+    <!--end::Page Vendors Javascript-->
 @endsection

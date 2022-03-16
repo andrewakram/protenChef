@@ -9,7 +9,7 @@ class Package extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title_ar','title_en','active','image'];
+    protected $fillable = ['title_ar', 'title_en', 'active', 'image', 'sum_package_income'];
 
     protected $appends = ['title'];
 
@@ -41,11 +41,16 @@ class Package extends Model
         if (is_file($image)) {
 //            $imageFields = upload($image, 'Slider');
 //            $this->attributes['image'] = $imageFields;
-            $img_name = time().uniqid().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('/uploads/Package/'),$img_name);
-            $this->attributes['image'] = $img_name ;
+            $img_name = time() . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('/uploads/Package/'), $img_name);
+            $this->attributes['image'] = $img_name;
         }
 
+    }
+
+    public function getSumPackageIncomeAttribute()
+    {
+        return $this->HasMany(Order::class, 'package_id')->where('status','!=','canceled')->sum('total_price');
     }
 
 }

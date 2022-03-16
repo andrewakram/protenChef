@@ -14,10 +14,16 @@ class PackageTypeSeeder extends Seeder
      */
     public function run()
     {
+
+//        اشتراك شهر 28 يوم كل يوم
+//شهر 24 يوم بدون جمعه
+//شهر 20 يوم بدون جمعه وسبت
+//
+//اشتراك اسبوع 5 ايام بدون جمعه وسبت
         $data = [
             [
                 'id' => 1,
-                'title_ar' => '28 يوم ( شهر )',
+                'title_ar' => '28 يوم كل يوم (كل يوم )',
                 'title_en' => '28 days ( month )',
                 'days_count' => '28'
             ],
