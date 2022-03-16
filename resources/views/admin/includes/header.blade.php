@@ -2055,9 +2055,9 @@
                                     <!--end::Avatar-->
                                     <!--begin::Username-->
                                     <div class="d-flex flex-column">
-                                        <div class="fw-bolder d-flex align-items-center fs-5">{{\Illuminate\Support\Facades\Auth::user()->name}}
+                                        <div class="fw-bolder d-flex align-items-center fs-5">{{auth()->user()->name}}
                                             <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"></span></div>
-                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{\Illuminate\Support\Facades\Auth::user()->email}}</a>
+                                        <a href="javascript:void($this);" class="fw-bold text-muted text-hover-primary fs-7">{{auth()->user()->email}}</a>
                                     </div>
                                     <!--end::Username-->
                                 </div>
@@ -2068,7 +2068,7 @@
                             <!--end::Menu separator-->
                             <!--begin::Menu item-->
                             <div class="menu-item px-5">
-                                <a href="{{route('admin.users.profile')}}" class="menu-link px-5">الملف الشخصي</a>
+                                <a href="{{route('admin.admins.edit', auth()->user()->id)}}" class="menu-link px-5">الملف الشخصي</a>
                             </div>
                             <!--end::Menu item-->
 
