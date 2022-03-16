@@ -324,9 +324,19 @@
                                 <h3 class="card-title align-items-start flex-column">
                                     <span class="card-label font-weight-bolder text-dark">أحدث الطلبات</span>
                                 </h3>
-                                <div class="card-toolbar">
-                                    <a href="#" style="color: white;" class="btn app-bg-color font-weight-bolder font-size-sm mr-3">كل
-                                        الطلبات</a>
+
+                                <div class="card-toolbar ">
+                                    <a href="{{route('admin.orders',['pending'])}}" style="color: white;" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
+                                        الطلبات قيد الموافقة</a>
+
+                                    <a href="{{route('admin.orders',['accepted'])}}" style="color: white;" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
+                                        الطلبات الحالية</a>
+
+                                    <a href="{{route('admin.orders',['finished'])}}" style="color: white;" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
+                                        الطلبات المنتهية</a>
+
+                                    <a href="{{route('admin.orders',['canceled'])}}" style="color: white;" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1">
+                                        الطلبات الملغية</a>
                                 </div>
                             </div>
                             <div class="card-body pt-0 pb-3">
@@ -337,30 +347,65 @@
                                             class="table table-head-custom table-head-bg table-borderless table-vertical-center">
                                             <thead>
                                             <tr class="text-left text-uppercase">
-                                                <th style="min-width: 100px" class="pl-7">
-                                                    <span class="text-dark-75"> بيانات العميل</span>
-                                                </th>
-                                                <th style="min-width: 100px" class="pl-7">
-                                                    <span class="text-dark-75">رقم الحجز</span>
-                                                </th>
-                                                <th style="min-width: 100px" class="pl-7">
-                                                    <span class="text-dark-75">السعر</span>
-                                                </th>
-                                                <th style="min-width: 130px" class="pl-7">
-                                                    <span class="text-dark-75">تاريخ الانشاء</span>
-                                                </th>
-                                                <th style="min-width: 100px" class="pl-7">
-                                                    <span class="text-dark-75">حالة الحجز</span>
-                                                </th>
-                                                <th style="min-width: 80px" class="pl-7">
-                                                    <span class="text-dark-75"> الاجرائات</span>
-                                                </th>
+                                                <th class=" min-w-10px">#</th>
+                                                <th class=" min-w-10px">رقم الطلب</th>
+                                                <th class=" min-w-10px">حالة الطلب</th>
+                                                <th class=" min-w-10px">العميل</th>
+                                                <th class=" min-w-10px">الباقة</th>
+                                                <th class=" min-w-10px">نوع الباقة</th>
+                                                <th class=" min-w-10px">تاريخ البدء</th>
+                                                <th class=" min-w-10px">تاريخ إنشاء الطلب</th>
+                                                <th class=" min-w-10px">العمليات</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {{--                                @foreach($newest_orders as $row)--}}
-                                            {{--                                --}}
-                                            {{--                                @endforeach--}}
+                                                @foreach($newest_orders as $key => $row)
+                                                    <td >
+                                                        <span class="fw-bolder">{{$key+1}}</span>
+                                                    </td>
+                                                    <td >
+                                                        <span class="fw-bolder">{{$row->order_num }}</span>
+                                                    </td>
+                                                    <td >
+                                                        <span class="fw-bolder">
+                                                            @if($row->status == 'pending')
+                                                                <b class='badge badge-warning'>قيد الموافقة</b>
+                                                            @elseif($row->status == 'accepted')
+                                                                <b class='badge badge-success'>مقبول</b>
+                                                            @elseif($row->status == 'canceled')
+                                                                <b class='badge badge-danger'>ملغي</b>
+                                                            @elseif($row->status == 'finished')
+                                                                <b class='badge badge-info'>منتهي</b>
+                                                            @endif
+                                                        </span>
+                                                    </td>
+                                                    <td >
+                                                        <span class="fw-bolder">
+                                                            <a href="{{route('admin.users.edit',[$row->user_id])}}" class="" title="العميل">
+                                                                {{$row->User->name}}
+                                                            </a>
+                                                        </span>
+                                                    </td>
+                                                    <td >
+                                                        <span class="fw-bolder">{{$row->package_name_ar }}</span>
+                                                    </td>
+                                                    <td >
+                                                        <span class="fw-bolder">{{$row->package_type_ar }}</span>
+                                                    </td>
+                                                    <td >
+                                                        <span class="fw-bolder">{{$row->start_date }}</span>
+                                                    </td>
+                                                    <td >
+                                                        <span class="fw-bolder">{{$row->created_at }}</span>
+                                                    </td>
+                                                    <td >
+                                                        <span class="fw-bolder">
+                                                            <a href="{{route('admin.orders.edit',[$row->id])}}" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </span>
+                                                    </td>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

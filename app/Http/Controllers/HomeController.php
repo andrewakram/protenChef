@@ -11,11 +11,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $data['orders'] = Order::get()->count();
-        $data['customers'] = User::get()->count();
-        $data['packageTypes'] = PackageType::get()->count();
-        $data['meals'] = Meal::get()->count();
-        $newest_customers = User::orderBy('created_at', 'desc')->take(5)->get();
-        return view('admin.pages.home',compact('data','newest_customers'));
+        $data['orders'] = Order::select('id')->count();
+        $data['customers'] = User::select('id')->count();
+        $data['packageTypes'] = PackageType::select('id')->count();
+        $data['meals'] = Meal::select('id')->count();
+        $newest_customers = User::orderBy('id', 'desc')->take(5)->get();
+        $newest_orders = Order::orderBy('id', 'desc')->take(10)->get();
+        return view('admin.pages.home',
+            compact('data',
+            'newest_customers',
+        'newest_orders'));
     }
 }
