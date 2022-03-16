@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl"  >
 <!--begin::Head-->
 <head>
     <!--head area start-->

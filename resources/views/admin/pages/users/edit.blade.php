@@ -265,14 +265,14 @@
                                             <!--begin::Input group-->
                                             <div class="mb-10 fv-row">
                                                 <div class="row">
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-4">
                                                         <span style="font-size: large">
                                                             البريد الإلكتروني :
                                                         </span>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                    <span style="font-size: large"
-                                                          class="badge badge-secondary">
+                                                    <div class="col-md-8">
+                                                    <span style="font-size: large;"
+                                                          class="badge badge-secondary col-md-12">
                                                         {{$row->email}}
                                                     </span>
                                                     </div>

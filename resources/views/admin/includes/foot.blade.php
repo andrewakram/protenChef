@@ -18,4 +18,64 @@
 <!--end::Page Custom Javascript-->
 <!--end::Javascript-->
 
+
+
+<?php
+$errors = session()->get("errors");
+?>
+@if( session()->has("errors"))
+    <?php
+    $e = implode(' - ', $errors->all());
+    ?>
+
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: "برجاء التأكد من البيانات.",
+            text: "{{$e}} ",
+            type: "error",
+            timer: 5000,
+            showConfirmButton: false
+        });
+    </script>
+
+@endif
+
+@if( session()->has("error"))
+    <?php
+    $e = session()->get("error");
+    ?>
+
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: "برجاء التأكد من البيانات.",
+            text: "{{$e}} ",
+            type: "error",
+            timer: 5000,
+            showConfirmButton: false
+        });
+    </script>
+
+@endif
+
+@if( session()->has("success"))
+    <?php
+    $e = session()->get("success");
+    ?>
+
+
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: "تمت العملية بنجاح.",
+            text: "{{$e}} ",
+            type: "success",
+            timer: 5000,
+            showConfirmButton: false,
+            dir:"row"
+        });
+    </script>
+
+@endif
 @yield('script')

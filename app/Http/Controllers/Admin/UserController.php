@@ -47,7 +47,7 @@ class UserController extends Controller
         ]);
         if(sizeof($request->user_id) > 0){
             foreach ($request->user_id as $user_id){
-                UserUser::create([
+                User::create([
                     'user_id' => $user_id ,
                     'coupon_id' => $row->id ,
                     'used' => 0,
@@ -156,7 +156,7 @@ class UserController extends Controller
                 }
             })
             ->editColumn('created_at',function ($row){
-                return Carbon::parse($row->created_at)->format("Y-m-d (H:i) A");
+                return Carbon::parse($row->created_at)->translatedFormat("Y-m-d (h:i) a");
             })
 //            ->addColumn('select',function ($row){
 //                return '<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
