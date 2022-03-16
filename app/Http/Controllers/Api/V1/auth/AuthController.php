@@ -42,10 +42,10 @@ class AuthController extends Controller
         } else {
             $user = Auth::user();
             if ($user->active == 0) {
-                return response()->json(msg($request, not_active(), trans('lang.not_active')));
+                return response()->json(msg($request, failed(), trans('lang.not_active')));
             }
             if ($user->suspend == 1) {
-                return response()->json(msg($request, not_authoize(), trans('lang.suspended')));
+                return response()->json(msg($request, failed(), trans('lang.suspended')));
             }
             $user->fcm_token = $request->device_token;
             $user->save();

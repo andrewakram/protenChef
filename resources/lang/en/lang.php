@@ -34,5 +34,6 @@ return [
     'you_should_choose_valid_coupon' => 'you should choose valid coupon',
     'in_zone' => 'You are in the delivery area',
     'out_zone' => 'You are out of delivery area',
+    'suspended' => 'The account has been suspended, please contact the administration',
 
 ];

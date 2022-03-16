@@ -126,7 +126,8 @@
                                 <!--end::Users group-->
                                 <!--begin::Actions-->
                                 <div class="d-flex">
-                                    <a href="{{route('admin.users')}}" class="btn btn-primary btn-sm me-3">كل العملاء</a>
+                                    <a href="{{route('admin.users')}}" class="btn btn-primary btn-sm me-3">كل
+                                        العملاء</a>
                                 </div>
                                 <!--end::Actions-->
                             </div>
@@ -146,17 +147,19 @@
                         <a href="#" class="card app-bg-color hoverable card-xl-stretch mb-xl-8">
                             <!--begin::Body-->
                             <div class="card-body">
-                                <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
-                                <span class="svg-icon svg-icon-white svg-icon-3x ms-n1">
-													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                         viewBox="0 0 24 24" fill="none">
-														<rect x="8" y="9" width="3" height="10" rx="1.5" fill="black"/>
-														<rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5"
-                                                              fill="black"/>
-														<rect x="18" y="11" width="3" height="8" rx="1.5" fill="black"/>
-														<rect x="3" y="13" width="3" height="6" rx="1.5" fill="black"/>
-													</svg>
-												</span>
+
+                                <span class="svg-icon svg-icon-white svg-icon-3x ms-n1"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\General\Like.svg--><svg
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"/>
+                                        <path
+                                            d="M9,10 L9,19 L10.1525987,19.3841996 C11.3761964,19.7920655 12.6575468,20 13.9473319,20 L17.5405883,20 C18.9706314,20 20.2018758,18.990621 20.4823303,17.5883484 L21.231529,13.8423552 C21.5564648,12.217676 20.5028146,10.6372006 18.8781353,10.3122648 C18.6189212,10.260422 18.353992,10.2430672 18.0902299,10.2606513 L14.5,10.5 L14.8641964,6.49383981 C14.9326895,5.74041495 14.3774427,5.07411874 13.6240179,5.00562558 C13.5827848,5.00187712 13.5414031,5 13.5,5 L13.5,5 C12.5694044,5 11.7070439,5.48826024 11.2282564,6.28623939 L9,10 Z"
+                                            fill="#000000"/>
+                                        <rect fill="#000000" opacity="0.3" x="2" y="9" width="5" height="11" rx="1"/>
+                                    </g>
+                                </svg><!--end::Svg Icon-->
+                                </span>
                                 <!--end::Svg Icon-->
                                 <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">{{$data['offers']}}</div>
                                 <div class="fw-bold text-gray-100">العروض</div>
@@ -171,22 +174,22 @@
                             <!--begin::Body-->
                             <div class="card-body">
                                 <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm008.svg-->
-                                <span class="svg-icon svg-icon-warning svg-icon-3x ms-n1 ">
-													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                         viewBox="0 0 24 24" fill="none">
-														<path opacity="0.3"
-                                                              d="M18 21.6C16.3 21.6 15 20.3 15 18.6V2.50001C15 2.20001 14.6 1.99996 14.3 2.19996L13 3.59999L11.7 2.3C11.3 1.9 10.7 1.9 10.3 2.3L9 3.59999L7.70001 2.3C7.30001 1.9 6.69999 1.9 6.29999 2.3L5 3.59999L3.70001 2.3C3.50001 2.1 3 2.20001 3 3.50001V18.6C3 20.3 4.3 21.6 6 21.6H18Z"
-                                                              fill="black"/>
-														<path
-                                                            d="M12 12.6H11C10.4 12.6 10 12.2 10 11.6C10 11 10.4 10.6 11 10.6H12C12.6 10.6 13 11 13 11.6C13 12.2 12.6 12.6 12 12.6ZM9 11.6C9 11 8.6 10.6 8 10.6H6C5.4 10.6 5 11 5 11.6C5 12.2 5.4 12.6 6 12.6H8C8.6 12.6 9 12.2 9 11.6ZM9 7.59998C9 6.99998 8.6 6.59998 8 6.59998H6C5.4 6.59998 5 6.99998 5 7.59998C5 8.19998 5.4 8.59998 6 8.59998H8C8.6 8.59998 9 8.19998 9 7.59998ZM13 7.59998C13 6.99998 12.6 6.59998 12 6.59998H11C10.4 6.59998 10 6.99998 10 7.59998C10 8.19998 10.4 8.59998 11 8.59998H12C12.6 8.59998 13 8.19998 13 7.59998ZM13 15.6C13 15 12.6 14.6 12 14.6H10C9.4 14.6 9 15 9 15.6C9 16.2 9.4 16.6 10 16.6H12C12.6 16.6 13 16.2 13 15.6Z"
-                                                            fill="black"/>
-														<path
-                                                            d="M15 18.6C15 20.3 16.3 21.6 18 21.6C19.7 21.6 21 20.3 21 18.6V12.5C21 12.2 20.6 12 20.3 12.2L19 13.6L17.7 12.3C17.3 11.9 16.7 11.9 16.3 12.3L15 13.6V18.6Z"
-                                                            fill="black"/>
-													</svg>
-												</span>
-                                <!--end::Svg Icon-->
-
+                                <span class="svg-icon svg-icon-warning svg-icon-3x ms-n1"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Food\Burger.svg--><svg
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24"/>
+                                            <path
+                                                d="M15,15 L15.9974233,16.1399123 C16.3611054,16.555549 16.992868,16.5976665 17.4085046,16.2339844 C17.4419154,16.20475 17.4733423,16.1733231 17.5025767,16.1399123 L18.5,15 L21,15 C20.4185426,17.9072868 17.865843,20 14.9009805,20 L9.09901951,20 C6.13415704,20 3.58145737,17.9072868 3,15 L15,15 Z"
+                                                fill="#000000"/>
+                                            <path
+                                                d="M21,9 L3,9 L3,9 C3.58145737,6.09271316 6.13415704,4 9.09901951,4 L14.9009805,4 C17.865843,4 20.4185426,6.09271316 21,9 Z"
+                                                fill="#000000"/>
+                                            <rect fill="#000000" opacity="0.3" x="2" y="11" width="20" height="2"
+                                                  rx="1"/>
+                                        </g>
+                                    </svg><!--end::Svg Icon-->
+                                </span>
                                 <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">{{$data['meals']}}</div>
                                 <div class="fw-bold text-gray-400">الوجبات</div>
                             </div>
@@ -225,17 +228,21 @@
                             <!--begin::Body-->
                             <div class="card-body">
                                 <!--begin::Svg Icon | path: icons/duotune/graphs/gra007.svg-->
-                                <span class="svg-icon svg-icon-warning svg-icon-3x ms-n1">
-													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                         viewBox="0 0 24 24" fill="none">
-														<path opacity="0.3"
-                                                              d="M10.9607 12.9128H18.8607C19.4607 12.9128 19.9607 13.4128 19.8607 14.0128C19.2607 19.0128 14.4607 22.7128 9.26068 21.7128C5.66068 21.0128 2.86071 18.2128 2.16071 14.6128C1.16071 9.31284 4.96069 4.61281 9.86069 4.01281C10.4607 3.91281 10.9607 4.41281 10.9607 5.01281V12.9128Z"
-                                                              fill="black"/>
-														<path
-                                                            d="M12.9607 10.9128V3.01281C12.9607 2.41281 13.4607 1.91281 14.0607 2.01281C16.0607 2.21281 17.8607 3.11284 19.2607 4.61284C20.6607 6.01284 21.5607 7.91285 21.8607 9.81285C21.9607 10.4129 21.4607 10.9128 20.8607 10.9128H12.9607Z"
-                                                            fill="black"/>
-													</svg>
-												</span>
+                                <span class="svg-icon svg-icon-warning svg-icon-3x ms-n1"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Shopping\Money.svg--><svg
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24"/>
+                                            <path
+                                                d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z"
+                                                fill="#000000" opacity="0.3"
+                                                transform="translate(11.500000, 12.000000) rotate(-345.000000) translate(-11.500000, -12.000000) "/>
+                                            <path
+                                                d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z M11.5,14 C12.6045695,14 13.5,13.1045695 13.5,12 C13.5,10.8954305 12.6045695,10 11.5,10 C10.3954305,10 9.5,10.8954305 9.5,12 C9.5,13.1045695 10.3954305,14 11.5,14 Z"
+                                                fill="#000000"/>
+                                        </g>
+                                    </svg><!--end::Svg Icon-->
+                                </span>
                                 <!--end::Svg Icon-->
                                 <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">{{$data['price_plans']}}</div>
                                 <div class="fw-bold text-gray-400">خطط الاسعار</div>

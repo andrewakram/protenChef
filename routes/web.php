@@ -38,6 +38,7 @@ Route::group([
 
             Route::group(['prefix' => 'users', 'as' => '.users'], function () {
                 Route::get('/', 'UserController@index');
+                Route::get('/profile', 'ProfileController@profile')->name('.profile');
                 Route::get('getData', 'UserController@getData')->name('.datatable');
                 Route::get('/create', 'UserController@create')->name('.create');
                 Route::post('/store', 'UserController@store')->name('.store');

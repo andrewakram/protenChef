@@ -19,6 +19,7 @@ class UserController extends Controller
         return view('admin.pages.users.index');
     }
 
+
     public function create()
     {
         return view('admin.pages.users.create');
@@ -238,4 +239,5 @@ class UserController extends Controller
             ->rawColumns(['actions','user_name','created_at','status'])
             ->make();
     }
+
 }
