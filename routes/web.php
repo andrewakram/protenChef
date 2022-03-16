@@ -45,7 +45,8 @@ Route::group([
                 Route::get('/show/{id}', 'UserController@show')->name('.show');
                 Route::post('/delete', 'UserController@delete')->name('.delete');
                 Route::post('/delete-multi', 'UserController@deleteMulti')->name('.deleteMulti');
-                Route::get('/orders/{id}', 'UserController@orders')->name('.orders');
+                Route::get('/orders/{id}', 'UserController@userOrders')->name('.orders');
+                Route::get('/getUserOrdersData/{id}', 'UserController@getUserOrdersData')->name('.ordersDatatable');
             });
 
             Route::group(['prefix' => 'admins', 'as' => '.admins'], function () {
@@ -58,6 +59,18 @@ Route::group([
                 Route::get('/show/{id}', 'AdminController@show')->name('.show');
                 Route::post('/delete', 'AdminController@delete')->name('.delete');
                 Route::post('/delete-multi', 'AdminController@deleteMulti')->name('.deleteMulti');
+            });
+
+            Route::group(['prefix' => 'orders', 'as' => '.orders'], function () {
+                Route::get('/{status}', 'OrderController@index');
+                Route::get('getData/{status}', 'OrderController@getData')->name('.datatable');
+                Route::get('/create', 'OrderController@create')->name('.create');
+                Route::post('/store', 'OrderController@store')->name('.store');
+                Route::get('/edit/{id}', 'OrderController@edit')->name('.edit');
+                Route::post('/update', 'OrderController@update')->name('.update');
+                Route::get('/show/{id}', 'OrderController@show')->name('.show');
+                Route::post('/delete', 'OrderController@delete')->name('.delete');
+                Route::post('/delete-multi', 'OrderController@deleteMulti')->name('.deleteMulti');
             });
 
             Route::group(['prefix' => 'pages', 'as' => '.pages'], function () {

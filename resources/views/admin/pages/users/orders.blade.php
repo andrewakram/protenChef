@@ -4,6 +4,7 @@
     <link href="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet"
           type="text/css"/>
 @endsection
+
 @section('content')
 
     <!--begin::Content-->
@@ -17,13 +18,26 @@
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
                         <a href="{{route('home')}}" class="text-muted text-hover-primary">
-                            الرئيسية
+                        الرئيسية
+                        </a>
+                        <!--begin::Separator-->
+                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+                        <!--end::Separator-->
+                        <a href="{{route('admin.users')}}" class="text-muted text-hover-primary">
+                            العملاء
                         </a>
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class=" fs-3 fw-bold my-1 ms-1" style="color: #F48120">السلايدر</small>
+                        <small class=" fs-3 fw-bold my-1 ms-1" style="color: #F48120">
+                            طلبات المستخدم
+                            (
+                            <a href="{{route('admin.users.edit',[$user_id])}}" >
+                                {{$user_name}}
+                            </a>
+                            )
+                        </small>
                         <!--end::Description-->
                     </h1>
                     <!--end::Title-->
@@ -122,11 +136,11 @@
 {{--                    </div>--}}
                     <!--end::Wrapper-->
                     <!--begin::Button-->
-                    <a href="{{route('admin.sliders.create')}}" class="btn btn-sm btn-success"
+{{--                    <a href="{{route('admin.orders.create')}}" class="btn btn-sm btn-success"--}}
 {{--                       data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id=""--}}
-                    >
-                        <i class="fa fa-plus"></i>
-                        أضف</a>
+{{--                    >--}}
+{{--                        <i class="fa fa-plus"></i>--}}
+{{--                        أضف</a>--}}
                     <!--end::Button-->
                 </div>
                 <!--end::Actions-->
@@ -193,10 +207,13 @@
 {{--                                    </div>--}}
 {{--                                </th>--}}
                                 <th class=" min-w-10px">#</th>
-                                <th class=" min-w-100px">الصورة</th>
-                                <th class=" min-w-100px">العنوان</th>
-                                <th class=" min-w-100px">الحالة</th>
-                                <th class=" min-w-100px">العمليات</th>
+                                <th class=" min-w-10px">رقم الطلب</th>
+                                <th class=" min-w-10px">الحالة</th>
+                                <th class=" min-w-10px">الباقة</th>
+                                <th class=" min-w-10px">نوع الباقة</th>
+                                <th class=" min-w-10px">تاريخ البدء</th>
+                                <th class=" min-w-10px">تاريخ إنشاء الطلب</th>
+                                <th class=" min-w-10px">العمليات</th>
 
                             </tr>
                             <!--end::Table row-->
@@ -301,12 +318,15 @@
 
 
                 ],
-                ajax: '{{ route('admin.sliders.datatable') }}',
+                ajax: '{{ route('admin.users.ordersDatatable',[$user_id]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
-                    {"data": "image", "searchable": false, "orderable": false},
-                    {"data": "title", "searchable": false, "orderable": false},
-                    {"data": "active", "searchable": false, "orderable": false},
+                    {"data": "order_num", "searchable": false, "orderable": false},
+                    {"data": "status", "searchable": false, "orderable": false},
+                    {"data": "package_name_ar", "searchable": false, "orderable": false},
+                    {"data": "package_type_ar", "searchable": false, "orderable": false},
+                    {"data": "start_date", "searchable": false, "orderable": false},
+                    {"data": "created_at", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });
@@ -396,7 +416,7 @@
                 if (result.value) {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '{{route('admin.sliders.delete')}}',
+                        url: '{{route('admin.orders.delete')}}',
                         type: "post",
                         data: {'row_id':  id, _token: CSRF_TOKEN},
                         dataType: "JSON",
