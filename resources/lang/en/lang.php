@@ -32,6 +32,7 @@ return [
      'coupon_used_before' => 'coupon used before',
     'should_have_min_order_cost' => 'should have min order cost to apply coupon',
     'you_should_choose_valid_coupon' => 'you should choose valid coupon',
-
+    'in_zone' => 'You are in the delivery area',
+    'out_zone' => 'You are out of delivery area',
 
 ];

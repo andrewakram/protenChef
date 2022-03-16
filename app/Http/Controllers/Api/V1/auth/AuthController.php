@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UsersResources;
 use App\Models\User;
 use App\Models\Verfication;
+use App\Models\Zone;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Auth;
 use JWTAuth;
 use TymonJWTAuthExceptionsJWTException;
@@ -36,7 +38,7 @@ class AuthController extends Controller
         }
         $input = $request->only('phone', 'password');
         if (!$jwt_token = JWTAuth::attempt($input)) {
-            return response()->json(msg($request, failed() , trans('lang.phoneOrPasswordIncorrect')));
+            return response()->json(msg($request, failed(), trans('lang.phoneOrPasswordIncorrect')));
         } else {
             $user = Auth::user();
             if ($user->active == 0) {
@@ -94,6 +96,26 @@ class AuthController extends Controller
 
     }
 
+    public function check_location(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'latitude' => 'required',
+            'longitude' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+        }
+        $point = new Point($request->latitude, $request->longitude);
+        $zone = Zone::contains('coordinates', $point)->first();
+        if (!$zone) {
+            $data['in_zone'] = false;
+            return response()->json(msgdata($request, success(), trans('lang.out_zone'), $data));
+        } else {
+            $data['in_zone'] = true;
+            return response()->json(msgdata($request, success(), trans('lang.in_zone'), $data));
+        }
+    }
+
     public function changePassword(Request $request)
     {
 
@@ -107,9 +129,9 @@ class AuthController extends Controller
         }
 
         $user = auth()->user();
-        if ($request->old_password){
-            $old_password = Hash::check($request->old_password,$user->password);
-            if ($old_password != true){
+        if ($request->old_password) {
+            $old_password = Hash::check($request->old_password, $user->password);
+            if ($old_password != true) {
                 return response()->json(msg($request, failed(), trans('lang.old_passwordError')));
 
             }
@@ -183,11 +205,11 @@ class AuthController extends Controller
                 return response()->json(msg($request, failed(), trans('lang.codeExpired')));
             }
 //            if ($type == "activate") {
-                $user->active = 1;
-                $user->save();
-                $jwt_token = JWTAuth::fromUser($user);
-                $data = (new UsersResources($user))->token($jwt_token);
-                return response()->json(msgdata($request, success(), trans('lang.Verified_success'), $data));
+            $user->active = 1;
+            $user->save();
+            $jwt_token = JWTAuth::fromUser($user);
+            $data = (new UsersResources($user))->token($jwt_token);
+            return response()->json(msgdata($request, success(), trans('lang.Verified_success'), $data));
 //            } else {
 //                $jwt_token = JWTAuth::fromUser($user);
 //                $data = (new UsersResources($user))->token($jwt_token);
