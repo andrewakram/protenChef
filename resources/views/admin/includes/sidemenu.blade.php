@@ -891,7 +891,7 @@
                 </div>
                 <div class="menu-item">
                     <a class="menu-link @if(request()->segment(2) == 'settings' && request()->segment(3) == 'zones' ) active @endif"
-                       href="{{route('admin.settings.zones')}}">
+                       href="{{route('admin.settings.zones.edit', 1)}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
