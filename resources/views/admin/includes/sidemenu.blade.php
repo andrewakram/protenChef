@@ -44,33 +44,28 @@
             <div
                 class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
                 id="#kt_aside_menu" data-kt-menu="true">
-{{--                <div class="menu-item">--}}
-{{--                    <div class="menu-content pb-2">--}}
-{{--                        <span class="menu-section text-uppercase fs-30 ls-1">--}}
-{{--                            لوحة التحكم--}}
-{{--                        </span>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="menu-item">--}}
-{{--                    <div class="menu-content">--}}
-{{--                        <div class="separator  "></div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                {{--                <div class="menu-item">--}}
+                {{--                    <div class="menu-content pb-2">--}}
+                {{--                        <span class="menu-section text-uppercase fs-30 ls-1">--}}
+                {{--                            لوحة التحكم--}}
+                {{--                        </span>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
+                {{--                <div class="menu-item">--}}
+                {{--                    <div class="menu-content">--}}
+                {{--                        <div class="separator  "></div>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
                 <div class="menu-item">
                     <a class="menu-link @if(request()->segment(2) == 'home') active @endif" href="{{route('home')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                     viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black"/>
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                          fill="black"/>
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                          fill="black"/>
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                          fill="black"/>
-                                </svg>
+                            <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Home\Home.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <path d="M3.95709826,8.41510662 L11.47855,3.81866389 C11.7986624,3.62303967 12.2013376,3.62303967 12.52145,3.81866389 L20.0429,8.41510557 C20.6374094,8.77841684 21,9.42493654 21,10.1216692 L21,19.0000642 C21,20.1046337 20.1045695,21.0000642 19,21.0000642 L4.99998155,21.0000673 C3.89541205,21.0000673 2.99998155,20.1046368 2.99998155,19.0000673 L2.99999828,10.1216672 C2.99999935,9.42493561 3.36258984,8.77841732 3.95709826,8.41510662 Z M10,13 C9.44771525,13 9,13.4477153 9,14 L9,17 C9,17.5522847 9.44771525,18 10,18 L14,18 C14.5522847,18 15,17.5522847 15,17 L15,14 C15,13.4477153 14.5522847,13 14,13 L10,13 Z" fill="#000000"/>
+                                </g>
+                            </svg><!--end::Svg Icon-->
                             </span>
                             <!--end::Svg Icon-->
                         </span>
@@ -84,7 +79,8 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'users' ) active @endif" href="{{route('admin.users')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'users' ) active @endif"
+                       href="{{route('admin.users')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -104,7 +100,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'admins' ) active @endif" href="{{route('admin.admins')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'admins' ) active @endif"
+                       href="{{route('admin.admins')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -130,7 +127,8 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'pending' ) active @endif" href="{{route('admin.orders',['pending'])}}">
+                    <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'pending' ) active @endif"
+                       href="{{route('admin.orders',['pending'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -150,7 +148,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'accepted' ) active @endif" href="{{route('admin.orders',['accepted'])}}">
+                    <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'accepted' ) active @endif"
+                       href="{{route('admin.orders',['accepted'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -170,7 +169,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'finished' ) active @endif" href="{{route('admin.orders',['finished'])}}">
+                    <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'finished' ) active @endif"
+                       href="{{route('admin.orders',['finished'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -190,7 +190,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'canceled' ) active @endif" href="{{route('admin.orders',['canceled'])}}">
+                    <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'canceled' ) active @endif"
+                       href="{{route('admin.orders',['canceled'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -216,7 +217,8 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'meal-types' && request()->segment(3) == 'main' ) active @endif" href="{{route('admin.meal-types',['main'])}}">
+                    <a class="menu-link @if(request()->segment(2) == 'meal-types' && request()->segment(3) == 'main' ) active @endif"
+                       href="{{route('admin.meal-types',['main'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -236,7 +238,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'meal-types' && request()->segment(3) == 'sub' ) active @endif" href="{{route('admin.meal-types',['sub'])}}">
+                    <a class="menu-link @if(request()->segment(2) == 'meal-types' && request()->segment(3) == 'sub' ) active @endif"
+                       href="{{route('admin.meal-types',['sub'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -255,28 +258,29 @@
                         <span class="menu-title">إضافات الوجبات</span>
                     </a>
                 </div>
-{{--                <div class="menu-item">--}}
-{{--                    <a class="menu-link @if(request()->segment(2) == 'meals') active @endif" href="{{route('admin.meals')}}">--}}
-{{--                        <span class="menu-icon">--}}
-{{--                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->--}}
-{{--                            <span class="svg-icon svg-icon-2">--}}
-{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"--}}
-{{--                                     viewBox="0 0 24 25" fill="none">--}}
-{{--                                    <path opacity="0.3"--}}
-{{--                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"--}}
-{{--                                          fill="black"/>--}}
-{{--                                    <path--}}
-{{--                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"--}}
-{{--                                        fill="black"/>--}}
-{{--                                </svg>--}}
-{{--                            </span>--}}
-{{--                            <!--end::Svg Icon-->--}}
-{{--                        </span>--}}
-{{--                        <span class="menu-title"> الوجبات</span>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
+                {{--                <div class="menu-item">--}}
+                {{--                    <a class="menu-link @if(request()->segment(2) == 'meals') active @endif" href="{{route('admin.meals')}}">--}}
+                {{--                        <span class="menu-icon">--}}
+                {{--                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->--}}
+                {{--                            <span class="svg-icon svg-icon-2">--}}
+                {{--                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"--}}
+                {{--                                     viewBox="0 0 24 25" fill="none">--}}
+                {{--                                    <path opacity="0.3"--}}
+                {{--                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"--}}
+                {{--                                          fill="black"/>--}}
+                {{--                                    <path--}}
+                {{--                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"--}}
+                {{--                                        fill="black"/>--}}
+                {{--                                </svg>--}}
+                {{--                            </span>--}}
+                {{--                            <!--end::Svg Icon-->--}}
+                {{--                        </span>--}}
+                {{--                        <span class="menu-title"> الوجبات</span>--}}
+                {{--                    </a>--}}
+                {{--                </div>--}}
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(request()->segment(2) == 'meals') hover show  @endif">
+                <div data-kt-menu-trigger="click"
+                     class="menu-item menu-accordion @if(request()->segment(2) == 'meals') hover show  @endif">
                     <span class="menu-link @if(request()->segment(2) == 'meals') active @endif">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
@@ -301,7 +305,8 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link @if(request()->segment(2) == 'meals' && request()->segment(3) == 0) active @endif" href="{{route('admin.meals',[0])}}">
+                            <a class="menu-link @if(request()->segment(2) == 'meals' && request()->segment(3) == 0) active @endif"
+                               href="{{route('admin.meals',[0])}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -310,7 +315,8 @@
                         </div>
                         @foreach($meal_types as $meal_type)
                             <div class="menu-item">
-                                <a class="menu-link @if(request()->segment(2) == 'meals' && request()->segment(3) == $meal_type->id ) active @endif" href="{{route('admin.meals',[$meal_type->id])}}">
+                                <a class="menu-link @if(request()->segment(2) == 'meals' && request()->segment(3) == $meal_type->id ) active @endif"
+                                   href="{{route('admin.meals',[$meal_type->id])}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -329,7 +335,8 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'packages' ) active @endif" href="{{route('admin.packages')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'packages' ) active @endif"
+                       href="{{route('admin.packages')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -349,7 +356,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'package-types' ) active @endif" href="{{route('admin.package-types')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'package-types' ) active @endif"
+                       href="{{route('admin.package-types')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -369,7 +377,8 @@
                     </a>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(request()->segment(2) == 'package-type-prices') hover show  @endif">
+                <div data-kt-menu-trigger="click"
+                     class="menu-item menu-accordion @if(request()->segment(2) == 'package-type-prices') hover show  @endif">
                     <span class="menu-link @if(request()->segment(2) == 'package-type-prices') active @endif">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
@@ -394,7 +403,8 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link @if(request()->segment(2) == 'package-type-prices' && request()->segment(3) == 0) active @endif" href="{{route('admin.package-type-prices',[0])}}">
+                            <a class="menu-link @if(request()->segment(2) == 'package-type-prices' && request()->segment(3) == 0) active @endif"
+                               href="{{route('admin.package-type-prices',[0])}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -403,7 +413,8 @@
                         </div>
                         @foreach($packages as $package)
                             <div class="menu-item">
-                                <a class="menu-link @if(request()->segment(2) == 'package-type-prices' && request()->segment(3) == $package->id ) active @endif" href="{{route('admin.package-type-prices',[$package->id])}}">
+                                <a class="menu-link @if(request()->segment(2) == 'package-type-prices' && request()->segment(3) == $package->id ) active @endif"
+                                   href="{{route('admin.package-type-prices',[$package->id])}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -426,7 +437,8 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'screens') active @endif" href="{{route('admin.screens')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'screens') active @endif"
+                       href="{{route('admin.screens')}}">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -446,7 +458,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'sliders') active @endif" href="{{route('admin.sliders')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'sliders') active @endif"
+                       href="{{route('admin.sliders')}}">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -466,7 +479,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'offers') active @endif" href="{{route('admin.offers')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'offers') active @endif"
+                       href="{{route('admin.offers')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -486,7 +500,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'coupons') active @endif" href="{{route('admin.coupons')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'coupons') active @endif"
+                       href="{{route('admin.coupons')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -506,7 +521,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'notifications') active @endif" href="{{route('admin.notifications')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'notifications') active @endif"
+                       href="{{route('admin.notifications')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -526,7 +542,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'pages' && request()->segment(4) == 'about' ) active @endif" href="{{route('admin.pages.edit',['about'])}}">
+                    <a class="menu-link @if(request()->segment(2) == 'pages' && request()->segment(4) == 'about' ) active @endif"
+                       href="{{route('admin.pages.edit',['about'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -546,7 +563,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'pages' && request()->segment(4) == 'terms' ) active @endif" href="{{route('admin.pages.edit',['terms'])}}">
+                    <a class="menu-link @if(request()->segment(2) == 'pages' && request()->segment(4) == 'terms' ) active @endif"
+                       href="{{route('admin.pages.edit',['terms'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -566,7 +584,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'package-types' && request()->segment(4) == 'frozen' ) active @endif" href="{{route('admin.pages.edit',['frozen'])}}">
+                    <a class="menu-link @if(request()->segment(2) == 'package-types' && request()->segment(4) == 'frozen' ) active @endif"
+                       href="{{route('admin.pages.edit',['frozen'])}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -584,26 +603,28 @@
                         </span>
                         <span class="menu-title">سياسة التجميد</span>
                     </a>
-                </div>3
+                </div>
+                3
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">الإعدادات</span>
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'settings' && request()->segment(3) == 'edit' ) active @endif" href="{{route('admin.settings')}}">
+                    <a class="menu-link @if(request()->segment(2) == 'settings' && request()->segment(3) == 'edit' ) active @endif"
+                       href="{{route('admin.settings')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                     viewBox="0 0 24 25" fill="none">
-                                    <path opacity="0.3"
-                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
-                                          fill="black"/>
+                            <span class="svg-icon svg-icon-warning svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/General/Settings-2.svg--><svg
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
                                     <path
-                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
-                                        fill="black"/>
-                                </svg>
+                                        d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z"
+                                        fill="#000000"/>
+                                </g>
+                            </svg><!--end::Svg Icon-->
                             </span>
                             <!--end::Svg Icon-->
                         </span>
@@ -615,16 +636,16 @@
                        href="{{route('admin.settings.zones.edit', 1)}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25"
-                                     viewBox="0 0 24 25" fill="none">
-                                    <path opacity="0.3"
-                                          d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
-                                          fill="black"/>
+                            <span class="svg-icon svg-icon-warning svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/General/Settings-2.svg--><svg
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
                                     <path
-                                        d="M21 15V20C21 20.6 20.6 21 20 21H11.8L18.8 14H20C20.6 14 21 14.4 21 15ZM10 21V4C10 3.4 9.6 3 9 3H4C3.4 3 3 3.4 3 4V21C3 21.6 3.4 22 4 22H9C9.6 22 10 21.6 10 21ZM7.5 18.5C7.5 19.1 7.1 19.5 6.5 19.5C5.9 19.5 5.5 19.1 5.5 18.5C5.5 17.9 5.9 17.5 6.5 17.5C7.1 17.5 7.5 17.9 7.5 18.5Z"
-                                        fill="black"/>
-                                </svg>
+                                        d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z"
+                                        fill="#000000"/>
+                                </g>
+                            </svg><!--end::Svg Icon-->
                             </span>
                             <!--end::Svg Icon-->
                         </span>
@@ -652,22 +673,22 @@
            title="TES شركة مصرية متخصصة في برمجة تطبيقات الجوال و المواقع الالكترونية">
             <span class="btn-label">
                 <img alt="TES Logo" src="{{asset('/')}}/tes.png" class=" logo p-0"
-                     style="width: 50%;height: 60%"; />
+                     style="width: 50%;height: 60%" ;/>
             </span>
             <!--begin::Svg Icon | path: icons/duotune/general/gen005.svg-->
-{{--            <span class="svg-icon btn-icon svg-icon-2">--}}
-{{--								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
-{{--                                     fill="none">--}}
-{{--									<path opacity="0.3"--}}
-{{--                                          d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"--}}
-{{--                                          fill="black"/>--}}
-{{--									<rect x="7" y="17" width="6" height="2" rx="1" fill="black"/>--}}
-{{--									<rect x="7" y="12" width="10" height="2" rx="1" fill="black"/>--}}
-{{--									<rect x="7" y="7" width="6" height="2" rx="1" fill="black"/>--}}
-{{--									<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black"/>--}}
-{{--								</svg>--}}
-{{--							</span>--}}
-            <!--end::Svg Icon-->
+        {{--            <span class="svg-icon btn-icon svg-icon-2">--}}
+        {{--								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
+        {{--                                     fill="none">--}}
+        {{--									<path opacity="0.3"--}}
+        {{--                                          d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"--}}
+        {{--                                          fill="black"/>--}}
+        {{--									<rect x="7" y="17" width="6" height="2" rx="1" fill="black"/>--}}
+        {{--									<rect x="7" y="12" width="10" height="2" rx="1" fill="black"/>--}}
+        {{--									<rect x="7" y="7" width="6" height="2" rx="1" fill="black"/>--}}
+        {{--									<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black"/>--}}
+        {{--								</svg>--}}
+        {{--							</span>--}}
+        <!--end::Svg Icon-->
         </a>
     </div>
     <!--end::Footer-->
