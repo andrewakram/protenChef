@@ -597,7 +597,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'pages' && request()->segment(4) == 'about' ) active @endif" href="{{route('admin.pages.edit',['about'])}}">
+                    <a class="menu-link @if(request()->segment(2) == 'settings' && request()->segment(3) == 'edit' ) active @endif" href="{{route('admin.settings')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -634,7 +634,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">إعدادات مناطق التوصيل</span>
+                        <span class="menu-title">إعدادات منطقة التوصيل</span>
                     </a>
                 </div>
 

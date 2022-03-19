@@ -16,18 +16,37 @@ class SettingSeeder extends Seeder
     {
         $data = [
             [
-                'key' => 'default_time_zone',
-                'value' => 'UTC',
-
-            ], [
                 'key' => 'name_ar',
                 'value' => 'بروتين شيف',
 
             ], [
                 'key' => 'name_en',
                 'value' => 'proten chef',
-
+            ],
+            [
+                'key' => 'address_ar',
+                'value' => 'عنوان شركة بروتين شيف بالكويت',
             ], [
+                'key' => 'address_en',
+                'value' => 'The address of Protein Chef in Kuwait',
+            ],
+            [
+                'key' => 'working_hours_ar',
+                'value' => 'من 9 صباحاً الي 11 صباحاً',
+            ], [
+                'key' => 'working_hours_en',
+                'value' => 'From 9 am to 11 amً',
+            ],
+
+            [
+                'key' => 'shipp_value',
+                'value' => '70',
+            ],
+            [
+                'key' => 'freeze_days',
+                'value' => "5",
+            ],
+            [
                 'key' => 'phone_1',
                 'value' => '01201636129',
 
@@ -64,33 +83,16 @@ class SettingSeeder extends Seeder
             ], [
                 'key' => 'youtube',
                 'value' => 'https://www.facebook.com/',
-            ], [
-                'key' => 'address_ar',
-                'value' => 'عنوان شركة بروتين شيف بالكويت',
-            ], [
-                'key' => 'address_en',
-                'value' => 'The address of Protein Chef in Kuwait',
-            ], [
+            ],
+            [
                 'key' => 'logo_ar',
-                'value' => 'https://www.facebook.com/',
+                'value' => 'logo.png',
             ], [
                 'key' => 'logo_en',
-                'value' => 'https://www.facebook.com/',
+                'value' => 'logo.png',
             ], [
                 'key' => 'fav_icon',
-                'value' => 'https://www.facebook.com/',
-            ], [
-                'key' => 'shipp_value',
-                'value' => '70',
-            ], [
-                'key' => 'working_hours_ar',
-                'value' => 'من 9 صباحاً الي 11 صباحاً',
-            ], [
-                'key' => 'working_hours_en',
-                'value' => 'From 9 am to 11 amً',
-            ], [
-                'key' => 'freeze_days',
-                'value' => "5",
+                'value' => 'logo.png',
             ],
 
         ];

@@ -208,7 +208,8 @@ Route::group([
             });
 
             Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {
-                Route::get('/', [SettingController::class, 'index']);
+                Route::get('/edit', [SettingController::class, 'index']);
+                Route::post('/update', [SettingController::class, 'update'])->name('.update');
                 Route::group(['prefix' => 'zones', 'as' => '.zones'], function () {
                     Route::get('/', [ZoneController::class, 'index']);
                     Route::get('getData', [ZoneController::class, 'getData'] )->name('.datatable');

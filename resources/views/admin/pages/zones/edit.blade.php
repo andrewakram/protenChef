@@ -17,7 +17,7 @@
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
-                        إعدادات مناطق التوصيل
+                        إعدادات منطقة التوصيل
                     </h1>
                     <!--end::Title-->
                     <!--begin::Separator-->

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\MealResources;
 use App\Http\Resources\PackageMealResources;
 use App\Http\Resources\PackageMealTypeAdditinalResources;
+use App\Http\Resources\PackageMealTypeCustomResources;
 use App\Http\Resources\PackageMealTypeMainResources;
 use App\Http\Resources\PackageMealTypeResources;
 use App\Http\Resources\PackageResources;
@@ -88,68 +89,99 @@ class PackagesController extends Controller
         $lang = request()->header('lang');
         $two_dayes = Carbon::now()->addDay(1);
         $validator = Validator::make($request->all(), [
-            'meal_type_id' => 'nullable|exists:meal_types,id',
             'package_type_price_id' => 'required|exists:package_type_prices,id',
-            'selected_date' => 'required|after:' . $two_dayes
+            'selected_date' => 'required|after:' . $two_dayes,
+            'meal_type_id' => 'nullable|exists:meal_types,id',
+            'meal_type' => 'nullable|in:main,sub',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
-        if($request->meal_type_id == null){
-            $main_meal_types = PackageMealType::where('price', null)->where('package_type_price_id', $request->package_type_price_id)->orderBy('id','asc')->first();
-
-            $request->meal_type_id = $main_meal_types->id ;
+        $exists_main_meals = PackageMealType::where('price', null)->where('package_type_price_id', $request->package_type_price_id)->orderBy('id', 'asc')->first();
+        if (!$exists_main_meals) {
+            return response()->json(msg($request, failed(), trans('lang.no_main_meals')));
         }
-        //main meals
-        $main_meal_types = PackageMealType::where('price', null)->where('package_type_price_id', $request->package_type_price_id)->orderBy('id','asc')->get();
-        $data['main_meal_types'] = (PackageMealTypeResources::collection($main_meal_types));
 
+        //main meals
+        //check if meal type sent  - if not sent it will select first meal type dynamically
+        if (!$request->meal_type_id) {
+            $first_main_meal_types = PackageMealType::query();
+            if ($request->meal_type == 'sub') {
+                $first_main_meal_types = $first_main_meal_types->where('price', '!=', null);
+            } else {
+                $first_main_meal_types = $first_main_meal_types->where('price', null);
+            }
+            $first_main_meal_types = $first_main_meal_types->where('package_type_price_id', $request->package_type_price_id)->orderBy('id', 'asc')->first();
+            $request->meal_type_id = $first_main_meal_types->meal_type_id;
+        }
+
+        $main_meal_types = PackageMealType::query();
+        if ($request->meal_type == 'sub') {
+            $main_meal_types = $main_meal_types->where('price', '!=', null);
+        } else {
+            $main_meal_types = $main_meal_types->where('price', null);
+        }
+        $main_meal_types = $main_meal_types->where('package_type_price_id', $request->package_type_price_id)->orderBy('id', 'asc')->get();
+        if (!$request->meal_type_id) {
+            $data['main_meal_types'] = (PackageMealTypeCustomResources::collection($main_meal_types));
+        } else {
+            $data['main_meal_types'] = PackageMealTypeCustomResources::customCollection($main_meal_types, $request->meal_type_id)->values();
+        }
         //create selected period
         //generate finall day
-        $package_type_price = PackageTypePrice::findOrFail($request->package_type_price_id);
+        $package_type_price = PackageTypePrice::find($request->package_type_price_id);
         //$package_type_price->PackageType
-        $final_date = $two_dayes->addDays(29);
+
+        //convert selected date to carbon to generate period ...
+        $selected_date_carbon = Carbon::parse($request->selected_date);
+        $final_date = $selected_date_carbon->addDays($package_type_price->PackageType->days_count);
         $period = CarbonPeriod::create($request->selected_date, $final_date);
         // Iterate over the period
-
-        foreach ($period as $date) {
-            $dates[] = $date->format('Y-m-d');
-        }
-
-        foreach ($dates as $date) {
-            $weekNumber = Carbon::parse($date)->weekNumberInMonth; //1   //2  //3   //4
-            $is_odd = $weekNumber % 2;
-            $is_odd == 0 ? $weekNumber = 2 : $weekNumber = 1;
-            if($lang == 'ar'){
-                $selected_date = \Carbon\Carbon::parse($date);
-                $inserted_date = $selected_date->translatedFormat('l');
-            }else{
-                $inserted_date = \Carbon\Carbon::parse($date)->format('Y-m-d');
+        if (count($period) > 0) {
+            foreach ($period as $date) {
+                $dates[] = $date->format('Y-m-d');
             }
-
-            $package_type_prices =
-                PackageMeal::where('package_id', $package_type_price->package_id)
-                    ->where('meal_type_id', $request->meal_type_id)
+            foreach ($dates as $date) {
+                $weekNumber = Carbon::parse($date)->weekNumberInMonth; //1   //2  //3   //4
+                $is_odd = $weekNumber % 2;
+                $is_odd == 0 ? $weekNumber = 2 : $weekNumber = 1;
+                if ($lang == 'ar') {
+                    $selected_date = \Carbon\Carbon::parse($date);
+                    $inserted_date = $selected_date->translatedFormat('l');
+                } else {
+                    $inserted_date = \Carbon\Carbon::parse($date)->format('Y-m-d');
+                }
+                $package_type_prices = PackageMeal::where('package_id', $package_type_price->package_id);
+                //to avoid package usefully days
+                if ($package_type_price->package_type_id == 4 || $package_type_price->package_type_id == 3) {
+                    $package_type_prices = $package_type_prices->where('day', '!=', 'Friday')->where('day', '!=', 'Saturday');
+                } elseif ($package_type_price->package_type_id == 2) {
+                    $package_type_prices = $package_type_prices->where('day', '!=', 'Friday');
+                }
+                $package_type_prices = $package_type_prices->where('meal_type_id', $request->meal_type_id)
                     ->where('day', Carbon::parse($date)->format('l'))
                     ->where('week', $weekNumber)
                     ->with('Meal')
-                    ->get()->map(function ($item) use ($date,$lang) {
-                        if($lang == 'ar') {
+                    ->get()->map(function ($item) use ($date, $lang) {
+                        if ($lang == 'ar') {
                             $selected_date = \Carbon\Carbon::parse($item->day);
                             $inserted_date = $selected_date->translatedFormat('l');
-                            $item->day =  $inserted_date ;
+                            $item->day = $inserted_date;
                         }
                         $item->date = $date;
                         return $item;
                     });
-            foreach ($package_type_prices as $row) {
-                $output[] = $row;
+                if (count($package_type_prices) > 0) {
+                    foreach ($package_type_prices as $row) {
+                        $output[] = $row;
+                    }
+                }
+
             }
+            $data['meals'] = PackageMealResources::customCollection($output, $dates)->values();
+            return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+        } else {
+            return response()->json(msg($request, failed(), trans('lang.no_period_selected')));
         }
-
-        $data['meals'] = PackageMealResources::customCollection($output, $dates)->values();
-        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
-
-
 }
