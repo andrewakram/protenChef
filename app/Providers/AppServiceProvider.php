@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $languages = ['ar', 'en'];
         App::setLocale('ar');
         Schema::defaultStringLength(255);
-        date_default_timezone_set('Asia/Riyadh');
+        date_default_timezone_set(env('TIME_ZONE', 'UTC'));
 
         $lang = request()->header('lang');
         if ($lang) {
