@@ -92,7 +92,7 @@ class SettingSeeder extends Seeder
                 'value' => 'logo.png',
             ], [
                 'key' => 'fav_icon',
-                'value' => 'logo.png',
+                'value' => 'food.ico',
             ],
 
         ];

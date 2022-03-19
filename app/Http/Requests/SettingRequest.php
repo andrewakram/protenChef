@@ -44,8 +44,7 @@ class SettingRequest extends FormRequest
             'shipp_value' => 'nullable|numeric',
             'working_hours_ar' => 'required|string|max:255',
             'working_hours_en' => 'required|string|max:255',
-            'freeze_days' => 'nullable|numeric',
-            'default_time_zone' => 'required|string|max:255',
+            'freeze_days' => 'nullable|numeric'
         ];
     }
 }
