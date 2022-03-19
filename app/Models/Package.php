@@ -44,6 +44,8 @@ class Package extends Model
             $img_name = time() . uniqid() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('/uploads/Package/'), $img_name);
             $this->attributes['image'] = $img_name;
+        }else{
+            $this->attributes['image'] = $image ;
         }
 
     }

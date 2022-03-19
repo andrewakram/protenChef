@@ -77,7 +77,9 @@ class User extends Authenticatable implements JWTSubject
 
         if (is_file($image)) {
             $imageFields = upload($image, 'User');
-            $this->attributes['file'] = $imageFields;
+            $this->attributes['image'] = $imageFields;
+        }else{
+            $this->attributes['image'] = $image ;
         }
 
     }
