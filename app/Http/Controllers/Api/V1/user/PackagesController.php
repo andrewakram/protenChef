@@ -102,6 +102,8 @@ class PackagesController extends Controller
             return response()->json(msg($request, failed(), trans('lang.no_main_meals')));
         }
 
+
+
         //main meals
         //check if meal type sent  - if not sent it will select first meal type dynamically
         if (!$request->meal_type_id) {
@@ -130,6 +132,8 @@ class PackagesController extends Controller
         //create selected period
         //generate finall day
         $package_type_price = PackageTypePrice::find($request->package_type_price_id);
+        $data['package_price_Data'] = (new PackageTypePriceResources($package_type_price));
+
         //$package_type_price->PackageType
 
         //convert selected date to carbon to generate period ...
