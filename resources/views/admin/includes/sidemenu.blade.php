@@ -276,7 +276,7 @@
 {{--                    </a>--}}
 {{--                </div>--}}
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(request()->segment(2) == 'meals') hover show  @endif">
                     <span class="menu-link @if(request()->segment(2) == 'meals') active @endif">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
@@ -369,7 +369,7 @@
                     </a>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(request()->segment(2) == 'package-type-prices') hover show  @endif">
                     <span class="menu-link @if(request()->segment(2) == 'package-type-prices') active @endif">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
@@ -524,12 +524,6 @@
                         </span>
                         <span class="menu-title">الإشعارات</span>
                     </a>
-                </div>
-
-                <div class="menu-item">
-                    <div class="menu-content pt-8 pb-2">
-                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">عن التطبيق</span>
-                    </div>
                 </div>
                 <div class="menu-item">
                     <a class="menu-link @if(request()->segment(2) == 'pages' && request()->segment(4) == 'about' ) active @endif" href="{{route('admin.pages.edit',['about'])}}">
