@@ -20,6 +20,7 @@ class PackageMealResources extends JsonResource
 
         $data = [
             'id' => $this->id,
+            'meal_id' => $this->meal_id,
             'title' => $this->Meal->title,
             'day' => $this->day, //Sunday
             'date' => $this->date, //1   //2
