@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\MealType;
+use App\Models\Package;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,5 +41,8 @@ class AppServiceProvider extends ServiceProvider
                 App::setLocale('ar');
             }
         }
+
+        View::share('meal_types', MealType::get());
+        View::share('packages', Package::get());
     }
 }

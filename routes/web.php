@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\ZoneController;
 
 Route::get('/', function () {
 //    return view('welcome');
-    return redirect()->route('admin.login');
+    return redirect()->route('home');
 });
 
 Route::group([
@@ -160,8 +160,8 @@ Route::group([
             });
 
             Route::group(['prefix' => 'meals', 'as' => '.meals'], function () {
-                Route::get('/', 'MealController@index');
-                Route::get('getData', 'MealController@getData')->name('.datatable');
+                Route::get('/{meal_type_id}', 'MealController@index');
+                Route::get('getData/{meal_type_id}', 'MealController@getData')->name('.datatable');
                 Route::get('/create', 'MealController@create')->name('.create');
                 Route::post('/store', 'MealController@store')->name('.store');
                 Route::get('/edit/{id}', 'MealController@edit')->name('.edit');
@@ -196,8 +196,8 @@ Route::group([
             });
 
             Route::group(['prefix' => 'package-type-prices', 'as' => '.package-type-prices'], function () {
-                Route::get('/', 'PackageTypePriceController@index');
-                Route::get('getData', 'PackageTypePriceController@getData')->name('.datatable');
+                Route::get('/{package_id}', 'PackageTypePriceController@index');
+                Route::get('getData/{package_id}', 'PackageTypePriceController@getData')->name('.datatable');
                 Route::get('/create', 'PackageTypePriceController@create')->name('.create');
                 Route::post('/store', 'PackageTypePriceController@store')->name('.store');
                 Route::get('/edit/{id}', 'PackageTypePriceController@edit')->name('.edit');

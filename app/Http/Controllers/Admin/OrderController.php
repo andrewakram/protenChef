@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
-use App\Models\Page;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +18,7 @@ class OrderController extends Controller
         return view('admin.pages.orders.index',compact('status'));
     }
 
-    public function create($type)
+    public function create()
     {
         return view('admin.pages.orders.create',compact('status'));
     }
@@ -46,10 +45,11 @@ class OrderController extends Controller
         return redirect()->route('admin.orders',[$request->status]);
     }
 
-    public function edit($status)
+    public function edit($id)
     {
 
-        $row = Page::where('type',$type)->first();
+        $row = Order::whereId($id)->first();
+        $status = $row->status;
         if (!$row){
             session()->flash('error', 'الحقل غير موجود');
             return redirect()->back();
@@ -75,7 +75,7 @@ class OrderController extends Controller
 //                unlinkFile($city->getOriginal('image'), 'cities');
 //            }
 //        }
-        $row = Page::whereId($request->row_id)->first();
+        $row = Order::whereId($request->row_id)->first();
         $row->update($request->except('row_id','_token','image'));
         if ($request->has('image') && is_file($request->image)){
             $row->update([ 'image' => $request->image ]);

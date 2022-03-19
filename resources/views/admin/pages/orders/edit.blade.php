@@ -17,7 +17,7 @@
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
-                        تعديل بيانات العميل
+                         بيانات الطلب
                     </h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
@@ -33,7 +33,28 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.users')}}" class="text-muted text-hover-primary">البيانات العميل</a>
+                            <a href="
+                                @if($status == 'pending')
+                                {{route('admin.orders',['pending'])}}
+                                @elseif($status == 'accepted')
+                                {{route('admin.orders',['accepted'])}}
+                                @elseif($status == 'canceled')
+                                {{route('admin.orders',['canceled'])}}
+                                @elseif($status == 'finished')
+                                {{route('admin.orders',['finished'])}}
+                                @endif" class="text-muted text-hover-primary">
+
+                                الطلبات
+                                @if($status == 'pending')
+                                    قيد الموافقة
+                                @elseif($status == 'accepted')
+                                    المقبولة(الحالية)
+                                @elseif($status == 'canceled')
+                                    الملغية
+                                @elseif($status == 'finished')
+                                    المنتهية
+                                @endif
+                            </a>
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -203,7 +224,7 @@
                             <!--begin:::Tab item-->
                             <li class="nav-item">
                                 <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab"
-                                   href="#kt_ecommerce_add_product_general">بيانات البيانات العميل</a>
+                                   href="#kt_ecommerce_add_product_general">بيانات بيانات الطلب</a>
                             </li>
                             <!--end:::Tab item-->
                             <!--begin:::Tab item-->

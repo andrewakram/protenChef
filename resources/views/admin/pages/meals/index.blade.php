@@ -301,7 +301,7 @@
 
 
                 ],
-                ajax: '{{ route('admin.meals.datatable') }}',
+                ajax: '{{ route('admin.meals.datatable',[$meal_type_id]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
                     {"data": "image", "searchable": false, "orderable": false},

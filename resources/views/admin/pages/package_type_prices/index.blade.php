@@ -303,7 +303,7 @@
 
 
                 ],
-                ajax: '{{ route('admin.package-type-prices.datatable') }}',
+                ajax: '{{ route('admin.package-type-prices.datatable',[$package_id]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
                     {"data": "package_name", "searchable": false, "orderable": false},

@@ -14,9 +14,9 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PackageTypePriceController extends Controller
 {
-    public function index()
+    public function index($package_id)
     {
-        return view('admin.pages.package_type_prices.index');
+        return view('admin.pages.package_type_prices.index',compact('package_id'));
     }
 
     public function create()
@@ -125,10 +125,12 @@ class PackageTypePriceController extends Controller
         return $row->delete();
     }
 
-    public function getData()
+    public function getData($package_id)
     {
         $auth = Auth::guard('admin')->user();
         $model = PackageTypePrice::query()->orderBy('id',"desc");
+        if ($package_id > 0)
+            $model->where('package_id',$package_id);
 
         return DataTables::eloquent($model)
             ->addIndexColumn()
