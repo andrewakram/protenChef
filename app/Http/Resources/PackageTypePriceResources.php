@@ -19,6 +19,7 @@ class PackageTypePriceResources extends JsonResource
             'title' => $this->PackageType->title,
             'days_count' => $this->PackageType->days_count,
             'price' => $this->price,
+            'have_snacks' => $this->have_snacks,
         ];
     }
 }

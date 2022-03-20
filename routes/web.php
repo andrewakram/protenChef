@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ZoneController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +16,23 @@ use App\Http\Controllers\Admin\ZoneController;
 |
 */
 
+
 Route::get('/', function () {
 //    return view('welcome');
     return redirect()->route('admin.login');
-    return redirect()->route('home');
+//    return redirect()->route('home');
 });
+
+
+Route::get('cache', function () {
+    Artisan::call('config:cache');
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    return 'success';
+});
+
 
 Route::group([
     'prefix' => 'admin',

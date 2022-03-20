@@ -101,9 +101,6 @@ class PackagesController extends Controller
         if (!$exists_main_meals) {
             return response()->json(msg($request, failed(), trans('lang.no_main_meals')));
         }
-
-
-
         //main meals
         //check if meal type sent  - if not sent it will select first meal type dynamically
         if (!$request->meal_type_id) {
@@ -132,6 +129,13 @@ class PackagesController extends Controller
         //create selected period
         //generate finall day
         $package_type_price = PackageTypePrice::find($request->package_type_price_id);
+        //check if backage have snaks or not ....
+        $exists_snacks = PackageMealType::where('price', '!=', null)->where('package_type_price_id', $request->package_type_price_id)->first();
+        if ($exists_snacks) {
+            $package_type_price->have_snacks = true;
+        } else {
+            $package_type_price->have_snacks = false;
+        }
         $data['package_price_Data'] = (new PackageTypePriceResources($package_type_price));
 
         //$package_type_price->PackageType
@@ -180,7 +184,6 @@ class PackagesController extends Controller
                         $output[] = $row;
                     }
                 }
-
             }
             $data['meals'] = PackageMealResources::customCollection($output, $dates)->values();
             return response()->json(msgdata($request, success(), trans('lang.success'), $data));
