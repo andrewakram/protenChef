@@ -31,7 +31,7 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.meals')}}" class="text-muted text-hover-primary">الوجبات</a>
+                            <a href="{{route('admin.meals',[$meal_type_id])}}" class="text-muted text-hover-primary">الوجبات</a>
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -242,7 +242,7 @@
                         <!--end::Tab content-->
                         <div class="d-flex justify-content-end">
                             <!--begin::Button-->
-                            <a href="{{route('admin.meals')}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">عودة</a>
+                            <a href="{{route('admin.meals',[$meal_type_id])}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">عودة</a>
                             <!--end::Button-->
                             <!--begin::Button-->
                             <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-secondary">

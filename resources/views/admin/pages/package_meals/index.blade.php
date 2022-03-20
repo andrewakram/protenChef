@@ -24,7 +24,7 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class=" fs-3 fw-bold my-1 ms-1" style="color: #F48120">خطط أسعار الباقات</small>
+                        <small class=" fs-3 fw-bold my-1 ms-1" style="color: #F48120">وجبات الباقات</small>
                         <!--end::Description-->
                     </h1>
                     <!--end::Title-->
@@ -123,7 +123,7 @@
 {{--                    </div>--}}
                     <!--end::Wrapper-->
                     <!--begin::Button-->
-                    <a href="{{route('admin.package-type-prices.create',[$package_id])}}" class="btn btn-sm btn-success"
+                    <a href="{{route('admin.package-meals.create',[$package_id])}}" class="btn btn-sm btn-success"
 {{--                       data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id=""--}}
                     >
                         <i class="fa fa-plus"></i>
@@ -194,11 +194,12 @@
 {{--                                    </div>--}}
 {{--                                </th>--}}
                                 <th class=" min-w-10px">#</th>
-                                <th class=" min-w-100px">الباقة</th>
-                                <th class=" min-w-100px">نوع الباقة</th>
-                                <th class=" min-w-100px">السعر</th>
-                                <th class=" min-w-100px">الحالة</th>
-                                <th class=" min-w-100px">العمليات</th>
+                                <th class=" min-w-10px">اليوم</th>
+                                <th class=" min-w-10px">الاسبوع</th>
+                                <th class=" min-w-10px">الباقة</th>
+                                <th class=" min-w-10px">الوجبة</th>
+                                <th class=" min-w-10px">الفترة</th>
+                                <th class=" min-w-10px">العمليات</th>
 
                             </tr>
                             <!--end::Table row-->
@@ -303,13 +304,14 @@
 
 
                 ],
-                ajax: '{{ route('admin.package-type-prices.datatable',[$package_id]) }}',
+                ajax: '{{ route('admin.package-meals.datatable',[$package_id]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
+                    {"data": "day", "searchable": false, "orderable": false},
+                    {"data": "week", "searchable": false, "orderable": false},
                     {"data": "package_name", "searchable": false, "orderable": false},
-                    {"data": "package_type_name", "searchable": false, "orderable": false},
-                    {"data": "price", "searchable": false, "orderable": false},
-                    {"data": "active", "searchable": false, "orderable": false},
+                    {"data": "meal_name", "searchable": false, "orderable": false},
+                    {"data": "meal_type_name", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });
@@ -399,7 +401,7 @@
                 if (result.value) {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '{{route('admin.package-type-prices.delete')}}',
+                        url: '{{route('admin.package-meals.delete')}}',
                         type: "post",
                         data: {'row_id':  id, _token: CSRF_TOKEN},
                         dataType: "JSON",

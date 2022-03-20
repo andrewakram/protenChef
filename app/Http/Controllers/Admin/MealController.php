@@ -19,10 +19,10 @@ class MealController extends Controller
         return view('admin.pages.meals.index',compact('meal_type_id'));
     }
 
-    public function create()
+    public function create($meal_type_id)
     {
         $meal_types = MealType::select('id','title_ar')->get();
-        return view('admin.pages.meals.create',compact('meal_types'));
+        return view('admin.pages.meals.create',compact('meal_types','meal_type_id'));
     }
 
     public function store(Request $request)

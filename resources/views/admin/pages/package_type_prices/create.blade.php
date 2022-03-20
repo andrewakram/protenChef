@@ -31,7 +31,7 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.package-type-prices')}}" class="text-muted text-hover-primary">التسعير للباقة</a>
+                            <a href="{{route('admin.package-type-prices',[$package_id])}}" class="text-muted text-hover-primary">التسعير للباقة</a>
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -230,7 +230,7 @@
                         <!--end::Tab content-->
                         <div class="d-flex justify-content-end">
                             <!--begin::Button-->
-                            <a href="{{route('admin.package-type-prices')}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">عودة</a>
+                            <a href="{{route('admin.package-type-prices',[$package_id])}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">عودة</a>
                             <!--end::Button-->
                             <!--begin::Button-->
                             <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-secondary">
