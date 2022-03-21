@@ -74,7 +74,7 @@
             <!--begin::Container-->
             <div id="kt_content_container" class="container-xxl">
                 <!--begin::Form-->
-                <form action="{{route('admin.users.update')}}" method="post" enctype="multipart/form-data"
+                <form action="{{route('admin.orders.update')}}" method="post" enctype="multipart/form-data"
                       class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
                     @csrf
                     <input type="hidden" name="row_id" value="{{$row->id}}">

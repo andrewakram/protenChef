@@ -60,11 +60,9 @@ class OrderController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'row_id' => 'required|exists:pages,id',
-            'type' => 'required|in:about,terms,frozen',
-            'body_ar' => 'required',
-            'body_en' => 'required',
-            'image' => 'sometimes|image|mimes:png,jpg,jpeg',
+            'row_id' => 'required|exists:orders,id',
+            'status' => 'required|in:pending,accepted,canceled,finished',
+            'cancel_price' => 'sometimes',
         ]);
         if (!is_array($validator) && $validator->fails()) {
             return redirect()->back()->withErrors($validator);
@@ -76,14 +74,15 @@ class OrderController extends Controller
 //            }
 //        }
         $row = Order::whereId($request->row_id)->first();
-        $row->update($request->except('row_id','_token','image'));
-        if ($request->has('image') && is_file($request->image)){
-            $row->update([ 'image' => $request->image ]);
-        }
+        $row->update([
+            'cancel_date' => isset($request->cancel_price) ? Carbon::now() : NULL,
+            'cancel_price' => isset($request->cancel_price) ? $request->cancel_price : NULL,
+            'status' => $request->status,
+        ]);
         $row->save();
 
         session()->flash('success', 'تم التعديل بنجاح');
-        return redirect()->route('admin.orders.edit',[$request->type]);
+        return back();
     }
 
     public function delete(Request $request)
