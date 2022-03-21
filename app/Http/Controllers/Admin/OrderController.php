@@ -134,7 +134,7 @@ class OrderController extends Controller
             ->addIndexColumn()
             ->addColumn('user_name',function ($row){
                 $user_name = $row->User->name;
-                return '<a href="'.route('admin.users.edit',[$row->user_id]).'" class="" title="العميل">
+                return '<a href="'.route('admin.users.edit',[$row->user_id]).'" target="_blank" class="" title="العميل">
                             '.$user_name.'
                         </a>';
             })
@@ -149,7 +149,7 @@ class OrderController extends Controller
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
 //                if ($auth->can('sliders.update')) {
-                    $buttons .= '<a href="'.route('admin.orders.edit',[$row->id]).'" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل">
+                    $buttons .= '<a href="'.route('admin.orders.edit',[$row->id]).'" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل" target="_blank">
                             <i class="fa fa-eye"></i>
                         </a>';
 //                }
