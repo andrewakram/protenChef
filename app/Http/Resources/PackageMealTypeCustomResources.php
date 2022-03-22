@@ -17,12 +17,18 @@ class PackageMealTypeCustomResources extends JsonResource
     public function toArray($request)
     {
         // if the meal type id selected is the same current record meal type id will be selected in ui
+        if($this->price == null){
+            $price = 0 ;
+        }else{
+            $price = $this->price ;
+        }
         if(self::$meal_type_id == $this->meal_type_id){
             $data = [
                 'id' => $this->id,
                 'meal_type_id' => $this->meal_type_id,
                 'title' => $this->MealType->title,
                 'image' => $this->MealType->image,
+                'price' => $price,
                 'selected' =>  1,
             ];
         }else{
@@ -31,6 +37,7 @@ class PackageMealTypeCustomResources extends JsonResource
                 'meal_type_id' => $this->meal_type_id,
                 'title' => $this->MealType->title,
                 'image' => $this->MealType->image,
+                'price' => $price,
                 'selected' =>  0,
             ];
         }
