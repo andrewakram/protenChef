@@ -125,6 +125,23 @@ class OrderController extends Controller
         return $row->delete();
     }
 
+    public function changeOrderMealStatus(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'row_id' => 'required|exists:order_meals,id',
+        ]);
+        if (!is_array($validator) && $validator->fails()) {
+            session()->flash('success', 'حدث خطأ ما');
+            return redirect()->back();
+        }
+
+        $row = OrderMeal::where('id',$request->row_id)->first();
+        $row->update([
+            'status' => $request->status
+        ]);
+        session()->flash('success', 'تم التعديل بنجاح');
+        return redirect()->back();    }
+
     public function getData($status)
     {
         $auth = Auth::guard('admin')->user();
@@ -196,9 +213,10 @@ class OrderController extends Controller
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
 //                if ($auth->can('sliders.update')) {
-                $buttons .= '<a href="'.route('admin.orders.edit',[$row->id]).'" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل" target="_blank">
-                            <i class="fa fa-eye"></i>
-                        </a>';
+                $buttons .= '<a href="#" data-id="'.$row->id.'" class="btn btn-sm btn-primary changeStatus" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button"><i class="fa fa-edit"></i></a>';
+//                $buttons .= '<a href="'.route('admin.orders.edit',[$row->id]).'" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل" target="_blank">
+//                            <i class="fa fa-eye"></i>
+//                        </a>';
 //                }
 //                if ($auth->can('sliders.delete')) {
 //                    $buttons .= '<a class="btn btn-danger btn-sm delete btn-circle m-1" data-id="'.$row->id.'"  title="حذف">

@@ -470,8 +470,8 @@
                                                         </div>
                                                         <div class="col-md-3">
                                                             @if(isset($row->cancel_price) && $row->cancel_price > 0)
-                                                            <span style="font-size: large"
-                                                                  class="badge badge-danger">
+                                                                <span style="font-size: large"
+                                                                      class="badge badge-danger">
                                                             {{$row->cancel_price}}&nbsp;
                                                             &nbsp;
                                                             ريال
@@ -523,20 +523,20 @@
         <hr>
     </div>
     <!--begin::Page title-->
-        <!--begin::Title-->
-        <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+    <!--begin::Title-->
+    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
 
-            <!--begin::Separator-->
-            <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-            <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-            <!--end::Separator-->
-            <!--begin::Description-->
-            <small class=" fs-1 fw-bold my-1 ms-1 badge badge-white" style="color: #F48120" >
-                وجبات الباقة
-            </small>
-            <!--end::Description-->
-        </h1>
-        <!--end::Title-->
+        <!--begin::Separator-->
+        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+        <!--end::Separator-->
+        <!--begin::Description-->
+        <small class=" fs-1 fw-bold my-1 ms-1 badge badge-white" style="color: #F48120">
+            وجبات الباقة
+        </small>
+        <!--end::Description-->
+    </h1>
+    <!--end::Title-->
     <!--end::Page title-->
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -601,8 +601,8 @@
                                 <th class=" min-w-10px">#</th>
                                 <th class=" min-w-10px">الحالة</th>
                                 <th class=" min-w-10px">الوجبة</th>
-                                <th class=" min-w-10px">تاريخ التسليم </th>
-                                <th class=" min-w-10px">التاريخ القديم (المستبدل) </th>
+                                <th class=" min-w-10px">تاريخ التسليم</th>
+                                <th class=" min-w-10px">التاريخ القديم (المستبدل)</th>
                                 <th class=" min-w-10px">العمليات</th>
 
                             </tr>
@@ -626,6 +626,72 @@
         <!--end::Post-->
     </div>
     <!--end::Content-->
+
+    <!--begin::Modal - change status-->
+    <div class="modal fade" id="kt_modal_create_app" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-900px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Status-->
+                <div class="card card-flush py-4">
+                    <!--begin::Card header-->
+                    <div class="card-header">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <h2>الحالة</h2>
+                        </div>
+                        <!--end::Card title-->
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                            <span class="svg-icon svg-icon-1">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+								</svg>
+							</span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <form id="submit_btn" method="post" action="{{route('admin.orders.changeOrderMealStatus')}}">
+                        @csrf
+                        <input type="hidden" name="row_id" id="row_id">
+                        <div class="card-body pt-0">
+                            <!--begin::Select2-->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <select name="status" required class="form-select mb-2" data-control="select2"
+                                            data-hide-search="true" data-placeholder="إختر الحالة"
+                                            id="kt_ecommerce_add_product_status_select">
+                                        <option></option>
+                                        <option value="pending" {{$row->status == "pending" ? "selected" : ""}}>قيد
+                                            التسليم
+                                        </option>
+                                        <option value="delivered" {{$row->status == "delivered" ? "selected" : ""}}>تم
+                                            التسليم
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--end::Select2-->
+                        </div>
+                        <!--end::Card body-->
+                        <div class="modal-footer">
+                            <button type="submit" data-dismiss="modal" class="btn btn-primary submit_btn">تأكيد</button>
+                        </div>
+                    </form>
+                </div>
+                <!--end::Status-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+    <!--end::Modal - change status-->
 
 @endsection
 
@@ -741,15 +807,15 @@
         });
     </script>
 
-    {{-- Delete --}}
+    {{-- change status --}}
     <script>
-        $(document).on("click", ".delete", function () {
+        $(document).on("click", ".changeStatus", function () {
             var row_id = $(this).data('id');
-            $(".modal-body #row_id").val(row_id);
+            $(".card #row_id").val(row_id);
         });
 
-        $('.delete_btn').on('click',function () {
-            $('#delete_form').submit();
+        $('.submit_btn').on('click', function () {
+            $('#submit_btn').submit();
         })
     </script>
 
@@ -767,7 +833,7 @@
                 $bulkdeleteinput.val('');
                 $.each($checkedBoxes, function () {
                     var value = $(this).val();
-                    if (value !== 'on'){
+                    if (value !== 'on') {
                         myids.push(value);
                     }
                 });
@@ -780,7 +846,7 @@
             }
         });
 
-        $('.delete_multi_btn').on('click',function () {
+        $('.delete_multi_btn').on('click', function () {
             $('#delete_multi_form').submit();
         })
     </script>
@@ -805,7 +871,7 @@
                     $.ajax({
                         url: '{{route('admin.orders.delete')}}',
                         type: "post",
-                        data: {'row_id':  id, _token: CSRF_TOKEN},
+                        data: {'row_id': id, _token: CSRF_TOKEN},
                         dataType: "JSON",
                         success: function (data) {
                             if (data.message == "Success") {

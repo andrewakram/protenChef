@@ -88,6 +88,7 @@ Route::group([
                 Route::post('/delete', 'OrderController@delete')->name('.delete');
                 Route::post('/delete-multi', 'OrderController@deleteMulti')->name('.deleteMulti');
                 Route::get('/order-details/{order_id}', 'OrderController@orderDetails')->name('.orderDetailsDatatable');
+                Route::post('/change-order-meal-status', 'OrderController@changeOrderMealStatus')->name('.changeOrderMealStatus');
 
             });
 
