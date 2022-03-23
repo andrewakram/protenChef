@@ -17,7 +17,7 @@
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
-                         بيانات الطلب
+                        بيانات الطلب
                     </h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
@@ -35,14 +35,14 @@
                         <li class="breadcrumb-item text-muted">
                             <a href="
                                 @if($status == 'pending')
-                                {{route('admin.orders',['pending'])}}
-                                @elseif($status == 'accepted')
-                                {{route('admin.orders',['accepted'])}}
-                                @elseif($status == 'canceled')
-                                {{route('admin.orders',['canceled'])}}
-                                @elseif($status == 'finished')
-                                {{route('admin.orders',['finished'])}}
-                                @endif" class="text-muted text-hover-primary">
+                            {{route('admin.orders',['pending'])}}
+                            @elseif($status == 'accepted')
+                            {{route('admin.orders',['accepted'])}}
+                            @elseif($status == 'canceled')
+                            {{route('admin.orders',['canceled'])}}
+                            @elseif($status == 'finished')
+                            {{route('admin.orders',['finished'])}}
+                            @endif" class="text-muted text-hover-primary">
 
                                 الطلبات
                                 @if($status == 'pending')
@@ -80,33 +80,6 @@
                     <input type="hidden" name="row_id" value="{{$row->id}}">
                     <!--begin::Aside column-->
                     <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px">
-
-                        <!--begin::Thumbnail settings-->
-                        <div class="card card-flush py-4">
-                            <!--begin::Card header-->
-                            <div class="card-header">
-                                <!--begin::Card title-->
-                                <div class="card-title">
-                                    <h2>رقم الطلب</h2>
-                                </div>
-                                <!--end::Card title-->
-                            </div>
-                            <!--end::Card header-->
-                            <!--begin::Card body-->
-                            <div class="card-body text-center pt-0">
-                                <!--begin::Image input-->
-                                <span style="font-size: large"
-                                      class="badge badge-secondary">
-                                    {{$row->order_num}}
-                                </span>
-                                <!--end::Image input-->
-                                <!--begin::Description-->
-                            {{--                                <div class="text-danger fs-7"> *.png - *.jpg - *.jpeg </div>--}}
-                            <!--end::Description-->
-                            </div>
-                            <!--end::Card body-->
-                        </div>
-                        <!--end::Thumbnail settings-->
 
                         <!--begin::Thumbnail settings-->
                         <div class="card card-flush py-4">
@@ -164,10 +137,15 @@
                                         data-hide-search="true" data-placeholder="إختر الحالة"
                                         id="kt_ecommerce_add_product_status_select">
                                     <option></option>
-                                    <option value="pending" {{$row->status == "pending" ? "selected" : ""}}>قيد الموافقة</option>
-                                    <option value="accepted" {{$row->status == "accepted" ? "selected" : ""}}>مقبول</option>
-                                    <option value="finished" {{$row->status == "finished" ? "selected" : ""}}>مكتمل</option>
-                                    <option value="canceled" {{$row->status == "canceled" ? "selected" : ""}}>ملغي</option>
+                                    <option value="pending" {{$row->status == "pending" ? "selected" : ""}}>قيد
+                                        الموافقة
+                                    </option>
+                                    <option value="accepted" {{$row->status == "accepted" ? "selected" : ""}}>مقبول
+                                    </option>
+                                    <option value="finished" {{$row->status == "finished" ? "selected" : ""}}>مكتمل
+                                    </option>
+                                    <option value="canceled" {{$row->status == "canceled" ? "selected" : ""}}>ملغي
+                                    </option>
                                 </select>
                                 <!--end::Select2-->
                                 <!--begin::Description-->
@@ -184,25 +162,65 @@
                         </div>
                         <!--end::Status-->
 
+                        <!--begin::Status-->
+                        <div class="card card-flush py-4">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>قيمة إلغاء الطلب</h2>
+                                </div>
+                                <!--end::Card title-->
+                                <!--begin::Card toolbar-->
+                                <div class="card-toolbar">
+                                    <div class="rounded-circle bg-danger w-15px h-15px"
+                                         id="kt_ecommerce_add_product_status"></div>
+                                </div>
+                                <!--begin::Card toolbar-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <!--begin::Select2-->
+                                <input name="cancel_price" type="number"
+                                       class="form-control mb-2" data-placeholder="القيمة التي ترد الي حساب العميل"
+                                       value="{{$row->cancel_price}}">
+                                <!--end::Select2-->
+                                <!--begin::Description-->
+                                <div class=" fs-7" style="color: red">القيمة التي ترد الي حساب العميل في حالة الإلغاء
+                                    للطلب
+                                </div>
+                                <!--end::Description-->
+                                <!--begin::Datepicker-->
+                            {{--                                <div class="d-none mt-10">--}}
+                            {{--                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>--}}
+                            {{--                                    <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" />--}}
+                            {{--                                </div>--}}
+                            <!--end::Datepicker-->
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Status-->
+
                     </div>
                     <!--end::Aside column-->
                     <!--begin::Main column-->
                     <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
                         <!--begin:::Tabs-->
-{{--                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">--}}
-{{--                            <!--begin:::Tab item-->--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab"--}}
-{{--                                   href="#kt_ecommerce_add_product_general">بيانات بيانات الطلب</a>--}}
-{{--                            </li>--}}
-{{--                            <!--end:::Tab item-->--}}
-{{--                            <!--begin:::Tab item-->--}}
-{{--                        --}}{{--                            <li class="nav-item">--}}
-{{--                        --}}{{--                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Advanced</a>--}}
-{{--                        --}}{{--                            </li>--}}
-{{--                        <!--end:::Tab item-->--}}
-{{--                        </ul>--}}
-                        <!--end:::Tabs-->
+                    {{--                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">--}}
+                    {{--                            <!--begin:::Tab item-->--}}
+                    {{--                            <li class="nav-item">--}}
+                    {{--                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab"--}}
+                    {{--                                   href="#kt_ecommerce_add_product_general">بيانات بيانات الطلب</a>--}}
+                    {{--                            </li>--}}
+                    {{--                            <!--end:::Tab item-->--}}
+                    {{--                            <!--begin:::Tab item-->--}}
+                    {{--                        --}}{{--                            <li class="nav-item">--}}
+                    {{--                        --}}{{--                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Advanced</a>--}}
+                    {{--                        --}}{{--                            </li>--}}
+                    {{--                        <!--end:::Tab item-->--}}
+                    {{--                        </ul>--}}
+                    <!--end:::Tabs-->
                         <!--begin::Tab content-->
                         <div class="tab-content">
                             <!--begin::Tab pane-->
@@ -213,7 +231,11 @@
                                     <div class="card card-flush py-4">
                                         <div class="card-header">
                                             <div class="card-title">
-                                                <h2>بيانات الطلب</h2>
+                                                <h2>بيانات الطلب: </h2>
+                                                <span style="font-size: large"
+                                                      class="badge badge-secondary">
+                                                    {{$row->order_num}}
+                                                </span>
                                             </div>
                                         </div>
 
@@ -233,7 +255,8 @@
                                                     <div class="col-md-3">
                                                     <span style="font-size: large"
                                                           class="badge badge-secondary">
-                                                        <a href="{{route('admin.users.edit',[$row->user_id])}}" target="_blank">
+                                                        <a href="{{route('admin.users.edit',[$row->user_id])}}"
+                                                           target="_blank">
                                                         {{$row->User->name}}
                                                         </a>
                                                     </span>
@@ -330,7 +353,9 @@
                                                     <div class="col-md-3">
 
                                                         @if(isset($row->lat) && isset($row->lng))
-                                                            <a href="https://maps.google.com/maps?q={{$row->lat}},{{$row->lng}}&hl=es&z=14&amp;" target="_blank" class="btn btn-primary" title="{{$row->location_body}}">
+                                                            <a href="https://maps.google.com/maps?q={{$row->lat}},{{$row->lng}}&hl=es&z=14&amp;"
+                                                               target="_blank" class="btn btn-primary"
+                                                               title="{{$row->location_body}}">
                                                                 <i class="fa fa-map"></i>
                                                             </a>
                                                         @else
@@ -348,12 +373,13 @@
                                                         </span>
                                                     </div>
                                                     <div class="col-md-3">
-                                                    <span style="font-size: large"
-                                                          class="badge badge-secondary">
-                                                        {{$row->package_price}}
-                                                        &nbsp;</span>
-                                                        &nbsp;
-                                                        ريال
+                                                        <span style="font-size: large"
+                                                              class="badge badge-primary">
+                                                            {{$row->package_price}}
+                                                            &nbsp;
+                                                            &nbsp;
+                                                            ريال
+                                                        </span>
                                                     </div>
                                                 </div>
 
@@ -372,14 +398,14 @@
 
                                                         @if(isset($row->lat) && isset($row->lng) && isset($row->shipping_price))
                                                             <span style="font-size: large"
-                                                                  class="badge badge-secondary">
+                                                                  class="badge badge-primary">
                                                                 {{$row->shipping_price}}&nbsp;
                                                                 &nbsp;
                                                                 ريال
                                                             </span>
                                                         @else
                                                             <span style="font-size: large"
-                                                                  class="badge badge-secondary">
+                                                                  class="badge badge-primary">
                                                                 0
                                                                 &nbsp;
                                                                 ريال
@@ -396,14 +422,14 @@
                                                     <div class="col-md-3">
                                                         @if(isset($row->discount_price))
                                                             <span style="font-size: large"
-                                                                  class="badge badge-secondary">
+                                                                  class="badge badge-primary">
                                                                 {{$row->discount_price}}&nbsp;
                                                                 &nbsp;
                                                                 ريال
                                                             </span>
                                                         @else
                                                             <span style="font-size: large"
-                                                                  class="badge badge-secondary">
+                                                                  class="badge badge-primary">
                                                                 0
                                                                 &nbsp;
                                                                 ريال
@@ -418,34 +444,46 @@
 
                                             <!--begin::Input group-->
                                             @if(isset($row->total_price))
-                                            <div class="mb-10 fv-row">
-                                                <div class="row">
-                                                    <div class="col-md-3">
+                                                <div class="mb-10 fv-row">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
                                                         <span style="font-size: large">
                                                             إجمالي التكلفة :
                                                         </span>
-                                                    </div>
-                                                    <div class="col-md-3">
+                                                        </div>
+                                                        <div class="col-md-3">
                                                         <span style="font-size: large"
-                                                              class="badge badge-secondary">
+                                                              class="badge badge-success">
                                                             {{$row->total_price}}&nbsp;
                                                             &nbsp;
                                                             ريال
                                                         </span>
-                                                    </div>
+                                                        </div>
 
 
-                                                    <div class="col-md-3">
+                                                        <div class="col-md-3">
+                                                            @if(isset($row->cancel_price) && $row->cancel_price > 0)
+                                                                <span style="font-size: large">
+                                                                    قيمة الإلغاء :
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            @if(isset($row->cancel_price) && $row->cancel_price > 0)
+                                                            <span style="font-size: large"
+                                                                  class="badge badge-danger">
+                                                            {{$row->cancel_price}}&nbsp;
+                                                            &nbsp;
+                                                            ريال
+                                                            @endif
+                                                        </span>
+                                                        </div>
+                                                    </div>
+                                                    @endif
 
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                    </div>
+
                                                 </div>
-                                                @endif
-
-
-                                            </div>
-                                            <!--end::Input group-->
+                                                <!--end::Input group-->
 
                                         </div>
                                         <!--end::Card header-->
@@ -481,11 +519,315 @@
     </div>
     <!--end::Content-->
 
+    <div class="clearfix">
+        <hr>
+    </div>
+    <!--begin::Page title-->
+        <!--begin::Title-->
+        <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+
+            <!--begin::Separator-->
+            <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+            <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+            <!--end::Separator-->
+            <!--begin::Description-->
+            <small class=" fs-1 fw-bold my-1 ms-1 badge badge-white" style="color: #F48120" >
+                وجبات الباقة
+            </small>
+            <!--end::Description-->
+        </h1>
+        <!--end::Title-->
+    <!--end::Page title-->
+    <!--begin::Content-->
+    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+        <!--begin::Post-->
+        <div class="post d-flex flex-column-fluid" id="kt_post">
+            <!--begin::Container-->
+            <div id="kt_content_container" class="container-xxl">
+                <!--begin::Products-->
+                <div class="card card-flush">
+                    <!--begin::Card header-->
+                {{--                    <div class="card-header align-items-center py-5 gap-2 gap-md-5">--}}
+                {{--                        <!--begin::Card title-->--}}
+                {{--                        <div class="card-title">--}}
+                {{--                            <!--begin::Search-->--}}
+                {{--                            <div class="d-flex align-items-center position-relative my-1">--}}
+                {{--                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->--}}
+                {{--                                <span class="svg-icon svg-icon-1 position-absolute ms-4">--}}
+                {{--													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">--}}
+                {{--														<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />--}}
+                {{--														<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />--}}
+                {{--													</svg>--}}
+                {{--												</span>--}}
+                {{--                                <!--end::Svg Icon-->--}}
+                {{--                                <input type="text" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search Product" />--}}
+                {{--                            </div>--}}
+                {{--                            <!--end::Search-->--}}
+                {{--                        </div>--}}
+                {{--                        <!--end::Card title-->--}}
+                {{--                        <!--begin::Card toolbar-->--}}
+                {{--                        <div class="card-toolbar flex-row-fluid justify-content-end gap-5">--}}
+                {{--                            <div class="w-100 mw-150px">--}}
+                {{--                                <!--begin::Select2-->--}}
+                {{--                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-product-filter="status">--}}
+                {{--                                    <option></option>--}}
+                {{--                                    <option value="all">All</option>--}}
+                {{--                                    <option value="published">Published</option>--}}
+                {{--                                    <option value="scheduled">Scheduled</option>--}}
+                {{--                                    <option value="inactive">Inactive</option>--}}
+                {{--                                </select>--}}
+                {{--                                <!--end::Select2-->--}}
+                {{--                            </div>--}}
+                {{--                            <!--begin::Add product-->--}}
+                {{--                            <a href="../../demo1/dist/apps/ecommerce/catalog/add-product.html" class="btn btn-primary">Add Product</a>--}}
+                {{--                            <!--end::Add product-->--}}
+                {{--                        </div>--}}
+                {{--                        <!--end::Card toolbar-->--}}
+                {{--                    </div>--}}
+                <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="slider_table">
+                            <!--begin::Table head-->
+                            <thead>
+                            <!--begin::Table row-->
+                            <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                {{--                                <th class="w-10px pe-2">--}}
+                                {{--                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">--}}
+                                {{--                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1" />--}}
+                                {{--                                    </div>--}}
+                                {{--                                </th>--}}
+                                <th class=" min-w-10px">#</th>
+                                <th class=" min-w-10px">الحالة</th>
+                                <th class=" min-w-10px">الوجبة</th>
+                                <th class=" min-w-10px">تاريخ التسليم </th>
+                                <th class=" min-w-10px">التاريخ القديم (المستبدل) </th>
+                                <th class=" min-w-10px">العمليات</th>
+
+                            </tr>
+                            <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="fw-bold text-gray-600">
+
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Products-->
+            </div>
+            <!--end::Container-->
+        </div>
+        <!--end::Post-->
+    </div>
+    <!--end::Content-->
+
 @endsection
 
 
 
 @section('script')
+    <script src="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+
+    <script>
+        $(document).ready(function () {
+
+            $("#slider_table").DataTable({
+                "dom": "<'card-header border-0 p-0 pt-6'<'card-title' <'d-flex align-items-center position-relative my-1'f> r> <'card-toolbar' <'d-flex justify-content-end add_button'B> r>>  <'row'l r> <''t><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                processing: true,
+                bLengthChange: true,
+                serverSide: true,
+                autoWidth: false,
+                responsive: true,
+                aaSorting: [],
+                lengthMenu: [[10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, "الكل"]],
+                "language": {
+                    search: '<i class="fa fa-eye" aria-hidden="true"></i>',
+                    searchPlaceholder: 'بحث سريع',
+                    "url": "{{ url('admin/assets/ar.json') }}"
+                },
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        text: 'أظهر العمود',
+                        title: '',
+                        className: 'btn btn-primary me-3',
+                        customize: function (win) {
+                            $(win.document)
+                                .css('direction', 'rtl');
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-primary me-3',
+                        text: '<i class="bi bi-printer-fill "></i>',
+                        customize: function (win) {
+                            $(win.document.body)
+                                .css('direction', 'rtl').prepend(
+                                ' <table> ' +
+                                '                        <tbody> ' +
+                                '                                <tr>' +
+                                '                                    <td style="text-align: center"><p>المملكة العربية السعودية</p> <p>وزارة الموارد البشرية والتنمية الاجتماعية</p> <p>الجمعية الخيرية لتحفيظ القرآن الكريم بمحافظه عنيزة</p></td>' +
+                                '                                    <td style="text-align: right"> <img src="" width="150px" height="150px" /> </td>' +
+                                '                                    <td style="text-align: right"><p>عنوان التقرير : {{ trans("s_admin.nav_students_reports")  }}</p>' +
+                                '                                                                  <p>تاريخ التقرير : {{ Carbon\Carbon::now()->translatedFormat('l Y/m/d') }}</p>' +
+                                '                                                                  <p>وقت التقرير : {{ Carbon\Carbon::now()->translatedFormat('h:i a') }}</p></td>' +
+                                '                                </tr> ' +
+                                '                        </tbody>' +
+                                '                    </table>'
+                            );
+                        },
+                        exportOptions: {
+                            columns: [0, ':visible'],
+
+                            stripHtml: false
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'btn btn-primary me-3',
+                        text: '<i class="bi bi-file-earmark-spreadsheet-fill "></i>',
+                        title: '',
+                        customize: function (win) {
+                            $(win.document)
+                                .css('direction', 'rtl');
+                        },
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+
+
+                ],
+                ajax: '{{ route('admin.orders.orderDetailsDatatable',[$row->id]) }}',
+                "columns": [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
+                    {"data": "status", "searchable": false, "orderable": false},
+                    {"data": "meal_title_ar", "searchable": false, "orderable": false},
+                    {"data": "date", "searchable": false, "orderable": false},
+                    {"data": "old_date", "searchable": false, "orderable": false},
+                    {"data": 'actions', name: 'actions', orderable: false, searchable: false}
+                ]
+            });
+        });
+    </script>
+
+    <script>
+
+        $("#kt_ecommerce_products_table").find('.group-checkable').change(function () {
+            var set = jQuery(this).attr("data-set");
+            var checked = jQuery(this).is(":checked");
+            jQuery(set).each(function () {
+                if (checked) {
+                    $(this).prop("checked", true);
+                    $(this).parents('tr').addClass("active");
+                } else {
+                    $(this).prop("checked", false);
+                    $(this).parents('tr').removeClass("active");
+                }
+            });
+        });
+
+        $("#kt_ecommerce_products_table").on('change', 'tbody tr .checkboxes', function () {
+            $(this).parents('tr').toggleClass("active");
+        });
+    </script>
+
+    {{-- Delete --}}
+    <script>
+        $(document).on("click", ".delete", function () {
+            var row_id = $(this).data('id');
+            $(".modal-body #row_id").val(row_id);
+        });
+
+        $('.delete_btn').on('click',function () {
+            $('#delete_form').submit();
+        })
+    </script>
+
+    Delete Multi
+
+    <script>
+        var $bulkDeleteBtn = $('#bulk_delete_btn');
+        $bulkdeleteinput = $('#ids');
+
+        $bulkDeleteBtn.click(function (e) {
+            var $checkedBoxes = $('#kt_ecommerce_products_table input[type=checkbox]:checked').not('.select_all');
+            var count = $checkedBoxes.length;
+            if (count) {
+                var myids = [];
+                $bulkdeleteinput.val('');
+                $.each($checkedBoxes, function () {
+                    var value = $(this).val();
+                    if (value !== 'on'){
+                        myids.push(value);
+                    }
+                });
+                // Set input value
+                $bulkdeleteinput.val(myids);
+                $('#dynamic').modal('show');
+            } else {
+                // No row selected
+                toastr.warning('Choose At Least One');
+            }
+        });
+
+        $('.delete_multi_btn').on('click',function () {
+            $('#delete_multi_form').submit();
+        })
+    </script>
+
+    <script>
+        $(document).on("click", ".delete", function () {
+            var id = $(this).data('id');
+            var btn = $(this);
+            Swal.fire({
+                title: "تحذير.هل انت متأكد؟!",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#f64e60",
+                confirmButtonText: "نعم",
+                cancelButtonText: "لا",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function (result) {
+                if (result.value) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: '{{route('admin.orders.delete')}}',
+                        type: "post",
+                        data: {'row_id':  id, _token: CSRF_TOKEN},
+                        dataType: "JSON",
+                        success: function (data) {
+                            if (data.message == "Success") {
+                                btn.parents("tr").remove();
+                                Swal.fire("نجاح", "تم الحذف بنجاح", "success");
+                                // location.reload();
+                            } else {
+                                Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                            }
+                        },
+                        fail: function (xhrerrorThrown) {
+                            Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                        }
+                    });
+                    // result.dismiss can be 'cancel', 'overlay',
+                    // 'close', and 'timer'
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire("ألغاء", "تم الالغاء", "error");
+                }
+            });
+        });
+
+    </script>
 
 @endsection

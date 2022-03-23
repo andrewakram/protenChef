@@ -87,6 +87,8 @@ Route::group([
                 Route::get('/show/{id}', 'OrderController@show')->name('.show');
                 Route::post('/delete', 'OrderController@delete')->name('.delete');
                 Route::post('/delete-multi', 'OrderController@deleteMulti')->name('.deleteMulti');
+                Route::get('/order-details/{order_id}', 'OrderController@orderDetails')->name('.orderDetailsDatatable');
+
             });
 
             Route::group(['prefix' => 'pages', 'as' => '.pages'], function () {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
+use App\Models\OrderMeal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -160,6 +161,53 @@ class OrderController extends Controller
                 return $buttons;
             })
             ->rawColumns(['actions','user_name','created_at'])
+            ->make();
+
+    }
+
+    public function orderDetails($order_id)
+    {
+        $auth = Auth::guard('admin')->user();
+        $model = OrderMeal::query()->where('order_id',$order_id);
+
+        return DataTables::eloquent($model)
+            ->addIndexColumn()
+            ->addColumn('status',function ($row){
+                if($row->status == 'pending')
+                    return '<b class="badge badge-primary">قيد التوصيل</b>';
+                elseif ($row->status == 'delivered')
+                    return '<b class="badge badge-success">تم التوصيل</b>';
+
+            })
+            ->editColumn('date',function ($row){
+                return Carbon::parse($row->date)->format("Y-m-d (H:i) A");
+            })
+            ->editColumn('old_date',function ($row){
+                if($row->old_date)
+                    return '<b class="badge badge-danger">'.Carbon::parse($row->old_date)->format("Y-m-d (H:i) A").'</b>';
+                else
+                    return '<b class="badge badge-secondary">__</b>';
+            })
+//            ->addColumn('select',function ($row){
+//                return '<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+//                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="'.$row->id.'" />
+//                                    </div>';
+//            })
+            ->addColumn('actions', function ($row) use ($auth){
+                $buttons = '';
+//                if ($auth->can('sliders.update')) {
+                $buttons .= '<a href="'.route('admin.orders.edit',[$row->id]).'" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل" target="_blank">
+                            <i class="fa fa-eye"></i>
+                        </a>';
+//                }
+//                if ($auth->can('sliders.delete')) {
+//                    $buttons .= '<a class="btn btn-danger btn-sm delete btn-circle m-1" data-id="'.$row->id.'"  title="حذف">
+//                            <i class="fa fa-trash"></i>
+//                        </a>';
+//                }
+                return $buttons;
+            })
+            ->rawColumns(['actions','status','date','old_date'])
             ->make();
 
     }
