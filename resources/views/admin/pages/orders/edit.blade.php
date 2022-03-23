@@ -481,6 +481,46 @@
                                                     </div>
                                                     @endif
 
+                                                    @if($row->OrderAdditions)
+                                                        <br>
+                                                        <div class="row">
+                                                            <hr>
+                                                            <div class="col-md-12">
+                                                                <!--begin::Title-->
+                                                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+
+                                                                    <!--begin::Description-->
+                                                                    <small class=" fs-3 fw-bold my-1 ms-1 badge badge-secondary" style="color: #F48120">
+                                                                        إضافات الباقة:
+                                                                    </small>
+                                                                    <!--end::Description-->
+                                                                </h1>
+                                                                <br>
+
+                                                                <!--end::Title-->
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <div class="row">
+                                                                @foreach($row->OrderAdditions as $addition)
+                                                                <div class="col-md-3">
+                                                                    <span style="font-size: large">
+                                                                        {{$addition->mealType->title_ar}}
+                                                                    </span>
+                                                                </div>
+                                                                    <div class="col-md-3">
+                                                                        <span style="font-size: large"
+                                                                              class="badge badge-primary">
+                                                                            {{$addition->price}}
+                                                                            &nbsp;
+                                                                            &nbsp;
+                                                                            ريال
+                                                                        </span>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                            @endif
+
 
                                                 </div>
                                                 <!--end::Input group-->
