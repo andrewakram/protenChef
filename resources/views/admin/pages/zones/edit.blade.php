@@ -26,10 +26,10 @@
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                         <!--begin::Item-->
-{{--                        <li class="breadcrumb-item text-muted">--}}
-{{--                            <a href="{{route('admin.settings.zones')}}" class="text-muted text-hover-primary">إعدادات مناطق التوصيل</a>--}}
-{{--                        </li>--}}
-{{--                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>--}}
+                        <li class="breadcrumb-item text-muted">الاعدادات</li>
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                        </li>
                         <li class="breadcrumb-item text-muted">
                             <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
                         </li>
