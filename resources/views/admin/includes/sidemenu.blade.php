@@ -361,14 +361,6 @@
                                 </a>
                             </div>
                         @endforeach
-
-                    </div>
-                </div>
-
-
-                <div class="menu-item">
-                    <div class="menu-content pt-8 pb-2">
-                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">وجبات الباقات</span>
                     </div>
                 </div>
                 <div data-kt-menu-trigger="click"
@@ -416,7 +408,6 @@
 
                     </div>
                 </div>
-
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">الصفحات</span>
