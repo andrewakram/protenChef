@@ -94,6 +94,10 @@ class SettingSeeder extends Seeder
                 'key' => 'fav_icon',
                 'value' => 'food.ico',
             ],
+            [
+                'key' => 'default_location',
+                'value' => '{"lat":"29.172909419416","lng":"47.76978786947689"}',
+            ],
 
         ];
         foreach ($data as $get) {

@@ -125,6 +125,18 @@
                     {{--                            <img alt="Logo" src="assets/media/svg/brand-logos/apple-black.svg" class="h-20px me-3" />Continue with Apple</a>--}}
                     <!--end::Google link-->
                     </div>
+                    <div class="download-buttons text-center row">
+                        <div class="play-store col-md-6">
+                            <a href="https://play.google.com">
+                                <img src="{{url('/')}}/uploads/play_store.png">
+                            </a>
+                        </div>
+                        <div class="apple-store col-md-6">
+                            <a href="https://www.apple.com/app-store">
+                                <img src="{{url('/')}}/uploads/apple_store.png">
+                            </a>
+                        </div>
+                    </div>
                     <!--end::Actions-->
                 </form>
                 <!--end::Form-->
