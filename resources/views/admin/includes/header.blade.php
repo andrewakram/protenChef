@@ -338,10 +338,10 @@
                             </a>
                         </div>
                         <div class="menu-item me-lg-1">
-                            <a class="menu-link  py-3" title="google play"
+                            <a class="menu-link  py-3" title="huawei app gallery"
                                target="_blank" href="https://appgallery.huawei.com/Featured">
                               <span class="symbol symbol-35">
-                                <img alt="huawei appgallery image"  style="width: 35px; height: 35px;" src="{{url('/')}}/uploads/huawei_appgallery.png"/>
+                                <img alt="huawei app gallery image"  style="width: 35px; height: 35px;" src="{{url('/')}}/uploads/huawei_appgallery.png"/>
                             </span>
                             </a>
                         </div>
