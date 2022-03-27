@@ -14,15 +14,15 @@ use Yajra\DataTables\Facades\DataTables;
 
 class MealController extends Controller
 {
-    public function index()
+    public function index($meal_type_id)
     {
-        return view('admin.pages.meals.index');
+        return view('admin.pages.meals.index',compact('meal_type_id'));
     }
 
-    public function create()
+    public function create($meal_type_id)
     {
         $meal_types = MealType::select('id','title_ar')->get();
-        return view('admin.pages.meals.create',compact('meal_types'));
+        return view('admin.pages.meals.create',compact('meal_types','meal_type_id'));
     }
 
     public function store(Request $request)
@@ -146,10 +146,12 @@ class MealController extends Controller
         return $row->delete();
     }
 
-    public function getData()
+    public function getData($meal_type_id)
     {
         $auth = Auth::guard('admin')->user();
         $model = Meal::query();
+        if ($meal_type_id > 0)
+            $model->where('meal_type_id',$meal_type_id);
 
         return DataTables::eloquent($model)
             ->addIndexColumn()

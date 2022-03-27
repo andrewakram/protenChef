@@ -186,6 +186,7 @@ class OrderController extends Controller
                 $discount_persentage = $exists_coupon->amount / 100;
                 $discount = $discount_persentage * $price;
                 $finat_price = $price - $discount;
+                $data['type'] =$exists_coupon->type ;
                 $data['old_price'] = $price;
                 $data['discount'] = $discount;
                 $data['new_price'] = $finat_price;
@@ -193,6 +194,7 @@ class OrderController extends Controller
                 if ($price >= $exists_coupon->min_order_total) {
 
                     $finat_price = $price - $exists_coupon->amount;
+                    $data['type'] =$exists_coupon->type ;
                     $data['old_price'] = $price;
                     $data['discount'] = $exists_coupon->amount;
                     $data['new_price'] = ($finat_price < 0) ? 0 : $finat_price;

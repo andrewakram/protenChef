@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
-use App\Models\Page;
+use App\Models\OrderMeal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +19,7 @@ class OrderController extends Controller
         return view('admin.pages.orders.index',compact('status'));
     }
 
-    public function create($type)
+    public function create()
     {
         return view('admin.pages.orders.create',compact('status'));
     }
@@ -46,10 +46,11 @@ class OrderController extends Controller
         return redirect()->route('admin.orders',[$request->status]);
     }
 
-    public function edit($status)
+    public function edit($id)
     {
 
-        $row = Page::where('type',$type)->first();
+        $row = Order::whereId($id)->first();
+        $status = $row->status;
         if (!$row){
             session()->flash('error', 'الحقل غير موجود');
             return redirect()->back();
@@ -60,11 +61,9 @@ class OrderController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'row_id' => 'required|exists:pages,id',
-            'type' => 'required|in:about,terms,frozen',
-            'body_ar' => 'required',
-            'body_en' => 'required',
-            'image' => 'sometimes|image|mimes:png,jpg,jpeg',
+            'row_id' => 'required|exists:orders,id',
+            'status' => 'required|in:pending,accepted,canceled,finished',
+            'cancel_price' => 'sometimes',
         ]);
         if (!is_array($validator) && $validator->fails()) {
             return redirect()->back()->withErrors($validator);
@@ -75,15 +74,16 @@ class OrderController extends Controller
 //                unlinkFile($city->getOriginal('image'), 'cities');
 //            }
 //        }
-        $row = Page::whereId($request->row_id)->first();
-        $row->update($request->except('row_id','_token','image'));
-        if ($request->has('image') && is_file($request->image)){
-            $row->update([ 'image' => $request->image ]);
-        }
+        $row = Order::whereId($request->row_id)->first();
+        $row->update([
+            'cancel_date' => isset($request->cancel_price) ? Carbon::now() : NULL,
+            'cancel_price' => isset($request->cancel_price) ? $request->cancel_price : NULL,
+            'status' => $request->status,
+        ]);
         $row->save();
 
         session()->flash('success', 'تم التعديل بنجاح');
-        return redirect()->route('admin.orders.edit',[$request->type]);
+        return back();
     }
 
     public function delete(Request $request)
@@ -125,6 +125,23 @@ class OrderController extends Controller
         return $row->delete();
     }
 
+    public function changeOrderMealStatus(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'row_id' => 'required|exists:order_meals,id',
+        ]);
+        if (!is_array($validator) && $validator->fails()) {
+            session()->flash('success', 'حدث خطأ ما');
+            return redirect()->back();
+        }
+
+        $row = OrderMeal::where('id',$request->row_id)->first();
+        $row->update([
+            'status' => $request->status
+        ]);
+        session()->flash('success', 'تم التعديل بنجاح');
+        return redirect()->back();    }
+
     public function getData($status)
     {
         $auth = Auth::guard('admin')->user();
@@ -134,7 +151,7 @@ class OrderController extends Controller
             ->addIndexColumn()
             ->addColumn('user_name',function ($row){
                 $user_name = $row->User->name;
-                return '<a href="'.route('admin.users.edit',[$row->user_id]).'" class="" title="العميل">
+                return '<a href="'.route('admin.users.edit',[$row->user_id]).'" target="_blank" class="" title="العميل">
                             '.$user_name.'
                         </a>';
             })
@@ -149,7 +166,7 @@ class OrderController extends Controller
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
 //                if ($auth->can('sliders.update')) {
-                    $buttons .= '<a href="'.route('admin.orders.edit',[$row->id]).'" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل">
+                    $buttons .= '<a href="'.route('admin.orders.edit',[$row->id]).'" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل" target="_blank">
                             <i class="fa fa-eye"></i>
                         </a>';
 //                }
@@ -161,6 +178,54 @@ class OrderController extends Controller
                 return $buttons;
             })
             ->rawColumns(['actions','user_name','created_at'])
+            ->make();
+
+    }
+
+    public function orderDetails($order_id)
+    {
+        $auth = Auth::guard('admin')->user();
+        $model = OrderMeal::query()->where('order_id',$order_id);
+
+        return DataTables::eloquent($model)
+            ->addIndexColumn()
+            ->addColumn('status',function ($row){
+                if($row->status == 'pending')
+                    return '<b class="badge badge-primary">قيد التوصيل</b>';
+                elseif ($row->status == 'delivered')
+                    return '<b class="badge badge-success">تم التوصيل</b>';
+
+            })
+            ->editColumn('date',function ($row){
+                return Carbon::parse($row->date)->format("Y-m-d (H:i) A");
+            })
+            ->editColumn('old_date',function ($row){
+                if($row->old_date)
+                    return '<b class="badge badge-danger">'.Carbon::parse($row->old_date)->format("Y-m-d (H:i) A").'</b>';
+                else
+                    return '<b class="badge badge-secondary">__</b>';
+            })
+//            ->addColumn('select',function ($row){
+//                return '<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+//                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="'.$row->id.'" />
+//                                    </div>';
+//            })
+            ->addColumn('actions', function ($row) use ($auth){
+                $buttons = '';
+//                if ($auth->can('sliders.update')) {
+                $buttons .= '<a href="#" data-id="'.$row->id.'" class="btn btn-sm btn-primary changeStatus" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button"><i class="fa fa-edit"></i></a>';
+//                $buttons .= '<a href="'.route('admin.orders.edit',[$row->id]).'" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل" target="_blank">
+//                            <i class="fa fa-eye"></i>
+//                        </a>';
+//                }
+//                if ($auth->can('sliders.delete')) {
+//                    $buttons .= '<a class="btn btn-danger btn-sm delete btn-circle m-1" data-id="'.$row->id.'"  title="حذف">
+//                            <i class="fa fa-trash"></i>
+//                        </a>';
+//                }
+                return $buttons;
+            })
+            ->rawColumns(['actions','status','date','old_date'])
             ->make();
 
     }

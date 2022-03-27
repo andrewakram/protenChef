@@ -122,7 +122,7 @@
 {{--                    </div>--}}
                     <!--end::Wrapper-->
                     <!--begin::Button-->
-                    <a href="{{route('admin.meals.create')}}" class="btn btn-sm btn-success"
+                    <a href="{{route('admin.meals.create',[$meal_type_id])}}" class="btn btn-sm btn-success"
 {{--                       data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id=""--}}
                     >
                         <i class="fa fa-plus"></i>
@@ -301,7 +301,7 @@
 
 
                 ],
-                ajax: '{{ route('admin.meals.datatable') }}',
+                ajax: '{{ route('admin.meals.datatable',[$meal_type_id]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
                     {"data": "image", "searchable": false, "orderable": false},

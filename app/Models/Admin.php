@@ -36,6 +36,8 @@ class Admin extends Authenticatable
             $img_name = time().uniqid().'.'.$image->getClientOriginalExtension();
             $image->move(public_path('/uploads/Admin/'),$img_name);
             $this->attributes['image'] = $img_name ;
+        }else{
+            $this->attributes['image'] = $image ;
         }
 
     }

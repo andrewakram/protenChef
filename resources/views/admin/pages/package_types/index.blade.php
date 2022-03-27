@@ -197,7 +197,7 @@
                                 <th class=" min-w-100px">الصورة</th>
                                 <th class=" min-w-100px">العنوان (بالعربي)</th>
                                 <th class=" min-w-100px">العنوان (بالإنجليزي)</th>
-                                <th class=" min-w-100px">عدد الايام</th>
+{{--                                <th class=" min-w-100px">عدد الايام</th>--}}
                                 <th class=" min-w-100px">العمليات</th>
 
                             </tr>
@@ -309,7 +309,7 @@
                     {"data": "image", "searchable": false, "orderable": false},
                     {"data": "title_ar", "searchable": false, "orderable": false},
                     {"data": "title_en", "searchable": false, "orderable": false},
-                    {"data": "days_count", "searchable": false, "orderable": false},
+                    // {"data": "days_count", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });

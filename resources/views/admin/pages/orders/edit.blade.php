@@ -17,7 +17,7 @@
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
-                        تعديل بيانات العميل
+                        بيانات الطلب
                     </h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
@@ -33,7 +33,28 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.users')}}" class="text-muted text-hover-primary">البيانات العميل</a>
+                            <a href="
+                                @if($status == 'pending')
+                            {{route('admin.orders',['pending'])}}
+                            @elseif($status == 'accepted')
+                            {{route('admin.orders',['accepted'])}}
+                            @elseif($status == 'canceled')
+                            {{route('admin.orders',['canceled'])}}
+                            @elseif($status == 'finished')
+                            {{route('admin.orders',['finished'])}}
+                            @endif" class="text-muted text-hover-primary">
+
+                                الطلبات
+                                @if($status == 'pending')
+                                    قيد الموافقة
+                                @elseif($status == 'accepted')
+                                    المقبولة(الحالية)
+                                @elseif($status == 'canceled')
+                                    الملغية
+                                @elseif($status == 'finished')
+                                    المنتهية
+                                @endif
+                            </a>
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -53,19 +74,20 @@
             <!--begin::Container-->
             <div id="kt_content_container" class="container-xxl">
                 <!--begin::Form-->
-                <form action="{{route('admin.users.update')}}" method="post" enctype="multipart/form-data"
+                <form action="{{route('admin.orders.update')}}" method="post" enctype="multipart/form-data"
                       class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
                     @csrf
                     <input type="hidden" name="row_id" value="{{$row->id}}">
                     <!--begin::Aside column-->
                     <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px">
+
                         <!--begin::Thumbnail settings-->
                         <div class="card card-flush py-4">
                             <!--begin::Card header-->
                             <div class="card-header">
                                 <!--begin::Card title-->
                                 <div class="card-title">
-                                    <h2>الصورة</h2>
+                                    <h2>الباقة</h2>
                                 </div>
                                 <!--end::Card title-->
                             </div>
@@ -73,35 +95,16 @@
                             <!--begin::Card body-->
                             <div class="card-body text-center pt-0">
                                 <!--begin::Image input-->
-                                <div class="image-input image-input-empty image-input-outline mb-3"
-                                     data-kt-image-input="true" style="">
-                                    <!--begin::Preview existing avatar-->
-                                    <div class="image-input-wrapper w-150px h-150px"
-                                         style="background-image: url({{$row->image}})"></div>
-                                    <!--end::Preview existing avatar-->
-                                    <!--begin::Label-->
-                                {{--                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="إختر الصورة">--}}
-                                {{--                                        <i class="bi bi-pencil-fill fs-7"></i>--}}
-                                <!--begin::Inputs-->
-                                {{--                                        <input type="file" name="image" accept=".png, .jpg, .jpeg" />--}}
-                                {{--                                        <input type="hidden"  />--}}
-                                <!--end::Inputs-->
-                                {{--                                    </label>--}}
-                                <!--end::Label-->
-                                    <!--begin::Cancel-->
-                                    <span
-                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                        data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-                                        title="إلغاء الصورة">
-														<i class="bi bi-x fs-2"></i>
-													</span>
-                                    <!--end::Cancel-->
-                                    <!--begin::Remove-->
-                                {{--                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="حذف الصورة">--}}
-                                {{--														<i class="bi bi-x fs-2"></i>--}}
-                                {{--													</span>--}}
-                                <!--end::Remove-->
-                                </div>
+                                <span style="font-size: large"
+                                      class="badge badge-secondary">
+                                    {{$row->package_name_ar}}
+                                </span>
+                                <br>
+                                <br>
+                                <span style="font-size: large"
+                                      class="badge badge-secondary">
+                                    {{$row->package_type_ar}}
+                                </span>
                                 <!--end::Image input-->
                                 <!--begin::Description-->
                             {{--                                <div class="text-danger fs-7"> *.png - *.jpg - *.jpeg </div>--}}
@@ -130,12 +133,19 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <select name="active" required class="form-select mb-2" data-control="select2"
+                                <select name="status" required class="form-select mb-2" data-control="select2"
                                         data-hide-search="true" data-placeholder="إختر الحالة"
                                         id="kt_ecommerce_add_product_status_select">
                                     <option></option>
-                                    <option value="1" {{$row->active == 1 ? "selected" : ""}}>مفعل</option>
-                                    <option value="0" {{$row->active == 0 ? "selected" : ""}}>غير مفعل</option>
+                                    <option value="pending" {{$row->status == "pending" ? "selected" : ""}}>قيد
+                                        الموافقة
+                                    </option>
+                                    <option value="accepted" {{$row->status == "accepted" ? "selected" : ""}}>مقبول
+                                    </option>
+                                    <option value="finished" {{$row->status == "finished" ? "selected" : ""}}>مكتمل
+                                    </option>
+                                    <option value="canceled" {{$row->status == "canceled" ? "selected" : ""}}>ملغي
+                                    </option>
                                 </select>
                                 <!--end::Select2-->
                                 <!--begin::Description-->
@@ -158,7 +168,7 @@
                             <div class="card-header">
                                 <!--begin::Card title-->
                                 <div class="card-title">
-                                    <h2>حالة الإيقاف</h2>
+                                    <h2>قيمة إلغاء الطلب</h2>
                                 </div>
                                 <!--end::Card title-->
                                 <!--begin::Card toolbar-->
@@ -172,17 +182,15 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <select name="suspend" required class="form-select mb-2" data-control="select2"
-                                        data-hide-search="true" data-placeholder="إختر الحالة"
-                                        id="kt_ecommerce_add_product_status_select">
-                                    <option></option>
-                                    <option value="1" {{$row->suspend == 1 ? "selected" : ""}}>إيقاف</option>
-                                    <option value="0" {{$row->suspend == 0 ? "selected" : ""}}>إلغاء الإيقاف</option>
-                                </select>
+                                <input name="cancel_price" type="number"
+                                       class="form-control mb-2" data-placeholder="القيمة التي ترد الي حساب العميل"
+                                       value="{{$row->cancel_price}}">
                                 <!--end::Select2-->
                                 <!--begin::Description-->
-                            {{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
-                            <!--end::Description-->
+                                <div class=" fs-7" style="color: red">القيمة التي ترد الي حساب العميل في حالة الإلغاء
+                                    للطلب
+                                </div>
+                                <!--end::Description-->
                                 <!--begin::Datepicker-->
                             {{--                                <div class="d-none mt-10">--}}
                             {{--                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>--}}
@@ -199,20 +207,20 @@
                     <!--begin::Main column-->
                     <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
                         <!--begin:::Tabs-->
-                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">
-                            <!--begin:::Tab item-->
-                            <li class="nav-item">
-                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab"
-                                   href="#kt_ecommerce_add_product_general">بيانات البيانات العميل</a>
-                            </li>
-                            <!--end:::Tab item-->
-                            <!--begin:::Tab item-->
-                        {{--                            <li class="nav-item">--}}
-                        {{--                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Advanced</a>--}}
-                        {{--                            </li>--}}
-                        <!--end:::Tab item-->
-                        </ul>
-                        <!--end:::Tabs-->
+                    {{--                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">--}}
+                    {{--                            <!--begin:::Tab item-->--}}
+                    {{--                            <li class="nav-item">--}}
+                    {{--                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab"--}}
+                    {{--                                   href="#kt_ecommerce_add_product_general">بيانات بيانات الطلب</a>--}}
+                    {{--                            </li>--}}
+                    {{--                            <!--end:::Tab item-->--}}
+                    {{--                            <!--begin:::Tab item-->--}}
+                    {{--                        --}}{{--                            <li class="nav-item">--}}
+                    {{--                        --}}{{--                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Advanced</a>--}}
+                    {{--                        --}}{{--                            </li>--}}
+                    {{--                        <!--end:::Tab item-->--}}
+                    {{--                        </ul>--}}
+                    <!--end:::Tabs-->
                         <!--begin::Tab content-->
                         <div class="tab-content">
                             <!--begin::Tab pane-->
@@ -223,15 +231,21 @@
                                     <div class="card card-flush py-4">
                                         <div class="card-header">
                                             <div class="card-title">
-                                                <h2>بيانات العميل</h2>
+                                                <h2>بيانات الطلب: </h2>
+                                                <span style="font-size: large"
+                                                      class="badge badge-secondary">
+                                                    {{$row->order_num}}
+                                                </span>
                                             </div>
                                         </div>
-                                        <br>
-                                        <br>
+
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
                                             <!--begin::Input group-->
                                             <div class="mb-10 fv-row">
+
+                                                <hr>
+
                                                 <div class="row">
                                                     <div class="col-md-2">
                                                         <span style="font-size: large">
@@ -241,7 +255,10 @@
                                                     <div class="col-md-3">
                                                     <span style="font-size: large"
                                                           class="badge badge-secondary">
-                                                        {{$row->name}}
+                                                        <a href="{{route('admin.users.edit',[$row->user_id])}}"
+                                                           target="_blank">
+                                                        {{$row->User->name}}
+                                                        </a>
                                                     </span>
                                                     </div>
 
@@ -255,7 +272,7 @@
                                                     <div class="col-md-3">
                                                     <span style="font-size: large"
                                                           class="badge badge-secondary">
-                                                        {{$row->phone}}
+                                                        {{$row->User->phone}}
                                                     </span>
                                                     </div>
                                                 </div>
@@ -273,7 +290,7 @@
                                                     <div class="col-md-3">
                                                     <span style="font-size: large"
                                                           class="badge badge-secondary">
-                                                        {{$row->email}}
+                                                        {{$row->User->email}}
                                                     </span>
                                                     </div>
 
@@ -287,6 +304,40 @@
                                                     </div>
                                                 </div>
 
+                                                <hr>
+                                            </div>
+
+                                            <!--end::Input group-->
+
+                                            <!--begin::Input group-->
+                                            <div class="mb-10 fv-row">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <span style="font-size: large">
+                                                            تاريخ إنشاء الطلب :
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                    <span style="font-size: large"
+                                                          class="badge badge-secondary">
+                                                        {{\Carbon\Carbon::parse($row->created_at)->format('Y-m-d H:i A')}}
+                                                    </span>
+                                                    </div>
+
+
+                                                    <div class="col-md-3">
+                                                        <span style="font-size: large">
+                                                            تاريخ بدء الباقة :
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                    <span style="font-size: large"
+                                                          class="badge badge-secondary">
+                                                        {{$row->start_date}}
+                                                    </span>
+                                                    </div>
+                                                </div>
+
 
                                             </div>
                                             <!--end::Input group-->
@@ -294,34 +345,96 @@
                                             <!--begin::Input group-->
                                             <div class="mb-10 fv-row">
                                                 <div class="row">
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-3">
                                                         <span style="font-size: large">
-                                                            العمر :
+                                                            طريقة إستلام الطلب :
                                                         </span>
                                                     </div>
                                                     <div class="col-md-3">
-                                                    <span style="font-size: large"
-                                                          class="badge badge-secondary">
-                                                        {{$row->age}}
-                                                    </span>
-                                                    </div>
 
-                                                    <div class="col-md-2"></div>
-
-                                                    <div class="col-md-2">
-                                                        <span style="font-size: large">
-                                                            النوع :
-                                                        </span>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                    <span style="font-size: large"
-                                                          class="badge badge-secondary">
-                                                        @if($row->gender == 'male')
-                                                            ذكر
+                                                        @if(isset($row->lat) && isset($row->lng))
+                                                            <a href="https://maps.google.com/maps?q={{$row->lat}},{{$row->lng}}&hl=es&z=14&amp;"
+                                                               target="_blank" class="btn btn-primary"
+                                                               title="{{$row->location_body}}">
+                                                                <i class="fa fa-map"></i>
+                                                            </a>
                                                         @else
-                                                            أنثي
+                                                            <span style="font-size: large"
+                                                                  class="badge badge-secondary">
+                                                                إستلام من المقر&nbsp;
+                                                            </span>
                                                         @endif
-                                                    </span>
+                                                    </div>
+
+
+                                                    <div class="col-md-3">
+                                                        <span style="font-size: large">
+                                                            سعر الباقة :
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <span style="font-size: large"
+                                                              class="badge badge-primary">
+                                                            {{$row->package_price}}
+                                                            &nbsp;
+                                                            &nbsp;
+                                                            ريال
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--end::Input group-->
+
+                                            <!--begin::Input group-->
+                                            <div class="mb-10 fv-row">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <span style="font-size: large">
+                                                            تكلفة الشحن :
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+
+                                                        @if(isset($row->lat) && isset($row->lng) && isset($row->shipping_price))
+                                                            <span style="font-size: large"
+                                                                  class="badge badge-primary">
+                                                                {{$row->shipping_price}}&nbsp;
+                                                                &nbsp;
+                                                                ريال
+                                                            </span>
+                                                        @else
+                                                            <span style="font-size: large"
+                                                                  class="badge badge-primary">
+                                                                0
+                                                                &nbsp;
+                                                                ريال
+                                                            </span>
+                                                        @endif
+                                                    </div>
+
+
+                                                    <div class="col-md-3">
+                                                        <span style="font-size: large">
+                                                            الخصم :
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @if(isset($row->discount_price))
+                                                            <span style="font-size: large"
+                                                                  class="badge badge-primary">
+                                                                {{$row->discount_price}}&nbsp;
+                                                                &nbsp;
+                                                                ريال
+                                                            </span>
+                                                        @else
+                                                            <span style="font-size: large"
+                                                                  class="badge badge-primary">
+                                                                0
+                                                                &nbsp;
+                                                                ريال
+                                                            </span>
+                                                        @endif
                                                     </div>
                                                 </div>
 
@@ -330,42 +443,87 @@
                                             <!--end::Input group-->
 
                                             <!--begin::Input group-->
-                                            <div class="mb-10 fv-row">
-                                                <div class="row">
-                                                    <div class="col-md-2">
+                                            @if(isset($row->total_price))
+                                                <div class="mb-10 fv-row">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
                                                         <span style="font-size: large">
-                                                            الطول :
+                                                            إجمالي التكلفة :
                                                         </span>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                    <span style="font-size: large"
-                                                          class="badge badge-secondary">
-                                                        {{$row->height}}
-                                                        &nbsp;
-                                                        سم
-                                                    </span>
-                                                    </div>
-
-                                                    <div class="col-md-2"></div>
-
-                                                    <div class="col-md-2">
-                                                        <span style="font-size: large">
-                                                            الوزن :
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                        <span style="font-size: large"
+                                                              class="badge badge-success">
+                                                            {{$row->total_price}}&nbsp;
+                                                            &nbsp;
+                                                            ريال
                                                         </span>
+                                                        </div>
+
+
+                                                        <div class="col-md-3">
+                                                            @if(isset($row->cancel_price) && $row->cancel_price > 0)
+                                                                <span style="font-size: large">
+                                                                    قيمة الإلغاء :
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            @if(isset($row->cancel_price) && $row->cancel_price > 0)
+                                                                <span style="font-size: large"
+                                                                      class="badge badge-danger">
+                                                            {{$row->cancel_price}}&nbsp;
+                                                            &nbsp;
+                                                            ريال
+                                                            @endif
+                                                        </span>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                    <span style="font-size: large"
-                                                          class="badge badge-secondary">
-                                                        {{$row->weight}}
-                                                        &nbsp;
-                                                        كم
-                                                    </span>
-                                                    </div>
+                                                    @endif
+
+                                                    @if($row->OrderAdditions)
+                                                        <br>
+                                                        <div class="row">
+                                                            <hr>
+                                                            <div class="col-md-12">
+                                                                <!--begin::Title-->
+                                                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+
+                                                                    <!--begin::Description-->
+                                                                    <small class=" fs-3 fw-bold my-1 ms-1 badge badge-secondary" style="color: #F48120">
+                                                                        إضافات الباقة:
+                                                                    </small>
+                                                                    <!--end::Description-->
+                                                                </h1>
+                                                                <br>
+
+                                                                <!--end::Title-->
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <div class="row">
+                                                                @foreach($row->OrderAdditions as $addition)
+                                                                <div class="col-md-3">
+                                                                    <span style="font-size: large">
+                                                                        {{$addition->mealType->title_ar}}
+                                                                    </span>
+                                                                </div>
+                                                                    <div class="col-md-3">
+                                                                        <span style="font-size: large"
+                                                                              class="badge badge-primary">
+                                                                            {{$addition->price}}
+                                                                            &nbsp;
+                                                                            &nbsp;
+                                                                            ريال
+                                                                        </span>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                            @endif
+
+
                                                 </div>
-
-
-                                            </div>
-                                            <!--end::Input group-->
+                                                <!--end::Input group-->
 
                                         </div>
                                         <!--end::Card header-->
@@ -379,7 +537,7 @@
                         <!--end::Tab content-->
                         <div class="d-flex justify-content-end">
                             <!--begin::Button-->
-                            <a href="{{route('admin.users')}}" id="kt_ecommerce_add_product_cancel"
+                            <a href="{{route('admin.orders',[$row->status])}}" id="kt_ecommerce_add_product_cancel"
                                class="btn btn-light me-5">عودة</a>
                             <!--end::Button-->
                             <!--begin::Button-->
@@ -401,11 +559,381 @@
     </div>
     <!--end::Content-->
 
+    <div class="clearfix">
+        <hr>
+    </div>
+    <!--begin::Page title-->
+    <!--begin::Title-->
+    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+
+        <!--begin::Separator-->
+        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+        <!--end::Separator-->
+        <!--begin::Description-->
+        <small class=" fs-1 fw-bold my-1 ms-1 badge badge-white" style="color: #F48120">
+            وجبات الباقة
+        </small>
+        <!--end::Description-->
+    </h1>
+    <!--end::Title-->
+    <!--end::Page title-->
+    <!--begin::Content-->
+    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+        <!--begin::Post-->
+        <div class="post d-flex flex-column-fluid" id="kt_post">
+            <!--begin::Container-->
+            <div id="kt_content_container" class="container-xxl">
+                <!--begin::Products-->
+                <div class="card card-flush">
+                    <!--begin::Card header-->
+                {{--                    <div class="card-header align-items-center py-5 gap-2 gap-md-5">--}}
+                {{--                        <!--begin::Card title-->--}}
+                {{--                        <div class="card-title">--}}
+                {{--                            <!--begin::Search-->--}}
+                {{--                            <div class="d-flex align-items-center position-relative my-1">--}}
+                {{--                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->--}}
+                {{--                                <span class="svg-icon svg-icon-1 position-absolute ms-4">--}}
+                {{--													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">--}}
+                {{--														<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />--}}
+                {{--														<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />--}}
+                {{--													</svg>--}}
+                {{--												</span>--}}
+                {{--                                <!--end::Svg Icon-->--}}
+                {{--                                <input type="text" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search Product" />--}}
+                {{--                            </div>--}}
+                {{--                            <!--end::Search-->--}}
+                {{--                        </div>--}}
+                {{--                        <!--end::Card title-->--}}
+                {{--                        <!--begin::Card toolbar-->--}}
+                {{--                        <div class="card-toolbar flex-row-fluid justify-content-end gap-5">--}}
+                {{--                            <div class="w-100 mw-150px">--}}
+                {{--                                <!--begin::Select2-->--}}
+                {{--                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-product-filter="status">--}}
+                {{--                                    <option></option>--}}
+                {{--                                    <option value="all">All</option>--}}
+                {{--                                    <option value="published">Published</option>--}}
+                {{--                                    <option value="scheduled">Scheduled</option>--}}
+                {{--                                    <option value="inactive">Inactive</option>--}}
+                {{--                                </select>--}}
+                {{--                                <!--end::Select2-->--}}
+                {{--                            </div>--}}
+                {{--                            <!--begin::Add product-->--}}
+                {{--                            <a href="../../demo1/dist/apps/ecommerce/catalog/add-product.html" class="btn btn-primary">Add Product</a>--}}
+                {{--                            <!--end::Add product-->--}}
+                {{--                        </div>--}}
+                {{--                        <!--end::Card toolbar-->--}}
+                {{--                    </div>--}}
+                <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="slider_table">
+                            <!--begin::Table head-->
+                            <thead>
+                            <!--begin::Table row-->
+                            <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                {{--                                <th class="w-10px pe-2">--}}
+                                {{--                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">--}}
+                                {{--                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1" />--}}
+                                {{--                                    </div>--}}
+                                {{--                                </th>--}}
+                                <th class=" min-w-10px">#</th>
+                                <th class=" min-w-10px">الحالة</th>
+                                <th class=" min-w-10px">الوجبة</th>
+                                <th class=" min-w-10px">تاريخ التسليم</th>
+                                <th class=" min-w-10px">التاريخ القديم (المستبدل)</th>
+                                <th class=" min-w-10px">العمليات</th>
+
+                            </tr>
+                            <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="fw-bold text-gray-600">
+
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Products-->
+            </div>
+            <!--end::Container-->
+        </div>
+        <!--end::Post-->
+    </div>
+    <!--end::Content-->
+
+    <!--begin::Modal - change status-->
+    <div class="modal fade" id="kt_modal_create_app" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-900px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Status-->
+                <div class="card card-flush py-4">
+                    <!--begin::Card header-->
+                    <div class="card-header">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <h2>الحالة</h2>
+                        </div>
+                        <!--end::Card title-->
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                            <span class="svg-icon svg-icon-1">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+								</svg>
+							</span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <form id="submit_btn" method="post" action="{{route('admin.orders.changeOrderMealStatus')}}">
+                        @csrf
+                        <input type="hidden" name="row_id" id="row_id">
+                        <div class="card-body pt-0">
+                            <!--begin::Select2-->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <select name="status" required class="form-select mb-2" data-control="select2"
+                                            data-hide-search="true" data-placeholder="إختر الحالة"
+                                            id="kt_ecommerce_add_product_status_select">
+                                        <option></option>
+                                        <option value="pending" {{$row->status == "pending" ? "selected" : ""}}>قيد
+                                            التسليم
+                                        </option>
+                                        <option value="delivered" {{$row->status == "delivered" ? "selected" : ""}}>تم
+                                            التسليم
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--end::Select2-->
+                        </div>
+                        <!--end::Card body-->
+                        <div class="modal-footer">
+                            <button type="submit" data-dismiss="modal" class="btn btn-primary submit_btn">تأكيد</button>
+                        </div>
+                    </form>
+                </div>
+                <!--end::Status-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+    <!--end::Modal - change status-->
+
 @endsection
 
 
 
 @section('script')
+    <script src="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+
+    <script>
+        $(document).ready(function () {
+
+            $("#slider_table").DataTable({
+                "dom": "<'card-header border-0 p-0 pt-6'<'card-title' <'d-flex align-items-center position-relative my-1'f> r> <'card-toolbar' <'d-flex justify-content-end add_button'B> r>>  <'row'l r> <''t><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                processing: true,
+                bLengthChange: true,
+                serverSide: true,
+                autoWidth: false,
+                responsive: true,
+                aaSorting: [],
+                lengthMenu: [[10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, "الكل"]],
+                "language": {
+                    search: '<i class="fa fa-eye" aria-hidden="true"></i>',
+                    searchPlaceholder: 'بحث سريع',
+                    "url": "{{ url('admin/assets/ar.json') }}"
+                },
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        text: 'أظهر العمود',
+                        title: '',
+                        className: 'btn btn-primary me-3',
+                        customize: function (win) {
+                            $(win.document)
+                                .css('direction', 'rtl');
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-primary me-3',
+                        text: '<i class="bi bi-printer-fill "></i>',
+                        customize: function (win) {
+                            $(win.document.body)
+                                .css('direction', 'rtl').prepend(
+                                ' <table> ' +
+                                '                        <tbody> ' +
+                                '                                <tr>' +
+                                '                                    <td style="text-align: center"><p>المملكة العربية السعودية</p> <p>وزارة الموارد البشرية والتنمية الاجتماعية</p> <p>الجمعية الخيرية لتحفيظ القرآن الكريم بمحافظه عنيزة</p></td>' +
+                                '                                    <td style="text-align: right"> <img src="" width="150px" height="150px" /> </td>' +
+                                '                                    <td style="text-align: right"><p>عنوان التقرير : {{ trans("s_admin.nav_students_reports")  }}</p>' +
+                                '                                                                  <p>تاريخ التقرير : {{ Carbon\Carbon::now()->translatedFormat('l Y/m/d') }}</p>' +
+                                '                                                                  <p>وقت التقرير : {{ Carbon\Carbon::now()->translatedFormat('h:i a') }}</p></td>' +
+                                '                                </tr> ' +
+                                '                        </tbody>' +
+                                '                    </table>'
+                            );
+                        },
+                        exportOptions: {
+                            columns: [0, ':visible'],
+
+                            stripHtml: false
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'btn btn-primary me-3',
+                        text: '<i class="bi bi-file-earmark-spreadsheet-fill "></i>',
+                        title: '',
+                        customize: function (win) {
+                            $(win.document)
+                                .css('direction', 'rtl');
+                        },
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+
+
+                ],
+                ajax: '{{ route('admin.orders.orderDetailsDatatable',[$row->id]) }}',
+                "columns": [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
+                    {"data": "status", "searchable": false, "orderable": false},
+                    {"data": "meal_title_ar", "searchable": false, "orderable": false},
+                    {"data": "date", "searchable": false, "orderable": false},
+                    {"data": "old_date", "searchable": false, "orderable": false},
+                    {"data": 'actions', name: 'actions', orderable: false, searchable: false}
+                ]
+            });
+        });
+    </script>
+
+    <script>
+
+        $("#kt_ecommerce_products_table").find('.group-checkable').change(function () {
+            var set = jQuery(this).attr("data-set");
+            var checked = jQuery(this).is(":checked");
+            jQuery(set).each(function () {
+                if (checked) {
+                    $(this).prop("checked", true);
+                    $(this).parents('tr').addClass("active");
+                } else {
+                    $(this).prop("checked", false);
+                    $(this).parents('tr').removeClass("active");
+                }
+            });
+        });
+
+        $("#kt_ecommerce_products_table").on('change', 'tbody tr .checkboxes', function () {
+            $(this).parents('tr').toggleClass("active");
+        });
+    </script>
+
+    {{-- change status --}}
+    <script>
+        $(document).on("click", ".changeStatus", function () {
+            var row_id = $(this).data('id');
+            $(".card #row_id").val(row_id);
+        });
+
+        $('.submit_btn').on('click', function () {
+            $('#submit_btn').submit();
+        })
+    </script>
+
+    Delete Multi
+
+    <script>
+        var $bulkDeleteBtn = $('#bulk_delete_btn');
+        $bulkdeleteinput = $('#ids');
+
+        $bulkDeleteBtn.click(function (e) {
+            var $checkedBoxes = $('#kt_ecommerce_products_table input[type=checkbox]:checked').not('.select_all');
+            var count = $checkedBoxes.length;
+            if (count) {
+                var myids = [];
+                $bulkdeleteinput.val('');
+                $.each($checkedBoxes, function () {
+                    var value = $(this).val();
+                    if (value !== 'on') {
+                        myids.push(value);
+                    }
+                });
+                // Set input value
+                $bulkdeleteinput.val(myids);
+                $('#dynamic').modal('show');
+            } else {
+                // No row selected
+                toastr.warning('Choose At Least One');
+            }
+        });
+
+        $('.delete_multi_btn').on('click', function () {
+            $('#delete_multi_form').submit();
+        })
+    </script>
+
+    <script>
+        $(document).on("click", ".delete", function () {
+            var id = $(this).data('id');
+            var btn = $(this);
+            Swal.fire({
+                title: "تحذير.هل انت متأكد؟!",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#f64e60",
+                confirmButtonText: "نعم",
+                cancelButtonText: "لا",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function (result) {
+                if (result.value) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: '{{route('admin.orders.delete')}}',
+                        type: "post",
+                        data: {'row_id': id, _token: CSRF_TOKEN},
+                        dataType: "JSON",
+                        success: function (data) {
+                            if (data.message == "Success") {
+                                btn.parents("tr").remove();
+                                Swal.fire("نجاح", "تم الحذف بنجاح", "success");
+                                // location.reload();
+                            } else {
+                                Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                            }
+                        },
+                        fail: function (xhrerrorThrown) {
+                            Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                        }
+                    });
+                    // result.dismiss can be 'cancel', 'overlay',
+                    // 'close', and 'timer'
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire("ألغاء", "تم الالغاء", "error");
+                }
+            });
+        });
+
+    </script>
 
 @endsection

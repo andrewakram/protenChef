@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\MealType;
+use App\Models\Package;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $languages = ['ar', 'en'];
         App::setLocale('ar');
         Schema::defaultStringLength(255);
-        date_default_timezone_set('Asia/Riyadh');
+        date_default_timezone_set(env('TIME_ZONE', 'UTC'));
 
         $lang = request()->header('lang');
         if ($lang) {
@@ -38,5 +41,8 @@ class AppServiceProvider extends ServiceProvider
                 App::setLocale('ar');
             }
         }
+
+        View::share('meal_types', MealType::get());
+        View::share('packages', Package::get());
     }
 }

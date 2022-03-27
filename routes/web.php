@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ZoneController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,23 @@ use App\Http\Controllers\Admin\ZoneController;
 |
 */
 
+
 Route::get('/', function () {
 //    return view('welcome');
     return redirect()->route('admin.login');
+//    return redirect()->route('home');
 });
+
+
+Route::get('cache', function () {
+    Artisan::call('config:cache');
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    return 'success';
+});
+
 
 Route::group([
     'prefix' => 'admin',
@@ -73,6 +87,9 @@ Route::group([
                 Route::get('/show/{id}', 'OrderController@show')->name('.show');
                 Route::post('/delete', 'OrderController@delete')->name('.delete');
                 Route::post('/delete-multi', 'OrderController@deleteMulti')->name('.deleteMulti');
+                Route::get('/order-details/{order_id}', 'OrderController@orderDetails')->name('.orderDetailsDatatable');
+                Route::post('/change-order-meal-status', 'OrderController@changeOrderMealStatus')->name('.changeOrderMealStatus');
+
             });
 
             Route::group(['prefix' => 'pages', 'as' => '.pages'], function () {
@@ -160,9 +177,9 @@ Route::group([
             });
 
             Route::group(['prefix' => 'meals', 'as' => '.meals'], function () {
-                Route::get('/', 'MealController@index');
-                Route::get('getData', 'MealController@getData')->name('.datatable');
-                Route::get('/create', 'MealController@create')->name('.create');
+                Route::get('/{meal_type_id}', 'MealController@index');
+                Route::get('getData/{meal_type_id}', 'MealController@getData')->name('.datatable');
+                Route::get('/create/{meal_type_id}', 'MealController@create')->name('.create');
                 Route::post('/store', 'MealController@store')->name('.store');
                 Route::get('/edit/{id}', 'MealController@edit')->name('.edit');
                 Route::post('/update', 'MealController@update')->name('.update');
@@ -196,9 +213,9 @@ Route::group([
             });
 
             Route::group(['prefix' => 'package-type-prices', 'as' => '.package-type-prices'], function () {
-                Route::get('/', 'PackageTypePriceController@index');
-                Route::get('getData', 'PackageTypePriceController@getData')->name('.datatable');
-                Route::get('/create', 'PackageTypePriceController@create')->name('.create');
+                Route::get('/{package_id}', 'PackageTypePriceController@index');
+                Route::get('getData/{package_id}', 'PackageTypePriceController@getData')->name('.datatable');
+                Route::get('/create/{package_id}', 'PackageTypePriceController@create')->name('.create');
                 Route::post('/store', 'PackageTypePriceController@store')->name('.store');
                 Route::get('/edit/{id}', 'PackageTypePriceController@edit')->name('.edit');
                 Route::post('/update', 'PackageTypePriceController@update')->name('.update');
@@ -207,8 +224,22 @@ Route::group([
                 Route::post('/delete-multi', 'PackageTypePriceController@deleteMulti')->name('.deleteMulti');
             });
 
+            Route::group(['prefix' => 'package-meals', 'as' => '.package-meals'], function () {
+                Route::get('/{package_id}', 'PackageMealController@index');
+                Route::get('getData/{package_id}', 'PackageMealController@getData')->name('.datatable');
+                Route::get('/create/{package_id}', 'PackageMealController@create')->name('.create');
+                Route::post('/store', 'PackageMealController@store')->name('.store');
+                Route::get('/edit/{id}', 'PackageMealController@edit')->name('.edit');
+                Route::post('/update', 'PackageMealController@update')->name('.update');
+                Route::get('/show/{id}', 'PackageMealController@show')->name('.show');
+                Route::post('/delete', 'PackageMealController@delete')->name('.delete');
+                Route::post('/delete-multi', 'PackageMealController@deleteMulti')->name('.deleteMulti');
+                Route::get('/get/meals', 'PackageMealController@getMeals')->name('.getMeals');
+            });
+
             Route::group(['prefix' => 'settings', 'as' => '.settings'], function () {
-                Route::get('/', [SettingController::class, 'index']);
+                Route::get('/edit', [SettingController::class, 'index']);
+                Route::post('/update', [SettingController::class, 'update'])->name('.update');
                 Route::group(['prefix' => 'zones', 'as' => '.zones'], function () {
                     Route::get('/', [ZoneController::class, 'index']);
                     Route::get('getData', [ZoneController::class, 'getData'] )->name('.datatable');

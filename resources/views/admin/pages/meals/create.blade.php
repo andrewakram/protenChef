@@ -31,7 +31,7 @@
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.meals')}}" class="text-muted text-hover-primary">الوجبات</a>
+                            <a href="{{route('admin.meals',[$meal_type_id])}}" class="text-muted text-hover-primary">الوجبات</a>
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -147,18 +147,18 @@
                     <!--begin::Main column-->
                     <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
                         <!--begin:::Tabs-->
-                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">
-                            <!--begin:::Tab item-->
-                            <li class="nav-item">
-                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">بيانات الوجبة</a>
-                            </li>
-                            <!--end:::Tab item-->
-                            <!--begin:::Tab item-->
+{{--                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">--}}
+{{--                            <!--begin:::Tab item-->--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">بيانات الوجبة</a>--}}
+{{--                            </li>--}}
+{{--                            <!--end:::Tab item-->--}}
+{{--                            <!--begin:::Tab item-->--}}
 {{--                            <li class="nav-item">--}}
 {{--                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Advanced</a>--}}
 {{--                            </li>--}}
-                            <!--end:::Tab item-->
-                        </ul>
+{{--                            <!--end:::Tab item-->--}}
+{{--                        </ul>--}}
                         <!--end:::Tabs-->
                         <!--begin::Tab content-->
                         <div class="tab-content">
@@ -242,7 +242,7 @@
                         <!--end::Tab content-->
                         <div class="d-flex justify-content-end">
                             <!--begin::Button-->
-                            <a href="{{route('admin.meals')}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">عودة</a>
+                            <a href="{{route('admin.meals',[$meal_type_id])}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">عودة</a>
                             <!--end::Button-->
                             <!--begin::Button-->
                             <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-secondary">

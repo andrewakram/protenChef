@@ -15,6 +15,8 @@ use App\Models\Screen;
 use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\User;
+use App\Models\Zone;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Auth;
@@ -30,7 +32,16 @@ class HomeController extends Controller
         $packages = Package::active()->get();
         $offers = Offer::active()->get();
 
-        $data['on_zone'] = true;
+
+        //check my location in zone
+
+        $point = new Point($request->lat, $request->lng);
+        $zone = Zone::contains('coordinates', $point)->first();
+        if (!$zone) {
+            $data['on_zone'] = false;
+        } else {
+            $data['on_zone'] = true;
+        }
         $data['sliders'] = (SliderResources::collection($sliders));
         $data['packages'] = (PackageResources::collection($packages));
         $data['offers'] = (OfferResources::collection($offers));

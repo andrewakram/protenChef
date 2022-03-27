@@ -13,7 +13,7 @@
 <meta property="og:url" content="http://tesolutionspro.com/metronic"/>
 <meta property="og:site_name" content="Proten Chef"/>
 <link rel="canonical" href="https://preview.keenthemes.com/metronic8"/>
-<link rel="shortcut icon" href="{{asset('/')}}/default.png"/>
+<link rel="shortcut icon" href="{{url('/').'/uploads/Settings/'.\App\Models\Setting::where('key', 'fav_icon')->first()->value}}"/>
 <!--begin::Fonts-->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
 <!--end::Fonts-->
