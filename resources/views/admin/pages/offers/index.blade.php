@@ -11,7 +11,9 @@
             <!--begin::Container-->
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
                 <!--begin::Page title-->
-                <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                <div data-kt-swapper="true" data-kt-swapper-mode="prepend"
+                     data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+                     class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
                         العروض
@@ -89,7 +91,7 @@
     <!--end::Content-->
 @endsection
 @section('script')
-<script src="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+    <script src="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <script>
         $(document).ready(function () {
@@ -122,15 +124,16 @@
                         extend: 'print',
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-printer-fill "></i>',
+                        titleAttr: 'طباعة',
                         customize: function (win) {
                             $(win.document.body)
                                 .css('direction', 'rtl').prepend(
                                 ' <table> ' +
                                 '                        <tbody> ' +
                                 '                                <tr>' +
-                                '                                    <td style="text-align: center"><p>المملكة العربية السعودية</p> <p>وزارة الموارد البشرية والتنمية الاجتماعية</p> <p>الجمعية الخيرية لتحفيظ القرآن الكريم بمحافظه عنيزة</p></td>' +
-                                '                                    <td style="text-align: right"> <img src="" width="150px" height="150px" /> </td>' +
-                                '                                    <td style="text-align: right"><p>عنوان التقرير : {{ trans("s_admin.nav_students_reports")  }}</p>' +
+                                '                                    <td style="text-align: center">  <p style="padding-right:150px">بروتين  شيف</p></td>' +
+                                '                                    <td style="text-align: right"> <img src="{{asset('default.png')}}" width="150px" height="150px" /> </td>' +
+                                '                                    <td style="text-align: right"><p>عنوان التقرير : العروض</p>' +
                                 '                                                                  <p>تاريخ التقرير : {{ Carbon\Carbon::now()->translatedFormat('l Y/m/d') }}</p>' +
                                 '                                                                  <p>وقت التقرير : {{ Carbon\Carbon::now()->translatedFormat('h:i a') }}</p></td>' +
                                 '                                </tr> ' +
@@ -148,6 +151,7 @@
                         extend: 'excel',
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-file-earmark-spreadsheet-fill "></i>',
+                        titleAttr: 'تصدير لأكسيل',
                         title: '',
                         customize: function (win) {
                             $(win.document)
@@ -202,12 +206,12 @@
             $(".modal-body #row_id").val(row_id);
         });
 
-        $('.delete_btn').on('click',function () {
+        $('.delete_btn').on('click', function () {
             $('#delete_form').submit();
         })
     </script>
 
-     Delete Multi
+    Delete Multi
 
     <script>
         var $bulkDeleteBtn = $('#bulk_delete_btn');
@@ -221,7 +225,7 @@
                 $bulkdeleteinput.val('');
                 $.each($checkedBoxes, function () {
                     var value = $(this).val();
-                    if (value !== 'on'){
+                    if (value !== 'on') {
                         myids.push(value);
                     }
                 });
@@ -234,53 +238,53 @@
             }
         });
 
-        $('.delete_multi_btn').on('click',function () {
+        $('.delete_multi_btn').on('click', function () {
             $('#delete_multi_form').submit();
         })
     </script>
 
-<script>
-    $(document).on("click", ".delete", function () {
-        var id = $(this).data('id');
-        var btn = $(this);
-        Swal.fire({
-            title: "تحذير.هل انت متأكد؟!",
-            text: "",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#f64e60",
-            confirmButtonText: "نعم",
-            cancelButtonText: "لا",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        }).then(function (result) {
-            if (result.value) {
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: '{{route('admin.offers.delete')}}',
-                    type: "post",
-                    data: {'row_id':  id, _token: CSRF_TOKEN},
-                    dataType: "JSON",
-                    success: function (data) {
-                        if (data.message == "Success") {
-                            btn.parents("tr").remove();
-                            Swal.fire("نجاح", "تم الحذف بنجاح", "success");
-                            // location.reload();
-                        } else {
+    <script>
+        $(document).on("click", ".delete", function () {
+            var id = $(this).data('id');
+            var btn = $(this);
+            Swal.fire({
+                title: "تحذير.هل انت متأكد؟!",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#f64e60",
+                confirmButtonText: "نعم",
+                cancelButtonText: "لا",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function (result) {
+                if (result.value) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: '{{route('admin.offers.delete')}}',
+                        type: "post",
+                        data: {'row_id': id, _token: CSRF_TOKEN},
+                        dataType: "JSON",
+                        success: function (data) {
+                            if (data.message == "Success") {
+                                btn.parents("tr").remove();
+                                Swal.fire("نجاح", "تم الحذف بنجاح", "success");
+                                // location.reload();
+                            } else {
+                                Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                            }
+                        },
+                        fail: function (xhrerrorThrown) {
                             Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
                         }
-                    },
-                    fail: function (xhrerrorThrown) {
-                        Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
-                    }
-                });
-                // result.dismiss can be 'cancel', 'overlay',
-                // 'close', and 'timer'
-            } else if (result.dismiss === 'cancel') {
-                Swal.fire("ألغاء", "تم الالغاء", "error");
-            }
+                    });
+                    // result.dismiss can be 'cancel', 'overlay',
+                    // 'close', and 'timer'
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire("ألغاء", "تم الالغاء", "error");
+                }
+            });
         });
-    });
 
-</script>
+    </script>
 @endsection

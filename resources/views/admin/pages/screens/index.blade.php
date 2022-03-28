@@ -13,7 +13,9 @@
             <!--begin::Container-->
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
                 <!--begin::Page title-->
-                <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                <div data-kt-swapper="true" data-kt-swapper-mode="prepend"
+                     data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+                     class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
                         الشاشات الترحيبية
@@ -38,7 +40,7 @@
                     <!--begin::Wrapper-->
                     <!--end::Wrapper-->
                     <!--begin::Button-->
-                    <a href="{{route('admin.screens.create')}}" class="btn btn-sm btn-success" >
+                    <a href="{{route('admin.screens.create')}}" class="btn btn-sm btn-success">
                         <i class="fa fa-plus"></i>
                         أضف</a>
                     <!--end::Button-->
@@ -55,44 +57,44 @@
                 <!--begin::Products-->
                 <div class="card card-flush">
                     <!--begin::Card header-->
-{{--                    <div class="card-header align-items-center py-5 gap-2 gap-md-5">--}}
-{{--                        <!--begin::Card title-->--}}
-{{--                        <div class="card-title">--}}
-{{--                            <!--begin::Search-->--}}
-{{--                            <div class="d-flex align-items-center position-relative my-1">--}}
-{{--                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->--}}
-{{--                                <span class="svg-icon svg-icon-1 position-absolute ms-4">--}}
-{{--													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">--}}
-{{--														<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />--}}
-{{--														<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />--}}
-{{--													</svg>--}}
-{{--												</span>--}}
-{{--                                <!--end::Svg Icon-->--}}
-{{--                                <input type="text" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search Product" />--}}
-{{--                            </div>--}}
-{{--                            <!--end::Search-->--}}
-{{--                        </div>--}}
-{{--                        <!--end::Card title-->--}}
-{{--                        <!--begin::Card toolbar-->--}}
-{{--                        <div class="card-toolbar flex-row-fluid justify-content-end gap-5">--}}
-{{--                            <div class="w-100 mw-150px">--}}
-{{--                                <!--begin::Select2-->--}}
-{{--                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-product-filter="status">--}}
-{{--                                    <option></option>--}}
-{{--                                    <option value="all">All</option>--}}
-{{--                                    <option value="published">Published</option>--}}
-{{--                                    <option value="scheduled">Scheduled</option>--}}
-{{--                                    <option value="inactive">Inactive</option>--}}
-{{--                                </select>--}}
-{{--                                <!--end::Select2-->--}}
-{{--                            </div>--}}
-{{--                            <!--begin::Add product-->--}}
-{{--                            <a href="../../demo1/dist/apps/ecommerce/catalog/add-product.html" class="btn btn-primary">Add Product</a>--}}
-{{--                            <!--end::Add product-->--}}
-{{--                        </div>--}}
-{{--                        <!--end::Card toolbar-->--}}
-{{--                    </div>--}}
-                    <!--end::Card header-->
+                {{--                    <div class="card-header align-items-center py-5 gap-2 gap-md-5">--}}
+                {{--                        <!--begin::Card title-->--}}
+                {{--                        <div class="card-title">--}}
+                {{--                            <!--begin::Search-->--}}
+                {{--                            <div class="d-flex align-items-center position-relative my-1">--}}
+                {{--                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->--}}
+                {{--                                <span class="svg-icon svg-icon-1 position-absolute ms-4">--}}
+                {{--													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">--}}
+                {{--														<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />--}}
+                {{--														<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />--}}
+                {{--													</svg>--}}
+                {{--												</span>--}}
+                {{--                                <!--end::Svg Icon-->--}}
+                {{--                                <input type="text" data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search Product" />--}}
+                {{--                            </div>--}}
+                {{--                            <!--end::Search-->--}}
+                {{--                        </div>--}}
+                {{--                        <!--end::Card title-->--}}
+                {{--                        <!--begin::Card toolbar-->--}}
+                {{--                        <div class="card-toolbar flex-row-fluid justify-content-end gap-5">--}}
+                {{--                            <div class="w-100 mw-150px">--}}
+                {{--                                <!--begin::Select2-->--}}
+                {{--                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-product-filter="status">--}}
+                {{--                                    <option></option>--}}
+                {{--                                    <option value="all">All</option>--}}
+                {{--                                    <option value="published">Published</option>--}}
+                {{--                                    <option value="scheduled">Scheduled</option>--}}
+                {{--                                    <option value="inactive">Inactive</option>--}}
+                {{--                                </select>--}}
+                {{--                                <!--end::Select2-->--}}
+                {{--                            </div>--}}
+                {{--                            <!--begin::Add product-->--}}
+                {{--                            <a href="../../demo1/dist/apps/ecommerce/catalog/add-product.html" class="btn btn-primary">Add Product</a>--}}
+                {{--                            <!--end::Add product-->--}}
+                {{--                        </div>--}}
+                {{--                        <!--end::Card toolbar-->--}}
+                {{--                    </div>--}}
+                <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body pt-0">
                         <!--begin::Table-->
@@ -101,11 +103,11 @@
                             <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-{{--                                <th class="w-10px pe-2">--}}
-{{--                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">--}}
-{{--                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1" />--}}
-{{--                                    </div>--}}
-{{--                                </th>--}}
+                                {{--                                <th class="w-10px pe-2">--}}
+                                {{--                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">--}}
+                                {{--                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1" />--}}
+                                {{--                                    </div>--}}
+                                {{--                                </th>--}}
                                 <th class=" min-w-10px">#</th>
                                 <th class=" min-w-10px">الصورة</th>
                                 <th class=" min-w-10px">الحالة</th>
@@ -141,7 +143,7 @@
 
 
 @section('script')
-<script src="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+    <script src="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 
 
     <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -178,15 +180,16 @@
                         extend: 'print',
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-printer-fill "></i>',
+                        titleAttr: 'طباعة',
                         customize: function (win) {
                             $(win.document.body)
                                 .css('direction', 'rtl').prepend(
                                 ' <table> ' +
                                 '                        <tbody> ' +
                                 '                                <tr>' +
-                                '                                    <td style="text-align: center"><p>المملكة العربية السعودية</p> <p>وزارة الموارد البشرية والتنمية الاجتماعية</p> <p>الجمعية الخيرية لتحفيظ القرآن الكريم بمحافظه عنيزة</p></td>' +
-                                '                                    <td style="text-align: right"> <img src="" width="150px" height="150px" /> </td>' +
-                                '                                    <td style="text-align: right"><p>عنوان التقرير : {{ trans("s_admin.nav_students_reports")  }}</p>' +
+                                '                                    <td style="text-align: center">  <p style="padding-right:150px">بروتين  شيف</p></td>' +
+                                '                                    <td style="text-align: right"> <img src="{{asset('default.png')}}" width="150px" height="150px" /> </td>' +
+                                '                                    <td style="text-align: right"><p>عنوان التقرير : الشاشات الترحيبية</p>' +
                                 '                                                                  <p>تاريخ التقرير : {{ Carbon\Carbon::now()->translatedFormat('l Y/m/d') }}</p>' +
                                 '                                                                  <p>وقت التقرير : {{ Carbon\Carbon::now()->translatedFormat('h:i a') }}</p></td>' +
                                 '                                </tr> ' +
@@ -204,6 +207,7 @@
                         extend: 'excel',
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-file-earmark-spreadsheet-fill "></i>',
+                        titleAttr: 'تصدير لأكسيل',
                         title: '',
                         customize: function (win) {
                             $(win.document)
@@ -257,12 +261,12 @@
             $(".modal-body #row_id").val(row_id);
         });
 
-        $('.delete_btn').on('click',function () {
+        $('.delete_btn').on('click', function () {
             $('#delete_form').submit();
         })
     </script>
 
-     Delete Multi
+    Delete Multi
 
     <script>
         var $bulkDeleteBtn = $('#bulk_delete_btn');
@@ -276,7 +280,7 @@
                 $bulkdeleteinput.val('');
                 $.each($checkedBoxes, function () {
                     var value = $(this).val();
-                    if (value !== 'on'){
+                    if (value !== 'on') {
                         myids.push(value);
                     }
                 });
@@ -289,7 +293,7 @@
             }
         });
 
-        $('.delete_multi_btn').on('click',function () {
+        $('.delete_multi_btn').on('click', function () {
             $('#delete_multi_form').submit();
         })
     </script>
@@ -314,7 +318,7 @@
                     $.ajax({
                         url: '{{route('admin.screens.delete')}}',
                         type: "post",
-                        data: {'row_id':  id, _token: CSRF_TOKEN},
+                        data: {'row_id': id, _token: CSRF_TOKEN},
                         dataType: "JSON",
                         success: function (data) {
                             if (data.message == "Success") {

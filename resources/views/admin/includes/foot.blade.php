@@ -63,8 +63,6 @@ $errors = session()->get("errors");
     <?php
     $e = session()->get("success");
     ?>
-
-
     <script>
         Swal.fire({
             icon: 'success',
