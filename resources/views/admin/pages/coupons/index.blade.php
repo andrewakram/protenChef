@@ -270,6 +270,7 @@
                         extend: 'print',
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-printer-fill "></i>',
+                         titleAttr: 'طباعة',
                         customize: function (win) {
                             $(win.document.body)
                                 .css('direction', 'rtl').prepend(
@@ -297,6 +298,7 @@
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-file-earmark-spreadsheet-fill "></i>',
                         title: '',
+                         titleAttr: 'تصدير لأكسيل',
                         customize: function (win) {
                             $(win.document)
                                 .css('direction', 'rtl');

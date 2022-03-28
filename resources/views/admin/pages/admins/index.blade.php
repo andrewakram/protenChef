@@ -265,6 +265,7 @@
                     {
                         extend: 'print',
                         className: 'btn btn-primary me-3',
+                         titleAttr: 'طباعة',
                         text: '<i class="bi bi-printer-fill "></i>',
                         customize: function (win) {
                             $(win.document.body)
@@ -291,6 +292,7 @@
                     {
                         extend: 'excel',
                         className: 'btn btn-primary me-3',
+                         titleAttr: 'تصدير لأكسيل',
                         text: '<i class="bi bi-file-earmark-spreadsheet-fill "></i>',
                         title: '',
                         customize: function (win) {

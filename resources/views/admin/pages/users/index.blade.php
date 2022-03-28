@@ -256,6 +256,7 @@
                         extend: 'colvis',
                         text: 'أظهر العمود',
                         title: '',
+
                         className: 'btn btn-primary me-3',
                         customize: function (win) {
                             $(win.document)
@@ -266,6 +267,8 @@
                         extend: 'print',
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-printer-fill "></i>',
+                        titleAttr: 'طباعة',
+
                         customize: function (win) {
                             $(win.document.body)
                                 .css('direction', 'rtl').prepend(
@@ -284,7 +287,6 @@
                         },
                         exportOptions: {
                             columns: [0, ':visible'],
-
                             stripHtml: false
                         }
                     },
@@ -293,6 +295,7 @@
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-file-earmark-spreadsheet-fill "></i>',
                         title: '',
+                        titleAttr: 'تصدير لأكسيل',
                         customize: function (win) {
                             $(win.document)
                                 .css('direction', 'rtl');
