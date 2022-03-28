@@ -1,10 +1,7 @@
 @extends('admin.index')
-
 @section('style')
 @endsection
-
 @section('content')
-
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Toolbar-->
@@ -12,7 +9,9 @@
             <!--begin::Container-->
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
                 <!--begin::Page title-->
-                <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                <div data-kt-swapper="true" data-kt-swapper-mode="prepend"
+                     data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+                     class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
                         تعديل تسعير للباقة
@@ -25,23 +24,22 @@
                     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
+                            <a href="{{route('admin.package-type-prices',[0])}}" class="text-muted text-hover-primary">خطط
+                                أسعار الباقات</a>
                         </li>
                         <!--end::Item-->
-                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                        </li>
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.package-type-prices',[0])}}" class="text-muted text-hover-primary">التسعير للباقة</a>
+                            <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
                         </li>
                         <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
-                    <!--begin::Separator-->
-                    <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                    <!--end::Separator-->
                 </div>
                 <!--end::Page title-->
-
             </div>
             <!--end::Container-->
         </div>
@@ -51,10 +49,11 @@
             <!--begin::Container-->
             <div id="kt_content_container" class="container-xxl">
                 <!--begin::Form-->
-                <form action="{{route('admin.package-type-prices.update')}}" method="post" enctype="multipart/form-data" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10" >
-                @csrf
+                <form action="{{route('admin.package-type-prices.update')}}" method="post" enctype="multipart/form-data"
+                      class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10">
+                    @csrf
                     <input type="hidden" name="row_id" value="{{$row->id}}">
-                <!--begin::Aside column-->
+                    <!--begin::Aside column-->
                     <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px">
                         <!--begin::Thumbnail settings-->
                         <div class="card card-flush py-4">
@@ -67,7 +66,8 @@
                                 <!--end::Card title-->
                                 <!--begin::Card toolbar-->
                                 <div class="card-toolbar">
-                                    <div class="rounded-circle bg-info w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+                                    <div class="rounded-circle bg-info w-15px h-15px"
+                                         id="kt_ecommerce_add_product_status"></div>
                                 </div>
                                 <!--begin::Card toolbar-->
                             </div>
@@ -75,7 +75,8 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <input type="number" required name="price" value="{{$row->price}}" class="form-control mb-2" placeholder="سعر الباقة" value="" />
+                                <input type="number" required name="price" value="{{$row->price}}"
+                                       class="form-control mb-2" placeholder="سعر الباقة" value=""/>
                                 <!--end::Select2-->
                                 <!--begin::Description-->
                             {{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
@@ -101,7 +102,8 @@
                                 <!--end::Card title-->
                                 <!--begin::Card toolbar-->
                                 <div class="card-toolbar">
-                                    <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+                                    <div class="rounded-circle bg-success w-15px h-15px"
+                                         id="kt_ecommerce_add_product_status"></div>
                                 </div>
                                 <!--begin::Card toolbar-->
                             </div>
@@ -109,7 +111,9 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <select name="active" required class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="إختر الحالة" id="kt_ecommerce_add_product_status_select">
+                                <select name="active" required class="form-select mb-2" data-control="select2"
+                                        data-hide-search="true" data-placeholder="إختر الحالة"
+                                        id="kt_ecommerce_add_product_status_select">
                                     <option></option>
                                     <option value="1" {{$row->active == 1 ? "selected" : ""}}>مفعل</option>
                                     <option value="0" {{$row->active == 0 ? "selected" : ""}}>غير مفعل</option>
@@ -134,23 +138,24 @@
                     <!--begin::Main column-->
                     <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
                         <!--begin:::Tabs-->
-{{--                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">--}}
-{{--                            <!--begin:::Tab item-->--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">بيانات التسعير للباقة</a>--}}
-{{--                            </li>--}}
-{{--                            <!--end:::Tab item-->--}}
-{{--                            <!--begin:::Tab item-->--}}
-{{--                        --}}{{--                            <li class="nav-item">--}}
-{{--                        --}}{{--                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Advanced</a>--}}
-{{--                        --}}{{--                            </li>--}}
-{{--                        <!--end:::Tab item-->--}}
-{{--                        </ul>--}}
-                        <!--end:::Tabs-->
+                    {{--                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">--}}
+                    {{--                            <!--begin:::Tab item-->--}}
+                    {{--                            <li class="nav-item">--}}
+                    {{--                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">بيانات التسعير للباقة</a>--}}
+                    {{--                            </li>--}}
+                    {{--                            <!--end:::Tab item-->--}}
+                    {{--                            <!--begin:::Tab item-->--}}
+                    {{--                        --}}{{--                            <li class="nav-item">--}}
+                    {{--                        --}}{{--                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Advanced</a>--}}
+                    {{--                        --}}{{--                            </li>--}}
+                    {{--                        <!--end:::Tab item-->--}}
+                    {{--                        </ul>--}}
+                    <!--end:::Tabs-->
                         <!--begin::Tab content-->
                         <div class="tab-content">
                             <!--begin::Tab pane-->
-                            <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+                            <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general"
+                                 role="tab-panel">
                                 <div class="d-flex flex-column gap-7 gap-lg-10">
                                     <!--begin::General options-->
                                     <div class="card card-flush py-4">
@@ -172,10 +177,13 @@
                                                             <label class="required form-label">اختر الباقة</label>
                                                             <!--end::Label-->
                                                             <!--begin::Select2-->
-                                                            <select class="form-select mb-2" name="package_id" data-control="select2" data-hide-search="false" data-placeholder="إختر الباقة">
+                                                            <select class="form-select mb-2" name="package_id"
+                                                                    data-control="select2" data-hide-search="false"
+                                                                    data-placeholder="إختر الباقة">
                                                                 <option></option>
                                                                 @foreach($packages as $key => $package)
-                                                                    <option value="{{$package->id}}" {{$package->id == $row->package_id ? "selected" : ""}}>{{$package->title_ar}}</option>
+                                                                    <option
+                                                                        value="{{$package->id}}" {{$package->id == $row->package_id ? "selected" : ""}}>{{$package->title_ar}}</option>
                                                                 @endforeach
                                                             </select>
                                                             <!--end::Select2-->
@@ -200,10 +208,14 @@
                                                             <!--end::Label-->
                                                             <!--begin::Select2-->
                                                             <!--begin::Input-->
-                                                            <select name="package_type_id" required class="form-select mb-2" data-control="select2" data-hide-search="false" data-placeholder="إختر نوع الباقة" >
+                                                            <select name="package_type_id" required
+                                                                    class="form-select mb-2" data-control="select2"
+                                                                    data-hide-search="false"
+                                                                    data-placeholder="إختر نوع الباقة">
                                                                 <option></option>
                                                                 @foreach($package_types as $key => $package_type)
-                                                                    <option value="{{$package_type->id}}" {{$package_type->id == $row->package_type_id ? "selected" : ""}}>{{$package_type->title_ar}}</option>
+                                                                    <option
+                                                                        value="{{$package_type->id}}" {{$package_type->id == $row->package_type_id ? "selected" : ""}}>{{$package_type->title_ar}}</option>
                                                                 @endforeach
                                                             </select>
                                                             <!--end::Select2-->
@@ -229,7 +241,8 @@
                         <!--end::Tab content-->
                         <div class="d-flex justify-content-end">
                             <!--begin::Button-->
-                            <a href="{{route('admin.package-type-prices',[0])}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">عودة</a>
+                            <a href="{{route('admin.package-type-prices',[0])}}" id="kt_ecommerce_add_product_cancel"
+                               class="btn btn-light me-5">عودة</a>
                             <!--end::Button-->
                             <!--begin::Button-->
                             <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-secondary">

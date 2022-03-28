@@ -17,7 +17,7 @@
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
-                        إضافة وجبة للباقة
+                        إضافة وجبة الباقة
                     </h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
@@ -27,21 +27,21 @@
                     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
-                        </li>
-                        <!--end::Item-->
-                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                        <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">
                             <a href="{{route('admin.package-meals',[$package_id])}}"
                                class="text-muted text-hover-primary">وجبات الباقات</a>
                         </li>
                         <!--end::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                        </li>
+                        <!--begin::Item-->
+
+                        <li class="breadcrumb-item text-muted">
+                            <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
+                        </li>
+                        <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
-                    <!--begin::Separator-->
-                    <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                    <!--end::Separator-->
                 </div>
                 <!--end::Page title-->
 
@@ -177,7 +177,7 @@
                                         <div class="card-header">
                                             <div class="card-title">
                                                 <div class="card-title">
-                                                    <h2>بيانات الوجبة للباقة</h2>
+                                                    <h2>بيانات وجبة الباقة</h2>
                                                 </div>
                                             </div>
                                             <br>

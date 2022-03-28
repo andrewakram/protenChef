@@ -18,29 +18,26 @@
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
-                        <a href="{{route('home')}}" class="text-muted text-hover-primary">
-                            الرئيسية
-                        </a>
-                        <!--begin::Separator-->
-                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                        <!--end::Separator-->
-                        <!--begin::Description-->
-                        <small class=" fs-3 fw-bold my-1 ms-1" style="color: #F48120">
-                            الطلبات
-                            @if($status == 'pending')
-                                قيد الموافقة
-                            @elseif($status == 'accepted')
-                                المقبولة(الحالية)
-                            @elseif($status == 'canceled')
-                                الملغية
-                            @elseif($status == 'finished')
-                                المنتهية
-                            @endif
-
-                        </small>
-                        <!--end::Description-->
+                    <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
+                        الطلبات
+                        @if($status == 'pending')
+                            قيد الموافقة
+                        @elseif($status == 'accepted')
+                            المقبولة(الحالية)
+                        @elseif($status == 'canceled')
+                            الملغية
+                        @elseif($status == 'finished')
+                            المنتهية
+                        @endif
+                    <!--end::Description-->
                     </h1>
+                    <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+                    <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">
+                            <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
+                        </li>
+                    </ul>
                     <!--end::Title-->
                 </div>
                 <!--end::Page title-->

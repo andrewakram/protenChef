@@ -36,9 +36,6 @@
                         <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
-                    <!--begin::Separator-->
-                    <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                    <!--end::Separator-->
                 </div>
                 <!--end::Page title-->
 
@@ -208,7 +205,7 @@
                                                 <label class="required form-label">وصف الوجبة (بالعربي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <textarea  id="editor1" name="body_ar"
+                                                <textarea  id="editor1" name="body_ar" required
                                                           value="" placeholder="وصف الوجبة (بالعربي)"></textarea>
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
@@ -221,7 +218,7 @@
                                                 <label class="required form-label">وصف الوجبة (بالإنجليزي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <textarea  id="editor2" name="body_en"
+                                                <textarea  id="editor2" name="body_en" required
                                                           value="" placeholder="وصف الوجبة (بالإنجليزي)"></textarea>
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
@@ -229,7 +226,6 @@
                                             <!--end::Description-->
                                             </div>
                                             <!--end::Input group-->
-
                                         </div>
                                         <!--end::Card header-->
                                     </div>
