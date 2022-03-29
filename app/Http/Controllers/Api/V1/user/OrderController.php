@@ -34,7 +34,7 @@ class OrderController extends Controller
 
     public function make_order(Request $request)
     {
-        $two_dayes = Carbon::now()->addDay(2);
+        $two_dayes = Carbon::now()->addDay(1);
         $validator = Validator::make($request->all(), [
             'selected_date' => 'required|after:' . $two_dayes,
             'package_type_id' => 'required|exists:package_type_prices,id',
