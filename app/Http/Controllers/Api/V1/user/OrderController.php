@@ -171,7 +171,7 @@ class OrderController extends Controller
             'price' => 'required|numeric',
         ]);
         if ($validator->fails()) {
-            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+            return response()->json(msg($request, failed(), $validator->messages()->first()));
         }
         $exists_coupon = Coupon::where('code', $request->coupon_code)->first();
 
@@ -192,22 +192,18 @@ class OrderController extends Controller
                 $data['new_price'] = $finat_price;
             } else {
                 if ($price >= $exists_coupon->min_order_total) {
-
                     $finat_price = $price - $exists_coupon->amount;
                     $data['type'] =$exists_coupon->type ;
                     $data['old_price'] = $price;
                     $data['discount'] = $exists_coupon->amount;
                     $data['new_price'] = ($finat_price < 0) ? 0 : $finat_price;
                 } else {
-                    return response()->json(['errors' => trans('lang.should_have_min_order_cost')], 403);
+                    return response()->json(msg($request, failed(), trans('lang.should_have_min_order_cost')));
                 }
             }
-            return response()->json([
-                'message' => "coupon used successfully",
-                'data' => $data
-            ], 200);
+            return response()->json(msgdata($request, success(), trans('lang.coupon_send_s'), $data));
         } else {
-            return response()->json(['errors' => trans('lang.you_should_choose_valid_coupon')], 403);
+            return response()->json(msg($request, failed(), trans('lang.you_should_choose_valid_coupon')));
         }
     }
 
