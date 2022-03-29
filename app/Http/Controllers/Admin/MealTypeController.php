@@ -81,7 +81,7 @@ class MealTypeController extends Controller
         $row->save();
 
         session()->flash('success', 'تم التعديل بنجاح');
-        return redirect()->route('admin.meal_types');
+        return redirect()->route('admin.meal-types',[$request->type]);
     }
 
     public function delete(Request $request)

@@ -12,6 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+    'coupon_send_s' => 'coupon used successfully',
     'phoneOrPasswordIncorrect'=>'phone Or Password Incorrect',
     'success'=>'done successfully',
     'not_active'=>'user not active',

@@ -31,16 +31,31 @@ class SettingsController extends Controller
 //        $screens = (ScreenResources::collection($screens));
         return response()->json(msgdata($request, success(), trans('lang.success'), $settings));
     }
-    public function custom_settings(Request $request,$key)
+
+    public function custom_settings(Request $request, $key)
     {
-        $key = $key .'_'.$request->header('lang');
-        $data = Setting::where('key',$key)->first()->value;
+        $key = $key . '_' . $request->header('lang');
+        $data = Setting::where('key', $key)->first()->value;
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
-    public function pages(Request $request,$type)
+
+    public function custom_settings_keys(Request $request)
     {
-        $page = Page::where('type',$type)->first();
-        if(!$page){
+        if ($request->header('lang')) {
+            $lang = $request->header('lang');
+        } else {
+            $lang = 'ar';
+        }
+        $data['working_hours'] = Setting::where('key', 'working_hours_' . $lang)->first()->value;
+        $data['shipp_value'] = Setting::where('key', 'shipp_value')->first()->value;
+        $data['freeze_days'] = Setting::where('key', 'freeze_days')->first()->value;
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+    }
+
+    public function pages(Request $request, $type)
+    {
+        $page = Page::where('type', $type)->first();
+        if (!$page) {
             return response()->json(['status' => 401, 'msg' => trans('lang.page_not_found')]);
         }
         $data = (new PagesResources($page));

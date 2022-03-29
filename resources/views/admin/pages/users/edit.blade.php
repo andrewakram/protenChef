@@ -38,9 +38,6 @@
                         <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
-                    <!--begin::Separator-->
-                    <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                    <!--end::Separator-->
                 </div>
                 <!--end::Page title-->
 

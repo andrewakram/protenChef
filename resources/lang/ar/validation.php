@@ -245,6 +245,7 @@ return [
         'branch_phone'=>'رقم جوال الفرع',
         'branch_password'=>'الرقم السري للفرع',
         'selected_date'=>'اليوم المختار',
+        'coupon_code'=>'كوبون الخصم',
 
 
 

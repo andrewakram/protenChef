@@ -2,9 +2,7 @@
 
 @section('style')
 @endsection
-
 @section('content')
-
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Toolbar-->
@@ -27,10 +25,7 @@
                         <li class="breadcrumb-item">
                             <span class="bullet bg-gray-300 w-5px h-2px"></span>
                         </li>
-                        <li class="breadcrumb-item text-muted">الصفحات</li>
-                        <li class="breadcrumb-item">
-                            <span class="bullet bg-gray-300 w-5px h-2px"></span>
-                        </li>
+
                         <li class="breadcrumb-item text-muted">
                             <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
                         </li>

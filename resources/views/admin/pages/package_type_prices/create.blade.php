@@ -24,21 +24,21 @@
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                         <!--begin::Item-->
+
+                        <li class="breadcrumb-item text-muted">
+                            <a href="{{route('admin.package-type-prices',[$package_id])}}" class="text-muted text-hover-primary">خطط أسعار الباقات</a>
+                        </li>
+                        <!--end::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                        </li>
+                        <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
                             <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
                         </li>
                         <!--end::Item-->
-                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                        <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.package-type-prices',[$package_id])}}" class="text-muted text-hover-primary">التسعير للباقة</a>
-                        </li>
-                        <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
-                    <!--begin::Separator-->
-                    <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                    <!--end::Separator-->
                 </div>
                 <!--end::Page title-->
 

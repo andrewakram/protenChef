@@ -34,7 +34,7 @@ class OrderController extends Controller
 
     public function make_order(Request $request)
     {
-        $two_dayes = Carbon::now()->addDay(2);
+        $two_dayes = Carbon::now()->addDay(1);
         $validator = Validator::make($request->all(), [
             'selected_date' => 'required|after:' . $two_dayes,
             'package_type_id' => 'required|exists:package_type_prices,id',
@@ -138,7 +138,7 @@ class OrderController extends Controller
                 $order_meal_data['meal_body_ar'] = $package_meal->Meal->body_ar;
                 $order_meal_data['meal_body_en'] = $package_meal->Meal->body_en;
                 $order_meal_data['date'] = $row['date'];
-                $order_meal_data['meal_type_id'] = $row['meal_type_id '];
+                $order_meal_data['meal_type_id'] = $row['meal_type_id'];
                 OrderMeal::create($order_meal_data);
             }
         }
@@ -171,7 +171,7 @@ class OrderController extends Controller
             'price' => 'required|numeric',
         ]);
         if ($validator->fails()) {
-            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+            return response()->json(msg($request, failed(), $validator->messages()->first()));
         }
         $exists_coupon = Coupon::where('code', $request->coupon_code)->first();
 
@@ -192,22 +192,18 @@ class OrderController extends Controller
                 $data['new_price'] = $finat_price;
             } else {
                 if ($price >= $exists_coupon->min_order_total) {
-
                     $finat_price = $price - $exists_coupon->amount;
                     $data['type'] =$exists_coupon->type ;
                     $data['old_price'] = $price;
                     $data['discount'] = $exists_coupon->amount;
                     $data['new_price'] = ($finat_price < 0) ? 0 : $finat_price;
                 } else {
-                    return response()->json(['errors' => trans('lang.should_have_min_order_cost')], 403);
+                    return response()->json(msg($request, failed(), trans('lang.should_have_min_order_cost')));
                 }
             }
-            return response()->json([
-                'message' => "coupon used successfully",
-                'data' => $data
-            ], 200);
+            return response()->json(msgdata($request, success(), trans('lang.coupon_send_s'), $data));
         } else {
-            return response()->json(['errors' => trans('lang.you_should_choose_valid_coupon')], 403);
+            return response()->json(msg($request, failed(), trans('lang.you_should_choose_valid_coupon')));
         }
     }
 

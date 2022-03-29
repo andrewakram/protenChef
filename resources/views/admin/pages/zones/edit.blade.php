@@ -26,10 +26,6 @@
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-muted">الاعدادات</li>
-                        <li class="breadcrumb-item">
-                            <span class="bullet bg-gray-300 w-5px h-2px"></span>
-                        </li>
                         <li class="breadcrumb-item text-muted">
                             <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
                         </li>
@@ -126,7 +122,6 @@
                                                          style="height: 100%; margin:0px; padding: 0px;"></div>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <!--end::Card header-->
                                         <div class="card-footer">
@@ -142,7 +137,6 @@
                                         </div>
                                     </div>
                                     <!--end::General options-->
-
                                 </div>
                             </div>
                             <!--end::Tab pane-->
@@ -158,21 +152,13 @@
         <!--end::Post-->
     </div>
     <!--end::Content-->
-
 @endsection
-
-
-
 @section('script')
     {{--    for view table--}}
     <script src="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-
-
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-
     <script>
         $(document).ready(function () {
-
             $("#slider_table").DataTable({
                 "dom": "<'card-header border-0 p-0 pt-6'<'card-title' <'d-flex align-items-center position-relative my-1'f> r> <'card-toolbar' <'d-flex justify-content-end add_button'B> r>>  <'row'l r> <''t><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
                 processing: true,
