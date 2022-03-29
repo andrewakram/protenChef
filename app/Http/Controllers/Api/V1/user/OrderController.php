@@ -138,7 +138,7 @@ class OrderController extends Controller
                 $order_meal_data['meal_body_ar'] = $package_meal->Meal->body_ar;
                 $order_meal_data['meal_body_en'] = $package_meal->Meal->body_en;
                 $order_meal_data['date'] = $row['date'];
-                $order_meal_data['meal_type_id'] = $row['meal_type_id '];
+                $order_meal_data['meal_type_id'] = $row['meal_type_id'];
                 OrderMeal::create($order_meal_data);
             }
         }
