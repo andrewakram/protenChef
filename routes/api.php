@@ -32,6 +32,7 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
         //main screens
         Route::get('/screens', [HomeController::class, 'screens']);
         Route::get('/settings', [SettingsController::class, 'settings']);
+        Route::get('/custom_settings', [SettingsController::class, 'custom_settings_keys']);
         Route::get('/settings/{key}', [SettingsController::class, 'custom_settings']);
         Route::get('/pages/{type}', [SettingsController::class, 'pages']);
     });
