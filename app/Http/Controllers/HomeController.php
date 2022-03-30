@@ -89,13 +89,28 @@ class HomeController extends Controller
                 else
                     return '<b class="badge badge-secondary">__</b>';
             })
+            ->addColumn('user_name',function ($row){
+                $user_name = $row->Order->User->name;
+                $user_id = $row->Order->User->id;
+                return '<a href="'.route('admin.users.edit',[$user_id]).'" target="_blank" class="" title="العميل">
+                            '.$user_name.'
+                        </a>';
+            })
+            ->addColumn('delivery',function ($row){
+                if($row->Order->lat && $row->Order->lng)
+                    return '<a href="https://maps.google.com/maps?q='.$row->Order->lat.','.$row->Order->lng.'&hl=es&z=14&amp;" target="_blank" class="btn btn-primary" title="'.$row->Order->location_body.'">
+                            <i class="fa fa-map"></i>
+                        </a>';
+                else
+                    return '<b class="badge badge-secondary">من المقر</b>';
+            })
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
                 $buttons .= '<a href="#" data-id="'.$row->id.'" class="btn btn-sm btn-primary changeStatus" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button"><i class="fa fa-edit"></i></a>';
 
                 return $buttons;
             })
-            ->rawColumns(['actions','status','date','old_date'])
+            ->rawColumns(['actions','status','date','old_date','user_name','delivery'])
             ->make();
 
     }

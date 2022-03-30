@@ -41,6 +41,7 @@ Route::group([
 
     Route::group(['middleware' => 'auth:admin'], function () {
         Route::get('home', 'HomeController@index')->name('home');
+        Route::post('home', 'HomeController@index')->name('homeWzSearch');
         Route::get('home-meals/{date}', 'HomeController@getData')->name('homeMealsDatatables');
     });
 

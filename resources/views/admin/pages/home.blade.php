@@ -383,7 +383,7 @@
                                     </span>
                                 </h3>
                                 <div class="card-toolbar " >
-                                    <form id="submit_btn" method="get" action="{{route('home')}}" style="display: inline-flex">
+                                    <form id="submit_btn" method="post" action="{{route('homeWzSearch')}}" style="display: inline-flex">
                                         @csrf
 
                                     <input class="form-control form-control-solid" type="date"  name="date" placeholder="إحتر التاريخ" id="kt_calendar_datepicker_end_date" />                                <!--end::Input-->                                <!--end::Input-->
@@ -458,6 +458,8 @@
                                                         {{--                                    </div>--}}
                                                         {{--                                </th>--}}
                                                         <th class=" min-w-10px">#</th>
+                                                        <th class=" min-w-10px">العميل</th>
+                                                        <th class=" min-w-10px">الاستلام</th>
                                                         <th class=" min-w-10px">الحالة</th>
                                                         <th class=" min-w-10px">الوجبة</th>
                                                         <th class=" min-w-10px">تاريخ التسليم</th>
@@ -605,15 +607,16 @@
                         extend: 'print',
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-printer-fill "></i>',
+                        titleAttr: 'طباعة',
                         customize: function (win) {
                             $(win.document.body)
                                 .css('direction', 'rtl').prepend(
                                 ' <table> ' +
                                 '                        <tbody> ' +
                                 '                                <tr>' +
-                                '                                    <td style="text-align: center"><p>المملكة العربية السعودية</p> <p>وزارة الموارد البشرية والتنمية الاجتماعية</p> <p>الجمعية الخيرية لتحفيظ القرآن الكريم بمحافظه عنيزة</p></td>' +
-                                '                                    <td style="text-align: right"> <img src="" width="150px" height="150px" /> </td>' +
-                                '                                    <td style="text-align: right"><p>عنوان التقرير : {{ trans("s_admin.nav_students_reports")  }}</p>' +
+                                '                                    <td style="text-align: center">  <p style="padding-right:150px">بروتين  شيف</p></td>' +
+                                '                                    <td style="text-align: right"> <img src="{{asset('default.png')}}" width="150px" height="150px" /> </td>' +
+                                '                                    <td style="text-align: right"><p>عنوان التقرير : وجبات تسلم بتاريخ {{$date}}</p>' +
                                 '                                                                  <p>تاريخ التقرير : {{ Carbon\Carbon::now()->translatedFormat('l Y/m/d') }}</p>' +
                                 '                                                                  <p>وقت التقرير : {{ Carbon\Carbon::now()->translatedFormat('h:i a') }}</p></td>' +
                                 '                                </tr> ' +
@@ -631,6 +634,7 @@
                         extend: 'excel',
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-file-earmark-spreadsheet-fill "></i>',
+                        titleAttr: 'تصدير لأكسيل',
                         title: '',
                         customize: function (win) {
                             $(win.document)
@@ -646,6 +650,8 @@
                 ajax: '{{ route('homeMealsDatatables',[$date]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
+                    {"data": "user_name", "searchable": false, "orderable": false},
+                    {"data": "delivery", "searchable": false, "orderable": false},
                     {"data": "status", "searchable": false, "orderable": false},
                     {"data": "meal_title_ar", "searchable": false, "orderable": false},
                     {"data": "date", "searchable": false, "orderable": false},
