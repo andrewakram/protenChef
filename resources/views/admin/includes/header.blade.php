@@ -51,6 +51,12 @@
                             </a>
                         </div>
                         <div class="menu-item me-lg-1">
+                            <a class="menu-link @if(request()->segment(2) == 'reports') active @endif py-3"
+                               href="{{route('admin.reports')}}">
+                                <span class="menu-title">التقارير</span>
+                            </a>
+                        </div>
+                        <div class="menu-item me-lg-1">
                             <a class="menu-link @if(request()->segment(2) == 'users') active @endif py-3"
                                href="{{route('admin.users')}}">
                                 <span class="menu-title">العملاء</span>

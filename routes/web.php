@@ -43,6 +43,7 @@ Route::group([
         Route::get('home', 'HomeController@index')->name('home');
         Route::post('home', 'HomeController@index')->name('homeWzSearch');
         Route::get('home-meals/{date}', 'HomeController@getData')->name('homeMealsDatatables');
+
     });
 
     Route::group(['namespace' => 'Admin', 'as' => 'admin'], function () {
@@ -51,6 +52,12 @@ Route::group([
         Route::get('logout', 'AuthController@logout')->name('.logout');
 
         Route::group(['middleware' => 'auth:admin'], function () {
+
+            Route::group(['prefix' => 'reports', 'as' => '.reports'], function () {
+                Route::get('reports', 'ReportController@index');
+                Route::post('reports', 'ReportController@index')->name('.reportsWzSearch');
+                Route::get('reports-meals/{date}', 'ReportController@getData')->name('.reportsMealsDatatables');
+            });
 
             Route::group(['prefix' => 'users', 'as' => '.users'], function () {
                 Route::get('/', 'UserController@index');
