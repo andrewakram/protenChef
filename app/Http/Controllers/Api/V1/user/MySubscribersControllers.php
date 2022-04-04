@@ -129,9 +129,9 @@ class MySubscribersControllers extends Controller
         $order = Order::whereId($request->order_id)->first();
 
         if ($order) {
-            $order->status = "canceled";
-            $order->cancel_date = Carbon::now();
-            $order->save();
+//            $order->status = "canceled";
+//            $order->cancel_date = Carbon::now();
+//            $order->save();
             $bank_data = BankData::create([
                 'order_id' => $order->id,
                 'iban' => $request->iban,
