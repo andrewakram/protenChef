@@ -132,12 +132,13 @@ class MySubscribersControllers extends Controller
 //            $order->status = "canceled";
 //            $order->cancel_date = Carbon::now();
 //            $order->save();
-            $bank_data = BankData::create([
-                'order_id' => $order->id,
-                'iban' => $request->iban,
-                'bank_name' => $request->bank_name,
-                'name' => $request->name,
-            ]);
+            $bank_data = BankData::create(
+                [
+                    'order_id' => $order->id,
+                    'iban' => $request->iban,
+                    'bank_name' => $request->bank_name,
+                    'name' => $request->name,
+                ]);
             return response()->json(msg($request, success(), trans('lang.success')));
 
         }
