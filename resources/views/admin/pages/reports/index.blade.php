@@ -1,4 +1,5 @@
 @extends('admin.index')
+
 @section('style')
     <link href="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet"
           type="text/css"/>
@@ -12,16 +13,41 @@
             <!--begin::Container-->
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
                 <!--begin::Page title-->
-                <div data-kt-swapper="true" data-kt-swapper-mode="prepend"
-                     data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
-                     class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
-                        <h1 class=" fs-3 fw-bold my-1 ms-1 app-f-color">الرئيسية</h1>
-                        <!--begin::Separator-->
-                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                        <!--end::Separator-->
+                    <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
+                        التقارير
+                        <!--end::Description-->
                     </h1>
+                    <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+                    <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                        <!--begin::Item-->
+
+                        <li class="breadcrumb-item text-muted">
+                            <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
+                        </li>
+
+                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+
+                        <li>
+                            <h5 class="card-title align-items-start flex-column">
+                                    <span class="card-label font-weight-bolder text-dark">
+                                        تقرير عن الفترة
+                                        ]
+                                        <span class="text-danger">
+                                        {{$from}}
+                                        </span>
+                                        [
+                                        -
+                                        ]
+                                        <span class="text-danger">
+                                        {{$to}}
+                                        </span>
+                                        [
+                                    </span>
+                            </h5>
+                        </li>
+                    </ul>
                     <!--end::Title-->
                 </div>
                 <!--end::Page title-->
@@ -141,118 +167,7 @@
                     <!--end::Heading-->
                 </div>
                 <!--end::Toolbar-->
-                <div class="row g-5 g-xl-8">
-                    <div class="col-xl-3">
-                        <!--begin::Statistics Widget 5-->
-                        <a href="#" class="card app-bg-color hoverable card-xl-stretch mb-xl-8">
-                            <!--begin::Body-->
-                            <div class="card-body">
 
-                                <span class="svg-icon svg-icon-white svg-icon-3x ms-n1"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\General\Like.svg--><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24"/>
-                                        <path
-                                            d="M9,10 L9,19 L10.1525987,19.3841996 C11.3761964,19.7920655 12.6575468,20 13.9473319,20 L17.5405883,20 C18.9706314,20 20.2018758,18.990621 20.4823303,17.5883484 L21.231529,13.8423552 C21.5564648,12.217676 20.5028146,10.6372006 18.8781353,10.3122648 C18.6189212,10.260422 18.353992,10.2430672 18.0902299,10.2606513 L14.5,10.5 L14.8641964,6.49383981 C14.9326895,5.74041495 14.3774427,5.07411874 13.6240179,5.00562558 C13.5827848,5.00187712 13.5414031,5 13.5,5 L13.5,5 C12.5694044,5 11.7070439,5.48826024 11.2282564,6.28623939 L9,10 Z"
-                                            fill="#000000"/>
-                                        <rect fill="#000000" opacity="0.3" x="2" y="9" width="5" height="11" rx="1"/>
-                                    </g>
-                                </svg><!--end::Svg Icon-->
-                                </span>
-                                <!--end::Svg Icon-->
-                                <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">{{$data['offers']}}</div>
-                                <div class="fw-bold text-gray-100">العروض</div>
-                            </div>
-                            <!--end::Body-->
-                        </a>
-                        <!--end::Statistics Widget 5-->
-                    </div>
-                    <div class="col-xl-3">
-                        <!--begin::Statistics Widget 5-->
-                        <a href="#" class="card bg-body hoverable card-xl-stretch mb-xl-8 ">
-                            <!--begin::Body-->
-                            <div class="card-body">
-                                <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm008.svg-->
-                                <span class="svg-icon svg-icon-warning svg-icon-3x ms-n1"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Food\Burger.svg--><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect x="0" y="0" width="24" height="24"/>
-                                            <path
-                                                d="M15,15 L15.9974233,16.1399123 C16.3611054,16.555549 16.992868,16.5976665 17.4085046,16.2339844 C17.4419154,16.20475 17.4733423,16.1733231 17.5025767,16.1399123 L18.5,15 L21,15 C20.4185426,17.9072868 17.865843,20 14.9009805,20 L9.09901951,20 C6.13415704,20 3.58145737,17.9072868 3,15 L15,15 Z"
-                                                fill="#000000"/>
-                                            <path
-                                                d="M21,9 L3,9 L3,9 C3.58145737,6.09271316 6.13415704,4 9.09901951,4 L14.9009805,4 C17.865843,4 20.4185426,6.09271316 21,9 Z"
-                                                fill="#000000"/>
-                                            <rect fill="#000000" opacity="0.3" x="2" y="11" width="20" height="2"
-                                                  rx="1"/>
-                                        </g>
-                                    </svg><!--end::Svg Icon-->
-                                </span>
-                                <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">{{$data['meals']}}</div>
-                                <div class="fw-bold text-gray-400">الوجبات</div>
-                            </div>
-                            <!--end::Body-->
-                        </a>
-                        <!--end::Statistics Widget 5-->
-                    </div>
-                    <div class="col-xl-3">
-                        <!--begin::Statistics Widget 5-->
-                        <a href="#" class="card app-bg-color hoverable card-xl-stretch mb-xl-8">
-                            <!--begin::Body-->
-                            <div class="card-body">
-                                <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
-                                <span class="svg-icon svg-icon-white svg-icon-3x ms-n1">
-													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                         viewBox="0 0 24 24" fill="none">
-														<path opacity="0.3"
-                                                              d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z"
-                                                              fill="black"/>
-														<path
-                                                            d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z"
-                                                            fill="black"/>
-													</svg>
-												</span>
-                                <!--end::Svg Icon-->
-                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{$data['coupons']}}</div>
-                                <div class="fw-bold text-white">كوبونات الخصم</div>
-                            </div>
-                            <!--end::Body-->
-                        </a>
-                        <!--end::Statistics Widget 5-->
-                    </div>
-                    <div class="col-xl-3">
-                        <!--begin::Statistics Widget 5-->
-                        <a href="#" class="card bg-body hoverable card-xl-stretch mb-5 mb-xl-8">
-                            <!--begin::Body-->
-                            <div class="card-body">
-                                <!--begin::Svg Icon | path: icons/duotune/graphs/gra007.svg-->
-                                <span class="svg-icon svg-icon-warning svg-icon-3x ms-n1"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Shopping\Money.svg--><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect x="0" y="0" width="24" height="24"/>
-                                            <path
-                                                d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z"
-                                                fill="#000000" opacity="0.3"
-                                                transform="translate(11.500000, 12.000000) rotate(-345.000000) translate(-11.500000, -12.000000) "/>
-                                            <path
-                                                d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z M11.5,14 C12.6045695,14 13.5,13.1045695 13.5,12 C13.5,10.8954305 12.6045695,10 11.5,10 C10.3954305,10 9.5,10.8954305 9.5,12 C9.5,13.1045695 10.3954305,14 11.5,14 Z"
-                                                fill="#000000"/>
-                                        </g>
-                                    </svg><!--end::Svg Icon-->
-                                </span>
-                                <!--end::Svg Icon-->
-                                <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">{{$data['price_plans']}}</div>
-                                <div class="fw-bold text-gray-400">خطط الاسعار</div>
-                            </div>
-                            <!--end::Body-->
-                        </a>
-                        <!--end::Statistics Widget 5-->
-                    </div>
-                </div>
-                <br>
                 <div class="row">
                     <div class="col-lg-12">
                         <!--begin::Advance Table Widget 4-->
@@ -260,7 +175,7 @@
                             <!--begin::Header-->
                             <div class="card-header border-0 py-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label font-weight-bolder text-dark">أحدث الطلبات</span>
+                                    <span class="card-label font-weight-bolder text-dark"> الطلبات</span>
                                 </h3>
                                 <div class="card-toolbar ">
                                     <a href="{{route('admin.orders',['pending'])}}" style="color: white;"
@@ -374,23 +289,32 @@
                             <div class="card-header border-0 py-5">
                                 <h3 class="card-title align-items-start flex-column">
                                     <span class="card-label font-weight-bolder text-dark">
-                                        وجبات مطلوب تسليمها بتاريخ
+                                        وجبات مطلوب تسليمها في الفترة
                                         ]
                                         <span class="text-danger">
-                                        {{$date}}
+                                        {{$from}}
+                                        </span>
+                                        [
+                                        -
+                                        ]
+                                        <span class="text-danger">
+                                        {{$to}}
                                         </span>
                                         [
                                     </span>
                                 </h3>
                                 <div class="card-toolbar " >
-                                    <form id="submit_btn" method="post" action="{{route('homeWzSearch')}}" style="display: inline-flex">
+                                    <form id="submit_btn" method="post" action="{{route('admin.reports.reportsWzSearch')}}" style="display: inline-flex">
                                         @csrf
+                                        <h3 class="mt-5 ">من:</h3>
+                                        <input class="form-control form-control-solid" type="date"  name="from" placeholder="إحتر التاريخ" id="kt_calendar_datepicker_end_date" />                                <!--end::Input-->                                <!--end::Input-->
+                                        <h3 class="mt-5 "> - </h3>
+                                        <h3 class="mt-5 ">إلي:</h3>
+                                        <input class="form-control form-control-solid" type="date"  name="to" placeholder="إحتر التاريخ" id="kt_calendar_datepicker_end_date2" />                                <!--end::Input-->                                <!--end::Input-->
 
-                                    <input class="form-control form-control-solid" type="date"  name="date" placeholder="إحتر التاريخ" id="kt_calendar_datepicker_end_date" />                                <!--end::Input-->                                <!--end::Input-->
-
-                                    <button type="submit" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1"  style="color: white;">
-                                        بحث
-                                    </button>
+                                        <button type="submit" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1"  style="color: white;">
+                                            بحث
+                                        </button>
 
                                     </form>
                                 </div>
@@ -541,10 +465,14 @@
                                             data-hide-search="true" data-placeholder="إختر الحالة"
                                             id="kt_ecommerce_add_product_status_select">
                                         <option></option>
-                                        <option value="pending" {{$row->status == "pending" ? "selected" : ""}}>قيد
+                                        <option value="pending"
+{{--                                            {{$row->status == "pending" ? "selected" : ""}}--}}
+                                        >قيد
                                             التسليم
                                         </option>
-                                        <option value="delivered" {{$row->status == "delivered" ? "selected" : ""}}>تم
+                                        <option value="delivered"
+{{--                                            {{$row->status == "delivered" ? "selected" : ""}}--}}
+                                        >تم
                                             التسليم
                                         </option>
                                     </select>
@@ -567,6 +495,8 @@
     <!--end::Modal - change status-->
 
 @endsection
+
+
 
 @section('script')
     <!--begin::Page Vendors Javascript(used by this page)-->
@@ -617,7 +547,7 @@
                                 '                                <tr>' +
                                 '                                    <td style="text-align: center">  <p style="padding-right:150px">بروتين  شيف</p></td>' +
                                 '                                    <td style="text-align: right"> <img src="{{asset('default.png')}}" width="150px" height="150px" /> </td>' +
-                                '                                    <td style="text-align: right"><p>عنوان التقرير : وجبات تسلم بتاريخ {{$date}}</p>' +
+                                '                                    <td style="text-align: right"><p>عنوان التقرير : وجبات تسلم في الفترة {{$from}} - {{$to}}</p>' +
                                 '                                                                  <p>تاريخ التقرير : {{ Carbon\Carbon::now()->translatedFormat('l Y/m/d') }}</p>' +
                                 '                                                                  <p>وقت التقرير : {{ Carbon\Carbon::now()->translatedFormat('h:i a') }}</p></td>' +
                                 '                                </tr> ' +
@@ -648,7 +578,7 @@
 
 
                 ],
-                ajax: '{{ route('homeMealsDatatables',[$date]) }}',
+                ajax: '{{ route('admin.reports.reportsMealsDatatables',[$from,$to]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
                     {"data": "user_name", "searchable": false, "orderable": false},
