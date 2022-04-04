@@ -19,6 +19,7 @@ class CreateBankDataTable extends Migration
             $table->text('iban');
             $table->text('bank_name');
             $table->text('name');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
