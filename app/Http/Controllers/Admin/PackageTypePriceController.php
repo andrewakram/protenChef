@@ -83,7 +83,7 @@ class PackageTypePriceController extends Controller
         $row->save();
 
         session()->flash('success', 'تم التعديل بنجاح');
-        return redirect()->route('admin.package-type-prices');
+        return redirect()->route('admin.package-type-prices',[$row->package_id]);
     }
 
     public function delete(Request $request)

@@ -38,7 +38,7 @@ class NotificationController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        if(sizeof($request->user_id) > 0){
+        if($request->user_id){
             foreach ($request->user_id as $user_id){
                 Notification::create([
                     'title' => $request->title,

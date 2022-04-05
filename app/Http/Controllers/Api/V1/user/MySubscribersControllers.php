@@ -7,6 +7,7 @@ use App\Http\Resources\MealTypeResources;
 use App\Http\Resources\OrderAdditionResources;
 use App\Http\Resources\OrderMealsResources;
 use App\Http\Resources\OrdersResources;
+use App\Models\BankData;
 use App\Models\Meal;
 use App\Models\MealType;
 use App\Models\Order;
@@ -109,15 +110,35 @@ class MySubscribersControllers extends Controller
 
     }
 
-    public function cancelOrder(Request $request, $id)
+
+    public function cancelOrder(Request $request)
     {
 
-        $order = Order::whereId($id)->first();
+        $validator = Validator::make($request->all(), [
+            'order_id' => 'required|exists:orders,id',
+            'iban' => 'required',
+            'bank_name' => 'required',
+            'name' => 'required',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
+        }
+
+
+        $order = Order::whereId($request->order_id)->first();
 
         if ($order) {
-            $order->status = "canceled";
-            $order->cancel_date = Carbon::now();
-            $order->save();
+//            $order->status = "canceled";
+//            $order->cancel_date = Carbon::now();
+//            $order->save();
+            $bank_data = BankData::create(
+                [
+                    'order_id' => $order->id,
+                    'iban' => $request->iban,
+                    'bank_name' => $request->bank_name,
+                    'name' => $request->name,
+                ]);
             return response()->json(msg($request, success(), trans('lang.success')));
 
         }

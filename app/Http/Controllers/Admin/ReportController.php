@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Coupon;
 use App\Models\Meal;
@@ -8,40 +8,47 @@ use App\Models\Offer;
 use App\Models\Order;
 use App\Models\OrderMeal;
 use App\Models\Package;
-use App\Models\PackageType;
 use App\Models\PackageTypePrice;
+use App\Models\Slider;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class HomeController extends Controller
+class ReportController extends Controller
 {
-    public function index($date = null)
+    public function index()
     {
+        $from = Carbon::now()->subDay()->format('Y-m-d');
+        $to =Carbon::now()->format('Y-m-d');
+        $from1 = request()->from;
+        $to1 = request()->to;
+        if(isset($from1) && $from1 != null ){
+            $from = Carbon::parse($from1)->format('Y-m-d');
+        }
+        if(isset($to1) && $to1 != null ){
+            $to = Carbon::parse($to1)->format('Y-m-d');
+        }
         //counts for first row in page ....
         //first card
-        $data['orders'] = Order::get()->count();
-        $data['current_orders'] = Order::whereIn('status', ['pending', 'accepted'])->get()->count();
-        $data['finished_orders'] = Order::where('status', 'finished')->get()->count();
-        $data['canceled_orders'] = Order::where('status', 'canceled')->get()->count();
+        $data['orders'] = Order::whereBetween('created_at', [$from, $to])->get()->count();
+        $data['current_orders'] = Order::whereIn('status', ['pending', 'accepted'])->whereBetween('created_at', [$from, $to])->get()->count();
+        $data['finished_orders'] = Order::where('status', 'finished')->whereBetween('created_at', [$from, $to])->get()->count();
+        $data['canceled_orders'] = Order::where('status', 'canceled')->whereBetween('created_at', [$from, $to])->get()->count();
         //second card
-        $data['canceled_orders'] = Order::where('status', 'canceled')->get()->count();
-        $data['sum_income'] = Order::where('status', '!=', 'canceled')->get()->sum('total_price');
-        $data['packages'] = Package::get();
+        $data['canceled_orders'] = Order::where('status', 'canceled')->whereBetween('created_at', [$from, $to])->get()->count();
+        $data['sum_income'] = Order::where('status', '!=', 'canceled')->whereBetween('created_at', [$from, $to])->get()->sum('total_price');
+        $data['packages'] = Package::whereBetween('created_at', [$from, $to])->get();
         //third card
-        $data['customers'] = User::get()->count();
-        $data['last_customers'] = User::orderBy('created_at', 'desc')->take(7)->get();
-
-        //counts for second row in page ....
-        $data['meals'] = Meal::get()->count();
-        $data['offers'] = Offer::active()->get()->count();
-        $data['coupons'] = Coupon::get()->count();
-        $data['price_plans'] = PackageTypePrice::active()->get()->count();
+        $data['customers'] = User::whereBetween('created_at', [$from, $to])->get()->count();
+        $data['last_customers'] = User::orderBy('created_at', 'desc')->whereBetween('created_at', [$from, $to])->take(7)->get();
 
         //for orders table in home page ..
-        $newest_orders = Order::orderBy('id', 'desc')->take(10)->get();
+        $newest_orders = Order::orderBy('id', 'desc')->whereBetween('created_at', [$from, $to])->get();
 
         //for order Chart
         $orders_arr[0] = $data['current_orders'];
@@ -49,26 +56,27 @@ class HomeController extends Controller
         $orders_arr[2] = $data['canceled_orders'];
         $orders_numbers_chart = json_encode($orders_arr);
 
-        $date = Carbon::now()->format('Y-m-d');
-        $deliverDate = request()->date;
-        if(isset($deliverDate) && $deliverDate != null){
-            $date = Carbon::parse($deliverDate)->format('Y-m-d');
-        }
 
-        return view('admin.pages.home',
-            compact('data', 'newest_orders', 'orders_numbers_chart','date'));
+
+        return view('admin.pages.reports.index',
+            compact('data', 'newest_orders', 'orders_numbers_chart','from','to'));
     }
 
-    public function getData($date = null)
+    public function getData($from = null ,$to = null)
     {
         $auth = Auth::guard('admin')->user();
         $model = OrderMeal::query();
-        if ($date != null){
-            $deliverDate = Carbon::parse($date)->format('Y-m-d');
+        if ($from != null){
+            $from = Carbon::parse($from)->format('Y-m-d');
         }else{
-            $deliverDate = Carbon::parse(Carbon::now())->format('Y-m-d');
+            $from = Carbon::parse(Carbon::now()->subDay())->format('Y-m-d');
         }
-        $model->where('date',$deliverDate);
+        if ($to != null){
+            $to = Carbon::parse($to)->format('Y-m-d');
+        }else{
+            $to = Carbon::parse(Carbon::now()->subDay())->format('Y-m-d');
+        }
+        $model->whereBetween('created_at', [$from, $to]);
 
 
         return DataTables::eloquent($model)
@@ -112,6 +120,7 @@ class HomeController extends Controller
             })
             ->rawColumns(['actions','status','date','old_date','user_name','delivery'])
             ->make();
+
 
     }
 }
