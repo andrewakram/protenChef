@@ -215,7 +215,7 @@
         })
     </script>
 
-    Delete Multi
+    {{--    Delete Multi--}}
 
     <script>
         var $bulkDeleteBtn = $('#bulk_delete_btn');

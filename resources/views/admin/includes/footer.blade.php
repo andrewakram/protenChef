@@ -15,7 +15,7 @@
             <li class="menu-item">
                 <a href="http://tesolutionspro.com" target="_blank" class="menu-link px-2" style="color:#00ccff">
                     <b style="font-size: large">TES &nbsp;&nbsp;&nbsp;</b>
-                    شركة مصرية متخصصة في برمجة تطبيقات الجوال و المواقع الالكترونية
+                    شركة مصرية متخصصة في برمجة تطبيقات الجوال و المواقع الإلكترونية
                 </a>
             </li>
 {{--            <li class="menu-item">--}}
