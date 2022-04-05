@@ -26,7 +26,8 @@ class AuthController extends Controller
         ])) {
             return redirect(route('home'));
         } else {
-            return back()->with('danger', 'البريد الالكتروني او كلمة المرور خطأ , يرجي المحاوله مره اخرى !');
+            session()->flash('error', 'البريد الإلكتروني او كلمة المرور خطأ , يرجى المحاوله مره اخرى !');
+            return back();
         }
     }
 

@@ -65,7 +65,7 @@
                     {{--                        <br>--}}
                     <!--end::Link-->
                         <!--begin::Title-->
-                        <h1 class="text-dark mb-3">تسجيل الدخول بلوحة التحكم</h1>
+                        <h1 class="text-dark mb-3">تسجيل الدخول لوحة التحكم</h1>
                         <!--end::Title-->
                         @include('admin.includes.messages')
                     </div>
@@ -125,20 +125,21 @@
                     {{--                            <img alt="Logo" src="assets/media/svg/brand-logos/apple-black.svg" class="h-20px me-3" />Continue with Apple</a>--}}
                     <!--end::Google link-->
                     </div>
-                    <div class="download-buttons text-center row">
-                        <div class="play-store col-md-6">
-                            <a href="https://play.google.com">
-                                <img src="{{url('/')}}/uploads/play_store.png">
-                            </a>
-                        </div>
-                        <div class="apple-store col-md-6">
-                            <a href="https://www.apple.com/app-store">
-                                <img src="{{url('/')}}/uploads/apple_store.png">
-                            </a>
-                        </div>
-                    </div>
+
                     <!--end::Actions-->
                 </form>
+                <div class="download-buttons text-center row">
+                    <div class="play-store col-md-6 mb-3">
+                        <a href="https://play.google.com">
+                            <img src="{{url('/')}}/uploads/play_store.png">
+                        </a>
+                    </div>
+                    <div class="apple-store col-md-6 mb-3">
+                        <a href="https://www.apple.com/app-store">
+                            <img src="{{url('/')}}/uploads/apple_store.png">
+                        </a>
+                    </div>
+                </div>
                 <!--end::Form-->
             </div>
             <!--end::Wrapper-->
@@ -169,6 +170,63 @@
 <!--begin::Page Custom Javascript(used by this page)-->
 <script src="{{ url('admin/dist/') }}/assets/js/custom/authentication/sign-in/general.js"></script>
 <!--end::Page Custom Javascript-->
+
+<?php
+$errors = session()->get("errors");
+?>
+@if( session()->has("errors"))
+    <?php
+    $e = implode(' - ', $errors->all());
+    ?>
+
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: "برجاء التأكد من البيانات.",
+            text: "{{$e}} ",
+            type: "error",
+            timer: 5000,
+            showConfirmButton: false
+        });
+    </script>
+
+@endif
+
+@if( session()->has("error"))
+    <?php
+    $e = session()->get("error");
+    ?>
+
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: "تنبية",
+            text: "{{$e}} ",
+            type: "error",
+            timer: 5000,
+            showConfirmButton: false
+        });
+    </script>
+
+@endif
+
+@if( session()->has("success"))
+    <?php
+    $e = session()->get("success");
+    ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: "تمت العملية بنجاح.",
+            text: "{{$e}} ",
+            type: "success",
+            timer: 5000,
+            showConfirmButton: false,
+            dir:"row"
+        });
+    </script>
+
+@endif
 <!--end::Javascript-->
 </body>
 <!--end::Body-->

@@ -28,7 +28,7 @@ class MySubscribersControllers extends Controller
         $orders = Order::where('user_id', $user->id)
             ->whereIn('status', ['pending', 'accepted'])
             ->withCount(['OrderMeals', 'DeliveredOrderMeals'])
-            ->paginate(10);
+            ->paginate(3);
 
         $data = OrdersResources::collection($orders)->response()->getData(true);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
@@ -42,7 +42,7 @@ class MySubscribersControllers extends Controller
         $orders = Order::where('user_id', $user->id)
             ->whereIn('status', ['canceled', 'finished'])
             ->withCount(['OrderMeals', 'DeliveredOrderMeals'])
-            ->paginate(10);
+            ->paginate(3);
 
         $data = OrdersResources::collection($orders)->response()->getData(true);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
