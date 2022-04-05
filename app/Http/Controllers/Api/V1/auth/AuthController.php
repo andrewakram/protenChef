@@ -37,10 +37,12 @@ class AuthController extends Controller
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
         $input = $request->only('phone', 'password');
-        if (!$jwt_token = JWTAuth::attempt($input)) {
+
+        if (!$jwt_token = JWTAuth::attempt($input, ['exp' => Carbon::now()->addDays(7)->timestamp])) {
             return response()->json(msg($request, failed(), trans('lang.phoneOrPasswordIncorrect')));
         } else {
-            $user = Auth::user();
+            $user = JWTAuth::user();
+
             if ($user->active == 0) {
                 return response()->json(msg($request, failed(), trans('lang.not_active')));
             }

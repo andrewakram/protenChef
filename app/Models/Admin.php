@@ -10,12 +10,13 @@ class Admin extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable=['name','email','phone','password','active','suspend','image','type'];
+    protected $fillable = ['name', 'email', 'phone', 'password', 'active', 'suspend', 'image', 'type'];
+
     public function setPasswordAttribute($password)
     {
         if (!empty($password)) {
             $this->attributes['password'] = bcrypt($password);
-        }else{
+        } else {
             $this->attributes['password'] = bcrypt('123456');
         }
     }
@@ -33,11 +34,11 @@ class Admin extends Authenticatable
         if (is_file($image)) {
 //            $imageFields = upload($image, 'Slider');
 //            $this->attributes['image'] = $imageFields;
-            $img_name = time().uniqid().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('/uploads/Admin/'),$img_name);
-            $this->attributes['image'] = $img_name ;
-        }else{
-            $this->attributes['image'] = $image ;
+            $img_name = time() . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('/uploads/Admin/'), $img_name);
+            $this->attributes['image'] = $img_name;
+        } else {
+            $this->attributes['image'] = $image;
         }
 
     }
