@@ -27,13 +27,10 @@ class MySubscribersControllers extends Controller
         $user = auth()->user();
         $orders = Order::where('user_id', $user->id)
             ->whereIn('status', ['pending', 'accepted'])
-            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])
-            ->paginate(3);
-
+            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])->orderBy('created_at','desc')
+            ->paginate(10);
         $data = OrdersResources::collection($orders)->response()->getData(true);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
-
-
     }
 
     public function previousSubscribes(Request $request)
@@ -41,12 +38,10 @@ class MySubscribersControllers extends Controller
         $user = auth()->user();
         $orders = Order::where('user_id', $user->id)
             ->whereIn('status', ['canceled', 'finished'])
-            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])
-            ->paginate(3);
-
+            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])->orderBy('created_at','desc')
+            ->paginate(10);
         $data = OrdersResources::collection($orders)->response()->getData(true);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
-
     }
 
 
