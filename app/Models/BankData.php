@@ -9,7 +9,7 @@ class BankData extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_id', 'iban', 'bank_name', 'name'];
+    protected $fillable = ['order_id', 'iban', 'bank_name', 'name','status','notes'];
 
     public function Order()
     {

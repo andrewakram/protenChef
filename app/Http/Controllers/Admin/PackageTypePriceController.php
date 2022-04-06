@@ -45,7 +45,7 @@ class PackageTypePriceController extends Controller
         $row->active = $request->active;
         $row->save();
             session()->flash('success', 'تم الإضافة بنجاح');
-        return redirect()->route('admin.package-type-prices');
+        return redirect()->route('admin.package-type-prices',[$request->package_id]);
     }
 
     public function edit($id)

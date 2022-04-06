@@ -50,7 +50,7 @@
             </a>
             <!--end::Logo-->
             <!--begin::Wrapper-->
-            <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+            <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-10 mx-auto">
 
 
                 <!--begin::Form-->
@@ -125,21 +125,17 @@
                     {{--                            <img alt="Logo" src="assets/media/svg/brand-logos/apple-black.svg" class="h-20px me-3" />Continue with Apple</a>--}}
                     <!--end::Google link-->
                     </div>
-                    <div class="download-buttons text-center row">
-                        <div class="play-store col-md-6">
-                            <a href="https://play.google.com">
-                                <img src="{{url('/')}}/uploads/play_store.png">
-                            </a>
-                        </div>
-                        <div class="apple-store col-md-6">
-                            <a href="https://www.apple.com/app-store">
-                                <img src="{{url('/')}}/uploads/apple_store.png">
-                            </a>
-                        </div>
-                    </div>
+
+
                     <!--end::Actions-->
                 </form>
                 <!--end::Form-->
+
+                <a href="http://tesolutionspro.com" target="_blank" type="submit" id="kt_sign_in_submit" class="btn "
+                   style="background-color: white">
+                    <img alt="TES Logo" src="{{asset('/')}}/tes.png" class=" logo "
+                         style="width: 30%;" ;/>
+                </a>
             </div>
             <!--end::Wrapper-->
         </div>
