@@ -124,7 +124,8 @@ class PackagesController extends Controller
         if (!$request->meal_type_id) {
             $data['main_meal_types'] = (PackageMealTypeCustomResources::collection($main_meal_types));
         } else {
-            $data['main_meal_types'] = PackageMealTypeCustomResources::customCollection($main_meal_types, $request->meal_type_id)->values();
+//            $data['main_meal_types'] = PackageMealTypeCustomResources::customCollection($main_meal_types, $request->meal_type_id)->values();
+            $data['main_meal_types'] = [];
         }
         //create selected period
         //generate finall day
@@ -136,8 +137,11 @@ class PackagesController extends Controller
         } else {
             $package_type_price->have_snacks = false;
         }
-        $data['package_price_Data'] = (new PackageTypePriceResources($package_type_price));
-
+        if (!$request->meal_type_id) {
+            $data['package_price_Data'] = (new PackageTypePriceResources($package_type_price));
+        }else{
+            $data['package_price_Data'] = (object)[];
+        }
         //$package_type_price->PackageType
 
         //convert selected date to carbon to generate period ...
