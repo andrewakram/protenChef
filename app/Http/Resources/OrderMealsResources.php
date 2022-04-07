@@ -18,7 +18,7 @@ class OrderMealsResources extends JsonResource
 
         return [
             'id' => $this->id,
-            'meal_id' =>$this->Meal ? $this->Meal->id : null,
+            'meal_id' =>$this->Meal ? $this->Meal->id : 0,
             'status' => $this->status,
             'meal_title' => $this->meal_title,
             'image' => $this->Meal ? $this->Meal->Image->image : asset('uploads/default.png'),
