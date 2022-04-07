@@ -57,13 +57,19 @@ class MySubscribersControllers extends Controller
         if (!isset($meal_type_id) || $meal_type_id == null) {
             $meal_type_id = MealType::first()->id;
         }
+
+        $order = Order::whereId($id)->first();
+        if (!$order){
+            return response()->json(msg($request, not_found(), trans('lang.not_found')));
+        }
         $order_meals = OrderMeal::where('order_id', $id)
             ->where('meal_type_id', $meal_type_id)
             ->get();
 
         $order_meals = OrderMealsResources::collection($order_meals);
 
-        $order = Order::whereId($id)->first();
+
+
         $location = $order->location_body;
         $package_price = $order->package_price;
         $shipping_price = $order->shipping_price;
