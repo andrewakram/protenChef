@@ -169,6 +169,18 @@
                                         <span class="menu-title">الطلبات الملغية</span>
                                     </a>
                                 </div>
+                                <div class="menu-item">
+                                    <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'canceled' ) active @endif py-3"
+                                       href="{{route('admin.cancel_requests')}}" title="طلبات الإلغاء"
+                                       data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
+                                       data-bs-placement="right">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        <i class="fa fa-recycle text-danger"></i>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span class="menu-title text-danger" >طلبات الإلغاء</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"

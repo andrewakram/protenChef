@@ -50,7 +50,7 @@
             </a>
             <!--end::Logo-->
             <!--begin::Wrapper-->
-            <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+            <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-10 mx-auto">
 
 
                 <!--begin::Form-->
@@ -141,6 +141,12 @@
                     </div>
                 </div>
                 <!--end::Form-->
+
+                <a href="http://tesolutionspro.com" target="_blank" type="submit" id="kt_sign_in_submit" class="btn "
+                   style="background-color: white">
+                    <img alt="TES Logo" src="{{asset('/')}}/tes.png" class=" logo "
+                         style="width: 30%;" ;/>
+                </a>
             </div>
             <!--end::Wrapper-->
         </div>

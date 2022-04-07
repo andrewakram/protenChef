@@ -101,6 +101,13 @@ Route::group([
 
             });
 
+            Route::group(['prefix' => 'cancel_requests', 'as' => '.cancel_requests'], function () {
+                Route::get('/', 'CancelRequestController@index');
+                Route::get('getData', 'CancelRequestController@getData')->name('.datatable');
+                Route::post('/update', 'CancelRequestController@update')->name('.update');
+                Route::post('/change-cancel-request-status', 'CancelRequestController@changeCancelRequestStatus')->name('.changeCancelRequestStatus');
+            });
+
             Route::group(['prefix' => 'pages', 'as' => '.pages'], function () {
                 Route::get('/{type}', 'PageController@index');
                 Route::get('getData/{type}', 'PageController@getData')->name('.datatable');

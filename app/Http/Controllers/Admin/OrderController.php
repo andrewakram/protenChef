@@ -140,7 +140,8 @@ class OrderController extends Controller
             'status' => $request->status
         ]);
         session()->flash('success', 'تم التعديل بنجاح');
-        return redirect()->back();    }
+        return redirect()->back();
+    }
 
     public function getData($status)
     {
