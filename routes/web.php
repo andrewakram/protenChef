@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ZoneController;
+use App\Http\Controllers\Admin\NotificationSettingController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -273,6 +274,10 @@ Route::group([
                     Route::post('/delete',  [ZoneController::class, 'delete'])->name('.delete');
 
                 });
+            });
+            Route::group(['prefix' => 'notification-settings', 'as' => '.notification-settings'], function () {
+                Route::get('/edit', [NotificationSettingController::class, 'index']);
+                Route::post('/update', [NotificationSettingController::class, 'update'])->name('.update');
             });
         });
 

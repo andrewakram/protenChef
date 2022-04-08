@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
 //        $this->call(PackageMealSeeder::class);
 //        $this->call(LocationSeeder::class);
 //        $this->call(NotificationSeeder::class);
-        $this->call(ZoneSeeder::class);
+//        $this->call(ZoneSeeder::class);
+        $this->call(NotificationSettingSeeder::class);
     }
 }
