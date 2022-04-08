@@ -638,6 +638,7 @@
                                 <th class=" min-w-10px">#</th>
                                 <th class=" min-w-10px">الحالة</th>
                                 <th class=" min-w-10px">الوجبة</th>
+                                <th class=" min-w-10px">نوع الوجبة</th>
                                 <th class=" min-w-10px">تاريخ التسليم</th>
                                 <th class=" min-w-10px">التاريخ القديم (المستبدل)</th>
                                 <th class=" min-w-10px">العمليات</th>
@@ -815,6 +816,7 @@
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
                     {"data": "status", "searchable": false, "orderable": false},
                     {"data": "meal_title_ar", "searchable": false, "orderable": false},
+                    {"data": "meal_type_name", "searchable": false, "orderable": false},
                     {"data": "date", "searchable": false, "orderable": false},
                     {"data": "old_date", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
