@@ -533,6 +533,50 @@
                 <!--begin::Toolbar wrapper-->
                 <div class="d-flex align-items-stretch flex-shrink-0">
 
+
+                    <!--begin::cancel requests-->
+                    <div class="d-flex align-items-center ms-1 ms-lg-3">
+                        <!--begin::Menu wrapper-->
+                        <div class="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"  title="طلبات الإلغاء">
+                            <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
+                            <a class="menu-link @if(request()->segment(2) == 'cancel_requests') active @endif py-3"
+                               href="{{route('admin.cancel_requests')}}"
+                               title="طلبات الإلغاء" data-bs-toggle="tooltip"
+                               data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+
+                                <i class="fa fa-recycle text-danger"></i>
+                                <span class="text-danger m-1">{{$cancel_requests}}</span>
+
+                            </a>
+                            <!--end::Svg Icon-->
+                            <span class="bullet bullet-dot bg-danger h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                        </div>
+                        <!--end::Menu wrapper-->
+                    </div>
+                    <!--end::cancel requests-->
+
+                    <!--begin::cancel requests-->
+                    <div class="d-flex align-items-center ms-1 ms-lg-3">
+                        <!--begin::Menu wrapper-->
+                        <div class="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"  title="طلبات قيد الموافقة">
+                            <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
+                            <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'pending' ) active @endif py-3"
+                               href="{{route('admin.orders',['pending'])}}"
+                               title="طلبات قيد الموافقة" data-bs-toggle="tooltip"
+                               data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+
+                                <i class="fa fa-cart-plus text-primary"></i>
+                                <span class="text-primary m-1">{{$pending_orders}}</span>
+
+                            </a>
+                            <!--end::Svg Icon-->
+                            <span class="bullet bullet-dot bg-primary h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                        </div>
+                        <!--end::Menu wrapper-->
+                    </div>
+                    <!--end::cancel requests-->
+
+
                     <!--begin::User-->
                     <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                         <!--begin::Menu wrapper-->

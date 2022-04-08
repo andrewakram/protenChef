@@ -61,6 +61,7 @@
                                 <th class=" min-w-100px">العنوان</th>
                                 <th class=" w-300px">المحتوي</th>
                                 <th class=" min-w-100px">نوع الإشعار</th>
+                                <th class=" min-w-100px">المستخدم</th>
                                 <th class=" min-w-100px">تاريخ الإرسال</th>
                                 <th class=" min-w-100px">العمليات</th>
                             </tr>
@@ -163,6 +164,7 @@
                     {"data": "title", "searchable": false, "orderable": false},
                     {"data": "body", "searchable": false, "orderable": false},
                     {"data": "type", "searchable": false, "orderable": false},
+                    {"data": "user", "searchable": false, "orderable": false},
                     {"data": "created_at", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\BankData;
 use App\Models\MealType;
+use App\Models\Order;
 use App\Models\Package;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\App;
@@ -42,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
+        View::share('pending_orders', Order::where('status','pending')->select('id')->count());
+        View::share('cancel_requests', BankData::where('status',0)->select('id')->count());
         View::share('meal_types', MealType::get());
         View::share('packages', Package::get());
     }

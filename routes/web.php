@@ -178,6 +178,9 @@ Route::group([
                 Route::get('/show/{id}', 'NotificationController@show')->name('.show');
                 Route::post('/delete', 'NotificationController@delete')->name('.delete');
                 Route::post('/delete-multi', 'NotificationController@deleteMulti')->name('.deleteMulti');
+                //ajax
+                Route::get('/get/notification-data', 'NotificationController@getNotificationData')
+                    ->name('.getNotificationData');
             });
 
             Route::group(['prefix' => 'meal-types', 'as' => '.meal-types'], function () {
@@ -250,6 +253,7 @@ Route::group([
                 Route::get('/show/{id}', 'PackageMealController@show')->name('.show');
                 Route::post('/delete', 'PackageMealController@delete')->name('.delete');
                 Route::post('/delete-multi', 'PackageMealController@deleteMulti')->name('.deleteMulti');
+                //ajax
                 Route::get('/get/meals', 'PackageMealController@getMeals')->name('.getMeals');
             });
 

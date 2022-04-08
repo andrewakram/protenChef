@@ -66,12 +66,12 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <select name="model_type" required class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="إختر نوع الإشعار" id="kt_ecommerce_add_product_status_select">
+                                <select name="model_type" required class=" notification_type_id form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="إختر نوع الإشعار" id="kt_ecommerce_add_product_status_select">
                                     <option></option>
                                     <option value="other" selected="selected">بدون</option>
-                                    <option value="Coupon">خال بكوبون</option>
+                                    <option value="Coupon">خاص بكوبون</option>
                                     <option value="Order">خاص بطلب</option>
-                                    <option value="Meal">خاص بوجبة</option>
+{{--                                    <option value="Meal">خاص بوجبة</option>--}}
                                     <option value="Offer">خاص بعرض</option>
                                 </select>
                                 <!--end::Select2-->
@@ -88,6 +88,70 @@
                             <!--end::Card body-->
                         </div>
                         <!--end::Status-->
+
+                        <!--begin::order-->
+                        <div class="orders card card-flush py-4" style="display: none">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>الطلبات</h2>
+                                </div>
+                                <!--end::Card title-->
+                                <!--begin::Card toolbar-->
+                                <div class="card-toolbar">
+                                    <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+                                </div>
+                                <!--begin::Card toolbar-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <!--begin::Select2-->
+                                <select name="order_id" class=" orders_id form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="الطلبات" id="kt_ecommerce_add_product_status_select">
+
+                                </select>
+                                <!--end::Select2-->
+                                <!--begin::Description-->
+                                <div class="text-danger fs-7">الطلبات من الأحدث للأقدم</div>
+                            <!--end::Description-->
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::order-->
+
+                        <!--begin::order-->
+                        <div class="offers card card-flush py-4" style="display: none">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>العروض</h2>
+                                </div>
+                                <!--end::Card title-->
+                                <!--begin::Card toolbar-->
+                                <div class="card-toolbar">
+                                    <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+                                </div>
+                                <!--begin::Card toolbar-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <!--begin::Select2-->
+                                <select name="offer_id" class=" offers_id form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="العروض" id="kt_ecommerce_add_product_status_select">
+                                    @foreach($offers as $offer)
+                                        <option value="{{$offer->id}}" >{{$offer->title_ar}} ({{\Carbon\Carbon::parse($offer->created_at)->format("Y-m-d")}})</option>
+                                    @endforeach
+                                </select>
+                                <!--end::Select2-->
+                                <!--begin::Description-->
+                                <div class="text-danger fs-7">العروض من الأحدث للأقدم</div>
+                                <!--end::Description-->
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::order-->
 
                     </div>
                     <!--end::Aside column-->
@@ -128,12 +192,12 @@
 
                                             <div class="mb-10 fv-row" >
                                                 <!--begin::Label-->
-                                                <label class=" form-label">إختر المستخدمين ]إذا كنت تريد إرسال الكوبون لمستخدم بعينه[</label>
+                                                <label class=" form-label">إختر المستخدمين ]إذا كنت تريد إرسال الإشعار لمستخدم بعينه[</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <div class="row">
                                                     <div class="col-lg-6" >
-                                                        <select name="user_id[]" class="form-select mb-2 js-example-basic-multiple" multiple="multiple" data-control="select2" data-hide-search="false" data-placeholder="إختر المستخدمين" >
+                                                        <select name="user_id[]" class=" users_id form-select mb-2 js-example-basic-multiple" multiple="multiple" data-control="select2" data-hide-search="false" data-placeholder="إختر المستخدمين" >
                                                             <option></option>
                                                             @foreach($users as $user)
                                                                 <option value="{{$user->id}}" >{{$user->name}} ( {{$user->phone}} )</option>
@@ -144,7 +208,7 @@
 
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
-                                                <div class="text-danger fs-7">ملحوظة: إذا لم تقم بتحديد المستخدمين سيتم إرسال الكوبون لجميع المستخدمين</div>
+                                                <div class="text-danger fs-7">ملحوظة: إذا لم تقم بتحديد المستخدمين سيتم إرسال الإشعار لجميع المستخدمين</div>
                                                 <!--end::Description-->
                                             </div>
                                             <!--end::Input group-->
@@ -214,4 +278,60 @@
 
 @section('script')
 
+    <script>
+        $(document).on('change', '.notification_type_id', function () {
+            var notification_type_id = $(this).val();
+            var users_id = $('.users_id').val();
+
+            if (notification_type_id == "Order"){
+                $('.offers').css('display','none');
+                $('.orders').css('display','');
+                $('.orders_id').empty();
+            }
+            if (notification_type_id == "Offer"){
+                $('.offers').css('display','');
+                $('.orders').css('display','none');
+                $('.orders_id').empty();
+            }
+            if (notification_type_id == "Coupon"){
+                $('.offers').css('display','none');
+                $('.orders').css('display','none');
+                $('.orders_id').empty();
+            }
+            if (notification_type_id == "Order"){
+                if (notification_type_id && users_id.length > 0) {
+                    getData(notification_type_id,users_id);
+                }
+            }
+        });
+
+        $(document).on('change', '.users_id', function () {
+            var users_id = $(this).val();
+            var notification_type_id = $('.notification_type_id').val();
+            if (notification_type_id == "Order"){
+                if (notification_type_id && users_id.length > 0) {
+                    getData(notification_type_id,users_id);
+                }
+            }
+        });
+
+        function getData(notification_type_id,users_id) {
+            $.ajax({
+                type: "GET",
+                url: "{{asset('admin/notifications/get/notification-data')}}?notification_type_id=" + notification_type_id + "&users_id=" + users_id,
+                success: function (res) {
+                    if (res) {
+                        console.log(res);
+                        $(".orders_id").empty();
+                        $.each(res, function (key, value) {
+                            $(".orders_id").append('<option value="' + value.id + '" >طلب رقم: ('
+                                + value.order_num +
+                                ') - ('+ value.created_at +')</option>');
+                        });
+                    }
+
+                }
+            });
+        }
+    </script>
 @endsection
