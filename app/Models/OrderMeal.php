@@ -38,4 +38,9 @@ class OrderMeal extends Model
     {
         return $this->belongsTo(Meal::class, 'meal_id');
     }
+
+    public function MealType()
+    {
+        return $this->belongsTo(MealType::class, 'meal_type_id');
+    }
 }

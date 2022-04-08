@@ -190,6 +190,8 @@ class OrderController extends Controller
 
         return DataTables::eloquent($model)
             ->addIndexColumn()
+            ->addColumn('meal_type_name',function ($row) {
+                return $row->MealType->title;})
             ->addColumn('status',function ($row){
                 if($row->status == 'pending')
                     return '<b class="badge badge-primary">قيد التوصيل</b>';
