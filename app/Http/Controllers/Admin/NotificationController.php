@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Notification;
+use App\Models\Offer;
+use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,14 +24,17 @@ class NotificationController extends Controller
     public function create()
     {
         $users = User::orderBy('id','desc')->select('id','name','phone')->get();
-        return view('admin.pages.notifications.create',compact('users'));
+        $offers = Offer::orderBy('id','desc')->select('id','title_ar','created_at')->get();
+        return view('admin.pages.notifications.create',compact('users','offers'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'body' => 'required',
+            'title_ar' => 'required',
+            'body_ar' => 'required',
+            'title_en' => 'required',
+            'body_en' => 'required',
             'model_type' => 'required|in:other,Coupon,Order,Meal,Offer',
             'user_id' => 'sometimes',
             'model_id' => 'sometimes',
@@ -38,25 +43,60 @@ class NotificationController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        if($request->user_id){
-            foreach ($request->user_id as $user_id){
-                Notification::create([
-                    'title' => $request->title,
-                    'body' => $request->body,
-                    'model_type' => $request->model_type,
-                    'model_id' => isset($request->model_id) ? $request->model_id : NULL,
-                    'user_id' => $request->model_id,
-                ]);
-            }
-        }else{
-            Notification::create([
-                'title' => $request->title,
-                'body' => $request->body,
+        if($request->model_type == 'Order'){
+            $data = Notification::create([
+                'title_ar' => $request->title_ar,
+                'body_ar' => $request->body_ar,
+                'title_en' => $request->title_en,
+                'body_en' => $request->body_en,
                 'model_type' => $request->model_type,
-                'model_id' => $request->model_id,
+                'model_id' => isset($request->order_id) ? $request->order_id : NULL,
+                'user_id' => $request->user_id[0],
             ]);
+            $user_token = User::whereId($request->user_id[0])->select('fcm_token')->first()->fcm_token;
+            Notification::send($user_token, $request->title, $request->body, $request->model_type,$data);
+        }else{
+            ///>>>>>>>> start sending
+            $user_tokens = [];
+            if(isset($request->user_id) && sizeof($request->user_id) > 0){
+                foreach ($request->user_id as $user_id){
+                    $data = Notification::create([
+                        'title_ar' => $request->title_ar,
+                        'body_ar' => $request->body_ar,
+                        'title_en' => $request->title_en,
+                        'body_en' => $request->body_en,
+                        'model_type' => $request->model_type,
+                        'model_id' => isset($request->offer_id) ? $request->offer_id : NULL,
+                        'user_id' => $user_id,
+                    ]);
+                    $user_token = User::whereId($request->user_id[0])->select('fcm_token')->first()->fcm_token;
+                    if(!empty($user_token) && $user_token !=Null){
+                        array_push($user_tokens,$user_token);
+                    }
+                }
+            }else{
+                $users = User::whereSuspend(0)->whereActive(1)->whereNotNull('fcm_token')
+                    ->select('id','fcm_token')->get();
+                foreach ($users as $user){
+                    Notification::create([
+                        'title_ar' => $request->title_ar,
+                        'body_ar' => $request->body_ar,
+                        'title_en' => $request->title_en,
+                        'body_en' => $request->body_en,
+                        'model_type' => $request->model_type,
+                        'model_id' => isset($request->model_id) ? $request->model_id : NULL,
+                        'user_id' => $user->id,
+                    ]);
+                    if(!empty($user_token) && $user_token !=Null){
+                        array_push($user_tokens,$user->fcm_token);
+                    }
+                }
+            }
+            Notification::send($user_tokens, $request->title, $request->body, $request->model_type,$data);
+            ///>>>>>>>> end sending
         }
-            session()->flash('success', 'تم الإضافة بنجاح');
+
+        session()->flash('success', 'تم الإضافة بنجاح');
         return redirect()->route('admin.notifications');
     }
 
@@ -156,20 +196,35 @@ class NotificationController extends Controller
                 }elseif($row->model_type == "Meal"){
                     return "<b class='badge badge-info'>وجبة</b>";
                 }elseif($row->model_type == "Offer"){
-                    return "<b class='badge badge-danger'>عرض</b>";
+                    return "<b class='badge badge-primary'>عرض</b>";
                 }
             })
             ->editColumn('created_at',function ($row){
                 return Carbon::parse($row->created_at)->format("Y-m-d (H:i) A");
             })
 
-//            ->addColumn('select',function ($row){
-//                return '<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-//                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="'.$row->id.'" />
-//                                    </div>';
-//            })
+            ->addColumn('user',function ($row){
+                if(isset($row->user_id)){
+                    $user_name = $row->User->name;
+                    return '<a href="'.route('admin.users.edit',[$row->user_id]).'" target="_blank" class="" title="العميل">
+                            '.$user_name.'
+                        </a>';
+                }else{
+                    return '-';
+                }
+
+            })
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
+                if($row->model_type == "Order"){
+                    $buttons .= '<a href="'.route('admin.orders.edit',[$row->model_id]).'" class="btn btn-warning btn-circle btn-sm m-1" title=" تفاصيل الطلب" target="_blank">
+                                    <i class="fa fa-cart-plus"></i>
+                                </a>';
+                }elseif($row->model_type == "Offer"){
+                    $buttons .= '<a href="'.route('admin.offers.edit',[$row->model_id]).'" class="btn btn-primary btn-circle btn-sm m-1" title=" تفاصيل العرض" target="_blank">
+                                    <i class="fa fa-gift"></i>
+                                </a>';
+                }
 //                if ($auth->can('sliders.update')) {
 //                    $buttons .= '<a href="'.route('admin.notifications.edit',[$row->id]).'" class="btn btn-primary btn-circle btn-sm m-1" title="تعديل">
 //                            <i class="fa fa-edit"></i>
@@ -179,11 +234,27 @@ class NotificationController extends Controller
                     $buttons .= '<a class="btn btn-danger btn-sm delete btn-circle m-1" data-id="'.$row->id.'"  title="حذف">
                             <i class="fa fa-trash"></i>
                         </a>';
+
+                    //
+
 //                }
                 return $buttons;
             })
-            ->rawColumns(['actions','type','created_at'])
+            ->rawColumns(['actions','type','user','created_at'])
             ->make();
 
+    }
+
+
+    public function getNotificationData(Request $request)
+    {
+        if(isset($request->notification_type_id) && isset($request->users_id)){
+            if($request->notification_type_id == "Order"){
+                $orders = Order::orderBy('id','desc')->where('user_id',$request->users_id[0])
+                    ->select('id','order_num','created_at')->get();
+                return response()->json($orders);
+            }
+        }
+        return response()->json([]);
     }
 }

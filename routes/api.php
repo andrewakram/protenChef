@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\user\PackagesController;
 use App\Http\Controllers\Api\V1\user\LocationsController;
 use App\Http\Controllers\Api\V1\user\CouponsController;
 use App\Http\Controllers\Api\V1\user\OrderController;
+use App\Http\Controllers\Api\V1\user\NotificationsController;
 use App\Http\Controllers\Api\V1\app\SettingsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,7 +52,7 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
 
     });
 
-    Route::group(['prefix' => "user", 'middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => "user", 'middleware' => ['auth:api','check_active']], function () {
         //home
         Route::get('/home', [HomeController::class, 'home']);
         Route::get('/package_types/{package_id}', [PackagesController::class, 'package_types']);
@@ -64,6 +65,8 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
         Route::post('/make_order', [OrderController::class, 'make_order']);
         Route::post('/apply/coupon', [OrderController::class, 'apply_coupon']);
 
+        //notifications
+        Route::get('/notifications/{pagination}', [NotificationsController::class, 'notifications']);
 
         //locations
         Route::get('/locations', [LocationsController::class, 'locations']);

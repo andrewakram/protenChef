@@ -4,7 +4,6 @@
     <link href="{{ asset('admin/dist/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet"
           type="text/css"/>
 @endsection
-
 @section('content')
 
     <!--begin::Content-->
@@ -18,134 +17,21 @@
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
-                        <a href="{{route('home')}}" class="text-muted text-hover-primary">
-                            الرئيسية
-                        </a>
-                        <!--begin::Separator-->
-                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                        <!--end::Separator-->
-                        <a href="{{route('admin.users')}}" class="text-muted text-hover-primary">
-                            العملاء
-                        </a>
-                        <!--begin::Separator-->
-                        <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
-                        <!--end::Separator-->
-                        <!--begin::Description-->
-                        <small class=" fs-3 fw-bold my-1 ms-1" style="color: #F48120">
-                            طلبات المستخدم
-                            (
-                            <a href="{{route('admin.users.edit',[$user_id])}}">
-                                {{$user_name}}
-                            </a>
-                            )
-                        </small>
+                    <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
+                        طلبات الإلغاء
                         <!--end::Description-->
                     </h1>
+                    <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+                    <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                        <!--begin::Item-->
+
+                        <li class="breadcrumb-item text-muted">
+                            <a href="{{route('home')}}" class="text-muted text-hover-primary">الرئيسية</a>
+                        </li>
+                    </ul>
                     <!--end::Title-->
                 </div>
                 <!--end::Page title-->
-                <!--begin::Actions-->
-                <div class="d-flex align-items-center py-1">
-                    <!--begin::Wrapper-->
-                {{--                    <div class="me-3">--}}
-                {{--                        <!--begin::Menu-->--}}
-                {{--                        <a href="#" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">--}}
-                {{--                            <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->--}}
-                {{--                            <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1">--}}
-                {{--                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">--}}
-                {{--                                            <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="black" />--}}
-                {{--                                        </svg>--}}
-                {{--                                    </span>--}}
-                {{--                            <!--end::Svg Icon-->Filter</a>--}}
-                {{--                        <!--begin::Menu 1-->--}}
-                {{--                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_61bc33c4ee0dc">--}}
-                {{--                            <!--begin::Header-->--}}
-                {{--                            <div class="px-7 py-5">--}}
-                {{--                                <div class="fs-5 text-dark fw-bolder">Filter Options</div>--}}
-                {{--                            </div>--}}
-                {{--                            <!--end::Header-->--}}
-                {{--                            <!--begin::Menu separator-->--}}
-                {{--                            <div class="separator border-gray-200"></div>--}}
-                {{--                            <!--end::Menu separator-->--}}
-                {{--                            <!--begin::Form-->--}}
-                {{--                            <div class="px-7 py-5">--}}
-                {{--                                <!--begin::Input group-->--}}
-                {{--                                <div class="mb-10">--}}
-                {{--                                    <!--begin::Label-->--}}
-                {{--                                    <label class="form-label fw-bold">Status:</label>--}}
-                {{--                                    <!--end::Label-->--}}
-                {{--                                    <!--begin::Input-->--}}
-                {{--                                    <div>--}}
-                {{--                                        <select class="form-select form-select-solid" data-kt-select2="true" data-placeholder="Select option" data-dropdown-parent="#kt_menu_61bc33c4ee0dc" data-allow-clear="true">--}}
-                {{--                                            <option></option>--}}
-                {{--                                            <option value="1">Approved</option>--}}
-                {{--                                            <option value="2">Pending</option>--}}
-                {{--                                            <option value="2">In Process</option>--}}
-                {{--                                            <option value="2">Rejected</option>--}}
-                {{--                                        </select>--}}
-                {{--                                    </div>--}}
-                {{--                                    <!--end::Input-->--}}
-                {{--                                </div>--}}
-                {{--                                <!--end::Input group-->--}}
-                {{--                                <!--begin::Input group-->--}}
-                {{--                                <div class="mb-10">--}}
-                {{--                                    <!--begin::Label-->--}}
-                {{--                                    <label class="form-label fw-bold">Member Type:</label>--}}
-                {{--                                    <!--end::Label-->--}}
-                {{--                                    <!--begin::Options-->--}}
-                {{--                                    <div class="d-flex">--}}
-                {{--                                        <!--begin::Options-->--}}
-                {{--                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5">--}}
-                {{--                                            <input class="form-check-input" type="checkbox" value="1" />--}}
-                {{--                                            <span class="form-check-label">Author</span>--}}
-                {{--                                        </label>--}}
-                {{--                                        <!--end::Options-->--}}
-                {{--                                        <!--begin::Options-->--}}
-                {{--                                        <label class="form-check form-check-sm form-check-custom form-check-solid">--}}
-                {{--                                            <input class="form-check-input" type="checkbox" value="2" checked="checked" />--}}
-                {{--                                            <span class="form-check-label">Customer</span>--}}
-                {{--                                        </label>--}}
-                {{--                                        <!--end::Options-->--}}
-                {{--                                    </div>--}}
-                {{--                                    <!--end::Options-->--}}
-                {{--                                </div>--}}
-                {{--                                <!--end::Input group-->--}}
-                {{--                                <!--begin::Input group-->--}}
-                {{--                                <div class="mb-10">--}}
-                {{--                                    <!--begin::Label-->--}}
-                {{--                                    <label class="form-label fw-bold">Notifications:</label>--}}
-                {{--                                    <!--end::Label-->--}}
-                {{--                                    <!--begin::Switch-->--}}
-                {{--                                    <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">--}}
-                {{--                                        <input class="form-check-input" type="checkbox" value="" name="notifications" checked="checked" />--}}
-                {{--                                        <label class="form-check-label">Enabled</label>--}}
-                {{--                                    </div>--}}
-                {{--                                    <!--end::Switch-->--}}
-                {{--                                </div>--}}
-                {{--                                <!--end::Input group-->--}}
-                {{--                                <!--begin::Actions-->--}}
-                {{--                                <div class="d-flex justify-content-end">--}}
-                {{--                                    <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>--}}
-                {{--                                    <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>--}}
-                {{--                                </div>--}}
-                {{--                                <!--end::Actions-->--}}
-                {{--                            </div>--}}
-                {{--                            <!--end::Form-->--}}
-                {{--                        </div>--}}
-                {{--                        <!--end::Menu 1-->--}}
-                {{--                        <!--end::Menu-->--}}
-                {{--                    </div>--}}
-                <!--end::Wrapper-->
-                    <!--begin::Button-->
-                {{--                    <a href="{{route('admin.orders.create')}}" class="btn btn-sm btn-success"--}}
-                {{--                       data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id=""--}}
-                {{--                    >--}}
-                {{--                        <i class="fa fa-plus"></i>--}}
-                {{--                        أضف</a>--}}
-                <!--end::Button-->
-                </div>
-                <!--end::Actions-->
             </div>
             <!--end::Container-->
         </div>
@@ -209,13 +95,12 @@
                                 {{--                                    </div>--}}
                                 {{--                                </th>--}}
                                 <th class=" min-w-10px">#</th>
-                                <th class=" min-w-10px">رقم الطلب</th>
                                 <th class=" min-w-10px">الحالة</th>
-                                <th class=" min-w-10px">الباقة</th>
-                                <th class=" min-w-10px">نوع الباقة</th>
-                                <th class=" min-w-10px">تاريخ البدء</th>
-                                <th class=" min-w-10px">تاريخ إنشاء الطلب</th>
-                                <th class=" min-w-10px">العمليات</th>
+                                <th class=" min-w-10px">الاسم</th>
+                                <th class=" min-w-10px">iban</th>
+                                <th class=" w-200px">اسم البنك</th>
+                                <th class=" w-400px">ملاحظات</th>
+                                <th class=" min-w-100px">العمليات</th>
 
                             </tr>
                             <!--end::Table row-->
@@ -240,6 +125,75 @@
     <!--end::Content-->
 
 
+    <!--begin::Modal - change status-->
+    <div class="modal fade" id="kt_modal_create_app" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-900px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Status-->
+                <div class="card card-flush py-4">
+                    <!--begin::Card header-->
+                    <div class="card-header">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <h2>الحالة</h2>
+                        </div>
+                        <!--end::Card title-->
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                            <span class="svg-icon svg-icon-1">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+								</svg>
+							</span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <form id="submit_btn" method="post" action="{{route('admin.cancel_requests.changeCancelRequestStatus')}}">
+                        @csrf
+                        <input type="hidden" name="row_id" id="row_id">
+                        <div class="card-body pt-0">
+                            <!--begin::Select2-->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <select name="status" required class="form-select mb-2" data-control="select2"
+                                            data-hide-search="true" data-placeholder="إختر الحالة"
+                                            id="kt_ecommerce_add_product_status_select">
+                                        <option></option>
+                                        <option value="0" selected>
+                                            جديد
+                                        </option>
+                                        <option value="1" >
+                                            مقروء
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-6">
+                                    <textarea name="notes" class="form-control mb-2" placeholder="ملاحظات"></textarea>
+                                </div>
+                            </div>
+                            <!--end::Select2-->
+                        </div>
+                        <!--end::Card body-->
+                        <div class="modal-footer">
+                            <button type="submit" data-dismiss="modal" class="btn btn-primary submit_btn">تأكيد</button>
+                        </div>
+                    </form>
+                </div>
+                <!--end::Status-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+    <!--end::Modal - change status-->
 @endsection
 
 
@@ -291,16 +245,7 @@
                                 '                                <tr>' +
                                 '                                    <td style="text-align: center">  <p style="padding-right:150px">بروتين  شيف</p></td>' +
                                 '                                    <td style="text-align: right"> <img src="{{asset('default.png')}}" width="150px" height="150px" /> </td>' +
-                                '                                    <td style="text-align: right"><p>عنوان التقرير :  الطلبات\n' +
-                                '                            @if($status == "pending")\n' +
-                                '                                قيد الموافقة\n' +
-                                '                            @elseif($status == "accepted")\n' +
-                                '                                المقبولة(الحالية)\n' +
-                                '                            @elseif($status == "canceled")\n' +
-                                '                                الملغية\n' +
-                                '                            @elseif($status == "finished")\n' +
-                                '                                المنتهية\n' +
-                                '                            @endif</p>' +
+                                '                                    <td style="text-align: right"><p>عنوان التقرير : طلبات الإلغاء</p>' +
                                 '                                                                  <p>تاريخ التقرير : {{ Carbon\Carbon::now()->translatedFormat('l Y/m/d') }}</p>' +
                                 '                                                                  <p>وقت التقرير : {{ Carbon\Carbon::now()->translatedFormat('h:i a') }}</p></td>' +
                                 '                                </tr> ' +
@@ -331,15 +276,14 @@
 
 
                 ],
-                ajax: '{{ route('admin.users.ordersDatatable',[$user_id]) }}',
+                ajax: '{{ route('admin.cancel_requests.datatable') }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
-                    {"data": "order_num", "searchable": false, "orderable": false},
                     {"data": "status", "searchable": false, "orderable": false},
-                    {"data": "package_name_ar", "searchable": false, "orderable": false},
-                    {"data": "package_type_ar", "searchable": false, "orderable": false},
-                    {"data": "start_date", "searchable": false, "orderable": false},
-                    {"data": "created_at", "searchable": false, "orderable": false},
+                    {"data": "name", "searchable": false, "orderable": false},
+                    {"data": "iban", "searchable": false, "orderable": false},
+                    {"data": "bank_name", "searchable": false, "orderable": false},
+                    {"data": "notes", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });
@@ -367,49 +311,19 @@
         });
     </script>
 
-    {{-- Delete --}}
+    {{-- change status --}}
     <script>
-        $(document).on("click", ".delete", function () {
+        $(document).on("click", ".changeStatus", function () {
             var row_id = $(this).data('id');
-            $(".modal-body #row_id").val(row_id);
+            $(".card #row_id").val(row_id);
         });
 
-        $('.delete_btn').on('click', function () {
-            $('#delete_form').submit();
+        $('.submit_btn').on('click', function () {
+            $('#submit_btn').submit();
         })
     </script>
 
-    {{--    Delete Multi--}}
 
-    <script>
-        var $bulkDeleteBtn = $('#bulk_delete_btn');
-        $bulkdeleteinput = $('#ids');
-
-        $bulkDeleteBtn.click(function (e) {
-            var $checkedBoxes = $('#kt_ecommerce_products_table input[type=checkbox]:checked').not('.select_all');
-            var count = $checkedBoxes.length;
-            if (count) {
-                var myids = [];
-                $bulkdeleteinput.val('');
-                $.each($checkedBoxes, function () {
-                    var value = $(this).val();
-                    if (value !== 'on') {
-                        myids.push(value);
-                    }
-                });
-                // Set input value
-                $bulkdeleteinput.val(myids);
-                $('#dynamic').modal('show');
-            } else {
-                // No row selected
-                toastr.warning('Choose At Least One');
-            }
-        });
-
-        $('.delete_multi_btn').on('click', function () {
-            $('#delete_multi_form').submit();
-        })
-    </script>
 
     <script>
         $(document).on("click", ".delete", function () {
@@ -429,7 +343,7 @@
                 if (result.value) {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '{{route('admin.orders.delete')}}',
+                        url: '{{route('admin.screens.delete')}}',
                         type: "post",
                         data: {'row_id': id, _token: CSRF_TOKEN},
                         dataType: "JSON",

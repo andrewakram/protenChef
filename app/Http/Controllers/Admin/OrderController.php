@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Notification;
+use App\Models\NotificationSetting;
 use App\Models\Order;
 use App\Models\OrderMeal;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,6 +84,23 @@ class OrderController extends Controller
             'status' => $request->status,
         ]);
         $row->save();
+        $user_token = User::whereId($row->user_id)->select('fcm_token')->first()->fcm_token;
+        if($row->status != $request->status){
+            if(!empty($user_token) && $user_token !=Null) {
+                $data['model_id'] = $request->row_id;
+                $data['model_type'] = "Order";
+                $NotificationSetting = NotificationSetting::where('status',2)->where('type',"Order")->first();
+                Notification::send($user_token, $NotificationSetting->title_ar, $NotificationSetting->body_ar, $data['model_type'], $data);
+            }
+        }
+        if(isset($request->cancel_price) && $row->cancel_price != $request->cancel_price){
+            if(!empty($user_token) && $user_token !=Null) {
+                $data['model_id'] = $request->row_id;
+                $data['model_type'] = "Order";
+                $NotificationSetting = NotificationSetting::where('status',4)->where('type',"Order")->first();
+                Notification::send($user_token, $NotificationSetting->title_ar, $NotificationSetting->body_ar, $data['model_type'], $data);
+            }
+        }
 
         session()->flash('success', 'تم التعديل بنجاح');
         return back();
@@ -139,6 +159,15 @@ class OrderController extends Controller
         $row->update([
             'status' => $request->status
         ]);
+        $user_token = User::whereId($row->Order->user_id)->select('fcm_token')->first()->fcm_token;
+        if($row->status != $request->status){
+            if(!empty($user_token) && $user_token !=Null) {
+                $data['model_id'] = $request->row_id;
+                $data['model_type'] = "Meal";
+                $NotificationSetting = NotificationSetting::where('status',3)->where('type',"Order")->first();
+                Notification::send($user_token, $NotificationSetting->title_ar, $NotificationSetting->body_ar, $data['model_type'], $data);
+            }
+        }
         session()->flash('success', 'تم التعديل بنجاح');
         return redirect()->back();
     }
@@ -190,6 +219,8 @@ class OrderController extends Controller
 
         return DataTables::eloquent($model)
             ->addIndexColumn()
+            ->addColumn('meal_type_name',function ($row) {
+                return $row->MealType->title;})
             ->addColumn('status',function ($row){
                 if($row->status == 'pending')
                     return '<b class="badge badge-primary">قيد التوصيل</b>';
@@ -198,7 +229,7 @@ class OrderController extends Controller
 
             })
             ->editColumn('date',function ($row){
-                return Carbon::parse($row->date)->format("Y-m-d (H:i) A");
+                return Carbon::parse($row->date)->format("Y-m-d");
             })
             ->editColumn('old_date',function ($row){
                 if($row->old_date)

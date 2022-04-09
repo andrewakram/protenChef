@@ -111,7 +111,9 @@ class PackagesController extends Controller
                 $first_main_meal_types = $first_main_meal_types->where('price', null);
             }
             $first_main_meal_types = $first_main_meal_types->where('package_type_price_id', $request->package_type_price_id)->orderBy('id', 'asc')->first();
-            $request->meal_type_id = $first_main_meal_types->meal_type_id;
+            $meal_type_id = $first_main_meal_types->meal_type_id;
+        } else {
+            $meal_type_id = $request->meal_type_id;
         }
 
         $main_meal_types = PackageMealType::query();
@@ -121,6 +123,7 @@ class PackagesController extends Controller
             $main_meal_types = $main_meal_types->where('price', null);
         }
         $main_meal_types = $main_meal_types->where('package_type_price_id', $request->package_type_price_id)->orderBy('id', 'asc')->get();
+
         if (!$request->meal_type_id) {
             $data['main_meal_types'] = (PackageMealTypeCustomResources::collection($main_meal_types));
         } else {
@@ -139,7 +142,7 @@ class PackagesController extends Controller
         }
         if (!$request->meal_type_id) {
             $data['package_price_Data'] = (new PackageTypePriceResources($package_type_price));
-        }else{
+        } else {
             $data['package_price_Data'] = (object)[];
         }
         //$package_type_price->PackageType
@@ -170,7 +173,7 @@ class PackagesController extends Controller
                 } elseif ($package_type_price->package_type_id == 2) {
                     $package_type_prices = $package_type_prices->where('day', '!=', 'Friday');
                 }
-                $package_type_prices = $package_type_prices->where('meal_type_id', $request->meal_type_id)
+                $package_type_prices = $package_type_prices->where('meal_type_id', $meal_type_id)
                     ->where('day', Carbon::parse($date)->format('l'))
                     ->where('week', $weekNumber)
                     ->with('Meal')

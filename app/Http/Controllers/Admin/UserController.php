@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\BankData;
 use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
@@ -176,6 +177,9 @@ class UserController extends Controller
                             <i class="fa fa-cart-plus"></i>
                         </a>';
 //                }
+                $buttons .= '<a href="'.route('admin.users.cancelRequests',[$row->id]).'" class="btn btn-danger btn-sm btn-circle m-1" title="طلبات الإلغاء">
+                            <i class="fa fa-recycle"></i>
+                        </a>';
                 return $buttons;
             })
             ->rawColumns(['actions','active','suspend','created_at'])
@@ -194,6 +198,63 @@ class UserController extends Controller
     {
         $auth = Auth::guard('admin')->user();
         $model = Order::query()->orderBy('id','desc')->where('user_id',$user_id);
+
+        return DataTables::eloquent($model)
+            ->addIndexColumn()
+            ->addColumn('user_name',function ($row){
+                $user_name = $row->User->name;
+                return '<a href="'.route('admin.users.edit',[$row->user_id]).'" class="" title="العميل">
+                            '.$user_name.'
+                        </a>';
+            })
+            ->editColumn('created_at',function ($row){
+                return Carbon::parse($row->created_at)->format("Y-m-d (H:i) A");
+            })
+            ->editColumn('status',function ($row){
+                if($row->status == 'pending')
+                    return "<b class='badge badge-warning'>قيد الموافقة</b>";
+                elseif($row->status == 'accepted')
+                    return "<b class='badge badge-success'>مقبول</b>";
+                elseif($row->status == 'canceled')
+                    return "<b class='badge badge-danger'>ملغي</b>";
+                elseif($row->status == 'finished')
+                    return "<b class='badge badge-info'>منتهي</b>";
+
+            })
+//            ->addColumn('select',function ($row){
+//                return '<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+//                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="'.$row->id.'" />
+//                                    </div>';
+//            })
+            ->addColumn('actions', function ($row) use ($auth){
+                $buttons = '';
+//                if ($auth->can('sliders.update')) {
+                $buttons .= '<a href="'.route('admin.orders.edit',[$row->id]).'" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل">
+                            <i class="fa fa-eye"></i>
+                        </a>';
+//                }
+//                if ($auth->can('sliders.delete')) {
+//                    $buttons .= '<a class="btn btn-danger btn-sm delete btn-circle m-1" data-id="'.$row->id.'"  title="حذف">
+//                            <i class="fa fa-trash"></i>
+//                        </a>';
+//                }
+                return $buttons;
+            })
+            ->rawColumns(['actions','user_name','created_at','status'])
+            ->make();
+    }
+
+    public function userCancelRequests($user_id)
+    {
+        $user_name = User::whereId($user_id)->select('name')->first()->name;
+        return view('admin.pages.users.cancel_requests',compact('user_id','user_name'));
+    }
+
+    public function getCancelRequestsData($user_id)
+    {
+        $auth = Auth::guard('admin')->user();
+        $orders = Order::where('user_id',$user_id)->pluck('id');
+        $model = BankData::query()->orderBy('id','desc')->whereIn('order_id',$orders);
 
         return DataTables::eloquent($model)
             ->addIndexColumn()

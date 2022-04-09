@@ -382,15 +382,20 @@
                                         [
                                     </span>
                                 </h3>
-                                <div class="card-toolbar " >
-                                    <form id="submit_btn" method="post" action="{{route('homeWzSearch')}}" style="display: inline-flex">
+                                <div class="card-toolbar ">
+                                    <form id="submit_btn" method="post" action="{{route('homeWzSearch')}}"
+                                          style="display: inline-flex">
                                         @csrf
 
-                                    <input class="form-control form-control-solid" type="date"  name="date" placeholder="إحتر التاريخ" id="kt_calendar_datepicker_end_date" />                                <!--end::Input-->                                <!--end::Input-->
+                                        <input class="form-control form-control-solid" type="date" name="date"
+                                               placeholder="إحتر التاريخ" id="kt_calendar_datepicker_end_date"/>
+                                        <!--end::Input-->                                <!--end::Input-->
 
-                                    <button type="submit" class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1"  style="color: white;">
-                                        بحث
-                                    </button>
+                                        <button type="submit"
+                                                class="btn app-bg-color font-weight-bolder font-size-sm mr-3 m-1"
+                                                style="color: white;">
+                                            بحث
+                                        </button>
 
                                     </form>
                                 </div>
@@ -444,10 +449,147 @@
                                         {{--                        <!--end::Card toolbar-->--}}
                                         {{--                    </div>--}}
                                         <!--end::Card header-->
-                                            <!--begin::Card body-->
+                                            @if(sizeof($meal_quantities) > 0)
+                                                <div class="card-body pt-0 pb-3">
+                                                    <div class="tab-content">
+                                                        <!--begin::Table-->
+                                                        <div class="table-responsive">
+                                                            <table
+                                                                class="table table-head-custom table-head-bg table-borderless table-vertical-center">
+                                                                <thead>
+                                                                <tr class="text-left text-uppercase">
+                                                                    <th class=" min-w-10px">#</th>
+                                                                    <th class=" min-w-10px">الوجبة</th>
+                                                                    <th class=" min-w-10px">الكمية</th>
+                                                                    <th class=" min-w-10px">العمليات</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                @foreach($meal_quantities as $key => $row)
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span class="fw-bolder">{{$key+1}}</span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span
+                                                                                class="fw-bolder">{{$row['meal'] }}</span>
+                                                                        </td>
+
+                                                                        <td>
+                                                                        <span
+                                                                            class="fw-bolder">{{$row['quantity'] }}</span>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <a class="btn btn-sm btn-primary "
+                                                                               data-bs-toggle="modal"
+                                                                               data-bs-target="#kt_modal_create_app{{$key}}"><i
+                                                                                    class="fa fa-eye"></i></a>
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                    <div class="modal fade"
+                                                                         id="kt_modal_create_app{{$key}}" tabindex="-1"
+                                                                         aria-hidden="true">
+                                                                        <!--begin::Modal dialog-->
+                                                                        <div
+                                                                            class="modal-dialog modal-dialog-centered mw-900px">
+                                                                            <!--begin::Modal content-->
+                                                                            <div class="modal-content">
+                                                                                <!--begin::Status-->
+                                                                                <div class="card card-flush py-4">
+                                                                                    <!--begin::Card header-->
+                                                                                    <div class="card-header">
+                                                                                        <!--begin::Card title-->
+                                                                                        <div class="card-title">
+                                                                                            <h2>المستخدمين</h2>
+                                                                                        </div>
+                                                                                        <!--end::Card title-->
+                                                                                        <!--begin::Close-->
+                                                                                        <div
+                                                                                            class="btn btn-sm btn-icon btn-active-color-primary"
+                                                                                            data-bs-dismiss="modal">
+                                                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                                                                            <span
+                                                                                                class="svg-icon svg-icon-1">
+                                                                                            <svg
+                                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                                width="24" height="24"
+                                                                                                viewBox="0 0 24 24"
+                                                                                                fill="none">
+                                                                                                <rect opacity="0.5"
+                                                                                                      x="6" y="17.3137"
+                                                                                                      width="16"
+                                                                                                      height="2" rx="1"
+                                                                                                      transform="rotate(-45 6 17.3137)"
+                                                                                                      fill="black"/>
+                                                                                                <rect x="7.41422" y="6"
+                                                                                                      width="16"
+                                                                                                      height="2" rx="1"
+                                                                                                      transform="rotate(45 7.41422 6)"
+                                                                                                      fill="black"/>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                            <!--end::Svg Icon-->
+                                                                                        </div>
+                                                                                        <!--end::Close-->
+                                                                                    </div>
+                                                                                    <!--end::Card header-->
+                                                                                    <!--begin::Card body-->
+
+                                                                                    <input type="hidden" name="row_id"
+                                                                                           id="row_id">
+                                                                                    <div class="card-body pt-0">
+                                                                                        <!--begin::Select2-->
+                                                                                        <div class="row mb-5">
+                                                                                            @foreach($row['users'] as $user)
+                                                                                                <div
+                                                                                                    class="col-lg-4 mb-5">
+                                                                                                    <a href={{route('admin.users.edit',[$user->Order->User->id])}} target="_blank"
+                                                                                                       class=""
+                                                                                                       title="العميل">
+                                                                                                        {{$user->Order->User->name}}
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-lg-4 mb-5">
+                                                                                                    {{$user->Order->User->email}}
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-lg-4 mb-5">
+                                                                                                    {{$user->Order->User->phone}}
+                                                                                                </div>
+
+                                                                                                <hr>
+                                                                                            @endforeach
+                                                                                        </div>
+                                                                                        <!--end::Select2-->
+                                                                                    </div>
+                                                                                    <!--end::Card body-->
+
+                                                                                </div>
+                                                                                <!--end::Status-->
+                                                                            </div>
+                                                                            <!--end::Modal content-->
+                                                                        </div>
+                                                                        <!--end::Modal dialog-->
+                                                                    </div>
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <!--end::Table-->
+                                                    </div>
+                                                </div>
+                                        @endif
+
+
+                                        <!--begin::Card body-->
                                             <div class="card-body pt-0">
                                                 <!--begin::Table-->
-                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="slider_table">
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                       id="slider_table">
                                                     <!--begin::Table head-->
                                                     <thead>
                                                     <!--begin::Table row-->
@@ -519,9 +661,12 @@
                         <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                             <span class="svg-icon svg-icon-1">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                          transform="rotate(-45 6 17.3137)" fill="black"/>
+									<rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                          transform="rotate(45 7.41422 6)" fill="black"/>
 								</svg>
 							</span>
                             <!--end::Svg Icon-->
@@ -541,10 +686,10 @@
                                             data-hide-search="true" data-placeholder="إختر الحالة"
                                             id="kt_ecommerce_add_product_status_select">
                                         <option></option>
-                                        <option value="pending" {{$row->status == "pending" ? "selected" : ""}}>قيد
+                                        <option value="pending">قيد
                                             التسليم
                                         </option>
-                                        <option value="delivered" {{$row->status == "delivered" ? "selected" : ""}}>تم
+                                        <option value="delivered">تم
                                             التسليم
                                         </option>
                                     </select>

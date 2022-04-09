@@ -471,6 +471,29 @@
                                     </a>
                                 </div>
                                 <div class="menu-item">
+                                    <a class="menu-link @if(request()->segment(2) == 'notification-settings' && request()->segment(3) == 'edit' ) active @endif py-3"
+                                       href="{{route('admin.notification-settings.edit')}}"
+                                       title="إعدادات الإشعارات" data-bs-toggle="tooltip"
+                                       data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+															<span class="menu-icon">
+																<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+																<span class="svg-icon svg-icon-2">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                         height="24" viewBox="0 0 24 24" fill="none">
+																		<path opacity="0.3"
+                                                                              d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z"
+                                                                              fill="black"/>
+																		<path
+                                                                            d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z"
+                                                                            fill="black"/>
+																	</svg>
+																</span>
+                                                                <!--end::Svg Icon-->
+															</span>
+                                        <span class="menu-title">إعدادات الإشعارات</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
                                     <a class="menu-link @if(request()->segment(2) == 'settings' && request()->segment(3) == 'zones' ) active @endif py-3"
                                        href="{{route('admin.settings.zones.edit', 1)}}"
                                        title="إعدادات منطقة التوصيل" data-bs-toggle="tooltip"
@@ -532,6 +555,54 @@
             <div class="d-flex align-items-stretch flex-shrink-0">
                 <!--begin::Toolbar wrapper-->
                 <div class="d-flex align-items-stretch flex-shrink-0">
+
+
+                    <!--begin::cancel requests-->
+                    <div class="d-flex align-items-center ms-1 ms-lg-3">
+                        <!--begin::Menu wrapper-->
+                        <div class="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"  title="طلبات الإلغاء">
+                            <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
+                            <a class="menu-link @if(request()->segment(2) == 'cancel_requests') active @endif py-3"
+                               href="{{route('admin.cancel_requests')}}"
+                               title="طلبات الإلغاء" data-bs-toggle="tooltip"
+                               data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+
+                                <i class="fa fa-recycle text-danger"></i>
+                                <span class="text-danger m-1">{{$cancel_requests}}</span>
+
+                            </a>
+                            <!--end::Svg Icon-->
+                            @if($cancel_requests != 0)
+                                <span class="bullet bullet-dot bg-danger h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                            @endif
+                        </div>
+                        <!--end::Menu wrapper-->
+                    </div>
+                    <!--end::cancel requests-->
+
+                    <!--begin::cancel requests-->
+                    <div class="d-flex align-items-center ms-1 ms-lg-3">
+                        <!--begin::Menu wrapper-->
+                        <div class="btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"  title="طلبات قيد الموافقة">
+                            <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
+                            <a class="menu-link @if(request()->segment(2) == 'orders' && request()->segment(3) == 'pending' ) active @endif py-3"
+                               href="{{route('admin.orders',['pending'])}}"
+                               title="طلبات قيد الموافقة" data-bs-toggle="tooltip"
+                               data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+
+                                <i class="fa fa-cart-plus text-primary"></i>
+                                <span class="text-primary m-1">{{$pending_orders}}</span>
+
+                            </a>
+                            <!--end::Svg Icon-->
+                            @if($pending_orders != 0)
+                                <span class="bullet bullet-dot bg-primary h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                            @endif
+                        </div>
+                        <!--end::Menu wrapper-->
+                    </div>
+                    <!--end::cancel requests-->
+
 
                     <!--begin::User-->
                     <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ZoneController;
+use App\Http\Controllers\Admin\NotificationSettingController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -43,7 +44,6 @@ Route::group([
         Route::get('home', 'HomeController@index')->name('home');
         Route::post('home', 'HomeController@index')->name('homeWzSearch');
         Route::get('home-meals/{date}', 'HomeController@getData')->name('homeMealsDatatables');
-
     });
 
     Route::group(['namespace' => 'Admin', 'as' => 'admin'], function () {
@@ -72,6 +72,9 @@ Route::group([
                 Route::post('/delete-multi', 'UserController@deleteMulti')->name('.deleteMulti');
                 Route::get('/orders/{id}', 'UserController@userOrders')->name('.orders');
                 Route::get('/getUserOrdersData/{id}', 'UserController@getUserOrdersData')->name('.ordersDatatable');
+                Route::get('/cancel-requests/{id}', 'UserController@userCancelRequests')->name('.cancelRequests');
+                Route::get('/getUserCancelRequestsData/{id}', 'UserController@getUserCancelRequestsData')
+                    ->name('.CancelRequestsDatatable');
             });
 
             Route::group(['prefix' => 'admins', 'as' => '.admins'], function () {
@@ -178,6 +181,9 @@ Route::group([
                 Route::get('/show/{id}', 'NotificationController@show')->name('.show');
                 Route::post('/delete', 'NotificationController@delete')->name('.delete');
                 Route::post('/delete-multi', 'NotificationController@deleteMulti')->name('.deleteMulti');
+                //ajax
+                Route::get('/get/notification-data', 'NotificationController@getNotificationData')
+                    ->name('.getNotificationData');
             });
 
             Route::group(['prefix' => 'meal-types', 'as' => '.meal-types'], function () {
@@ -250,6 +256,7 @@ Route::group([
                 Route::get('/show/{id}', 'PackageMealController@show')->name('.show');
                 Route::post('/delete', 'PackageMealController@delete')->name('.delete');
                 Route::post('/delete-multi', 'PackageMealController@deleteMulti')->name('.deleteMulti');
+                //ajax
                 Route::get('/get/meals', 'PackageMealController@getMeals')->name('.getMeals');
             });
 
@@ -269,6 +276,10 @@ Route::group([
                     Route::post('/delete',  [ZoneController::class, 'delete'])->name('.delete');
 
                 });
+            });
+            Route::group(['prefix' => 'notification-settings', 'as' => '.notification-settings'], function () {
+                Route::get('/edit', [NotificationSettingController::class, 'index'])->name('.edit');
+                Route::post('/update', [NotificationSettingController::class, 'update'])->name('.update');
             });
         });
 

@@ -130,13 +130,13 @@ class OrderController extends Controller
         //add meals to order
         if ($request->selected_meal) {
             foreach ($request->selected_meal as $row) {
-                $package_meal = PackageMeal::findOrFail($row['meal_id']);
+                $meal = Meal::findOrFail($row['meal_id']);
                 $order_meal_data['order_id'] = $order->id;
                 $order_meal_data['meal_id'] = $row['meal_id'];
-                $order_meal_data['meal_title_ar'] = $package_meal->Meal->title_ar;
-                $order_meal_data['meal_title_en'] = $package_meal->Meal->title_en;
-                $order_meal_data['meal_body_ar'] = $package_meal->Meal->body_ar;
-                $order_meal_data['meal_body_en'] = $package_meal->Meal->body_en;
+                $order_meal_data['meal_title_ar'] = $meal->title_ar;
+                $order_meal_data['meal_title_en'] = $meal->title_en;
+                $order_meal_data['meal_body_ar'] = $meal->body_ar;
+                $order_meal_data['meal_body_en'] = $meal->body_en;
                 $order_meal_data['date'] = $row['date'];
                 $order_meal_data['meal_type_id'] = $row['meal_type_id'];
                 OrderMeal::create($order_meal_data);

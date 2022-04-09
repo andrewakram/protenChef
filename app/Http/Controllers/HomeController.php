@@ -55,8 +55,24 @@ class HomeController extends Controller
             $date = Carbon::parse($deliverDate)->format('Y-m-d');
         }
 
+        $meal_quantities = [];
+        $item = [];
+        $meal_quantities_query = OrderMeal::where('date',$deliverDate)
+            ->select('meal_id')->distinct('meal_id')->get();
+//        dd($meal_quantities_query);
+        foreach ($meal_quantities_query as $meal_qty){
+            $item['meal_id'] = $meal_qty->meal_id;
+            $meal = Meal::whereId($meal_qty->meal_id)->first();
+            $item['meal'] = isset($meal) ? $meal->title_ar : "-";
+            $order_meals = OrderMeal::where('meal_id',$meal_qty->meal_id)->where('date',$deliverDate)->get();
+            $item['quantity'] = sizeof($order_meals);
+            $item['users'] = $order_meals;
+            if($meal)
+                array_push($meal_quantities,$item);
+        }
+
         return view('admin.pages.home',
-            compact('data', 'newest_orders', 'orders_numbers_chart','date'));
+            compact('data', 'newest_orders', 'orders_numbers_chart','date','meal_quantities'));
     }
 
     public function getData($date = null)
