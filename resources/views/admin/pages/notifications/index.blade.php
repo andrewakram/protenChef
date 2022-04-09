@@ -161,8 +161,8 @@
                 ajax: '{{ route('admin.notifications.datatable') }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
-                    {"data": "title", "searchable": false, "orderable": false},
-                    {"data": "body", "searchable": false, "orderable": false},
+                    {"data": "title_ar", "searchable": false, "orderable": false},
+                    {"data": "body_ar", "searchable": false, "orderable": false},
                     {"data": "type", "searchable": false, "orderable": false},
                     {"data": "user", "searchable": false, "orderable": false},
                     {"data": "created_at", "searchable": false, "orderable": false},

@@ -31,8 +31,10 @@ class NotificationController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'body' => 'required',
+            'title_ar' => 'required',
+            'body_ar' => 'required',
+            'title_en' => 'required',
+            'body_en' => 'required',
             'model_type' => 'required|in:other,Coupon,Order,Meal,Offer',
             'user_id' => 'sometimes',
             'model_id' => 'sometimes',
@@ -43,8 +45,10 @@ class NotificationController extends Controller
 
         if($request->model_type == 'Order'){
             $data = Notification::create([
-                'title' => $request->title,
-                'body' => $request->body,
+                'title_ar' => $request->title_ar,
+                'body_ar' => $request->body_ar,
+                'title_en' => $request->title_en,
+                'body_en' => $request->body_en,
                 'model_type' => $request->model_type,
                 'model_id' => isset($request->order_id) ? $request->order_id : NULL,
                 'user_id' => $request->user_id[0],
@@ -57,8 +61,10 @@ class NotificationController extends Controller
             if(isset($request->user_id) && sizeof($request->user_id) > 0){
                 foreach ($request->user_id as $user_id){
                     $data = Notification::create([
-                        'title' => $request->title,
-                        'body' => $request->body,
+                        'title_ar' => $request->title_ar,
+                        'body_ar' => $request->body_ar,
+                        'title_en' => $request->title_en,
+                        'body_en' => $request->body_en,
                         'model_type' => $request->model_type,
                         'model_id' => isset($request->offer_id) ? $request->offer_id : NULL,
                         'user_id' => $user_id,
@@ -73,8 +79,10 @@ class NotificationController extends Controller
                     ->select('id','fcm_token')->get();
                 foreach ($users as $user){
                     Notification::create([
-                        'title' => $request->title,
-                        'body' => $request->body,
+                        'title_ar' => $request->title_ar,
+                        'body_ar' => $request->body_ar,
+                        'title_en' => $request->title_en,
+                        'body_en' => $request->body_en,
                         'model_type' => $request->model_type,
                         'model_id' => isset($request->model_id) ? $request->model_id : NULL,
                         'user_id' => $user->id,
