@@ -216,21 +216,45 @@
                                             <!--begin::Input group-->
                                             <div class="mb-10 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required form-label">العنوان</label>
+                                                <label class="required form-label">العنوان (بالعربي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" required name="title" class="form-control mb-2" placeholder="العنوان" value="" />
+                                                <input type="text" required name="title_ar" class="form-control mb-2" placeholder="العنوان" value="" />
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
-</div>
+                                            </div>
+                                            <!--end::Input group-->
+
+                                            <!--begin::Input group-->
+                                            <div class="mb-10 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">العنوان (بالإنجليزي)</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" required name="title_en" class="form-control mb-2" placeholder="العنوان" value="" />
+                                                <!--end::Input-->
+                                                <!--begin::Description-->
+                                            </div>
                                             <!--end::Input group-->
 
                                             <div class="mb-10 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required form-label">المحتوي</label>
+                                                <label class="required form-label">المحتوي (بالعربي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <textarea required name="body" class="form-control mb-2" placeholder="المحتوي"></textarea>
+                                                <textarea required name="body_ar" class="form-control mb-2" placeholder="المحتوي"></textarea>
+                                                <!--end::Input-->
+                                                <!--begin::Description-->
+                                            {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}
+                                            <!--end::Description-->
+                                            </div>
+
+                                            <div class="mb-10 fv-row">
+                                                <!--begin::Label-->
+                                                <label class="required form-label">المحتوي (بالإنجليزي)</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <textarea required name="body_en" class="form-control mb-2" placeholder="المحتوي"></textarea>
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
                                             {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}
