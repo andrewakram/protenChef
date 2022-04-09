@@ -72,6 +72,9 @@ Route::group([
                 Route::post('/delete-multi', 'UserController@deleteMulti')->name('.deleteMulti');
                 Route::get('/orders/{id}', 'UserController@userOrders')->name('.orders');
                 Route::get('/getUserOrdersData/{id}', 'UserController@getUserOrdersData')->name('.ordersDatatable');
+                Route::get('/cancel-requests/{id}', 'UserController@userCancelRequests')->name('.cancelRequests');
+                Route::get('/getUserCancelRequestsData/{id}', 'UserController@getUserCancelRequestsData')
+                    ->name('.CancelRequestsDatatable');
             });
 
             Route::group(['prefix' => 'admins', 'as' => '.admins'], function () {

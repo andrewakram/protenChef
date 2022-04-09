@@ -229,7 +229,7 @@ class OrderController extends Controller
 
             })
             ->editColumn('date',function ($row){
-                return Carbon::parse($row->date)->format("Y-m-d (H:i) A");
+                return Carbon::parse($row->date)->format("Y-m-d");
             })
             ->editColumn('old_date',function ($row){
                 if($row->old_date)
