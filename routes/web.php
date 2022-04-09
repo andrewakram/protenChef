@@ -44,7 +44,6 @@ Route::group([
         Route::get('home', 'HomeController@index')->name('home');
         Route::post('home', 'HomeController@index')->name('homeWzSearch');
         Route::get('home-meals/{date}', 'HomeController@getData')->name('homeMealsDatatables');
-
     });
 
     Route::group(['namespace' => 'Admin', 'as' => 'admin'], function () {
@@ -276,7 +275,7 @@ Route::group([
                 });
             });
             Route::group(['prefix' => 'notification-settings', 'as' => '.notification-settings'], function () {
-                Route::get('/edit', [NotificationSettingController::class, 'index']);
+                Route::get('/edit', [NotificationSettingController::class, 'index'])->name('.edit');
                 Route::post('/update', [NotificationSettingController::class, 'update'])->name('.update');
             });
         });

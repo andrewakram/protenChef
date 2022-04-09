@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Notification;
+use App\Models\NotificationSetting;
 use App\Models\Order;
 use App\Models\OrderMeal;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,6 +84,23 @@ class OrderController extends Controller
             'status' => $request->status,
         ]);
         $row->save();
+        $user_token = User::whereId($row->user_id)->select('fcm_token')->first()->fcm_token;
+        if($row->status != $request->status){
+            if(!empty($user_token) && $user_token !=Null) {
+                $data['model_id'] = $request->row_id;
+                $data['model_type'] = "Order";
+                $NotificationSetting = NotificationSetting::where('lang',"ar")->where('type',"Order")->first();
+                Notification::send($user_token, $NotificationSetting->title, $NotificationSetting->body, $data['model_type'], $data);
+            }
+        }
+        if(isset($request->cancel_price) && $row->cancel_price != $request->cancel_price){
+            if(!empty($user_token) && $user_token !=Null) {
+                $data['model_id'] = $request->row_id;
+                $data['model_type'] = "Order";
+                $NotificationSetting = NotificationSetting::where('lang',"ar")->where('type',"Order")->first();
+                Notification::send($user_token, $NotificationSetting->title, $NotificationSetting->body, $data['model_type'], $data);
+            }
+        }
 
         session()->flash('success', 'تم التعديل بنجاح');
         return back();

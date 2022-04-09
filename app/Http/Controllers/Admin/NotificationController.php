@@ -42,23 +42,31 @@ class NotificationController extends Controller
         }
 
         if($request->model_type == 'Order'){
-            Notification::create([
+            $data = Notification::create([
                 'title' => $request->title,
                 'body' => $request->body,
                 'model_type' => $request->model_type,
                 'model_id' => isset($request->order_id) ? $request->order_id : NULL,
                 'user_id' => $request->user_id[0],
             ]);
+            $user_token = User::whereId($request->user_id[0])->select('fcm_token')->first()->fcm_token;
+            Notification::send($user_token, $request->title, $request->body, $request->model_type,$data);
         }else{
+            ///>>>>>>>> start sending
+            $user_tokens = [];
             if(isset($request->user_id) && sizeof($request->user_id) > 0){
                 foreach ($request->user_id as $user_id){
-                    Notification::create([
+                    $data = Notification::create([
                         'title' => $request->title,
                         'body' => $request->body,
                         'model_type' => $request->model_type,
                         'model_id' => isset($request->offer_id) ? $request->offer_id : NULL,
                         'user_id' => $user_id,
                     ]);
+                    $user_token = User::whereId($request->user_id[0])->select('fcm_token')->first()->fcm_token;
+                    if(!empty($user_token) && $user_token !=Null){
+                        array_push($user_tokens,$user_token);
+                    }
                 }
             }else{
                 $users = User::whereSuspend(0)->whereActive(1)->whereNotNull('fcm_token')
@@ -71,11 +79,16 @@ class NotificationController extends Controller
                         'model_id' => isset($request->model_id) ? $request->model_id : NULL,
                         'user_id' => $user->id,
                     ]);
+                    if(!empty($user_token) && $user_token !=Null){
+                        array_push($user_tokens,$user->fcm_token);
+                    }
                 }
             }
+            Notification::send($user_tokens, $request->title, $request->body, $request->model_type,$data);
+            ///>>>>>>>> end sending
         }
 
-            session()->flash('success', 'تم الإضافة بنجاح');
+        session()->flash('success', 'تم الإضافة بنجاح');
         return redirect()->route('admin.notifications');
     }
 

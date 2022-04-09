@@ -472,7 +472,7 @@
                                 </div>
                                 <div class="menu-item">
                                     <a class="menu-link @if(request()->segment(2) == 'notification-settings' && request()->segment(3) == 'edit' ) active @endif py-3"
-                                       href="{{route('admin.notification-settings')}}"
+                                       href="{{route('admin.notification-settings.edit')}}"
                                        title="إعدادات الإشعارات" data-bs-toggle="tooltip"
                                        data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
 															<span class="menu-icon">

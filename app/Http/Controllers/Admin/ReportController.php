@@ -56,10 +56,24 @@ class ReportController extends Controller
         $orders_arr[2] = $data['canceled_orders'];
         $orders_numbers_chart = json_encode($orders_arr);
 
-
+        $meal_quantities = [];
+        $item = [];
+        $meal_quantities_query = OrderMeal::whereBetween('date', [$from, $to])
+            ->select('meal_id')->distinct('meal_id')->get();
+//        dd($meal_quantities_query);
+        foreach ($meal_quantities_query as $meal_qty){
+            $item['meal_id'] = $meal_qty->meal_id;
+            $meal = Meal::whereId($meal_qty->meal_id)->first();
+            $item['meal'] = isset($meal) ? $meal->title_ar : "-";
+            $order_meals = OrderMeal::where('meal_id',$meal_qty->meal_id)->whereBetween('date', [$from, $to])->get();
+            $item['quantity'] = sizeof($order_meals);
+            $item['users'] = $order_meals;
+            if($meal)
+                array_push($meal_quantities,$item);
+        }
 
         return view('admin.pages.reports.index',
-            compact('data', 'newest_orders', 'orders_numbers_chart','from','to'));
+            compact('data', 'newest_orders', 'orders_numbers_chart','from','to','meal_quantities'));
     }
 
     public function getData($from = null ,$to = null)

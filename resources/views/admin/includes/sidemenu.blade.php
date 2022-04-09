@@ -734,8 +734,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->segment(2) == 'settings' && request()->segment(3) == 'zones' ) active @endif"
-                       href="{{route('admin.settings.zones.edit', 1)}}">
+                    <a class="menu-link @if( request()->segment(2) == 'notification-settings' ) active @endif"
+                       href="{{route('admin.notification-settings.edit')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Home\Alarm-clock.svg--><svg
