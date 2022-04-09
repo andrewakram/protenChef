@@ -27,7 +27,8 @@ class MySubscribersControllers extends Controller
         $user = auth()->user();
         $orders = Order::where('user_id', $user->id)
             ->whereIn('status', ['pending', 'accepted'])
-            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])->orderBy('created_at','desc')
+            ->withCount(['OrderDays', 'DeliveredOrderMeals'])
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
         $data = OrdersResources::collection($orders)->response()->getData(true);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
@@ -38,7 +39,7 @@ class MySubscribersControllers extends Controller
         $user = auth()->user();
         $orders = Order::where('user_id', $user->id)
             ->whereIn('status', ['canceled', 'finished'])
-            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])->orderBy('created_at','desc')
+            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])->orderBy('created_at', 'desc')
             ->paginate(10);
         $data = OrdersResources::collection($orders)->response()->getData(true);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
@@ -59,7 +60,7 @@ class MySubscribersControllers extends Controller
         }
 
         $order = Order::whereId($id)->first();
-        if (!$order){
+        if (!$order) {
             return response()->json(msg($request, not_found(), trans('lang.not_found')));
         }
         $order_meals = OrderMeal::where('order_id', $id)
@@ -67,7 +68,6 @@ class MySubscribersControllers extends Controller
             ->get();
 
         $order_meals = OrderMealsResources::collection($order_meals);
-
 
 
         $location = $order->location_body;
@@ -152,7 +152,6 @@ class MySubscribersControllers extends Controller
     {
         $order_days = Order::whereId($id)->with('OrderMeals', function ($q) {
             $q->where('status', 'pending');
-
         })->first();
 
         $dates = [];

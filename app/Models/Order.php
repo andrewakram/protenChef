@@ -36,6 +36,10 @@ class Order extends Model
         return $this->hasMany(OrderMeal::class, 'order_id');
     }
 
+    public function OrderDays()
+    {
+        return $this->hasMany(OrderMeal::class, 'order_id');
+    }
 
     public function DeliveredOrderMeals()
     {
