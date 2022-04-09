@@ -74,32 +74,65 @@
                                                         @if($row->type == 'other')
                                                             عنوان الإشعار العادي
                                                             <span class="text-danger">
-                                                            ({{$row->lang == 'ar' ? "بالعربي" : "بالإنجليزي"}})
+                                                            (بالعربي)
                                                             </span>
                                                         @elseif($row->type == 'Order')
                                                             عنوان الإشعار الخاص بطلب
                                                             <span class="text-danger">
-                                                            ({{$row->lang == 'ar' ? "بالعربي" : "بالإنجليزي"}})
+                                                            (بالعربي)
                                                             </span>
                                                         @elseif($row->type == 'Meal')
                                                             عنوان الإشعار الخاص بوجبة
                                                             <span class="text-danger">
-                                                            ({{$row->lang == 'ar' ? "بالعربي" : "بالإنجليزي"}})
+                                                            (بالعربي)
                                                             </span>
                                                         @elseif($row->type == 'Offer')
                                                             عنوان الإشعار الخاص بعرض
                                                             <span class="text-danger">
-                                                            ({{$row->lang == 'ar' ? "بالعربي" : "بالإنجليزي"}})
+                                                            (بالعربي)
                                                             </span>
                                                         @elseif($row->type == 'Coupon')
                                                             عنوان الإشعار الخاص بكوبون
                                                             <span class="text-danger">
-                                                            ({{$row->lang == 'ar' ? "بالعربي" : "بالإنجليزي"}})
+                                                            (بالعربي)
                                                             </span>
                                                         @endif
                                                     </label>
-                                                    <input type="text" name="title[{{$row->lang}}][{{$row->type}}]"
-                                                           value="{{$row->title}}"
+                                                    <input type="text" name="title_ar[{{$row->type}}][{{$row->status}}]"
+                                                           value="{{$row->title_ar}}"
+                                                           class="form-control">
+                                                </div>
+                                                <div class="mb-10 col-lg-6">
+                                                    <label class="required form-label">
+                                                        @if($row->type == 'other')
+                                                            عنوان الإشعار العادي
+                                                            <span class="text-danger">
+                                                            (بالإنجليزي)
+                                                            </span>
+                                                        @elseif($row->type == 'Order')
+                                                            عنوان الإشعار الخاص بطلب
+                                                            <span class="text-danger">
+                                                            (بالإنجليزي)
+                                                            </span>
+                                                        @elseif($row->type == 'Meal')
+                                                            عنوان الإشعار الخاص بوجبة
+                                                            <span class="text-danger">
+                                                            (بالإنجليزي)
+                                                            </span>
+                                                        @elseif($row->type == 'Offer')
+                                                            عنوان الإشعار الخاص بعرض
+                                                            <span class="text-danger">
+                                                            (بالإنجليزي)
+                                                            </span>
+                                                        @elseif($row->type == 'Coupon')
+                                                            عنوان الإشعار الخاص بكوبون
+                                                            <span class="text-danger">
+                                                            (بالإنجليزي)
+                                                            </span>
+                                                        @endif
+                                                    </label>
+                                                    <input type="text" name="title_en[{{$row->type}}][{{$row->status}}]"
+                                                           value="{{$row->title_en}}"
                                                            class="form-control">
                                                 </div>
                                                 <div class="mb-10 col-lg-6">
@@ -107,34 +140,66 @@
                                                         @if($row->type == 'other')
                                                             نص الإشعار العادي
                                                             <span class="text-danger">
-                                                                ({{$row->lang == 'ar' ? "بالعربي" : "بالإنجليزي"}})
+                                                            (بالعربي)
                                                             </span>
                                                         @elseif($row->type == 'Order')
                                                             نص الإشعار الخاص بطب
                                                             <span class="text-danger">
-                                                                ({{$row->lang == 'ar' ? "بالعربي" : "بالإنجليزي"}})
+                                                            (بالعربي)
                                                             </span>
                                                         @elseif($row->type == 'Meal')
                                                             نص الإشعار الخاص بوجبة
                                                             <span class="text-danger">
-                                                                ({{$row->lang == 'ar' ? "بالعربي" : "بالإنجليزي"}})
+                                                            (بالعربي)
                                                             </span>
                                                         @elseif($row->type == 'Offer')
                                                             نص الإشعار الخاص بعرض
                                                             <span class="text-danger">
-                                                                ({{$row->lang == 'ar' ? "بالعربي" : "بالإنجليزي"}})
+                                                            (بالعربي)
                                                             </span>
                                                         @elseif($row->type == 'Coupon')
                                                             نص الإشعار الخاص بكوبون
                                                             <span class="text-danger">
-                                                                ({{$row->lang == 'ar' ? "بالعربي" : "بالإنجليزي"}})
+                                                            (بالعربي)
                                                             </span>
                                                         @endif
                                                     </label>
-                                                    <textarea type="text" name="body[{{$row->lang}}][{{$row->type}}]"
-                                                              class="form-control">{{$row->body}}</textarea>
+                                                    <textarea type="text" name="body_ar[{{$row->type}}][{{$row->status}}]"
+                                                              class="form-control">{{$row->body_ar}}</textarea>
                                                 </div>
-                                                    <hr>
+                                                <div class="mb-10 col-lg-6">
+                                                    <label class="required form-label">
+                                                        @if($row->type == 'other')
+                                                            نص الإشعار العادي
+                                                            <span class="text-danger">
+                                                            (بالإنجليزي)
+                                                            </span>
+                                                        @elseif($row->type == 'Order')
+                                                            نص الإشعار الخاص بطب
+                                                            <span class="text-danger">
+                                                            (بالإنجليزي)
+                                                            </span>
+                                                        @elseif($row->type == 'Meal')
+                                                            نص الإشعار الخاص بوجبة
+                                                            <span class="text-danger">
+                                                            (بالإنجليزي)
+                                                            </span>
+                                                        @elseif($row->type == 'Offer')
+                                                            نص الإشعار الخاص بعرض
+                                                            <span class="text-danger">
+                                                            (بالإنجليزي)
+                                                            </span>
+                                                        @elseif($row->type == 'Coupon')
+                                                            نص الإشعار الخاص بكوبون
+                                                            <span class="text-danger">
+                                                            (بالإنجليزي)
+                                                            </span>
+                                                        @endif
+                                                    </label>
+                                                    <textarea type="text" name="body_en[{{$row->type}}][{{$row->status}}]"
+                                                              class="form-control">{{$row->body_en}}</textarea>
+                                                </div>
+                                                <hr>
                                                 @endforeach
                                             </div>
                                         </div>

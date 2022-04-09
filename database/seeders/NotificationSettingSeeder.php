@@ -14,112 +14,74 @@ class NotificationSettingSeeder extends Seeder
      */
     public function run()
     {
-        //'lang',['ar','en']
         //'type',['other','Order','Meal','Offer','Coupon']
         //status >> '1=>order, 2=>order_status, 3=>meal_status, 4=>cancel_order'
 
         $data = [
             [
-                'lang' => 'ar',
                 'type' => 'Other',
-                'title' => 'عنوان اشعار جديد',
-                'body' => 'نص اشعار جديد',
+                'title_ar' => 'عنوان اشعار جديد',
+                'body_ar' => 'نص اشعار جديد',
+                'title_en' => 'title new notification',
+                'body_en' => 'body new notification',
 
-            ], [
-                'lang' => 'en',
-                'type' => 'Other',
-                'title' => 'title new notification',
-                'body' => 'body new notification',
             ],
             /////////////////////////////order
             [
-                'lang' => 'ar',
                 'type' => 'Order',
                 'status' => 1,
-                'title' => 'عنوان اشعار جديد طلب',
-                'body' => 'نص اشعار جديد طلب',
-            ], [
-                'lang' => 'en',
-                'type' => 'Order',
-                'status' => 1,
-                'title' => 'title new notification Order',
-                'body' => 'body new notification Order',
+                'title_ar' => 'عنوان اشعار جديد طلب',
+                'body_ar' => 'نص اشعار جديد طلب',
+                'title_en' => 'title new notification Order',
+                'body_en' => 'body new notification Order',
             ],
             [
-                'lang' => 'ar',
                 'type' => 'Order',
                 'status' => 2,
-                'title' => 'عنوان اشعار جديد طلب',
-                'body' => 'نص اشعار جديد طلب',
-            ], [
-                'lang' => 'en',
-                'type' => 'Order',
-                'status' => 2,
-                'title' => 'title new notification Order',
-                'body' => 'body new notification Order',
+                'title_ar' => 'عنوان اشعار جديد طلب',
+                'body_ar' => 'نص اشعار جديد طلب',
+                'title_en' => 'title new notification Order',
+                'body_en' => 'body new notification Order',
             ],
             [
-                'lang' => 'ar',
                 'type' => 'Order',
                 'status' => 3,
-                'title' => 'عنوان اشعار جديد طلب',
-                'body' => 'نص اشعار جديد طلب',
-            ], [
-                'lang' => 'en',
-                'type' => 'Order',
-                'status' => 3,
-                'title' => 'title new notification Order',
-                'body' => 'body new notification Order',
+                'title_ar' => 'عنوان اشعار جديد طلب',
+                'body_ar' => 'نص اشعار جديد طلب',
+                'title_en' => 'title new notification Order',
+                'body_en' => 'body new notification Order',
             ],
             [
-                'lang' => 'ar',
                 'type' => 'Order',
                 'status' => 4,
-                'title' => 'عنوان اشعار جديد طلب',
-                'body' => 'نص اشعار جديد طلب',
-            ], [
-                'lang' => 'en',
-                'type' => 'Order',
-                'status' => 4,
-                'title' => 'title new notification Order',
-                'body' => 'body new notification Order',
+                'title_ar' => 'عنوان اشعار جديد طلب',
+                'body_ar' => 'نص اشعار جديد طلب',
+                'title_en' => 'title new notification Order',
+                'body_en' => 'body new notification Order',
             ]
             //////////////////////////////////========
             ,
             [
-                'lang' => 'ar',
                 'type' => 'Meal',
-                'title' => 'عنوان اشعار جديد وجبة',
-                'body' => 'نص اشعار جديد وجبة',
-            ], [
-                'lang' => 'en',
-                'type' => 'Meal',
-                'title' => 'title new notification Meal',
-                'body' => 'body new notification Meal',
+                'title_ar' => 'عنوان اشعار جديد وجبة',
+                'body_ar' => 'نص اشعار جديد وجبة',
+                'title_en' => 'title new notification Meal',
+                'body_en' => 'body new notification Meal',
             ],
 
             [
-                'lang' => 'ar',
                 'type' => 'Offer',
-                'title' => 'عنوان اشعار جديد عرض',
-                'body' => 'نص اشعار جديد عرض',
-            ], [
-                'lang' => 'en',
-                'type' => 'Offer',
-                'title' => 'title new notification Offer',
-                'body' => 'body new notification Offer',
+                'title_ar' => 'عنوان اشعار جديد عرض',
+                'body_ar' => 'نص اشعار جديد عرض',
+                'title_en' => 'title new notification Offer',
+                'body_en' => 'body new notification Offer',
             ],
             [
-                'lang' => 'ar',
                 'type' => 'Coupon',
-                'title' => 'عنوان اشعار جديد كوبون',
-                'body' => 'نص اشعار جديد كوبون',
-            ], [
-                'lang' => 'en',
-                'type' => 'Coupon',
-                'title' => 'title new notification Coupon',
-                'body' => 'body new notification Coupon',
-
+                'title_ar' => 'عنوان اشعار جديد كوبون',
+                'body_ar' => 'نص اشعار جديد كوبون',
+                'title_en' => 'title new notification Coupon',
+                'body_en' => 'body new notification Coupon',
             ],
         ];
         foreach ($data as $get) {

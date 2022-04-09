@@ -15,10 +15,11 @@ class CreateNotificationSettingsTable extends Migration
     {
         Schema::create('notification_settings', function (Blueprint $table) {
             $table->id();
-            $table->enum('lang',['ar','en'])->default('ar');
             $table->enum('type',['other','Order','Meal','Offer','Coupon'])->default('other');
-            $table->text('title')->nullable();
-            $table->text('body')->nullable();
+            $table->text('title_ar')->nullable();
+            $table->text('title_en')->nullable();
+            $table->text('body_ar')->nullable();
+            $table->text('body_en')->nullable();
 
             $table->timestamps();
         });

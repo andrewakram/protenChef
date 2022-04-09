@@ -24,15 +24,23 @@ class NotificationSettingController extends Controller
 
     public function update(NotificationSettingRequest $request)
     {
-        $langs=["ar","en"];
-        $types = ['other','Order','Meal','Offer','Coupon'];
-        foreach ($langs as $lang){
-            foreach ($types as $type){
-                NotificationSetting::where('lang',"$lang")->where('type',"$type")->update([
-                    'title' => $request->title["$lang"]["$type"],
-                    'body' => $request->body["$lang"]["$type"],
-                ]);
-            }
+        $types = ['other','Meal','Offer','Coupon'];
+        foreach ($types as $type){
+            NotificationSetting::where('type',"$type")->update([
+                'title_ar' => $request->title_ar["$type"][0],
+                'title_en' => $request->title_en["$type"][0],
+                'body_ar' => $request->body_ar["$type"][0],
+                'body_en' => $request->body_en["$type"][0],
+            ]);
+        }
+        $statuses=[0,1,2,3,4];
+        foreach ($statuses as $status){
+            NotificationSetting::where('type',"Order")->where('status',"$status")->update([
+                'title_ar' => $request->title_ar["$type"]["$status"],
+                'title_en' => $request->title_en["$type"]["$status"],
+                'body_ar' => $request->body_ar["$type"]["$status"],
+                'body_en' => $request->body_en["$type"]["$status"],
+            ]);
         }
         session()->flash('success', 'تم التعديل بنجاح');
         return back();
