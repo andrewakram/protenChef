@@ -78,6 +78,23 @@
                                                             </span>
                                                         @elseif($row->type == 'Order')
                                                             عنوان الإشعار الخاص بطلب
+                                                            @if($row->status == 1)
+                                                                ]
+                                                            معلومات عن الطلب
+                                                                [
+                                                            @elseif($row->status == 2)
+                                                                ]
+                                                            تغيير حالة الطلب
+                                                                [
+                                                            @elseif($row->status == 3)
+                                                                ]
+                                                            تغيير حالة الوجبة
+                                                                [
+                                                            @elseif($row->status == 4)
+                                                                ]
+                                                            إلغاء الطلب
+                                                                [
+                                                            @endif
                                                             <span class="text-danger">
                                                             (بالعربي)
                                                             </span>
@@ -111,6 +128,23 @@
                                                             </span>
                                                         @elseif($row->type == 'Order')
                                                             عنوان الإشعار الخاص بطلب
+                                                            @if($row->status == 1)
+                                                                ]
+                                                            معلومات عن الطلب
+                                                                [
+                                                            @elseif($row->status == 2)
+                                                                ]
+                                                            تغيير حالة الطلب
+                                                                [
+                                                            @elseif($row->status == 3)
+                                                                ]
+                                                            تغيير حالة الوجبة
+                                                                [
+                                                            @elseif($row->status == 4)
+                                                                ]
+                                                            إلغاء الطلب
+                                                                [
+                                                            @endif
                                                             <span class="text-danger">
                                                             (بالإنجليزي)
                                                             </span>
@@ -143,7 +177,24 @@
                                                             (بالعربي)
                                                             </span>
                                                         @elseif($row->type == 'Order')
-                                                            نص الإشعار الخاص بطب
+                                                            نص الإشعار الخاص بطلب
+                                                            @if($row->status == 1)
+                                                                ]
+                                                            معلومات عن الطلب
+                                                                [
+                                                            @elseif($row->status == 2)
+                                                                ]
+                                                            تغيير حالة الطلب
+                                                                [
+                                                            @elseif($row->status == 3)
+                                                                ]
+                                                            تغيير حالة الوجبة
+                                                                [
+                                                            @elseif($row->status == 4)
+                                                                ]
+                                                            إلغاء الطلب
+                                                                [
+                                                            @endif
                                                             <span class="text-danger">
                                                             (بالعربي)
                                                             </span>
@@ -175,7 +226,24 @@
                                                             (بالإنجليزي)
                                                             </span>
                                                         @elseif($row->type == 'Order')
-                                                            نص الإشعار الخاص بطب
+                                                            نص الإشعار الخاص بطلب
+                                                            @if($row->status == 1)
+                                                                ]
+                                                            معلومات عن الطلب
+                                                                [
+                                                            @elseif($row->status == 2)
+                                                                ]
+                                                            تغيير حالة الطلب
+                                                                [
+                                                            @elseif($row->status == 3)
+                                                                ]
+                                                            تغيير حالة الوجبة
+                                                                [
+                                                            @elseif($row->status == 4)
+                                                                ]
+                                                            إلغاء الطلب
+                                                                [
+                                                            @endif
                                                             <span class="text-danger">
                                                             (بالإنجليزي)
                                                             </span>
@@ -199,6 +267,7 @@
                                                     <textarea type="text" name="body_en[{{$row->type}}][{{$row->status}}]"
                                                               class="form-control">{{$row->body_en}}</textarea>
                                                 </div>
+                                                <hr>
                                                 <hr>
                                                 @endforeach
                                             </div>

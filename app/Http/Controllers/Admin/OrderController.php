@@ -89,16 +89,16 @@ class OrderController extends Controller
             if(!empty($user_token) && $user_token !=Null) {
                 $data['model_id'] = $request->row_id;
                 $data['model_type'] = "Order";
-                $NotificationSetting = NotificationSetting::where('lang',"ar")->where('type',"Order")->first();
-                Notification::send($user_token, $NotificationSetting->title, $NotificationSetting->body, $data['model_type'], $data);
+                $NotificationSetting = NotificationSetting::where('status',2)->where('type',"Order")->first();
+                Notification::send($user_token, $NotificationSetting->title_ar, $NotificationSetting->body_ar, $data['model_type'], $data);
             }
         }
         if(isset($request->cancel_price) && $row->cancel_price != $request->cancel_price){
             if(!empty($user_token) && $user_token !=Null) {
                 $data['model_id'] = $request->row_id;
                 $data['model_type'] = "Order";
-                $NotificationSetting = NotificationSetting::where('lang',"ar")->where('type',"Order")->first();
-                Notification::send($user_token, $NotificationSetting->title, $NotificationSetting->body, $data['model_type'], $data);
+                $NotificationSetting = NotificationSetting::where('status',4)->where('type',"Order")->first();
+                Notification::send($user_token, $NotificationSetting->title_ar, $NotificationSetting->body_ar, $data['model_type'], $data);
             }
         }
 
@@ -159,6 +159,15 @@ class OrderController extends Controller
         $row->update([
             'status' => $request->status
         ]);
+        $user_token = User::whereId($row->Order->user_id)->select('fcm_token')->first()->fcm_token;
+        if($row->status != $request->status){
+            if(!empty($user_token) && $user_token !=Null) {
+                $data['model_id'] = $request->row_id;
+                $data['model_type'] = "Meal";
+                $NotificationSetting = NotificationSetting::where('status',3)->where('type',"Order")->first();
+                Notification::send($user_token, $NotificationSetting->title_ar, $NotificationSetting->body_ar, $data['model_type'], $data);
+            }
+        }
         session()->flash('success', 'تم التعديل بنجاح');
         return redirect()->back();
     }
