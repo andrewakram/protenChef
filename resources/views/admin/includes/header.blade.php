@@ -572,7 +572,9 @@
 
                             </a>
                             <!--end::Svg Icon-->
-                            <span class="bullet bullet-dot bg-danger h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                            @if($cancel_requests != 0)
+                                <span class="bullet bullet-dot bg-danger h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                            @endif
                         </div>
                         <!--end::Menu wrapper-->
                     </div>
@@ -593,7 +595,9 @@
 
                             </a>
                             <!--end::Svg Icon-->
-                            <span class="bullet bullet-dot bg-primary h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                            @if($pending_orders != 0)
+                                <span class="bullet bullet-dot bg-primary h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                            @endif
                         </div>
                         <!--end::Menu wrapper-->
                     </div>
