@@ -112,8 +112,8 @@ class PackagesController extends Controller
             }
             $first_main_meal_types = $first_main_meal_types->where('package_type_price_id', $request->package_type_price_id)->orderBy('id', 'asc')->first();
             $meal_type_id = $first_main_meal_types->meal_type_id;
-        }else{
-            $meal_type_id = $request->meal_type_id ;
+        } else {
+            $meal_type_id = $request->meal_type_id;
         }
 
         $main_meal_types = PackageMealType::query();
@@ -142,7 +142,7 @@ class PackagesController extends Controller
         }
         if (!$request->meal_type_id) {
             $data['package_price_Data'] = (new PackageTypePriceResources($package_type_price));
-        }else{
+        } else {
             $data['package_price_Data'] = (object)[];
         }
         //$package_type_price->PackageType

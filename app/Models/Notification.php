@@ -11,13 +11,33 @@ class Notification extends Model
 
     protected $fillable = ['title_ar', 'body_ar', 'model_type', 'user_id', 'model_id'];
 
+    protected $appends = ['title', 'body'];
+
+    public function getTitleAttribute()
+    {
+        if ($locale = \app()->getLocale() == "ar") {
+            return $this->title_ar;
+        } else {
+            return $this->title_en;
+        }
+    }
+
+    public function getBodyAttribute()
+    {
+        if (\app()->getLocale() == "ar") {
+            return $this->body_ar;
+        } else {
+            return $this->body_en;
+        }
+    }
+
     public function User()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     public static function send($tokens, $title="hello", $msg="helo msg", $type="Other",$data=null){
-        $key = 'AAAAoygP5GI:APA91bEq1bgtZ1S2j3tib1kGHdvwsWVfhUT381w7_nKP-HDx99PJPKjetMzNx_2bD4q4NT_PD9qQGvjJHIsDPZ0GHaHZLWzaqFt9Yp83-xXKtTSoRRxCsg-0lqewmlLF0eTb5V5SHfAq';
+        $key = 'AAAAmGuyxwo:APA91bHRjnM8ymKsGbrBk48PXCxM3fZwz-i5JHWQy1RnUw_y9NDy_KdsSO8h0WR3jzGCSC8ergky5Hej7UNrUdUG4LZut7YBURiBhnqY7pZQGXgHjDP_TFTNixZVgYDb8fvzCYM2PjrV';
 
         $fields = array
         (
