@@ -12,6 +12,7 @@ class NotificationSetting extends Model
 
     //'lang',['ar','en']
     //'type',['other','Order','Meal','Offer','Coupon']
+    //status >> '1=>order, 2=>order_status, 3=>meal_status, 4=>cancel_order'
 
     protected $fillable = ['lang','type','title','body'];
 }

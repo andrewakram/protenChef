@@ -16,6 +16,8 @@ class NotificationSettingSeeder extends Seeder
     {
         //'lang',['ar','en']
         //'type',['other','Order','Meal','Offer','Coupon']
+        //status >> '1=>order, 2=>order_status, 3=>meal_status, 4=>cancel_order'
+
         $data = [
             [
                 'lang' => 'ar',
@@ -29,17 +31,61 @@ class NotificationSettingSeeder extends Seeder
                 'title' => 'title new notification',
                 'body' => 'body new notification',
             ],
+            /////////////////////////////order
             [
                 'lang' => 'ar',
                 'type' => 'Order',
+                'status' => 1,
                 'title' => 'عنوان اشعار جديد طلب',
                 'body' => 'نص اشعار جديد طلب',
             ], [
                 'lang' => 'en',
                 'type' => 'Order',
+                'status' => 1,
                 'title' => 'title new notification Order',
                 'body' => 'body new notification Order',
             ],
+            [
+                'lang' => 'ar',
+                'type' => 'Order',
+                'status' => 2,
+                'title' => 'عنوان اشعار جديد طلب',
+                'body' => 'نص اشعار جديد طلب',
+            ], [
+                'lang' => 'en',
+                'type' => 'Order',
+                'status' => 2,
+                'title' => 'title new notification Order',
+                'body' => 'body new notification Order',
+            ],
+            [
+                'lang' => 'ar',
+                'type' => 'Order',
+                'status' => 3,
+                'title' => 'عنوان اشعار جديد طلب',
+                'body' => 'نص اشعار جديد طلب',
+            ], [
+                'lang' => 'en',
+                'type' => 'Order',
+                'status' => 3,
+                'title' => 'title new notification Order',
+                'body' => 'body new notification Order',
+            ],
+            [
+                'lang' => 'ar',
+                'type' => 'Order',
+                'status' => 4,
+                'title' => 'عنوان اشعار جديد طلب',
+                'body' => 'نص اشعار جديد طلب',
+            ], [
+                'lang' => 'en',
+                'type' => 'Order',
+                'status' => 4,
+                'title' => 'title new notification Order',
+                'body' => 'body new notification Order',
+            ]
+            //////////////////////////////////========
+            ,
             [
                 'lang' => 'ar',
                 'type' => 'Meal',
