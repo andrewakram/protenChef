@@ -51,6 +51,7 @@ class MySubscribersControllers extends Controller
         $user = auth()->user();
         $remaining_days = OrderMeal::where('order_id', $id)
             ->where('status', 'pending')
+            ->groupBy('date')
             ->count();
 
         $meal_types = MealType::all();
