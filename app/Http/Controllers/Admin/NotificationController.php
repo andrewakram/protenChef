@@ -181,8 +181,7 @@ class NotificationController extends Controller
     public function getData()
     {
         $auth = Auth::guard('admin')->user();
-        $model = Notification::query();
-
+        $model = Notification::query()->orderBy('created_at','desc');
         return DataTables::eloquent($model)
             ->addIndexColumn()
             ->editColumn('type',function ($row){
