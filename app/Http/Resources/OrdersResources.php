@@ -19,8 +19,8 @@ class OrdersResources extends JsonResource
             'order_num' => $this->order_num,
             'package_name' => \app()->getLocale() == "ar" ? $this->package_name_ar : $this->package_name_en,
             'package_type' => \app()->getLocale() == "ar" ? $this->package_type_ar : $this->package_type_en,
-            'meals_count' => $this->order_meals_count,
-            'delivered_meals_count' => $this->delivered_order_meals_count,
+            'meals_count' => $this->OrderMeals->groupBy('date')->count(),
+            'delivered_meals_count' => $this->DeliveredOrderMeals->groupBy('date')->count(),
             'status' => $this->status,
         ];
     }

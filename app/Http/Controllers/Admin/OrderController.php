@@ -239,15 +239,19 @@ class OrderController extends Controller
 
     }
 
-    public function orderDetails($order_id)
+    public function orderDetails(Request $request,$order_id)
     {
         $auth = Auth::guard('admin')->user();
         $model = OrderMeal::query()->where('order_id',$order_id);
 
+        if (!empty($request->meal_type)) {
+            $model =$model->where('meal_type_id',$request->meal_type);
+        }
         return DataTables::eloquent($model)
             ->addIndexColumn()
             ->addColumn('meal_type_name',function ($row) {
-                return $row->MealType->title;})
+                return $row->MealType->title;
+            })
             ->addColumn('status',function ($row){
                 if($row->status == 'pending')
                     return '<b class="badge badge-primary">قيد التوصيل</b>';
@@ -284,7 +288,7 @@ class OrderController extends Controller
 //                }
                 return $buttons;
             })
-            ->rawColumns(['actions','status','date','old_date'])
+            ->rawColumns(['actions','status','date','old_date','meal_type_name'])
             ->make();
 
     }

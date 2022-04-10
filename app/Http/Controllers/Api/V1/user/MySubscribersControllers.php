@@ -27,7 +27,8 @@ class MySubscribersControllers extends Controller
         $user = auth()->user();
         $orders = Order::where('user_id', $user->id)
             ->whereIn('status', ['pending', 'accepted'])
-            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])->orderBy('created_at','desc')
+            ->with(['OrderMeals', 'DeliveredOrderMeals'])
+            ->orderBy('start_date', 'desc')
             ->paginate(10);
         $data = OrdersResources::collection($orders)->response()->getData(true);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
@@ -38,7 +39,7 @@ class MySubscribersControllers extends Controller
         $user = auth()->user();
         $orders = Order::where('user_id', $user->id)
             ->whereIn('status', ['canceled', 'finished'])
-            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])->orderBy('created_at','desc')
+            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])->orderBy('created_at', 'desc')
             ->paginate(10);
         $data = OrdersResources::collection($orders)->response()->getData(true);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
@@ -50,16 +51,29 @@ class MySubscribersControllers extends Controller
         $user = auth()->user();
         $remaining_days = OrderMeal::where('order_id', $id)
             ->where('status', 'pending')
+            ->groupBy('date')
             ->count();
 
         $meal_types = MealType::all();
         $meal_types = MealTypeResources::collection($meal_types);
         if (!isset($meal_type_id) || $meal_type_id == null) {
             $meal_type_id = MealType::first()->id;
+        } else {
+            $order = Order::whereId($id)->first();
+            if (!$order) {
+                return response()->json(msg($request, not_found(), trans('lang.not_found')));
+            }
+            $order_meals = OrderMeal::where('order_id', $id)
+                ->where('meal_type_id', $meal_type_id)
+                ->get();
+
+            $order_meals = OrderMealsResources::collection($order_meals);
+            $data['order_meals'] = $order_meals;
+            return response()->json(msgdata($request, success(), trans('lang.success'), $data));
         }
 
         $order = Order::whereId($id)->first();
-        if (!$order){
+        if (!$order) {
             return response()->json(msg($request, not_found(), trans('lang.not_found')));
         }
         $order_meals = OrderMeal::where('order_id', $id)
@@ -69,9 +83,9 @@ class MySubscribersControllers extends Controller
         $order_meals = OrderMealsResources::collection($order_meals);
 
 
-
         $location = $order->location_body;
         $package_price = $order->package_price;
+        $package_name = $order->package_name;
         $shipping_price = $order->shipping_price;
         $discount_price = $order->discount_price;
         $total_price = $order->total_price;
@@ -89,6 +103,7 @@ class MySubscribersControllers extends Controller
             $data['working_hours'] = $working_hours_en;
         }
         $data['package_price'] = $package_price;
+        $data['package_name'] = $package_name;
         $data['shipping_price'] = $shipping_price;
         $data['discount_price'] = $discount_price;
         $data['order_addition_prices'] = OrderAdditionResources::collection($order_addition_prices);
@@ -152,7 +167,6 @@ class MySubscribersControllers extends Controller
     {
         $order_days = Order::whereId($id)->with('OrderMeals', function ($q) {
             $q->where('status', 'pending');
-
         })->first();
 
         $dates = [];
@@ -179,7 +193,6 @@ class MySubscribersControllers extends Controller
         }
         $order_days = Order::whereId($request->order_id)->with('OrderMeals', function ($q) {
             $q->where('status', 'pending');
-
         })->first();
 
         $dates = [];

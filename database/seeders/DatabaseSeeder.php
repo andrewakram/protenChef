@@ -30,6 +30,6 @@ class DatabaseSeeder extends Seeder
 //        $this->call(LocationSeeder::class);
 //        $this->call(NotificationSeeder::class);
 //        $this->call(ZoneSeeder::class);
-        $this->call(NotificationSettingSeeder::class);
+//        $this->call(NotificationSettingSeeder::class);
     }
 }

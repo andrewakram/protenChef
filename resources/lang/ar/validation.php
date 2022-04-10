@@ -246,6 +246,8 @@ return [
         'branch_password'=>'الرقم السري للفرع',
         'selected_date'=>'اليوم المختار',
         'coupon_code'=>'كوبون الخصم',
+        'old_date'=>'التاريخ القديم',
+        'new_date'=>'التاريخ الجديد',
 
 
 
