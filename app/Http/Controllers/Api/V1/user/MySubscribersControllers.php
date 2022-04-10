@@ -193,7 +193,6 @@ class MySubscribersControllers extends Controller
         }
         $order_days = Order::whereId($request->order_id)->with('OrderMeals', function ($q) {
             $q->where('status', 'pending');
-
         })->first();
 
         $dates = [];
