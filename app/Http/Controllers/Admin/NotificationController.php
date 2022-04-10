@@ -54,7 +54,7 @@ class NotificationController extends Controller
                 'user_id' => $request->user_id[0],
             ]);
             $user_token = User::whereId($request->user_id[0])->select('fcm_token')->first()->fcm_token;
-            Notification::send($user_token, $request->title, $request->body, $request->model_type,$data);
+            Notification::send($user_token, $request->title_ar, $request->body_ar, $request->model_type,$data);
         }else{
             ///>>>>>>>> start sending
             $user_tokens = [];
@@ -92,7 +92,7 @@ class NotificationController extends Controller
                     }
                 }
             }
-            Notification::send($user_tokens, $request->title, $request->body, $request->model_type,$data);
+            Notification::send($user_tokens, $request->title_ar, $request->body_ar, $request->model_type,$data);
             ///>>>>>>>> end sending
         }
 
