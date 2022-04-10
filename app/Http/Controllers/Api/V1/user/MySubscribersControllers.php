@@ -58,7 +58,7 @@ class MySubscribersControllers extends Controller
         $meal_types = MealTypeResources::collection($meal_types);
         if (!isset($meal_type_id) || $meal_type_id == null) {
             $meal_type_id = MealType::first()->id;
-        }else{
+        } else {
             $order = Order::whereId($id)->first();
             if (!$order) {
                 return response()->json(msg($request, not_found(), trans('lang.not_found')));
@@ -85,6 +85,7 @@ class MySubscribersControllers extends Controller
 
         $location = $order->location_body;
         $package_price = $order->package_price;
+        $package_name = $order->package_name;
         $shipping_price = $order->shipping_price;
         $discount_price = $order->discount_price;
         $total_price = $order->total_price;
@@ -102,6 +103,7 @@ class MySubscribersControllers extends Controller
             $data['working_hours'] = $working_hours_en;
         }
         $data['package_price'] = $package_price;
+        $data['package_name'] = $package_name;
         $data['shipping_price'] = $shipping_price;
         $data['discount_price'] = $discount_price;
         $data['order_addition_prices'] = OrderAdditionResources::collection($order_addition_prices);

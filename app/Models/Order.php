@@ -10,6 +10,7 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $appends = ['package_name'];
     protected $fillable = [
         'order_num',
         'user_id',
@@ -32,7 +33,17 @@ class Order extends Model
         'cancel_date',
     ];
 
-    public function getCreatedAtAttribute($value){
+    public function getPackageNameAttribute()
+    {
+        if ($locale = \app()->getLocale() == "ar") {
+            return $this->package_name_ar;
+        } else {
+            return $this->package_name_en;
+        }
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
         return Carbon::parse($value)->format('Y-m-d h:i A');
     }
 
@@ -42,13 +53,10 @@ class Order extends Model
     }
 
 
-
     public function DeliveredOrderMeals()
     {
         return $this->hasMany(OrderMeal::class, 'order_id')->where('status', 'delivered');
     }
-
-
 
 
     public function OrderAdditions()
