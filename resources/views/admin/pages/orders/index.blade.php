@@ -330,12 +330,12 @@
                 ajax: '{{ route('admin.orders.datatable',[$status]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
-                    {"data": "order_num", "searchable": false, "orderable": false},
-                    {"data": "user_name", "searchable": false, "orderable": false},
-                    {"data": "package_name_ar", "searchable": false, "orderable": false},
-                    {"data": "package_type_ar", "searchable": false, "orderable": false},
-                    {"data": "start_date", "searchable": false, "orderable": false},
-                    {"data": "created_at", "searchable": false, "orderable": false},
+                    {"data": "order_num", "searchable": true, "orderable": false},
+                    {"data": "user_name", "searchable": true, "orderable": false},
+                    {"data": "package_name_ar", "searchable": true, "orderable": false},
+                    {"data": "package_type_ar", "searchable": true, "orderable": false},
+                    {"data": "start_date", "searchable": true, "orderable": false},
+                    {"data": "created_at", "searchable": true, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });

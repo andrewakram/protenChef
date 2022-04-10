@@ -317,7 +317,7 @@
                                                     <div class="col-md-3">
                                                     <span style="font-size: large"
                                                           class="badge badge-secondary">
-                                                        {{\Carbon\Carbon::parse($row->created_at)->format('Y-m-d H:i A')}}
+                                                        {{\Carbon\Carbon::parse($row->created_at)->translatedFormat('Y-m-d H:i A')}}
                                                     </span>
                                                     </div>
 
@@ -330,7 +330,7 @@
                                                     <div class="col-md-3">
                                                     <span style="font-size: large"
                                                           class="badge badge-secondary">
-                                                        {{$row->start_date}}
+                                                           {{\Carbon\Carbon::parse($row->start_date)->translatedFormat('Y-m-d l')}}
                                                     </span>
                                                     </div>
                                                 </div>
@@ -354,6 +354,7 @@
                                                                target="_blank" class="btn btn-primary"
                                                                title="{{$row->location_body}}">
                                                                 <i class="fa fa-map"></i>
+
                                                             </a>
                                                         @else
                                                             <span style="font-size: large"
@@ -647,11 +648,7 @@
                             <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
-                            <!--begin::Table body-->
-                            <tbody class="fw-bold text-gray-600">
 
-                            </tbody>
-                            <!--end::Table body-->
                         </table>
                         <!--end::Table-->
                     </div>
@@ -773,6 +770,7 @@
                         extend: 'print',
                         className: 'btn btn-primary me-3',
                         text: '<i class="bi bi-printer-fill "></i>',
+                        title: '',
                         customize: function (win) {
                             $(win.document.body)
                                 .css('direction', 'rtl').prepend(
@@ -792,7 +790,6 @@
                         },
                         exportOptions: {
                             columns: [0, ':visible'],
-
                             stripHtml: false
                         }
                     },
@@ -815,11 +812,11 @@
                 ajax: '{{ route('admin.orders.orderDetailsDatatable',[$row->id]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
-                    {"data": "status", "searchable": false, "orderable": false},
+                    {"data": "status", name: 'status', "searchable": false, "orderable": false},
                     {"data": "meal_title_ar", "searchable": false, "orderable": false},
-                    {"data": "meal_type_name", "searchable": false, "orderable": false},
-                    {"data": "date", "searchable": false, "orderable": false},
-                    {"data": "old_date", "searchable": false, "orderable": false},
+                    {"data": "meal_type_name",name: 'meal_type_name', "searchable": true, "orderable": false},
+                    {"data": "date", name: 'actions', "date": false, "orderable": false},
+                    {"data": "old_date", name: 'actions', "old_date": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });
