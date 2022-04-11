@@ -181,7 +181,7 @@ class OrderController extends Controller
         if($row->status != $request->status){
             if(!empty($user_token) && $user_token !=Null) {
                 $data['model_id'] = $request->row_id;
-                $data['model_type'] = "Meal";
+                $data['model_type'] = "Order";
                 $NotificationSetting = NotificationSetting::where('status',3)->where('type',"Order")->first();
                 $data = Notification::create([
                     'title_ar' => "طلب رقم:" .$row->Order->order_num. " -". $NotificationSetting->title_ar,
