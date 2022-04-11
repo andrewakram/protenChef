@@ -33,13 +33,13 @@ class NotificationSettingController extends Controller
                 'body_en' => $request->body_en["$type"][0],
             ]);
         }
-        $statuses=[0,1,2,3,4];
+        $statuses=[1,2,3,4];
         foreach ($statuses as $status){
             NotificationSetting::where('type',"Order")->where('status',"$status")->update([
-                'title_ar' => $request->title_ar["$type"]["$status"],
-                'title_en' => $request->title_en["$type"]["$status"],
-                'body_ar' => $request->body_ar["$type"]["$status"],
-                'body_en' => $request->body_en["$type"]["$status"],
+                'title_ar' => $request->title_ar["Order"]["$status"],
+                'title_en' => $request->title_en["Order"]["$status"],
+                'body_ar' => $request->body_ar["Order"]["$status"],
+                'body_en' => $request->body_en["Order"]["$status"],
             ]);
         }
         session()->flash('success', 'تم التعديل بنجاح');

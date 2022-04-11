@@ -188,8 +188,9 @@ class OrderController extends Controller
                     'body_ar' => "طلب رقم:" .$row->Order->order_num. " -".$NotificationSetting->body_ar,
                     'title_en' => "Order #".$row->Order->order_num. " -".$NotificationSetting->title_en,
                     'body_en' => "Order #".$row->Order->order_num. " -".$NotificationSetting->body_en,
-                    'model_type' => "Meal",
+                    'model_type' => "Order",
                     'model_id' => isset($row->order_id) ? $row->order_id : NULL,
+                    'meal_id' => isset($row->meal_id) ? $row->meal_id : NULL,
                     'user_id' => $row->Order->user_id,
                 ]);
                 Notification::send($user_token, $NotificationSetting->title_ar, $NotificationSetting->body_ar, $data['model_type'], $data);
