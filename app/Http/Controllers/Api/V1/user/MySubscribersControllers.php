@@ -224,6 +224,8 @@ class MySubscribersControllers extends Controller
 
         }
 
+
+
         $validator = Validator::make($request->all(), [
             'old_date' => 'required|in:' . implode(',', $dates), //after two days
             'new_date' => 'required|not_in:' . implode(',', $dates),
