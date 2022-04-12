@@ -116,8 +116,7 @@
                                 <!--begin::Users group-->
                                 <div class="symbol-group symbol-hover mb-9">
                                     @foreach($data['last_customers'] as $row )
-                                        <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
-                                           data-bs-target="#kt_modal_view_users">
+                                        <a href="{{route('admin.users.edit',[$row->id])}}" class="symbol symbol-35px symbol-circle">
                                             <img alt="Pic"
                                                  src="{{$row->image}}"/>
                                         </a>
@@ -144,7 +143,7 @@
                 <div class="row g-5 g-xl-8">
                     <div class="col-xl-3">
                         <!--begin::Statistics Widget 5-->
-                        <a href="#" class="card app-bg-color hoverable card-xl-stretch mb-xl-8">
+                        <a href="{{route('admin.offers')}}" class="card app-bg-color hoverable card-xl-stretch mb-xl-8">
                             <!--begin::Body-->
                             <div class="card-body">
 
@@ -170,7 +169,7 @@
                     </div>
                     <div class="col-xl-3">
                         <!--begin::Statistics Widget 5-->
-                        <a href="#" class="card bg-body hoverable card-xl-stretch mb-xl-8 ">
+                        <a href="{{route('admin.meals',[0])}}" class="card bg-body hoverable card-xl-stretch mb-xl-8 ">
                             <!--begin::Body-->
                             <div class="card-body">
                                 <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm008.svg-->
@@ -199,7 +198,7 @@
                     </div>
                     <div class="col-xl-3">
                         <!--begin::Statistics Widget 5-->
-                        <a href="#" class="card app-bg-color hoverable card-xl-stretch mb-xl-8">
+                        <a href="{{route('admin.coupons')}}" class="card app-bg-color hoverable card-xl-stretch mb-xl-8">
                             <!--begin::Body-->
                             <div class="card-body">
                                 <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
@@ -224,7 +223,7 @@
                     </div>
                     <div class="col-xl-3">
                         <!--begin::Statistics Widget 5-->
-                        <a href="#" class="card bg-body hoverable card-xl-stretch mb-5 mb-xl-8">
+                        <a href="{{route('admin.package-type-prices',[0])}}" class="card bg-body hoverable card-xl-stretch mb-5 mb-xl-8">
                             <!--begin::Body-->
                             <div class="card-body">
                                 <!--begin::Svg Icon | path: icons/duotune/graphs/gra007.svg-->
