@@ -91,6 +91,12 @@ class MySubscribersControllers extends Controller
         $total_price = $order->total_price;
         $order_addition_prices = $order->OrderAdditions;
 
+        $status =$order->status;
+        $bankData = BankData::where('order_id',$order->id)->first();
+        if ($bankData){
+            $status = "order_in_cancel";
+        }
+        $data['order_status'] = $order->status;
         $data['remaining_days'] = $remaining_days;
         $data['meal_types'] = $meal_types;
         $data['order_meals'] = $order_meals;
@@ -120,6 +126,12 @@ class MySubscribersControllers extends Controller
         $freeze_days = (int)Setting::where('key', "freeze_days")->first()->value;
 
         $data['remain_frozen_meals'] = $freeze_days - $frozen_meals->count();
+        if (App::getLocale()=="en"){
+            $company_address = Setting::where('key','address_en')->first();
+        }else{
+            $company_address = Setting::where('key','address_ar')->first();
+        }
+        $data['company_address'] = $company_address;
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
 
@@ -148,14 +160,22 @@ class MySubscribersControllers extends Controller
 //            $order->status = "canceled";
 //            $order->cancel_date = Carbon::now();
 //            $order->save();
-            $bank_data = BankData::create(
-                [
-                    'order_id' => $order->id,
-                    'iban' => $request->iban,
-                    'bank_name' => $request->bank_name,
-                    'name' => $request->name,
-                ]);
+
+
+            $bank_data = BankData::where('order_id', $order->id)->first();
+            if (!$bank_data) {
+
+                BankData::create(
+                    [
+                        'order_id' => $order->id,
+                        'iban' => $request->iban,
+                        'bank_name' => $request->bank_name,
+                        'name' => $request->name,
+                    ]);
             return response()->json(msg($request, success(), trans('lang.success')));
+            }else{
+                return response()->json(msg($request, success(), trans('lang.order_in_cancelled_request')));
+            }
 
         }
         return response()->json(msg($request, not_found(), trans('lang.not_found')));

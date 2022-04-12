@@ -17,7 +17,8 @@ function send_notification($title, $body, $details, $image, $data, $token)
     );
 
     $fields = array('registration_ids' => $token,
-        'notification' => array('title' => $title, 'body' =>  strip_tags($message), 'details' => $details, 'image' => $image));
+        'notification' => array('title' => $title, 'body' =>  strip_tags($message), 'details' => $details, 'image' => $image),
+        'data' => array('title' => $title, 'body' =>  strip_tags($message), 'details' => $details, 'image' => $image));
 
     $payload = json_encode($fields);
     $curl_session = curl_init();
