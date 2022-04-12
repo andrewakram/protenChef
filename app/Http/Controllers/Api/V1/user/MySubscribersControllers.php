@@ -131,6 +131,7 @@ class MySubscribersControllers extends Controller
         }else{
             $company_address = Setting::where('key','address_ar')->first();
         }
+
         $data['company_address'] = $company_address;
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
