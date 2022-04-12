@@ -59,8 +59,8 @@
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                 <th class=" min-w-10px">#</th>
                                 <th class=" min-w-10px">الصورة</th>
+                                <th class=" w-200px">اسم الوجبة</th>
                                 <th class=" min-w-10px">الفترة</th>
-                                <th class=" w-200px">العنوان</th>
                                 <th class=" min-w-100px">العمليات</th>
                             </tr>
                             <!--end::Table row-->
@@ -159,8 +159,8 @@
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
                     {"data": "image", "searchable": false, "orderable": false},
-                    {"data": "meal_type_name", "searchable": false, "orderable": false},
                     {"data": "title_ar", "searchable": false, "orderable": false},
+                    {"data": "meal_type_name", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });
