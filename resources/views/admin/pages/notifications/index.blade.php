@@ -182,6 +182,7 @@
                 } else {
                     $(this).prop("checked", false);
                     $(this).parents('tr').removeClass("active");
+                    $(this).parents('tr').removeClass("active");
                 }
             });
         });

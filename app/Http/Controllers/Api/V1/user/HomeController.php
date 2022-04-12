@@ -28,7 +28,7 @@ class HomeController extends Controller
 
     public function home(Request $request)
     {
-        $sliders = Slider::active()->get();
+        $sliders = Slider::active()->first();
         $packages = Package::active()->get();
         $offers = Offer::active()->get();
 
@@ -42,6 +42,7 @@ class HomeController extends Controller
         } else {
             $data['on_zone'] = true;
         }
+        $data['sliders'] =  new SliderResources($sliders);
         $data['sliders'] = (SliderResources::collection($sliders));
         $data['packages'] = (PackageResources::collection($packages));
         $data['offers'] = (OfferResources::collection($offers));
