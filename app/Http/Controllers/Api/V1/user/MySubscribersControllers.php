@@ -96,7 +96,7 @@ class MySubscribersControllers extends Controller
         if ($bankData){
             $status = "order_in_cancel";
         }
-        $data['order_status'] = $order->status;
+        $data['order_status'] = $status;
         $data['remaining_days'] = $remaining_days;
         $data['meal_types'] = $meal_types;
         $data['order_meals'] = $order_meals;
@@ -225,7 +225,7 @@ class MySubscribersControllers extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'old_date' => 'required|in:' . implode(',', $dates),
+            'old_date' => 'required|in:' . implode(',', $dates), //after two days
             'new_date' => 'required|not_in:' . implode(',', $dates),
         ]);
         if ($validator->fails()) {
