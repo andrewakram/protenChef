@@ -93,7 +93,7 @@ class MySubscribersControllers extends Controller
 
         $status = $order->status;
         $bankData = BankData::where('order_id', $order->id)->first();
-        if ($bankData) {
+        if ($bankData && $status != "canceled") {
             $status = "order_in_cancel";
         }
         $data['order_status'] = $status;
@@ -198,7 +198,19 @@ class MySubscribersControllers extends Controller
 
         }
 
-        return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
+        $old_dates = $dates;
+        $today = Carbon::now()->format('Y-m-d');
+        $tomorrow = Carbon::now()->addDay()->format('Y-m-d');
+
+
+        if (($key = array_search($today, $old_dates)) !== false) {
+            unset($old_dates[$key]);
+        }
+        if (($key = array_search($tomorrow, $old_dates)) !== false) {
+            unset($old_dates[$key]);
+        }
+
+        return response()->json(msgdata($request, success(), trans('lang.success'), $old_dates));
 
 
     }
