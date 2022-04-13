@@ -76,4 +76,13 @@ $errors = session()->get("errors");
     </script>
 
 @endif
+
+<script>
+    $(".form-select").each(function() {
+        $(this).select2({
+            theme: "bootstrap3",
+            dropdownParent: $(this).parent()
+        });
+    });
+</script>
 @yield('script')

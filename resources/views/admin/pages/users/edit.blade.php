@@ -127,9 +127,9 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <select name="active" required class="form-select mb-2" data-control="select2"
-                                        data-hide-search="true" data-placeholder="إختر الحالة"
-                                        id="kt_ecommerce_add_product_status_select">
+                                <select name="active" required class="form-select form-select-lg form-select-solid"
+                                        data-control="select2"
+                                        id="">
                                     <option></option>
                                     <option value="1" {{$row->active == 1 ? "selected" : ""}}>مفعل</option>
                                     <option value="0" {{$row->active == 0 ? "selected" : ""}}>غير مفعل</option>
@@ -403,6 +403,7 @@
 
 
 @section('script')
+
 
 
 @endsection

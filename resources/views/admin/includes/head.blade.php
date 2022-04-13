@@ -25,7 +25,7 @@
       type="text/css"/>
 <!--end::Page Vendor Stylesheets-->
 <!--begin::Global Stylesheets Bundle(used by all pages)-->
-<link href="{{ url('admin/dist/') }}/assets/plugins/global/plugins.bundle.rtl.css" rel="stylesheet" type="text/css"/>
+<link href="{{ url('admin/dist/') }}/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
 <link href="{{ url('admin/dist/') }}/assets/css/style.bundle.rtl.css" rel="stylesheet" type="text/css"/>
 <!--end::Global Stylesheets Bundle-->
 
