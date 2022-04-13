@@ -210,7 +210,10 @@ class MySubscribersControllers extends Controller
             unset($old_dates[$key]);
         }
 
-        return response()->json(msgdata($request, success(), trans('lang.success'), $old_dates));
+//        TODO
+        $dates = collect($old_dates)->values();
+
+        return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
 
 
     }
@@ -283,7 +286,7 @@ class MySubscribersControllers extends Controller
             $orderMeal->date = $request->new_date;
             $orderMeal->save();
         }
-        return response()->json(msg($request, success(), trans('lang.success')));
+        return response()->json(msg($request, success(), trans('lang.freeze_success')));
 
     }
 
