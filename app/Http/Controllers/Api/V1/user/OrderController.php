@@ -34,6 +34,7 @@ class OrderController extends Controller
 
     public function make_order(Request $request)
     {
+
         $two_dayes = Carbon::now()->addDay(1);
         $validator = Validator::make($request->all(), [
             'selected_date' => 'required|after:' . $two_dayes,
@@ -88,7 +89,7 @@ class OrderController extends Controller
         //coupon check if exists
         if ($request->coupon_code) {
             $coupon = Coupon::where('code', $request->coupon_code)->first();
-            $exists_coupon = CouponUser::where('user_id', $user_id)->where('coupon_id', $coupon->id)->first();
+            $exists_coupon = CouponUser::where('user_id', $user_id)->where('used',1)->where('coupon_id', $coupon->id)->first();
             if ($exists_coupon) {
                 return response()->json(msg($request, failed(), trans('lang.coupon_used_before')));
             }
@@ -127,6 +128,7 @@ class OrderController extends Controller
         //End generate total bill
 
         $order = Order::create($order_data);
+
         //add meals to order
         if ($request->selected_meal) {
             foreach ($request->selected_meal as $row) {
@@ -142,6 +144,7 @@ class OrderController extends Controller
                 OrderMeal::create($order_meal_data);
             }
         }
+
         if ($request->order_additions) {
             foreach ($request->order_additions as $row) {
                 $order_addition_data['price'] = $row['price'];
@@ -150,13 +153,23 @@ class OrderController extends Controller
                 OrderAddition::create($order_addition_data);
             }
         }
+
         //add user to coupon usage to avoid user to use this coupon again
         if ($request->coupon_code) {
             $coupon = Coupon::where('code', $request->coupon_code)->first();
-            $user_coupon_data['user_id'] = $user_id;
-            $user_coupon_data['coupon_id'] = $coupon->id;
-            $user_coupon_data['used'] = 1;
-            CouponUser::create($user_coupon_data);
+            if($coupon){
+                $exists_coupon = CouponUser::where('coupon_id',$coupon->id)->where('user_id',$user_id)->where('used',0)->first();
+                if($exists_coupon){
+                    $exists_coupon->used = 1;
+                    $exists_coupon->save();
+                }else{
+                    $user_coupon_data['user_id'] = $user_id;
+                    $user_coupon_data['coupon_id'] = $coupon->id;
+                    $user_coupon_data['used'] = 1;
+                    CouponUser::create($user_coupon_data);
+                }
+            }
+
         }
         //end coupon usage to avoid user to use this coupon again
 
@@ -176,7 +189,7 @@ class OrderController extends Controller
         $exists_coupon = Coupon::where('code', $request->coupon_code)->first();
 
         if ($exists_coupon) {
-            $code_used = CouponUser::where('user_id', $user_id)->where('coupon_id', $exists_coupon->id)->first();
+            $code_used = CouponUser::where('user_id', $user_id)->where('coupon_id', $exists_coupon->id)->where('used',1)->first();
             if ($code_used) {
                 return response()->json(msg($request, failed(), trans('lang.coupon_used_before')));
             }
