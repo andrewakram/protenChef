@@ -128,8 +128,8 @@
                 {{--                    </div>--}}
                 <!--end::Wrapper-->
                     <!--begin::Button-->
-                {{--                    <a href="{{route('admin.packages.create')}}" class="btn btn-sm btn-success">--}}
-                {{--                        <i class="fa fa-plus"></i> أضف</a>--}}
+                                    <a href="{{route('admin.packages.create')}}" class="btn btn-sm btn-success">
+                                        <i class="fa fa-plus"></i> أضف</a>
                 <!--end::Button-->
                 </div>
                 <!--end::Actions-->
