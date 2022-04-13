@@ -286,7 +286,7 @@ class MySubscribersControllers extends Controller
             $orderMeal->date = $request->new_date;
             $orderMeal->save();
         }
-        return response()->json(msg($request, success(), trans('lang.success')));
+        return response()->json(msg($request, success(), trans('lang.freeze_success')));
 
     }
 
