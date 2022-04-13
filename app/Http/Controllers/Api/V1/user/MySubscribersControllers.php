@@ -203,12 +203,12 @@ class MySubscribersControllers extends Controller
         $tomorrow = Carbon::now()->addDay()->format('Y-m-d');
 
 
-        if (($key = array_search($today, $old_dates)) !== false) {
-            unset($old_dates[$key]);
-        }
-        if (($key = array_search($tomorrow, $old_dates)) !== false) {
-            unset($old_dates[$key]);
-        }
+//        if (($key = array_search($today, $old_dates)) !== false) {
+//            unset($old_dates[$key]);
+//        }
+//        if (($key = array_search($tomorrow, $old_dates)) !== false) {
+//            unset($old_dates[$key]);
+//        }
 
         dd($old_dates);
         $dates = $old_dates->values();
