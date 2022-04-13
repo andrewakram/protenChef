@@ -91,12 +91,12 @@ class MySubscribersControllers extends Controller
         $total_price = $order->total_price;
         $order_addition_prices = $order->OrderAdditions;
 
-        $status =$order->status;
-        $bankData = BankData::where('order_id',$order->id)->first();
-        if ($bankData){
+        $status = $order->status;
+        $bankData = BankData::where('order_id', $order->id)->first();
+        if ($bankData && $status != "canceled") {
             $status = "order_in_cancel";
         }
-        $data['order_status'] = $order->status;
+        $data['order_status'] = $status;
         $data['remaining_days'] = $remaining_days;
         $data['meal_types'] = $meal_types;
         $data['order_meals'] = $order_meals;
@@ -126,10 +126,10 @@ class MySubscribersControllers extends Controller
         $freeze_days = (int)Setting::where('key', "freeze_days")->first()->value;
 
         $data['remain_frozen_meals'] = $freeze_days - $frozen_meals->count();
-        if (App::getLocale()=="en"){
-            $company_address = Setting::where('key','address_en')->first();
-        }else{
-            $company_address = Setting::where('key','address_ar')->first();
+        if (App::getLocale() == "en") {
+            $company_address = Setting::where('key', 'address_en')->first();
+        } else {
+            $company_address = Setting::where('key', 'address_ar')->first();
         }
 
         $data['company_address'] = $company_address;
@@ -173,8 +173,8 @@ class MySubscribersControllers extends Controller
                         'bank_name' => $request->bank_name,
                         'name' => $request->name,
                     ]);
-            return response()->json(msg($request, success(), trans('lang.success')));
-            }else{
+                return response()->json(msg($request, success(), trans('lang.success')));
+            } else {
                 return response()->json(msg($request, success(), trans('lang.order_in_cancelled_request')));
             }
 
@@ -198,7 +198,19 @@ class MySubscribersControllers extends Controller
 
         }
 
-        return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
+        $old_dates = $dates;
+        $today = Carbon::now()->format('Y-m-d');
+        $tomorrow = Carbon::now()->addDay()->format('Y-m-d');
+
+
+        if (($key = array_search($today, $old_dates)) !== false) {
+            unset($old_dates[$key]);
+        }
+        if (($key = array_search($tomorrow, $old_dates)) !== false) {
+            unset($old_dates[$key]);
+        }
+
+        return response()->json(msgdata($request, success(), trans('lang.success'), $old_dates));
 
 
     }
@@ -224,8 +236,22 @@ class MySubscribersControllers extends Controller
 
         }
 
+
+        $old_dates = $dates;
+        $today = Carbon::now()->format('Y-m-d');
+        $tomorrow = Carbon::now()->addDay()->format('Y-m-d');
+
+
+        if (($key = array_search($today, $old_dates)) !== false) {
+            unset($old_dates[$key]);
+        }
+        if (($key = array_search($tomorrow, $old_dates)) !== false) {
+            unset($old_dates[$key]);
+        }
+
+
         $validator = Validator::make($request->all(), [
-            'old_date' => 'required|in:' . implode(',', $dates),
+            'old_date' => 'required|in:' . implode(',', $old_dates), //after two days
             'new_date' => 'required|not_in:' . implode(',', $dates),
         ]);
         if ($validator->fails()) {
