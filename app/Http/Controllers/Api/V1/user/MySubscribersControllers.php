@@ -210,6 +210,7 @@ class MySubscribersControllers extends Controller
             unset($old_dates[$key]);
         }
 
+        dd($old_dates);
         $dates = $old_dates->values();
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
