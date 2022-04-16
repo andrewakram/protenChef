@@ -78,7 +78,7 @@ class NotificationController extends Controller
                 $users = User::whereSuspend(0)->whereActive(1)->whereNotNull('fcm_token')
                     ->select('id','fcm_token')->get();
                 foreach ($users as $user){
-                    Notification::create([
+                    $data = Notification::create([
                         'title_ar' => $request->title_ar,
                         'body_ar' => $request->body_ar,
                         'title_en' => $request->title_en,
