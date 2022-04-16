@@ -148,9 +148,12 @@ class PackagesController extends Controller
         //$package_type_price->PackageType
 
         //convert selected date to carbon to generate period ...
-        $selected_date_carbon = Carbon::parse($request->selected_date);
-        $final_date = $selected_date_carbon->addDays($package_type_price->PackageType->days_count);
-        $period = CarbonPeriod::create($request->selected_date, $final_date);
+        $selected_date_carbon = Carbon::parse($request->selected_date); // 13/4/2022
+        //generate final date
+        $final_date = $selected_date_carbon->addDays($package_type_price->PackageType->days_count);  // 13/4/2022 + 6  = result = 19/4/2022
+
+        //generate period to make foreach
+        $period = CarbonPeriod::create($request->selected_date, $final_date); // Period between 13/4 and 19/4  == 7 days {}
         // Iterate over the period
         if (count($period) > 0) {
             foreach ($period as $date) {

@@ -515,6 +515,7 @@
                                                                             ريال
                                                                         </span>
                                                                     </div>
+
                                                                 @endforeach
                                                             </div>
                                                             @endif
