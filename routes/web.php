@@ -233,6 +233,28 @@ Route::group([
                 Route::post('/delete', 'PackageTypeController@delete')->name('.delete');
                 Route::post('/delete-multi', 'PackageTypeController@deleteMulti')->name('.deleteMulti');
             });
+            Route::group(['prefix' => 'package_types_settings/dynamic_types', 'as' => '.package_types_settings.dynamic_types'], function () {
+                Route::get('/', 'PackageSettings\DynamicTypesController@index');
+                Route::get('getData', 'PackageSettings\DynamicTypesController@getData')->name('.datatable');
+                Route::get('/create', 'PackageSettings\DynamicTypesController@create')->name('.create');
+                Route::post('/store', 'PackageSettings\DynamicTypesController@store')->name('.store');
+                Route::get('/edit/{id}', 'PackageSettings\DynamicTypesController@edit')->name('.edit');
+                Route::post('/update', 'PackageSettings\DynamicTypesController@update')->name('.update');
+                Route::get('/show/{id}', 'PackageSettings\DynamicTypesController@show')->name('.show');
+                Route::post('/delete', 'PackageSettings\DynamicTypesController@delete')->name('.delete');
+                Route::post('/delete-multi', 'PackageSettings\DynamicTypesController@deleteMulti')->name('.deleteMulti');
+            });
+            Route::group(['prefix' => 'package_types_settings/dynamic_times', 'as' => '.package_types_settings.dynamic_times'], function () {
+                Route::get('/', 'PackageSettings\DynamicTimesController@index');
+                Route::get('getData', 'PackageSettings\DynamicTimesController@getData')->name('.datatable');
+                Route::get('/create', 'PackageSettings\DynamicTimesController@create')->name('.create');
+                Route::post('/store', 'PackageSettings\DynamicTimesController@store')->name('.store');
+                Route::get('/edit/{id}', 'PackageSettings\DynamicTimesController@edit')->name('.edit');
+                Route::post('/update', 'PackageSettings\DynamicTimesController@update')->name('.update');
+                Route::get('/show/{id}', 'PackageSettings\DynamicTimesController@show')->name('.show');
+                Route::post('/delete', 'PackageSettings\DynamicTimesController@delete')->name('.delete');
+                Route::post('/delete-multi', 'PackageSettings\DynamicTimesController@deleteMulti')->name('.deleteMulti');
+            });
 
             Route::group(['prefix' => 'package-type-prices', 'as' => '.package-type-prices'], function () {
                 Route::get('/{package_id}', 'PackageTypePriceController@index');
