@@ -242,7 +242,7 @@ class OrderController extends Controller
     public function orderDetails(Request $request,$order_id)
     {
         $auth = Auth::guard('admin')->user();
-        $model = OrderMeal::query()->where('order_id',$order_id);
+        $model = OrderMeal::query()->orderBy('date','asc')->where('order_id',$order_id);
         if (!empty($request->meal_type)) {
             $model =$model->where('meal_type_id',$request->meal_type);
         }
