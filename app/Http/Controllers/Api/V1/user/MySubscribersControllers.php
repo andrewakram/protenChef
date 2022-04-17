@@ -225,18 +225,14 @@ class MySubscribersControllers extends Controller
 //        TODO
         //sort array
 
-        usort($old_dates, 'compare');
-        $dates = collect($old_dates)->values();
+
+        $dates = collect($old_dates)->sortBy('Key')->values();
+
 
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
 
 
-    }
-
-  public  function compare($a, $b)
-    {
-        return strtotime($a) - strtotime($b);
     }
 
 
