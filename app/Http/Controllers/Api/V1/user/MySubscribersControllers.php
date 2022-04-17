@@ -227,7 +227,7 @@ class MySubscribersControllers extends Controller
 
         $dates = collect($old_dates)->values();
 
-        $sorted = $dates->sortAsc();
+        $sorted = $dates->sort();
 
         $dates = $sorted->values()->all();
 
