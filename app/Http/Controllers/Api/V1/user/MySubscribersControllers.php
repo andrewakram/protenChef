@@ -192,7 +192,6 @@ class MySubscribersControllers extends Controller
     }
 
 
-
     public function OrderDays(Request $request, $id)
     {
         $order_days = Order::whereId($id)->with('OrderMeals', function ($q) {
@@ -226,9 +225,7 @@ class MySubscribersControllers extends Controller
         //sort array
 
         $dates = collect($old_dates)->values();
-
         $sorted = $dates->sort();
-
         $dates = $sorted->values()->all();
 
 
