@@ -175,6 +175,13 @@ class MySubscribersControllers extends Controller
                     ]);
                 return response()->json(msg($request, success(), trans('lang.success')));
             } else {
+
+                $bank_data->iban = $request->iban;
+                $bank_data->bank_name = $request->bank_name;
+                $bank_data->name = $request->name;
+                $bank_data->save();
+
+
                 return response()->json(msg($request, success(), trans('lang.order_in_cancelled_request')));
             }
 
@@ -190,6 +197,9 @@ class MySubscribersControllers extends Controller
             $q->where('status', 'pending');
         })->first();
 
+        if (!$order_days){
+            return response()->json(msg($request, success(), trans('lang.noOrderMeals')));
+        }
         $dates = [];
         foreach ($order_days->OrderMeals as $orderMeal) {
             if (!in_array($orderMeal->date, $dates)) {
@@ -211,6 +221,12 @@ class MySubscribersControllers extends Controller
         }
 
 //        TODO
+        //sort array
+        function date_sort($a, $b) {
+            return strtotime($a) - strtotime($b);
+        }
+        usort($old_dates, "date_sort");
+//        print_r($old_dates);
         $dates = collect($old_dates)->values();
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $dates));

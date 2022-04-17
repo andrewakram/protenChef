@@ -59,4 +59,5 @@ return [
     'no_period_selected' => 'لا يوجد فتره زمنيه انشأت , يجب اختيار فتره صحيحه',
     'order_in_cancelled_request' => 'تم تحديث بيانات طلب الالغاء',
     'freeze_success' => 'تم تجميد اليوم المختار بنجاح',
+    'noOrderMeals' => 'لا يوجد ايام لهذا الطلب',
  ];
