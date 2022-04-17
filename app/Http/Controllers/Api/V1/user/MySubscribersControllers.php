@@ -222,9 +222,7 @@ class MySubscribersControllers extends Controller
 
 //        TODO
         //sort array
-        function date_sort($a, $b) {
-            return strtotime($a) - strtotime($b);
-        }
+
         usort($old_dates, "date_sort");
 //        print_r($old_dates);
         $dates = collect($old_dates)->values();
@@ -234,6 +232,9 @@ class MySubscribersControllers extends Controller
 
     }
 
+    function date_sort($a, $b) {
+        return strtotime($a) - strtotime($b);
+    }
 
     public function freezeDay(Request $request)
     {
