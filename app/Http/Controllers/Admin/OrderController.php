@@ -172,14 +172,13 @@ class OrderController extends Controller
             session()->flash('success', 'حدث خطأ ما');
             return redirect()->back();
         }
-
         $row = OrderMeal::where('id',$request->row_id)->first();
-        $row->update([
-            'status' => $request->status
-        ]);
-        $user_token = User::whereId($row->Order->user_id)->select('fcm_token')->first()->fcm_token;
-        if($row->status != $request->status){
-            if(!empty($user_token) && $user_token !=Null) {
+        $basic_order_data = $row->status;
+        $row->status = $request->status;
+        $row->save();
+        $user_token = User::whereId($row->Order->user_id)->first();
+        if($request->status != $basic_order_data ){
+            if($user_token->fcm_token != Null) {
                 $data['model_id'] = $request->row_id;
                 $data['model_type'] = "Order";
                 $NotificationSetting = NotificationSetting::where('status',3)->where('type',"Order")->first();
@@ -193,7 +192,7 @@ class OrderController extends Controller
                     'meal_id' => isset($row->meal_id) ? $row->meal_id : NULL,
                     'user_id' => $row->Order->user_id,
                 ]);
-                Notification::send($user_token, $NotificationSetting->title_ar, $NotificationSetting->body_ar, $data['model_type'], $data);
+                Notification::send($user_token->fcm_token, $NotificationSetting->title_ar, $NotificationSetting->body_ar, $data['model_type'], $data);
             }
         }
         session()->flash('success', 'تم التعديل بنجاح');
@@ -243,8 +242,7 @@ class OrderController extends Controller
     public function orderDetails(Request $request,$order_id)
     {
         $auth = Auth::guard('admin')->user();
-        $model = OrderMeal::query()->where('order_id',$order_id);
-
+        $model = OrderMeal::query()->orderBy('date','asc')->where('order_id',$order_id);
         if (!empty($request->meal_type)) {
             $model =$model->where('meal_type_id',$request->meal_type);
         }
@@ -291,6 +289,5 @@ class OrderController extends Controller
             })
             ->rawColumns(['actions','status','date','old_date','meal_type_name'])
             ->make();
-
     }
 }

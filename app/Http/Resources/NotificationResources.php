@@ -20,6 +20,7 @@ class NotificationResources extends JsonResource
             'body' => $this->body,
             'model_id' => $this->model_id,
             'model_type' => $this->model_type,
+            'created_at' => $this->created_at->format('Y-m-d H:i a'),
         ];
     }
 }

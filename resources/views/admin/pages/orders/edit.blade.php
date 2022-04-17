@@ -638,12 +638,12 @@
                                 {{--                                    </div>--}}
                                 {{--                                </th>--}}
                                 <th class=" min-w-10px">#</th>
-                                <th class=" min-w-10px">الحالة</th>
                                 <th class=" min-w-10px">الوجبة</th>
                                 <th class=" min-w-10px">النوع</th>
                                 <th class=" min-w-10px">تاريخ التسليم</th>
                                 <th class=" min-w-10px">التاريخ القديم (المستبدل)</th>
-                                <th class=" min-w-10px">العمليات</th>
+                                <th class=" min-w-10px">الحالة</th>
+                                <th class=" min-w-10px">تغيير حالة الوجبة</th>
 
                             </tr>
                             <!--end::Table row-->
@@ -693,11 +693,13 @@
                     </div>
                     <!--end::Card header-->
                     <!--begin::Card body-->
+                    @if($row->status == 'accepted')
                     <form id="submit_btn" method="post" action="{{route('admin.orders.changeOrderMealStatus')}}">
                         @csrf
                         <input type="hidden" name="row_id" id="row_id">
                         <div class="card-body pt-0">
                             <!--begin::Select2-->
+
                             <div class="row">
                                 <div class="col-lg-6">
                                     <select name="status" required class="form-select mb-2" data-control="select2"
@@ -720,6 +722,17 @@
                             <button type="submit" data-dismiss="modal" class="btn btn-primary submit_btn">تأكيد</button>
                         </div>
                     </form>
+                    @else
+                        <div class="card-body pt-0">
+                            <!--begin::Select2-->
+                            <div class="row" >
+                                <div class=" fs-7" style="color: red">  يجب الموافقة علي الطلب اولا لامكانية تغيير حالة الوجبه ..!
+                                </div>
+
+                            </div>
+                            <!--end::Select2-->
+                        </div>
+                    @endif
                 </div>
                 <!--end::Status-->
             </div>
@@ -813,11 +826,11 @@
                 ajax: '{{ route('admin.orders.orderDetailsDatatable',[$row->id]) }}',
                 "columns": [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', "searchable": false, "orderable": false},
-                    {"data": "status", name: 'status', "searchable": false, "orderable": false},
                     {"data": "meal_title_ar", "searchable": false, "orderable": false},
                     {"data": "meal_type_name",name: 'meal_type_name', "searchable": true, "orderable": false},
                     {"data": "date", name: 'actions', "date": false, "orderable": false},
                     {"data": "old_date", name: 'actions', "old_date": false, "orderable": false},
+                    {"data": "status", name: 'status', "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });
