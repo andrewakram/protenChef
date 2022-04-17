@@ -224,8 +224,9 @@ class MySubscribersControllers extends Controller
 
 //        TODO
         //sort array
-        $this->array_sort_by_column($old_dates, 'date');
+
         $dates = collect($old_dates)->values();
+        $this->array_sort_by_column($dates);
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
 
@@ -233,11 +234,11 @@ class MySubscribersControllers extends Controller
     }
 
 
-    function array_sort_by_column(&$array, $column, $direction = SORT_ASC) {
+    function array_sort_by_column(&$array, $direction = SORT_ASC) {
         $reference_array = array();
 
         foreach($array as $key => $row) {
-            $reference_array[$key] = $row[$column];
+            $reference_array[$key] = $row;
         }
 
         array_multisort($reference_array, $direction, $array);
