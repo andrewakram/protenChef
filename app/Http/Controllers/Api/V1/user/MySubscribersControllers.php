@@ -225,8 +225,11 @@ class MySubscribersControllers extends Controller
 //        TODO
         //sort array
 
-        $dates = collect(asort($old_dates))->values();
+        $dates = collect($old_dates)->values();
 
+        $sorted = $dates->sortDesc();
+
+        $dates = $sorted->values()->all();
 
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
