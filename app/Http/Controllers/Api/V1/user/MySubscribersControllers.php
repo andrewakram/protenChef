@@ -228,8 +228,8 @@ class MySubscribersControllers extends Controller
 //        TODO
         //sort array
 
-        usort($old_dates, "date_sort");
-        print_r($old_dates);
+//        usort($old_dates, "date_sort");
+//        print_r($old_dates);
         $dates = collect($old_dates)->values();
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
