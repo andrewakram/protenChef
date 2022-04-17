@@ -226,7 +226,7 @@ class MySubscribersControllers extends Controller
         //sort array
 
 
-        $dates = collect($old_dates)->sortBy('Key')->values();
+        $dates = collect($old_dates)->sortBy('Value')->values();
 
 
 
