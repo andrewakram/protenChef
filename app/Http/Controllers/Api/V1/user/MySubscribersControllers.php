@@ -225,9 +225,9 @@ class MySubscribersControllers extends Controller
 //        TODO
         //sort array
 
+        usort($old_dates, 'compare');
         $dates = collect($old_dates)->values();
 
-        usort($dates, 'compare');
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
 
