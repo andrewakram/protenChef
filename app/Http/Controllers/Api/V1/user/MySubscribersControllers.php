@@ -226,22 +226,17 @@ class MySubscribersControllers extends Controller
         //sort array
 
         $dates = collect($old_dates)->values();
-        $this->array_sort_by_column($dates);
+
+        usort($dates, 'compare');
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
 
 
     }
 
-
-    function array_sort_by_column(&$array, $direction = SORT_ASC) {
-        $reference_array = array();
-
-        foreach($array as $key => $row) {
-            $reference_array[$key] = $row;
-        }
-
-        array_multisort($reference_array, $direction, $array);
+    function compare($a, $b)
+    {
+        return strtotime($a) - strtotime($b);
     }
 
 
