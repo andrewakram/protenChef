@@ -191,10 +191,7 @@ class MySubscribersControllers extends Controller
 
     }
 
-    public function date_sort($a, $b)
-    {
-        return strtotime($a) - strtotime($b);
-    }
+
 
     public function OrderDays(Request $request, $id)
     {
@@ -227,14 +224,23 @@ class MySubscribersControllers extends Controller
 
 //        TODO
         //sort array
-
-//        usort($old_dates, "date_sort");
-//        print_r($old_dates);
-        $dates = collect($old_dates)->sortBy('Value')->values();
+        $this->array_sort_by_column($old_dates, 'date');
+        $dates = collect($old_dates)->values();
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $dates));
 
 
+    }
+
+
+    function array_sort_by_column(&$array, $column, $direction = SORT_ASC) {
+        $reference_array = array();
+
+        foreach($array as $key => $row) {
+            $reference_array[$key] = $row[$column];
+        }
+
+        array_multisort($reference_array, $direction, $array);
     }
 
 
