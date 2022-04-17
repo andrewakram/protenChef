@@ -234,7 +234,7 @@ class MySubscribersControllers extends Controller
 
     }
 
-    function compare($a, $b)
+  public  function compare($a, $b)
     {
         return strtotime($a) - strtotime($b);
     }
