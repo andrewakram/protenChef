@@ -191,13 +191,18 @@ class MySubscribersControllers extends Controller
 
     }
 
+    public function date_sort($a, $b)
+    {
+        return strtotime($a) - strtotime($b);
+    }
+
     public function OrderDays(Request $request, $id)
     {
         $order_days = Order::whereId($id)->with('OrderMeals', function ($q) {
             $q->where('status', 'pending');
         })->first();
 
-        if (!$order_days){
+        if (!$order_days) {
             return response()->json(msg($request, success(), trans('lang.noOrderMeals')));
         }
         $dates = [];
@@ -232,9 +237,6 @@ class MySubscribersControllers extends Controller
 
     }
 
-    function date_sort($a, $b) {
-        return strtotime($a) - strtotime($b);
-    }
 
     public function freezeDay(Request $request)
     {
