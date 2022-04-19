@@ -832,7 +832,18 @@
     <script>
         $(document).on("click", ".changeStatus", function () {
             var row_id = $(this).data('id');
-            $(".card #row_id").val(row_id);
+            var row_status = $(this).data('status');
+            // alert(row_status);
+            // $(".card #row_id").val(row_id);
+            // $(".card #kt_ecommerce_add_product_status_select").val(row_status);
+
+            // $("select option[value='" + row_status + "']").addAttribute("selected","selected");
+
+            // $(".card #kt_ecommerce_add_product_status_select").each(function(){
+            //     // alert($(this).attr())
+            //     if ($(this).value() == row_status)
+            //         $(this).attr("selected","selected");
+            // });
         });
 
         $('.submit_btn').on('click', function () {

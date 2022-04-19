@@ -53,7 +53,7 @@ class MealController extends Controller
         $row2->save();
         //
         session()->flash('success', 'تم الإضافة بنجاح');
-        return redirect()->route('admin.meals');
+        return redirect()->route('admin.meals',[$request->meal_type_id]);
     }
 
     public function edit($id)
@@ -104,7 +104,7 @@ class MealController extends Controller
         }
 
         session()->flash('success', 'تم التعديل بنجاح');
-        return redirect()->route('admin.meals');
+        return redirect()->route('admin.meals',[$request->meal_type_id]);
     }
 
     public function delete(Request $request)
