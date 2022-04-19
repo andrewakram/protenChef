@@ -205,7 +205,7 @@
                                                 <label class="required form-label">وصف الوجبة (بالعربي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <textarea  id="editor1" name="body_ar" required
+                                                <textarea  id="editor1" class="form-control mb-2" name="body_ar"
                                                           value="" placeholder="وصف الوجبة (بالعربي)"></textarea>
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
@@ -218,7 +218,7 @@
                                                 <label class="required form-label">وصف الوجبة (بالإنجليزي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <textarea  id="editor2" name="body_en" required
+                                                <textarea  id="editor2" class="form-control mb-2" name="body_en"
                                                           value="" placeholder="وصف الوجبة (بالإنجليزي)"></textarea>
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
