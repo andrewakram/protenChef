@@ -341,7 +341,7 @@ class AuthController extends Controller
                 ]);
             }
         }catch (\Exception $e){
-            return response()->json(msg($request, failed(), $e->getMessage()));
+            return response()->json(msg($request, failed(), trans('lang.PhoneExists')));
         }
 
         $jwt_token = JWTAuth::fromUser($user);
