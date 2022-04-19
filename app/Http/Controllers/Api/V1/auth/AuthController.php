@@ -317,25 +317,31 @@ class AuthController extends Controller
         }
 
         // 3- if not login with social before
-        if ($request->social_type == 'facebook') { // facebook
-            $user = User::create([
-                'social_id' => $request->social_id,
-                'fcm_token' => $request->device_token,
-                'phone' => $request->phone,
-                'email_verified_at' => Carbon::now(),
-                'active' => 1,
-                'provider' => 'facebook'
-            ]);
-        } else {
-            // google
-            $user = User::create([
-                'social_id' => $request->social_id,
-                'fcm_token' => $request->device_token,
-                'phone' => $request->phone,
-                'email_verified_at' => Carbon::now(),
-                'active' => 1,
-                'provider' => 'google'
-            ]);
+        try {
+
+
+            if ($request->social_type == 'facebook') { // facebook
+                $user = User::create([
+                    'social_id' => $request->social_id,
+                    'fcm_token' => $request->device_token,
+                    'phone' => $request->phone,
+                    'email_verified_at' => Carbon::now(),
+                    'active' => 1,
+                    'provider' => 'facebook'
+                ]);
+            } else {
+                // google
+                $user = User::create([
+                    'social_id' => $request->social_id,
+                    'fcm_token' => $request->device_token,
+                    'phone' => $request->phone,
+                    'email_verified_at' => Carbon::now(),
+                    'active' => 1,
+                    'provider' => 'google'
+                ]);
+            }
+        }catch (\Exception $e){
+            return response()->json(msg($request, failed(), $e->getMessage()));
         }
 
         $jwt_token = JWTAuth::fromUser($user);
