@@ -308,7 +308,7 @@ class AuthController extends Controller
             ->where('provider', $request->social_type)
             ->first();
         if ($userFound) {
-//            $userFound->phone = $request->phone;
+            $userFound->phone = $request->phone;
             $userFound->fcm_token = $request->device_token;
             $userFound->save();
             $jwt_token = JWTAuth::fromUser($userFound);
@@ -321,7 +321,7 @@ class AuthController extends Controller
             $user = User::create([
                 'social_id' => $request->social_id,
                 'fcm_token' => $request->device_token,
-//                'phone' => $request->phone,
+                'phone' => $request->phone,
                 'email_verified_at' => Carbon::now(),
                 'active' => 1,
                 'provider' => 'facebook'
@@ -331,7 +331,7 @@ class AuthController extends Controller
             $user = User::create([
                 'social_id' => $request->social_id,
                 'fcm_token' => $request->device_token,
-//                'phone' => $request->phone,
+                'phone' => $request->phone,
                 'email_verified_at' => Carbon::now(),
                 'active' => 1,
                 'provider' => 'google'
