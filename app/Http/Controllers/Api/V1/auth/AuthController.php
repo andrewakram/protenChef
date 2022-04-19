@@ -159,6 +159,7 @@ class AuthController extends Controller
             'age' => 'required',
             'weight' => 'required',
             'height' => 'required',
+            'phone' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
@@ -172,6 +173,7 @@ class AuthController extends Controller
         $user->age = $request->age;
         $user->weight = $request->weight;
         $user->height = $request->height;
+        $user->phone = $request->phone;
         $user->save();
         $token = $request->bearerToken();
 
