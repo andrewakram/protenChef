@@ -200,6 +200,7 @@
                                 <th class=" min-w-100px">نوع الباقة</th>
                                 <th class=" min-w-100px">السعر</th>
                                 <th class=" min-w-100px">الحالة</th>
+                                <th class=" min-w-100px">الإضافات</th>
                                 <th class=" min-w-100px">العمليات</th>
 
                             </tr>
@@ -314,6 +315,7 @@
                     {"data": "package_type_name", "searchable": false, "orderable": false},
                     {"data": "price", "searchable": false, "orderable": false},
                     {"data": "active", "searchable": false, "orderable": false},
+                    {"data": "additions", "searchable": false, "orderable": false},
                     {"data": 'actions', name: 'actions', orderable: false, searchable: false}
                 ]
             });

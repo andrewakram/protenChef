@@ -118,7 +118,7 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <input type="text" required name="days_count" value="{{$row->days_count}}" class="form-control mb-2" placeholder="عدد أيام الباقة" value="" />
+                                <input type="text" required disabled name="days_count" value="{{$row->days_count}}" class="form-control mb-2" placeholder="عدد أيام الباقة" value="" />
 
                                 <!--end::Select2-->
                                 <!--begin::Description-->
