@@ -9,12 +9,13 @@ class UsersResources extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    protected  $token;
+    protected $token;
 
-    public function token($value){
+    public function token($value)
+    {
         $this->token = $value;
         return $this;
     }
@@ -22,6 +23,7 @@ class UsersResources extends JsonResource
 
     public function toArray($request)
     {
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -35,12 +37,10 @@ class UsersResources extends JsonResource
             'provider' => $this->provider ? $this->provider : "",
             'social_id' => $this->social_id ? $this->social_id : "",
             'token' => $this->token ? $this->token : "",
-            'is_completed'=>$this->age ? 1 : 0
+            'is_completed' => $this->age ? 1 : 0
 
         ];
     }
-
-
 
 
 }

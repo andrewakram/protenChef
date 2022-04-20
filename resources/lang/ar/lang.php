@@ -60,4 +60,5 @@ return [
     'order_in_cancelled_request' => 'تم تحديث بيانات طلب الالغاء',
     'freeze_success' => 'تم تجميد اليوم المختار بنجاح',
     'noOrderMeals' => 'لا يوجد ايام لهذا الطلب',
+    'PhoneExists' => 'رقم الجوال موجود من قبل برجاء',
  ];
