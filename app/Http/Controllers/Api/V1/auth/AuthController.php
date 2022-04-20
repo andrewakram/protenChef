@@ -159,7 +159,7 @@ class AuthController extends Controller
             'age' => 'required',
             'weight' => 'required',
             'height' => 'required',
-            'phone' => 'required',
+            'phone' => 'nullable',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
