@@ -25,4 +25,10 @@ class PackageTypePrice extends Model
     {
         return $this->belongsTo(Package::class, 'package_id');
     }
+
+    public function PackageAddition()
+    {
+        return $this->hasMany(PackageMealType::class, 'package_type_price_id')
+            ->whereNotNull('price');
+    }
 }

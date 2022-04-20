@@ -20,9 +20,9 @@
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
                         @if($type == "main")
-                            الفترات الأساسية للوجبات
+                            نوع الوجبة الرئيسي
                         @else
-                            إضافات الوجبات
+                            نوع الوجبة الإضافي
                     @endif
                     <!--end::Description-->
                     </h1>

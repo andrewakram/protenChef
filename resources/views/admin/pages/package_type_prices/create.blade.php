@@ -159,7 +159,6 @@
                                             </div>
                                         </div>
                                         <br>
-                                        <br>
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0">
 
@@ -228,6 +227,85 @@
                             <!--end::Tab pane-->
                         </div>
                         <!--end::Tab content-->
+
+                        <!--begin::Tab content-->
+                        <div class="tab-content">
+                            <!--begin::Tab pane-->
+                            <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+                                <div class="d-flex flex-column gap-7 gap-lg-10">
+                                    <!--begin::General options-->
+                                    <div class="card card-flush py-4">
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <h2>
+                                                    الباقات الإضافية
+
+                                                    <button id="add-addition" type="button" class="btn btn-success">
+                                                        <i class="fa fa-plus"></i>
+                                                        إضافة باقة إضافية أخري
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <!--begin::Card body-->
+                                        <div class="card-body pt-0">
+
+                                            <div class="d-flex flex-wrap gap-5">
+                                                <!--begin::Input group-->
+                                                <div class="fv-row w-100 flex-md-root append-div">
+                                                    <!--begin::Label-->
+                                                    <div class="row addition">
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <label class="required form-label">
+                                                                اختر الباقة الإضافية
+                                                            </label>
+                                                            <!--begin::Select2-->
+                                                            <select class="form-select mb-2" name="addition_id[]" data-control="select2" data-hide-search="false" data-placeholder="إختر الباقة">
+                                                                <option selected disabled>اختر</option>
+                                                                @foreach($additions as $key => $addition)
+                                                                    <option value="{{$addition->id}}" >{{$addition->title_ar}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <!--end::Select2-->
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4">
+                                                            <label class="required form-label">
+                                                                اختر سعر الباقة الإضافية
+                                                            </label>
+                                                            <!--begin::price-->
+                                                            <input type="number" required name="addition_price[]" class="form-control " placeholder="سعر الباقة الإضافية" value="" />
+                                                            <!--end::price-->
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-2">
+                                                            <button type="button" class="delete-addition btn btn-danger mt-8">
+                                                                <i class="fa fa-trash"></i>
+                                                                حذف
+                                                            </button>
+                                                            <!--end::Select2-->
+                                                        </div>
+                                                    </div>
+
+                                                    <!--begin::Description-->
+                                                {{--                                                    <div class="text-muted fs-7">Set the product tax class.</div>--}}
+                                                <!--end::Description-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+
+
+
+                                        </div>
+                                        <!--end::Card header-->
+                                    </div>
+                                    <!--end::General options-->
+
+                                </div>
+                            </div>
+                            <!--end::Tab pane-->
+                        </div>
+                        <!--end::Tab content-->
+
                         <div class="d-flex justify-content-end">
                             <!--begin::Button-->
                             <a href="{{route('admin.package-type-prices',[$package_id])}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">عودة</a>
@@ -256,5 +334,49 @@
 
 
 @section('script')
+    <script>
+        $(document).on("click", "#add-addition", function () {
+            plus_item();
+        });
+
+        $(document).on("click", ".delete-addition", function () {
+            $( this ).closest( ".addition" ).remove();
+        });
+
+        function plus_item() {
+            var new_item = '<div class="row addition">\n' +
+                '                                                        <div class="col-lg-6 col-md-6">\n' +
+                '                                                            <label class="required form-label">\n' +
+                '                                                                اختر الباقة الإضافية\n' +
+                '                                                            </label>\n' +
+                '                                                            <!--begin::Select2-->\n' +
+                '                                                            <select class="form-select mb-2" name="addition_id[]" data-control="select2" data-hide-search="false" data-placeholder="إختر الباقة">\n' +
+                '                                                                <option selected disabled>اختر</option>\n' +
+                '                                                                @foreach($additions as $key => $addition)\n' +
+                '                                                                    <option value="{{$addition->id}}" >{{$addition->title_ar}}</option>\n' +
+                '                                                                @endforeach\n' +
+                '                                                            </select>\n' +
+                '                                                            <!--end::Select2-->\n' +
+                '                                                        </div>\n' +
+                '<div class="col-lg-4 col-md-4">\n' +
+                '                                                            <label class="required form-label">\n' +
+                '                                                                اختر سعر الباقة الإضافية\n' +
+                '                                                            </label>\n' +
+                '                                                            <!--begin::price-->\n' +
+                '                                                            <input type="number" required name="addition_price[]" class="form-control " placeholder="سعر الباقة الإضافية" value="" />\n' +
+                '                                                            <!--end::price-->\n' +
+                '                                                        </div>'+
+                '                                                        <div class="col-lg-2 col-md-2">\n' +
+                '                                                            <button type="button" class="delete-addition btn btn-danger mt-8">\n' +
+                '                                                                <i class="fa fa-trash"></i>\n' +
+                '                                                                حذف\n' +
+                '                                                            </button>\n' +
+                '                                                            <!--end::Select2-->\n' +
+                '                                                        </div>\n' +
+                '                                                    </div>';
+
+            $('.append-div').append(new_item);
+        }
+    </script>
 
 @endsection

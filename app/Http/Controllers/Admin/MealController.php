@@ -182,9 +182,9 @@ class MealController extends Controller
                         </a>';
 //                }
 //                if ($auth->can('sliders.delete')) {
-                    $buttons .= '<a class="btn btn-danger btn-sm delete btn-circle m-1" data-id="'.$row->id.'"  title="حذف">
-                            <i class="fa fa-trash"></i>
-                        </a>';
+//                    $buttons .= '<a class="btn btn-danger btn-sm delete btn-circle m-1" data-id="'.$row->id.'"  title="حذف">
+//                            <i class="fa fa-trash"></i>
+//                        </a>';
 //                }
                 return $buttons;
             })

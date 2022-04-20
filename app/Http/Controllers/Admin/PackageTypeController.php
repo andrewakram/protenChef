@@ -62,7 +62,7 @@ class PackageTypeController extends Controller
             'row_id' => 'required|exists:package_types,id',
             'title_ar' => 'required',
             'title_en' => 'required',
-            'days_count' => 'required',
+//            'days_count' => 'required',
             'image' => 'sometimes|image|mimes:png,jpg,jpeg',
         ]);
         if (!is_array($validator) && $validator->fails()) {
@@ -75,7 +75,7 @@ class PackageTypeController extends Controller
 //            }
 //        }
         $row = PackageType::whereId($request->row_id)->first();
-        $row->update($request->except('row_id','_token','image'));
+        $row->update($request->except('row_id','_token','image','days_count'));
         if ($request->has('image') && is_file($request->image)){
             $row->update([ 'image' => $request->image ]);
         }

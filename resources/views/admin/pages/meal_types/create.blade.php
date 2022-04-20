@@ -32,9 +32,9 @@
                         <li class="breadcrumb-item text-muted">
                             <a href="{{route('admin.meal-types',[$type])}}" class="text-muted text-hover-primary">
                                 @if($type == "main")
-                                    الفترات الأساسية للوجبات
+                                    نوع الوجبة الرئيسي
                                 @else
-                                    إضافات الوجبات
+                                    نوع الوجبة الإضافي
                                 @endif
                             </a>
                         </li>

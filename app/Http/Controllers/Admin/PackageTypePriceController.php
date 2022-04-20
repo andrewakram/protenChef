@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\MealType;
 use App\Models\Package;
+use App\Models\PackageMealType;
 use App\Models\PackageType;
 use App\Models\PackageTypePrice;
 use Illuminate\Http\Request;
@@ -23,7 +25,9 @@ class PackageTypePriceController extends Controller
     {
         $packages = Package::select('id','title_ar')->get();
         $package_types = PackageType::select('id','title_ar')->get();
-        return view('admin.pages.package_type_prices.create',compact('packages','package_types','package_id'));
+        $additions = MealType::where('type','sub')->select('id','title_ar')->get();
+        return view('admin.pages.package_type_prices.create',
+            compact('packages','package_types','package_id','additions'));
     }
 
     public function store(Request $request)
@@ -38,12 +42,27 @@ class PackageTypePriceController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        $row = new PackageTypePrice();
-        $row->package_id = $request->package_id;
-        $row->package_type_id = $request->package_type_id;
-        $row->price = $request->price;
-        $row->active = $request->active;
-        $row->save();
+        $row = PackageTypePrice::create([
+            'package_id' => $request->package_id,
+            'package_type_id' => $request->package_type_id,
+            'price' => $request->price,
+            'active' => $request->active,
+        ]);
+
+        if(isset($request->addition_id) && sizeof($request->addition_id) > 0){
+            for($i = 0 ; $i < sizeof($request->addition_id) ; $i++){
+//            foreach ($request->addition_id as $addition_id){
+                $checkIfExistsBefore = PackageMealType::where('package_type_price_id',$row->id)
+                    ->where('meal_type_id',$request->addition_id[$i]);
+                if(!$checkIfExistsBefore){
+                    PackageMealType::create([
+                        'package_type_price_id' => $row->id,
+                        'meal_type_id' => $request->addition_id[$i],
+                        'price' => $request->addition_price[$i],
+                    ]);
+                }
+            }
+        }
             session()->flash('success', 'تم الإضافة بنجاح');
         return redirect()->route('admin.package-type-prices',[$request->package_id]);
     }
@@ -52,12 +71,14 @@ class PackageTypePriceController extends Controller
     {
         $packages = Package::select('id','title_ar')->get();
         $package_types = PackageType::select('id','title_ar')->get();
+        $additions = MealType::where('type','sub')->select('id','title_ar')->get();
         $row = PackageTypePrice::where('id',$id)->first();
         if (!$row){
             session()->flash('error', 'الحقل غير موجود');
             return redirect()->back();
         }
-        return view('admin.pages.package_type_prices.edit',compact('row','packages','package_types'));
+        return view('admin.pages.package_type_prices.edit',
+            compact('row','packages','package_types','additions'));
     }
 
     public function update(Request $request)
@@ -153,6 +174,18 @@ class PackageTypePriceController extends Controller
             ->editColumn('package_type_name',function ($row){
                 return $row->PackageType->title_ar;
             })
+            ->addColumn('additions',function ($row){
+                $additions = $row->PackageAddition;
+                $result = '';
+                if(sizeof($additions) > 0){
+                    foreach ($additions as $addition){
+                        $result .= '<span class=\'badge badge-primary\'>'.$addition->MealType->title_ar.'('.$addition->price.')'.'ريال'.'</span> <br>';
+                    }
+                }else{
+                    $result = "--";
+                }
+                return $result;
+            })
 //            ->addColumn('select',function ($row){
 //                return '<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
 //                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="'.$row->id.'" />
@@ -172,7 +205,7 @@ class PackageTypePriceController extends Controller
 //                }
                 return $buttons;
             })
-            ->rawColumns(['actions','active','price','package_name','package_type_name'])
+            ->rawColumns(['actions','active','price','package_name','package_type_name','additions'])
             ->make();
 
     }

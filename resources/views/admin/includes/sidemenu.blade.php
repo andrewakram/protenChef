@@ -232,6 +232,17 @@
                         <span class="menu-title">الطلبات الملغية</span>
                     </a>
                 </div>
+                <div class="menu-item">
+                    <a class="menu-link @if(request()->segment(2) == 'cancel_requests') active @endif"
+                       href="{{route('admin.cancel_requests')}}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
+                            <i class="fa fa-recycle text-danger"></i>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">طلبات الإلغاء</span>
+                    </a>
+                </div>
 
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
@@ -259,7 +270,7 @@
 </svg><!--end::Svg Icon--></span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">الفترات الأساسية للوجبات</span>
+                        <span class="menu-title">نوع الوجبة الرئيسي</span>
                     </a>
                 </div>
                 <div class="menu-item">
@@ -283,7 +294,7 @@
 </svg><!--end::Svg Icon--></span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">إضافات الوجبات</span>
+                        <span class="menu-title">نوع الوجبة الإضافي</span>
                     </a>
                 </div>
                 <div data-kt-menu-trigger="click"
