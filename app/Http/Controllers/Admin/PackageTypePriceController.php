@@ -51,9 +51,8 @@ class PackageTypePriceController extends Controller
 
         if(isset($request->addition_id) && sizeof($request->addition_id) > 0){
             for($i = 0 ; $i < sizeof($request->addition_id) ; $i++){
-//            foreach ($request->addition_id as $addition_id){
                 $checkIfExistsBefore = PackageMealType::where('package_type_price_id',$row->id)
-                    ->where('meal_type_id',$request->addition_id[$i]);
+                    ->where('meal_type_id',$request->addition_id[$i])->first();
                 if(!$checkIfExistsBefore){
                     PackageMealType::create([
                         'package_type_price_id' => $row->id,
@@ -102,6 +101,26 @@ class PackageTypePriceController extends Controller
         $row = PackageTypePrice::whereId($request->row_id)->first();
         $row->update($request->except('row_id','_token'));
         $row->save();
+        if(isset($request->addition_id) && sizeof($request->addition_id) > 0){
+            for($i = 0 ; $i < sizeof($request->addition_id) ; $i++){
+                $checkIfExistsBefore = PackageMealType::where('package_type_price_id',$row->id)
+                    ->where('meal_type_id',$request->addition_id[$i])->first();
+                if(!$checkIfExistsBefore){
+                    PackageMealType::create([
+                        'package_type_price_id' => $row->id,
+                        'meal_type_id' => $request->addition_id[$i],
+                        'price' => $request->addition_price[$i],
+                    ]);
+                }else{
+                    PackageMealType::whereId($request->package_meal_type_id[$i])
+                        ->update([
+                            'package_type_price_id' => $row->id,
+                            'meal_type_id' => $request->addition_id[$i],
+                            'price' => $request->addition_price[$i],
+                    ]);
+                }
+            }
+        }
 
         session()->flash('success', 'تم التعديل بنجاح');
         return redirect()->route('admin.package-type-prices',[$row->package_id]);
@@ -179,7 +198,7 @@ class PackageTypePriceController extends Controller
                 $result = '';
                 if(sizeof($additions) > 0){
                     foreach ($additions as $addition){
-                        $result .= '<span class=\'badge badge-primary\'>'.$addition->MealType->title_ar.'('.$addition->price.')'.'ريال'.'</span> <br>';
+                        $result .= '<span class=\'badge badge-info mb-1\'>'.$addition->MealType->title_ar.'('.$addition->price.')'.'ريال'.'</span> <br>';
                     }
                 }else{
                     $result = "--";
@@ -208,5 +227,23 @@ class PackageTypePriceController extends Controller
             ->rawColumns(['actions','active','price','package_name','package_type_name','additions'])
             ->make();
 
+    }
+
+    public function deletePackageMealType(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'row_id' => 'required|exists:package_meal_types,id',
+        ]);
+        if (!is_array($validator) && $validator->fails()) {
+            return response()->json(['message' => 'Failed']);
+        }
+
+        $row = PackageMealType::where('id',$request->row_id)->first();
+//        if (!empty($city->getOriginal('image'))){
+//            unlinkFile($city->getOriginal('image'), 'cities');
+//        }
+        $row->delete();
+        session()->flash('success', 'تم الحذف بنجاح');
+        return response()->json(['message' => 'Success']);
     }
 }

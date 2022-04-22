@@ -239,6 +239,90 @@
                             <!--end::Tab pane-->
                         </div>
                         <!--end::Tab content-->
+
+
+                            <!--begin::Tab content-->
+                            <div class="tab-content">
+                                <!--begin::Tab pane-->
+                                <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+                                    <div class="d-flex flex-column gap-7 gap-lg-10">
+                                        <!--begin::General options-->
+                                        <div class="card card-flush py-4">
+                                            <div class="card-header">
+                                                <div class="card-title">
+                                                    <h2>
+                                                        الباقات الإضافية
+
+                                                        <button id="add-addition" type="button" class="btn btn-success">
+                                                            <i class="fa fa-plus"></i>
+                                                            إضافة باقة إضافية أخري
+                                                        </button>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <!--begin::Card body-->
+                                            <div class="card-body pt-0">
+
+                                                <div class="d-flex flex-wrap gap-5">
+                                                    <!--begin::Input group-->
+                                                    <div class="fv-row w-100 flex-md-root append-div">
+                                                        <!--begin::Label-->
+                                                        @foreach($row->PackageAddition as $pa)
+                                                            <div class="row addition">
+                                                            <div class="col-lg-6 col-md-6">
+                                                                <label class="required form-label">
+                                                                    اختر الباقة الإضافية
+                                                                </label>
+                                                                <input type="hidden" name="package_meal_type_id[]"  value="{{$pa->id}}" />
+                                                                <!--begin::Select2-->
+                                                                <select class="form-select mb-2" name="addition_id[]" data-control="select2" data-hide-search="false" data-placeholder="إختر الباقة">
+                                                                    <option selected disabled>اختر</option>
+                                                                    @foreach($additions as $key => $addition)
+                                                                        <option value="{{$addition->id}}" {{$addition->id == $pa->meal_type_id ? "selected" : ""}}>{{$addition->title_ar}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <!--end::Select2-->
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-4">
+                                                                <label class="required form-label">
+                                                                    اختر سعر الباقة الإضافية
+                                                                </label>
+                                                                <!--begin::price-->
+                                                                <input type="number" required name="addition_price[]" class="form-control " placeholder="سعر الباقة الإضافية" value="{{$pa->price}}" />
+                                                                <!--end::price-->
+                                                            </div>
+                                                            <div class="col-lg-2 col-md-2">
+                                                                <button type="button" class="delete-addition delete btn btn-danger mt-8" data-id="{{$pa->id}}">
+                                                                    <i class="fa fa-trash"></i>
+                                                                    حذف
+                                                                </button>
+                                                                <!--end::Select2-->
+                                                            </div>
+                                                        </div>
+                                                        @endforeach
+
+                                                        <!--begin::Description-->
+                                                    {{--                                                    <div class="text-muted fs-7">Set the product tax class.</div>--}}
+                                                    <!--end::Description-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                </div>
+
+
+
+                                            </div>
+                                            <!--end::Card header-->
+                                        </div>
+                                        <!--end::General options-->
+
+                                    </div>
+                                </div>
+                                <!--end::Tab pane-->
+                            </div>
+                            <!--end::Tab content-->
+
+
                         <div class="d-flex justify-content-end">
                             <!--begin::Button-->
                             <a href="{{route('admin.package-type-prices',[0])}}" id="kt_ecommerce_add_product_cancel"
@@ -248,7 +332,8 @@
                             <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-secondary">
                                 <span class="indicator-label">حفظ</span>
                                 <span class="indicator-progress">إنتظر قليلا . . .
-												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
                             </button>
                             <!--end::Button-->
                         </div>
@@ -268,6 +353,93 @@
 
 
 @section('script')
+    <script>
+        $(document).on("click", "#add-addition", function () {
+            plus_item();
+        });
 
+
+        function plus_item() {
+            var new_item = '<div class="row addition">\n' +
+                '                                                        <div class="col-lg-6 col-md-6">\n' +
+                '                                                            <label class="required form-label">\n' +
+                '                                                                اختر الباقة الإضافية\n' +
+                '                                                            </label>\n' +
+                '                                                            <!--begin::Select2-->\n' +
+                '                                                            <input type="hidden" name="package_meal_type_id[]"  value="0" />\n' +
+                '                                                            <select class="form-select mb-2" name="addition_id[]" data-control="select2" data-hide-search="false" data-placeholder="إختر الباقة">\n' +
+                '                                                                <option selected disabled>اختر</option>\n' +
+                '                                                                @foreach($additions as $key => $addition)\n' +
+                '                                                                    <option value="{{$addition->id}}" >{{$addition->title_ar}}</option>\n' +
+                '                                                                @endforeach\n' +
+                '                                                            </select>\n' +
+                '                                                            <!--end::Select2-->\n' +
+                '                                                        </div>\n' +
+                '<div class="col-lg-4 col-md-4">\n' +
+                '                                                            <label class="required form-label">\n' +
+                '                                                                اختر سعر الباقة الإضافية\n' +
+                '                                                            </label>\n' +
+                '                                                            <!--begin::price-->\n' +
+                '                                                            <input type="number" required name="addition_price[]" class="form-control " placeholder="سعر الباقة الإضافية" value="" />\n' +
+                '                                                            <!--end::price-->\n' +
+                '                                                        </div>'+
+                '                                                        <div class="col-lg-2 col-md-2">\n' +
+                '                                                            <button type="button" class="delete-addition btn btn-danger mt-8">\n' +
+                '                                                                <i class="fa fa-trash"></i>\n' +
+                '                                                                حذف\n' +
+                '                                                            </button>\n' +
+                '                                                            <!--end::Select2-->\n' +
+                '                                                        </div>\n' +
+                '                                                    </div>';
+
+            $('.append-div').append(new_item);
+        }
+
+    </script>
+
+    <script>
+        $(document).on("click", ".delete", function () {
+            var id = $(this).data('id');
+            var btn = $(this);
+            Swal.fire({
+                title: "تحذير.هل انت متأكد؟!",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#f64e60",
+                confirmButtonText: "نعم",
+                cancelButtonText: "لا",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function (result) {
+                if (result.value) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: '{{route('admin.package-type-prices.deletePackageMealType')}}',
+                        type: "post",
+                        data: {'row_id': id, _token: CSRF_TOKEN},
+                        dataType: "JSON",
+                        success: function (data) {
+                            if (data.message == "Success") {
+                                btn.parents(".addition").remove();
+                                Swal.fire("نجاح", "تم الحذف بنجاح", "success");
+                                // location.reload();
+                            } else {
+                                Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                            }
+                        },
+                        fail: function (xhrerrorThrown) {
+                            Swal.fire("نأسف", "حدث خطأ ما اثناء الحذف", "error");
+                        }
+                    });
+                    // result.dismiss can be 'cancel', 'overlay',
+                    // 'close', and 'timer'
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire("ألغاء", "تم الالغاء", "error");
+                }
+            });
+        });
+
+    </script>
 
 @endsection

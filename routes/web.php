@@ -265,6 +265,8 @@ Route::group([
                 Route::post('/update', 'PackageTypePriceController@update')->name('.update');
                 Route::get('/show/{id}', 'PackageTypePriceController@show')->name('.show');
                 Route::post('/delete', 'PackageTypePriceController@delete')->name('.delete');
+                Route::post('/delete-package-meal-type', 'PackageTypePriceController@deletePackageMealType')
+                    ->name('.deletePackageMealType');
                 Route::post('/delete-multi', 'PackageTypePriceController@deleteMulti')->name('.deleteMulti');
             });
 
