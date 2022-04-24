@@ -31,7 +31,7 @@ class UsersResources extends JsonResource
             'phone' => $this->phone ?$this->phone :"",
             'image' => $this->image,
             'gender' => $this->gender ?$this->gender : "",
-            'age' => $this->age ?$this->age : 0,
+            'age' => $this->age ? $this->age : 0,
             'weight' => $this->weight ? $this->weight : 0.0,
             'height' => $this->height ? $this->height : 0.0,
             'provider' => $this->provider ? $this->provider : "",
