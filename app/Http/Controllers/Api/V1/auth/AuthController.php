@@ -278,7 +278,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'social_type' => 'required|in:facebook,google',
             'social_id' => 'required',
-            'email' => 'required|unique:users',
+            'email' => 'required',
         ]);
         if (!is_array($validator) && $validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
