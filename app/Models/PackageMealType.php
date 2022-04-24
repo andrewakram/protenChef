@@ -9,6 +9,8 @@ class PackageMealType extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['package_type_price_id','price','meal_type_id'];
+
     function MealType()
     {
         return $this->belongsTo(MealType::class, 'meal_type_id');
