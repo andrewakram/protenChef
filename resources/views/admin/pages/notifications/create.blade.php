@@ -120,7 +120,7 @@
                         </div>
                         <!--end::order-->
 
-                        <!--begin::order-->
+                        <!--begin::offers-->
                         <div class="offers card card-flush py-4" style="display: none">
                             <!--begin::Card header-->
                             <div class="card-header">
@@ -151,7 +151,40 @@
                             </div>
                             <!--end::Card body-->
                         </div>
-                        <!--end::order-->
+                        <!--end::offers-->
+
+                        <!--begin::coupons-->
+                        <div class="coupons card card-flush py-4" style="display: none">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>الكوبونات</h2>
+                                </div>
+                                <!--end::Card title-->
+                                <!--begin::Card toolbar-->
+                                <div class="card-toolbar">
+                                    <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+                                </div>
+                                <!--begin::Card toolbar-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <!--begin::Select2-->
+                                <select name="coupon_id" class=" coupon_id form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="الكوبونات" id="kt_ecommerce_add_product_status_select">
+                                    @foreach($coupons as $coupon)
+                                        <option value="{{$coupon->id}}" >{{$coupon->code}} ({{$coupon->amount}})</option>
+                                    @endforeach
+                                </select>
+                                <!--end::Select2-->
+                                <!--begin::Description-->
+                                <div class="text-danger fs-7">الكوبونات من الأحدث للأقدم</div>
+                                <!--end::Description-->
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::coupons-->
 
                     </div>
                     <!--end::Aside column-->
@@ -309,17 +342,20 @@
 
             if (notification_type_id == "Order"){
                 $('.offers').css('display','none');
+                $('.coupons').css('display','none');
                 $('.orders').css('display','');
                 $('.orders_id').empty();
             }
             if (notification_type_id == "Offer"){
                 $('.offers').css('display','');
+                $('.coupons').css('display','none');
                 $('.orders').css('display','none');
                 $('.orders_id').empty();
             }
             if (notification_type_id == "Coupon"){
                 $('.offers').css('display','none');
                 $('.orders').css('display','none');
+                $('.coupons').css('display','');
                 $('.orders_id').empty();
             }
             if (notification_type_id == "Order"){
