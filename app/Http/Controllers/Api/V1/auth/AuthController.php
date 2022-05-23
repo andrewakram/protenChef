@@ -278,29 +278,29 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'social_type' => 'required|in:facebook,google',
             'social_id' => 'required',
-//            'phone' => 'required',
+            'email' => 'required',
         ]);
         if (!is_array($validator) && $validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
-//        // 1- check phone exists
-//        $user = User::where('phone', $request->phone)->first();
-//        if ($user) {
-//            if ($request->social_type == 'facebook') {
-//                $user->social_id = $request->social_id;
-//            } else {
-//                $user->social_id = $request->social_id;
-//            }
-//            if (empty($user->email_verified_at)) {
-//                $user->email_verified_at = Carbon::now();
-//            }
-//            $user->phone = $request->phone;
-//            $user->fcm_token = $request->device_token;
-//            $user->save();
-//            $jwt_token = JWTAuth::fromUser($user);
-//            $data = (new UsersResources($user))->token($jwt_token);
-//            return response()->json(msgdata($request, success(), trans('lang.success'), $data));
-//        }
+        // 1- check phone exists
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if ($request->social_type == 'facebook') {
+                $user->social_id = $request->social_id;
+            } else {
+                $user->social_id = $request->social_id;
+            }
+            if (empty($user->email_verified_at)) {
+                $user->email_verified_at = Carbon::now();
+            }
+            $user->email = $request->email;
+            $user->fcm_token = $request->device_token;
+            $user->save();
+            $jwt_token = JWTAuth::fromUser($user);
+            $data = (new UsersResources($user))->token($jwt_token);
+            return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+        }
 
         // 2- check social id exists
 
@@ -308,7 +308,7 @@ class AuthController extends Controller
             ->where('provider', $request->social_type)
             ->first();
         if ($userFound) {
-//            $userFound->phone = $request->phone;
+            $userFound->email = $request->email;
             $userFound->fcm_token = $request->device_token;
             $userFound->save();
             $jwt_token = JWTAuth::fromUser($userFound);
@@ -324,7 +324,7 @@ class AuthController extends Controller
                 $user = User::create([
                     'social_id' => $request->social_id,
                     'fcm_token' => $request->device_token,
-//                    'phone' => $request->phone,
+                    'email' => $request->email,
                     'email_verified_at' => Carbon::now(),
                     'active' => 1,
                     'provider' => 'facebook'
@@ -334,7 +334,7 @@ class AuthController extends Controller
                 $user = User::create([
                     'social_id' => $request->social_id,
                     'fcm_token' => $request->device_token,
-//                    'phone' => $request->phone,
+                    'email' => $request->email,
                     'email_verified_at' => Carbon::now(),
                     'active' => 1,
                     'provider' => 'google'
