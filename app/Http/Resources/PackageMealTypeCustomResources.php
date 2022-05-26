@@ -28,7 +28,7 @@ class PackageMealTypeCustomResources extends JsonResource
                 'meal_type_id' => $this->meal_type_id,
                 'title' => $this->MealType->title,
                 'image' => $this->MealType->image,
-                'price' => $price,
+                'price' => (string)$price,
                 'selected' =>  1,
             ];
         }else{
@@ -37,7 +37,7 @@ class PackageMealTypeCustomResources extends JsonResource
                 'meal_type_id' => $this->meal_type_id,
                 'title' => $this->MealType->title,
                 'image' => $this->MealType->image,
-                'price' => $price,
+                'price' => (string)$price,
                 'selected' =>  0,
             ];
         }
