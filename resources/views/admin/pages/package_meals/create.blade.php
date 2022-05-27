@@ -250,35 +250,24 @@
 
                                                     <br>
 
-                                                    <div class="d-flex flex-wrap gap-5">
-                                                        <!--begin::Input group-->
-                                                        <div class="fv-row w-100 flex-md-root ">
-                                                            <!--begin::Label-->
-                                                            <div class="row">
-                                                                <div class="col-lg-6 col-md-6">
-                                                                    <label class="required form-label">إختر الوجبة</label>
-                                                                    <!--end::Label-->
-                                                                    <!--begin::Select2-->
-                                                                    <!--begin::Input-->
-                                                                    <select name="meal_id" required
-                                                                            class="meal_id form-select mb-2"
-                                                                            data-control="select2" data-hide-search="false"
-                                                                            data-placeholder="إختر الوجبة">
-                                                                        <option></option>
-                                                                        @foreach($meals as $key => $meal)
-                                                                            <option
-                                                                                value="{{$meal->id}}" {{$key==0 ? 'selected' : ''}}>{{$meal->title_ar}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    <!--end::Select2-->
-                                                                </div>
-                                                            </div>
-
-                                                            <!--begin::Description-->
-                                                        {{--                                                    <div class="text-muted fs-7">Set the product tax class.</div>--}}
-                                                        <!--end::Description-->
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <label class="required form-label">إختر الوجبة</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Select2-->
+                                                            <!--begin::Input-->
+                                                            <select name="meal_id" required
+                                                                    class="meal_id form-control mb-2"
+                                                                    data-control="" data-hide-search="false"
+                                                                    data-placeholder="إختر الوجبة">
+                                                                <option></option>
+                                                                @foreach($meals as $key => $meal)
+                                                                    <option
+                                                                        value="{{$meal->id}}" {{$key==0 ? 'selected' : ''}}>{{$meal->title_ar}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <!--end::Select2-->
                                                         </div>
-                                                        <!--end::Input group-->
                                                     </div>
 
 

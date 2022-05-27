@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Meal;
+use App\Models\MealType;
 use App\Models\Notification;
 use App\Models\NotificationSetting;
 use App\Models\Order;
@@ -52,13 +54,21 @@ class OrderController extends Controller
     public function edit($id)
     {
 
+        $meal_types = MealType::select('id','title_ar')->get();
+        if(sizeof($meal_types) > 0){
+            $meals = Meal::where('meal_type_id',$meal_types[0]->id)->select('id','title_ar')->get();
+        }else{
+            $meals = [];
+        }
+
         $row = Order::whereId($id)->first();
         $status = $row->status;
         if (!$row){
             session()->flash('error', 'الحقل غير موجود');
             return redirect()->back();
         }
-        return view('admin.pages.orders.edit',compact('row','status'));
+        return view('admin.pages.orders.edit',
+            compact('row','status','meal_types','meals'));
     }
 
     public function update(Request $request)
@@ -79,6 +89,7 @@ class OrderController extends Controller
 //        }
         $row = Order::whereId($request->row_id)->first();
         $row->update([
+            'start_date' => isset($request->start_date) ? $request->start_date : $row->start_date,
             'cancel_date' => isset($request->cancel_price) ? Carbon::now() : NULL,
             'cancel_price' => isset($request->cancel_price) ? $request->cancel_price : NULL,
             'status' => $request->status,
@@ -199,6 +210,28 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
+    public function changeOrderMeal(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'row_id' => 'required|exists:order_meals,id',
+        ]);
+        if (!is_array($validator) && $validator->fails()) {
+            session()->flash('success', 'حدث خطأ ما');
+            return redirect()->back();
+        }
+        $row = OrderMeal::where('id',$request->row_id)->first();
+        $meal = Meal::whereId($request->meal_id)->first();
+        $row->meal_id = $request->meal_id;
+        $row->meal_title_ar = $meal->title_ar;
+        $row->meal_title_en = $meal->title_en;
+        $row->meal_body_ar = $meal->body_ar;
+        $row->meal_body_en = $meal->body_en;
+        $row->save();
+
+        session()->flash('success', 'تم التعديل بنجاح');
+        return redirect()->back();
+    }
+
     public function getData($status)
     {
         $auth = Auth::guard('admin')->user();
@@ -249,7 +282,7 @@ class OrderController extends Controller
         return DataTables::eloquent($model)
             ->addIndexColumn()
             ->addColumn('meal_type_name',function ($row) {
-                return $row->MealType->title;
+                return $row->MealType->title_ar;
             })
             ->addColumn('status',function ($row){
                 if($row->status == 'pending')
@@ -275,7 +308,11 @@ class OrderController extends Controller
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
 //                if ($auth->can('sliders.update')) {
-                $buttons .= '<a href="#" data-id="'.$row->id.'" class="btn btn-sm btn-primary changeStatus" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button"><i class="fa fa-edit"></i></a>';
+                $buttons .= '<a href="#" data-id="'.$row->id.'" data-status="'.$row->status.'" class="btn btn-sm btn-primary changeStatus" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" title="تغيير الحالة" id="kt_toolbar_primary_button"><i class="fa fa-edit"></i></a>';
+
+                if(Carbon::parse($row->date) > Carbon::now() && $row->status == 'pending'){
+                    $buttons .= '<a href="#" data-id="'.$row->id.'" data-mealtype="'.$row->MealType->title_ar.'" data-mealname="'.$row->meal_title_ar.'" class="btn btn-sm btn-warning m-1 changeMeal" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app2" title="تغيير الوجبة" id="kt_toolbar_primary_button2"><i class="fa fa-edit"></i></a>';
+                }
 //                $buttons .= '<a href="'.route('admin.orders.edit',[$row->id]).'" class="btn btn-success btn-circle btn-sm m-1" title="عرض التفاصيل" target="_blank">
 //                            <i class="fa fa-eye"></i>
 //                        </a>';

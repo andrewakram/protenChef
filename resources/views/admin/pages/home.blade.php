@@ -653,7 +653,13 @@
                     <div class="card-header">
                         <!--begin::Card title-->
                         <div class="card-title">
-                            <h2>الحالة</h2>
+                            <h2>تغيير الحالة</h2>
+                            &nbsp;
+                            &nbsp;
+                            ]
+                            <h2>حالة الطلب:</h2>
+                            <h2 id="statusText" class="text-primary"></h2>
+                            [
                         </div>
                         <!--end::Card title-->
                         <!--begin::Close-->
@@ -701,6 +707,127 @@
                             <button type="submit" data-dismiss="modal" class="btn btn-primary submit_btn">تأكيد</button>
                         </div>
                     </form>
+                </div>
+                <!--end::Status-->
+            </div>
+            <!--end::Modal content-->
+        </div>
+        <!--end::Modal dialog-->
+    </div>
+    <!--end::Modal - change status-->
+
+    <!--begin::Modal - change status-->
+    <div class="modal fade" id="kt_modal_create_app2" tabindex="-1" aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-900px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Status-->
+                <div class="card card2 card-flush py-4">
+                    <!--begin::Card header-->
+                    <div class="card-header">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <h2>تغيير الوجبة</h2>
+                            &nbsp;
+                            &nbsp;
+                            ]
+                            <h2> نوع الوجبة:</h2>
+                            <h2 id="mealTypeText" class="text-primary"></h2>
+                            [
+                            &nbsp;
+                            &nbsp;
+                            ]
+                            <h2>اسم الوجبة:</h2>
+                            <h2 id="mealNameText" class="text-primary"></h2>
+                            [
+                        </div>
+                        <!--end::Card title-->
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                            <span class="svg-icon svg-icon-1">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+								</svg>
+							</span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+
+                    <form id="submit_btn" method="post" action="{{route('admin.orders.changeOrderMeal')}}">
+                            @csrf
+                            <input type="hidden" name="row_id" id="row_id">
+                            <div class="card-body pt-0">
+                                <!--begin::Select2-->
+
+                                <div class="row">
+                                    <div class="d-flex flex-wrap gap-5">
+                                        <!--begin::Input group-->
+                                        <div class="fv-row w-100 flex-md-root ">
+                                            <!--begin::Label-->
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6">
+                                                    <label class="required form-label">إختر الفترة</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Select2-->
+                                                    <!--begin::Input-->
+                                                    <select name="meal_type_id" required
+                                                            class="meal_type_id form-select mb-2"
+                                                            data-control="select2" data-hide-search="false"
+                                                            data-placeholder="إختر الفترة">
+                                                        <option></option>
+                                                        @foreach($meal_types as $key => $meal_type)
+                                                            <option
+                                                                value="{{$meal_type->id}}" {{$key==0 ? 'selected' : ''}}>{{$meal_type->title_ar}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <!--end::Select2-->
+                                                </div>
+                                            </div>
+
+                                            <!--begin::Description-->
+                                        {{--                                                    <div class="text-muted fs-7">Set the product tax class.</div>--}}
+                                        <!--end::Description-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+
+                                    <br>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <label class="required form-label">إختر الوجبة</label>
+                                            <!--end::Label-->
+                                            <!--begin::Select2-->
+                                            <!--begin::Input-->
+                                            <select name="meal_id" required
+                                                    class="meal_id form-control mb-2"
+                                                    data-control="" data-hide-search="false"
+                                                    data-placeholder="إختر الوجبة">
+                                                <option></option>
+                                                @foreach($meals as $key => $meal)
+                                                    <option
+                                                        value="{{$meal->id}}" {{$key == 0 ? "selected" : ""}}>{{$meal->title_ar}}</option>
+                                                @endforeach
+                                            </select>
+                                            <!--end::Select2-->
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--end::Select2-->
+                            </div>
+                            <!--end::Card body-->
+                            <div class="modal-footer">
+                                <button type="submit" data-dismiss="modal" class="btn btn-warning submit_btn">تأكيد</button>
+                            </div>
+                        </form>
+
                 </div>
                 <!--end::Status-->
             </div>
@@ -832,18 +959,27 @@
     <script>
         $(document).on("click", ".changeStatus", function () {
             var row_id = $(this).data('id');
-            var row_status = $(this).data('status');
-            // alert(row_status);
-            // $(".card #row_id").val(row_id);
-            // $(".card #kt_ecommerce_add_product_status_select").val(row_status);
+            var status_val = $(this).data('status');
+            $(".card #row_id").val(row_id);
+            if(status_val == 'pending')
+                $(".card #statusText").html('لم يتم التسلبم بعد');
+            else
+                $(".card #statusText").html('تم التوصيل');
+        });
 
-            // $("select option[value='" + row_status + "']").addAttribute("selected","selected");
+        $('.submit_btn').on('click', function () {
+            $('#submit_btn').submit();
+        })
+    </script>
+    <script>
+        $(document).on("click", ".changeMeal", function () {
+            var row_id = $(this).data('id');
+            var mealTypeText_val = $(this).data('mealtype');
+            var mealNameText_val = $(this).data('mealname');
+            $(".card2 #row_id").val(row_id);
+            $(".card2 #mealTypeText").html(mealTypeText_val);
+            $(".card2 #mealNameText").html(mealNameText_val);
 
-            // $(".card #kt_ecommerce_add_product_status_select").each(function(){
-            //     // alert($(this).attr())
-            //     if ($(this).value() == row_status)
-            //         $(this).attr("selected","selected");
-            // });
         });
 
         $('.submit_btn').on('click', function () {
@@ -987,4 +1123,28 @@
     <script src="{{ asset('admin/dist/assets/js/custom/modals/create-app.js')}}"></script>
     <script src="{{ asset('admin/dist/assets/js/custom/modals/users-search.js')}}"></script>
     <!--end::Page Vendors Javascript-->
+
+    <script>
+        $(document).on('change', '.meal_type_id', function () {
+            var meal_type_id = $(this).val();
+            if (meal_type_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{asset('admin/package-meals/get/meals')}}?meal_type_id=" + meal_type_id,
+                    success: function (res) {
+                        if (res) {
+                            console.log(res);
+                            $(".meal_id").empty();
+                            $.each(res, function (key, value) {
+                                $(".meal_id").append('<option value="' + value.id + '" >' + value.title_ar + '</option>');
+                            });
+                        }
+
+                    }
+                });
+            }
+        });
+
+    </script>
+
 @endsection
