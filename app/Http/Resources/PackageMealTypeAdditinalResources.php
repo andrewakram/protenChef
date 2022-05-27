@@ -18,7 +18,7 @@ class PackageMealTypeAdditinalResources extends JsonResource
             'id' => $this->id,
             'title' => $this->MealType->title,
             'image' => $this->MealType->image,
-            'price' => $this->price,
+            'price' => (String)$this->price,
         ];
     }
 }
