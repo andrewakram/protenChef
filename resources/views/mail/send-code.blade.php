@@ -39,7 +39,7 @@
                     <th align="center" colspan="2" class="top-border" style="margin:0; padding:0; background-color: #f7941d; border-radius: 30px 30px 0 0; text-align: center;" valign="top">
 {{--                        <img src="{{@asset('assets/email/images/round-top-blue.png')}}" alt="" width="100%">--}}
                         <h3 class="text-large" style="color: #fff; font-family: Arial; font-size: 24px; margin-bottom: 20px; margin-top: 0;">
-                            <b>التحقق</b>
+                            <b style="text-align: center">التحقق</b>
                         </h3>
                     </th>
                 </tr>
@@ -51,7 +51,7 @@
                         <p>أنت تتلقى هذا البريد الإلكتروني لأننا تلقينا طلب بالتحقق من حسابك.</p>
                         <table align="center" cellpadding="0" cellspacing="0" style="border-spacing:0; height:37px; margin-bottom:30px">
                             <tbody>
-                            <tr style="background-color: #f7941d;">
+                            <tr>
 {{--                                <td style="background-color:#ffffff; border-spacing:0; border-width:0px; padding:0; text-align:right; vertical-align: top;"><img alt=" " height="100%" src="https://hand2hand.magic-solution.com/assets/email/images/round-left.png" /></td>--}}
                                 <td style="color:#f7941d; border-width:0px; padding:0"> رمز التحقق الخاص بك هو  {{ $token }} </td>
 {{--                                <td style="background-color:#ffffff; border-spacing:0; border-width:0px; padding:0; text-align:left; vertical-align: top;"><img alt=" " height="100%" src="https://hand2hand.magic-solution.com/assets/email/images/round-right.png" /></td>--}}
