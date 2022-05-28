@@ -33,7 +33,7 @@
     <tr>
         <td></td>
         <td width="600">
-            <table width="600" callspacing="0" cellpadding="0" style="margin-top: 30px; width: 600px; max-width: 600px; border-spacing: 0;">
+            <table width="600" callspacing="0" cellpadding="0" style="margin-top: 30px; width: 300px; max-width: 300px; border-spacing: 0;">
                 <thead>
                 <tr>
                     <th align="center" colspan="2" class="top-border" style="margin:0; padding:0; background-color: #f7941d; border-radius: 30px 30px 0 0; text-align: center;" valign="top">
