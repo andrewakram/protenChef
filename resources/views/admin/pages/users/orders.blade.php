@@ -292,15 +292,6 @@
                                 '                                    <td style="text-align: center">  <p style="padding-right:150px">بروتين  شيف</p></td>' +
                                 '                                    <td style="text-align: right"> <img src="{{asset('default.png')}}" width="150px" height="150px" /> </td>' +
                                 '                                    <td style="text-align: right"><p>عنوان التقرير :  الطلبات\n' +
-                                '                            @if($status == "pending")\n' +
-                                '                                قيد الموافقة\n' +
-                                '                            @elseif($status == "accepted")\n' +
-                                '                                المقبولة(الحالية)\n' +
-                                '                            @elseif($status == "canceled")\n' +
-                                '                                الملغية\n' +
-                                '                            @elseif($status == "finished")\n' +
-                                '                                المنتهية\n' +
-                                '                            @endif</p>' +
                                 '                                                                  <p>تاريخ التقرير : {{ Carbon\Carbon::now()->translatedFormat('l Y/m/d') }}</p>' +
                                 '                                                                  <p>وقت التقرير : {{ Carbon\Carbon::now()->translatedFormat('h:i a') }}</p></td>' +
                                 '                                </tr> ' +

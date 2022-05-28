@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Coupon;
 use App\Models\Notification;
 use App\Models\Offer;
 use App\Models\Order;
@@ -25,7 +26,11 @@ class NotificationController extends Controller
     {
         $users = User::orderBy('id','desc')->select('id','name','phone')->get();
         $offers = Offer::orderBy('id','desc')->select('id','title_ar','created_at')->get();
-        return view('admin.pages.notifications.create',compact('users','offers'));
+        $coupons = Coupon::orderBy('id','desc')
+            ->whereDate('expired_at', '>=', Carbon::now())
+            ->select('id','code','amount')->get();
+        return view('admin.pages.notifications.create',
+            compact('users','offers','coupons'));
     }
 
     public function store(Request $request)
@@ -55,7 +60,7 @@ class NotificationController extends Controller
             ]);
             $user_token = User::whereId($request->user_id[0])->select('fcm_token')->first()->fcm_token;
             Notification::send($user_token, $request->title_ar, $request->body_ar, $request->model_type,$data);
-        }else{
+        }elseif($request->model_type == 'Offer'){
             ///>>>>>>>> start sending
             $user_tokens = [];
             if(isset($request->user_id) && sizeof($request->user_id) > 0){
@@ -79,6 +84,45 @@ class NotificationController extends Controller
                     ->select('id','fcm_token')->get();
                 foreach ($users as $user){
                   $data =  Notification::create([
+                        'title_ar' => $request->title_ar,
+                        'body_ar' => $request->body_ar,
+                        'title_en' => $request->title_en,
+                        'body_en' => $request->body_en,
+                        'model_type' => $request->model_type,
+                        'model_id' => isset($request->model_id) ? $request->model_id : NULL,
+                        'user_id' => $user->id,
+                    ]);
+                    if(!empty($user_token) && $user_token !=Null){
+                        array_push($user_tokens,$user->fcm_token);
+                    }
+                }
+            }
+            Notification::send($user_tokens, $request->title_ar, $request->body_ar, $request->model_type,$data);
+            ///>>>>>>>> end sending
+        }elseif($request->model_type == 'Coupon'){
+            ///>>>>>>>> start sending
+            $user_tokens = [];
+            if(isset($request->user_id) && sizeof($request->user_id) > 0){
+                foreach ($request->user_id as $user_id){
+                    $data = Notification::create([
+                        'title_ar' => $request->title_ar,
+                        'body_ar' => $request->body_ar,
+                        'title_en' => $request->title_en,
+                        'body_en' => $request->body_en,
+                        'model_type' => $request->model_type,
+                        'model_id' => isset($request->coupon_id) ? $request->coupon_id : NULL,
+                        'user_id' => $user_id,
+                    ]);
+                    $user_token = User::whereId($request->user_id[0])->select('fcm_token')->first()->fcm_token;
+                    if(!empty($user_token) && $user_token !=Null){
+                        array_push($user_tokens,$user_token);
+                    }
+                }
+            }else{
+                $users = User::whereSuspend(0)->whereActive(1)->whereNotNull('fcm_token')
+                    ->select('id','fcm_token')->get();
+                foreach ($users as $user){
+                    $data =  Notification::create([
                         'title_ar' => $request->title_ar,
                         'body_ar' => $request->body_ar,
                         'title_en' => $request->title_en,

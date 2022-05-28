@@ -54,7 +54,13 @@ class MySubscribersControllers extends Controller
             ->groupBy('date')
             ->count();
 
-        $meal_types = MealType::all();
+        if($meal_type_id == null){
+            $selected_meal_types = OrderMeal::where('order_id',$id)->pluck('meal_type_id');
+            $meal_types = MealType::whereIn('id',$selected_meal_types)->get();
+        }else{
+            $meal_types = MealType::all();
+        }
+
         $meal_types = MealTypeResources::collection($meal_types);
         if (!isset($meal_type_id) || $meal_type_id == null) {
             $meal_type_id = MealType::first()->id;
