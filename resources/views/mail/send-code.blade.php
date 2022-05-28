@@ -1,7 +1,8 @@
 @component('mail::message')
-    #  تأكيد
+       تأكيد
     رمز التحقق الخاص بك هو :
     {{ $token }}
     , شكرآ
     protein-chef
+
 @endcomponent
