@@ -39,7 +39,7 @@ class MySubscribersControllers extends Controller
         $user = auth()->user();
         $orders = Order::where('user_id', $user->id)
             ->whereIn('status', ['canceled', 'finished'])
-            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])->orderBy('created_at', 'desc')
+            ->withCount(['OrderMeals', 'DeliveredOrderMeals'])->orderBy('id', 'desc')
             ->paginate(10);
         $data = OrdersResources::collection($orders)->response()->getData(true);
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
