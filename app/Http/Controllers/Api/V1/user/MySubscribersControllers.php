@@ -54,10 +54,10 @@ class MySubscribersControllers extends Controller
             ->groupBy('date')
             ->count();
 
-        if($meal_type_id == null){
-            $selected_meal_types = OrderMeal::where('order_id',$id)->pluck('meal_type_id');
-            $meal_types = MealType::whereIn('id',$selected_meal_types)->get();
-        }else{
+        if ($meal_type_id == null) {
+            $selected_meal_types = OrderMeal::where('order_id', $id)->pluck('meal_type_id');
+            $meal_types = MealType::whereIn('id', $selected_meal_types)->get();
+        } else {
             $meal_types = MealType::all();
         }
 
@@ -92,6 +92,8 @@ class MySubscribersControllers extends Controller
         $location = $order->location_body;
         $package_price = $order->package_price;
         $package_name = $order->package_name;
+        $package_id = $order->package_id;
+        $package_type_id = $order->package_type_id;
         $shipping_price = $order->shipping_price;
         $discount_price = $order->discount_price;
         $total_price = $order->total_price;
@@ -116,6 +118,8 @@ class MySubscribersControllers extends Controller
         }
         $data['package_price'] = $package_price;
         $data['package_name'] = $package_name;
+        $data['package_id'] = $package_id;
+        $data['package_type_id'] = $package_type_id;
         $data['shipping_price'] = $shipping_price;
         $data['discount_price'] = $discount_price;
         $data['order_addition_prices'] = OrderAdditionResources::collection($order_addition_prices);
