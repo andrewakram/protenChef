@@ -203,7 +203,7 @@ class AuthController extends Controller
 
 //        $type = $user->active == 0 ? "activate" : "reset";
 
-        $verfication = Verfication::where('email', $request->phone)
+        $verfication = Verfication::where('phone', $request->phone)
             ->where('code', $request->code)
 //            ->where('type', $type)
             ->first();
