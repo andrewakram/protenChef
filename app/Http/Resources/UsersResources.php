@@ -25,12 +25,12 @@ class UsersResources extends JsonResource
     {
 
         return [
-            'id' => $this->id,
-            'name' => $this->name ? $this->name : "",
-            'email' => $this->email ?$this->email :"",
-            'phone' => $this->phone ?$this->phone :"",
-            'image' => $this->image,
-            'gender' => $this->gender ?$this->gender : "",
+            'id' => (int) $this->id,
+            'name' => (string) $this->name ? $this->name : "",
+            'email' =>(string) $this->email ?$this->email :"",
+            'phone' =>(string) $this->phone ?$this->phone :"",
+            'image' =>(string) $this->image,
+            'gender' =>(string) $this->gender ?$this->gender : "",
             'age' => $this->age ? $this->age : 0,
             'weight' => $this->weight ? $this->weight : 0.0,
             'height' => $this->height ? $this->height : 0.0,
