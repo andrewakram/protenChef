@@ -29,7 +29,6 @@ class SendCode extends Mailable
      */
     public function build()
     {
-
         return $this->markdown('mail.send-code')->with('token',$this->code);
     }
 }
