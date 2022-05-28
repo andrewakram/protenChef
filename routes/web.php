@@ -290,15 +290,15 @@ Route::group([
                 Route::post('/update', [SettingController::class, 'update'])->name('.update');
                 Route::group(['prefix' => 'zones', 'as' => '.zones'], function () {
                     Route::get('/', [ZoneController::class, 'index']);
-                    Route::get('getData', [ZoneController::class, 'getData'] )->name('.datatable');
+                    Route::get('getData', [ZoneController::class, 'getData'])->name('.datatable');
                     Route::post('/store', [ZoneController::class, 'store'])->name('.store');
                     Route::get('get-all-zone-cordinates/{id?}', [ZoneController::class, 'get_all_zone_cordinates'])->name('.zoneCoordinates');
-                    Route::post('search', [ZoneController::class, 'search'] )->name('.search');
+                    Route::post('search', [ZoneController::class, 'search'])->name('.search');
 
                     Route::get('/edit/{id}', [ZoneController::class, 'edit'])->name('.edit');
                     Route::post('/update/{id}', [ZoneController::class, 'update'])->name('.update');
 
-                    Route::post('/delete',  [ZoneController::class, 'delete'])->name('.delete');
+                    Route::post('/delete', [ZoneController::class, 'delete'])->name('.delete');
 
                 });
             });

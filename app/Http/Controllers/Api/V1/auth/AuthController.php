@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UsersResources;
+use App\Mail\SendCode;
 use App\Models\User;
 use App\Models\Verfication;
 use App\Models\Zone;
@@ -15,6 +16,7 @@ use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Auth;
 use JWTAuth;
 use TymonJWTAuthExceptionsJWTException;
+use Mail;
 
 class AuthController extends Controller
 {
@@ -64,6 +66,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
 //            'phone' => 'required|min:12|regex:/(966)[0-9]{8}/',
             'phone' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
             'device_token' => 'required'
         ]);
@@ -73,10 +76,11 @@ class AuthController extends Controller
 
         $data = new User();
         $data->phone = $request->phone;
+        $data->email = $request->email;
         $data->password = $request->password;
         $data->save();
 
-        $this->sendCode($data->phone, "activate");
+        $this->sendCode($data->email, "activate");
 
         return response()->json(msg($request, success(), trans('lang.CodeSent')));
 
@@ -86,7 +90,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
 //            'phone' => 'required|min:12|regex:/(966)[0-9]{8}/',
-            'phone' => 'required|exists:users',
+            'phone' => 'required|email|exists:users,email',
 
         ]);
         if ($validator->fails()) {
@@ -188,18 +192,18 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
 //            'phone' => 'required|min:12|regex:/(966)[0-9]{8}/',
-            'phone' => 'required|exists:users,phone',
+            'phone' => 'required|exists:users,email',
             'code' => 'required|min:4',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
 
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::where('email', $request->phone)->first();
 
 //        $type = $user->active == 0 ? "activate" : "reset";
 
-        $verfication = Verfication::where('phone', $request->phone)
+        $verfication = Verfication::where('email', $request->phone)
             ->where('code', $request->code)
 //            ->where('type', $type)
             ->first();
@@ -228,7 +232,7 @@ class AuthController extends Controller
     }
 
     public
-    function sendCode($phone, $type)
+    function sendCode($email, $type)
     {
 
         $code = rand(0000, 9999);
@@ -237,7 +241,7 @@ class AuthController extends Controller
         Verfication::updateOrcreate
         (
             [
-                'phone' => $phone,
+                'phone' => $email,
             ],
             [
                 'code' => $code,
@@ -246,6 +250,8 @@ class AuthController extends Controller
             ]
         );
 
+
+        Mail::to($email)->send(new SendCode($code));
         return true;
     }
 
@@ -254,13 +260,13 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
 //            'phone' => 'required|min:12|regex:/(966)[0-9]{8}/',
-            'phone' => 'required|exists:users,phone',
+            'phone' => 'required|exists:users,email',
 
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::where('email', $request->phone)->first();
 
         $type = $user->active == 0 ? "activate" : "reset";
 
