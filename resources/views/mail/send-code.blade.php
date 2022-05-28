@@ -11,7 +11,7 @@
 
 {{--    @endcomponent--}}
 
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
@@ -20,7 +20,7 @@
     <title> التحقق </title>
 </head>
 <body style="background-color: #f5f5f5; margin: 0; padding: 30px 0;">
-<table align="center" width="600" callspacing="0" cellpadding="0" style="margin-top: 0; max-width: 600px; width: 100%;border-spacing: 0;">
+<table align="center" width="300" callspacing="0" cellpadding="0" style="margin-top: 0; max-width: 300px; width: 100%;border-spacing: 0;">
     <tbody>
     <tr>
         <td style="padding: 30px 30px 0; text-align: center;">
