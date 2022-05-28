@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Coupon;
 use App\Models\Meal;
+use App\Models\MealType;
 use App\Models\Offer;
 use App\Models\Order;
 use App\Models\OrderMeal;
@@ -71,8 +72,16 @@ class HomeController extends Controller
                 array_push($meal_quantities,$item);
         }
 
+        $meal_types = MealType::select('id','title_ar')->get();
+        if(sizeof($meal_types) > 0){
+            $meals = Meal::where('meal_type_id',$meal_types[0]->id)->select('id','title_ar')->get();
+        }else{
+            $meals = [];
+        }
+
         return view('admin.pages.home',
-            compact('data', 'newest_orders', 'orders_numbers_chart','date','meal_quantities'));
+            compact('data', 'newest_orders', 'orders_numbers_chart','date','meal_quantities',
+            'meal_types','meals'));
     }
 
     public function getData($date = null)
@@ -122,7 +131,11 @@ class HomeController extends Controller
             })
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
-                $buttons .= '<a href="#" data-id="'.$row->id.'" data-status="'.$row->status.'" class="btn btn-sm btn-primary changeStatus" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button"><i class="fa fa-edit"></i></a>';
+                $buttons .= '<a href="#" data-id="'.$row->id.'" data-status="'.$row->status.'" data-status="'.$row->status.'" title="تغيير الحالة" class="btn btn-sm btn-primary changeStatus" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button"><i class="fa fa-edit"></i></a>';
+
+                if(Carbon::parse($row->date) > Carbon::now() && $row->status == 'pending'){
+                    $buttons .= '<a href="#" data-id="'.$row->id.'" data-mealtype="'.$row->MealType->title_ar.'" data-mealname="'.$row->meal_title_ar.'" class="btn btn-sm btn-warning m-1 changeMeal" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app2" title="تغيير الوجبة" id="kt_toolbar_primary_button2"><i class="fa fa-edit"></i></a>';
+                }
 
                 return $buttons;
             })
