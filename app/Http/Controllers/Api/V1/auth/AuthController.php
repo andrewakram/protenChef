@@ -30,7 +30,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'phone' => 'required',
+//            'phone' => 'required',
+            'email' => 'required',
 //           'phone' => 'required|min:12|regex:/(966)[0-9]{8}/',
             'password' => 'required|min:6',
             'device_token' => 'required'
@@ -38,7 +39,11 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
         }
-        $input = $request->only('phone', 'password');
+//        $input = $request->only('phone', 'password');
+        $input = [
+            'email' => $request->phone,
+            'password' => $request->password
+        ];
 
         if (!$jwt_token = JWTAuth::attempt($input, ['exp' => Carbon::now()->addDays(7)->timestamp])) {
             return response()->json(msg($request, failed(), trans('lang.phoneOrPasswordIncorrect')));
