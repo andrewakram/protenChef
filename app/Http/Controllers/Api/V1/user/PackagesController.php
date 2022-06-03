@@ -11,11 +11,13 @@ use App\Http\Resources\PackageMealTypeMainResources;
 use App\Http\Resources\PackageMealTypeResources;
 use App\Http\Resources\PackageResources;
 use App\Http\Resources\PackageTypePriceResources;
+use App\Http\Resources\PackageTypeResource;
 use App\Models\Meal;
 use App\Models\MealType;
 use App\Models\Package;
 use App\Models\PackageMeal;
 use App\Models\PackageMealType;
+use App\Models\PackageType;
 use App\Models\PackageTypePrice;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -28,7 +30,16 @@ use TymonJWTAuthExceptionsJWTException;
 class PackagesController extends Controller
 {
 
-    public function package_types(Request $request, $package_id)
+    public function package_parent_type(Request $request)
+    {
+        $package_parent_type = PackageType::whereNull('parent_id')->with('SubPackages')->get();
+        $data = PackageTypeResource::collection($package_parent_type);
+
+        return response()->json(msgdata($request, success(), trans('lang.success'), $data));
+
+    }
+
+    public function package_types(Request $request, $package_id, $sub_package_type_id)
     {
         $package = Package::find($package_id);
         if (!$package) {
@@ -37,8 +48,10 @@ class PackagesController extends Controller
         //object shape resources
         $data['package'] = (new PackageResources($package));
         //array shape resources
-        $package_type_prices = PackageTypePrice::where('package_id', $package_id)->get();
+        $package_type_prices = PackageTypePrice::where('package_id', $package_id)
+            ->where('package_type_id', $sub_package_type_id)->get();
         $data['package_types_prices'] = (PackageTypePriceResources::collection($package_type_prices));
+
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }

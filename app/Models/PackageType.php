@@ -9,7 +9,7 @@ class PackageType extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title_ar','title_en','days_count','type','image'];
+    protected $fillable = ['title_ar','title_en','days_count','type','image','parent_id'];
 
     protected $appends = ['title'];
 
@@ -21,6 +21,10 @@ class PackageType extends Model
         } else {
             return $this->title_en;
         }
+    }
+
+    public function SubPackages(){
+        return $this->hasMany(PackageType::class,'parent_id');
     }
 
     public function getImageAttribute($image)
