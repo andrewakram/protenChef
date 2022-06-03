@@ -24,10 +24,15 @@ class PackageTypePriceController extends Controller
     public function create($package_id)
     {
         $packages = Package::select('id','title_ar')->get();
-        $package_types = PackageType::select('id','title_ar')->get();
+        $package_types = PackageType::select('id','title_ar')->whereNull('parent_id')->get();
+        if(sizeof($package_types) > 0){
+            $sub_types = PackageType::select('id','title_ar')->where('parent_id',$package_types[0]->id)->get();
+        }else{
+            $sub_types = [];
+        }
         $additions = MealType::where('type','sub')->select('id','title_ar')->get();
         return view('admin.pages.package_type_prices.create',
-            compact('packages','package_types','package_id','additions'));
+            compact('packages','package_types','package_id','additions','sub_types'));
     }
 
     public function store(Request $request)
@@ -69,7 +74,12 @@ class PackageTypePriceController extends Controller
     public function edit($id)
     {
         $packages = Package::select('id','title_ar')->get();
-        $package_types = PackageType::select('id','title_ar')->get();
+        $package_types = PackageType::select('id','title_ar')->whereNull('parent_id')->get();
+        if(sizeof($package_types) > 0){
+            $sub_types = PackageType::select('id','title_ar')->where('parent_id',$id)->get();
+        }else{
+            $sub_types = [];
+        }
         $additions = MealType::where('type','sub')->select('id','title_ar')->get();
         $row = PackageTypePrice::where('id',$id)->first();
         if (!$row){
@@ -77,7 +87,7 @@ class PackageTypePriceController extends Controller
             return redirect()->back();
         }
         return view('admin.pages.package_type_prices.edit',
-            compact('row','packages','package_types','additions'));
+            compact('row','packages','package_types','additions','sub_types'));
     }
 
     public function update(Request $request)
@@ -245,5 +255,11 @@ class PackageTypePriceController extends Controller
         $row->delete();
         session()->flash('success', 'تم الحذف بنجاح');
         return response()->json(['message' => 'Success']);
+    }
+
+    public function getSubTypes(Request $request)
+    {
+        $subTypes = PackageType::select('id','title_ar')->where('parent_id',$request->package_type_id)->get();
+        return response()->json($subTypes);
     }
 }

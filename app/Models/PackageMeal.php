@@ -9,7 +9,7 @@ class PackageMeal extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['week','day','meal_id','package_id','meal_type_id'];
+    protected $fillable = ['week','day','meal_id','package_id','meal_type_id','package_type_id'];
 
     function Package()
     {

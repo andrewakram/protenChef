@@ -208,8 +208,8 @@
                                                             <!--end::Label-->
                                                             <!--begin::Select2-->
                                                             <!--begin::Input-->
-                                                            <select name="package_type_id" required
-                                                                    class="form-select mb-2" data-control="select2"
+                                                            <select name="main_package_type_id" required
+                                                                    class="main_package_type_id form-select mb-2" data-control="select2"
                                                                     data-hide-search="false"
                                                                     data-placeholder="إختر نوع الباقة">
                                                                 <option></option>
@@ -227,6 +227,28 @@
                                                 <!--end::Description-->
                                                 </div>
                                                 <!--end::Input group-->
+                                            </div>
+
+                                            <br>
+
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6">
+                                                    <label class="required form-label">إختر  النوع الفرعي</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Select2-->
+                                                    <!--begin::Input-->
+                                                    <select name="package_type_id" required
+                                                            class="sub_type_id form-control mb-2"
+                                                            data-control="" data-hide-search="false"
+                                                            data-placeholder="إختر النوع الفرعي">
+                                                        <option></option>
+                                                        @foreach($sub_types as $key => $sub_type)
+                                                            <option
+                                                                value="{{$sub_type->id}}" {{$sub_type->id == $row->package_type_id ? 'selected' : ''}}>{{$sub_type->title_ar}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <!--end::Select2-->
+                                                </div>
                                             </div>
 
                                         </div>
@@ -353,6 +375,30 @@
 
 
 @section('script')
+
+    <script>
+        $(document).on('change', '.main_package_type_id', function () {
+            var package_type_id = $(this).val();
+            if (package_type_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{asset('admin/package-type-prices/get/sub-types')}}?package_type_id=" + package_type_id,
+                    success: function (res) {
+                        if (res) {
+                            console.log(res);
+                            $(".sub_type_id").empty();
+                            $.each(res, function (key, value) {
+                                $(".sub_type_id").append('<option value="' + value.id + '" >' + value.title_ar + '</option>');
+                            });
+                        }
+
+                    }
+                });
+            }
+        });
+
+    </script>
+
     <script>
         $(document).on("click", "#add-addition", function () {
             plus_item();

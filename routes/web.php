@@ -269,6 +269,8 @@ Route::group([
                 Route::post('/delete-package-meal-type', 'PackageTypePriceController@deletePackageMealType')
                     ->name('.deletePackageMealType');
                 Route::post('/delete-multi', 'PackageTypePriceController@deleteMulti')->name('.deleteMulti');
+                //ajax
+                Route::get('/get/sub-types', 'PackageTypePriceController@getSubTypes')->name('.getSubTypes');
             });
 
             Route::group(['prefix' => 'package-meals', 'as' => '.package-meals'], function () {

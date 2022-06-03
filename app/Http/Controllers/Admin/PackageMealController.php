@@ -31,7 +31,15 @@ class PackageMealController extends Controller
         }else{
             $meals = [];
         }
-        return view('admin.pages.package_meals.create',compact('meals','packages','meal_types','package_id'));
+
+        $package_types = PackageType::select('id','title_ar')->whereNull('parent_id')->get();
+        if(sizeof($package_types) > 0){
+            $sub_types = PackageType::select('id','title_ar')->where('parent_id',$package_types[0]->id)->get();
+        }else{
+            $sub_types = [];
+        }
+        return view('admin.pages.package_meals.create',
+            compact('meals','packages','meal_types','package_id','package_types','sub_types'));
     }
 
     public function store(Request $request)
@@ -42,6 +50,7 @@ class PackageMealController extends Controller
             'meal_id' => 'required|exists:meals,id',
             'package_id' => 'required|exists:packages,id',
             'meal_type_id' => 'required|exists:meal_types,id',
+            'package_type_id' => 'required|exists:package_types,id',
         ]);
         if (!is_array($validator) && $validator->fails()) {
             return redirect()->back()->withErrors($validator);
@@ -53,6 +62,7 @@ class PackageMealController extends Controller
         $row->meal_id = $request->meal_id;
         $row->package_id = $request->package_id;
         $row->meal_type_id = $request->meal_type_id;
+        $row->package_type_id = $request->package_type_id;
         $row->save();
             session()->flash('success', 'تم الإضافة بنجاح');
         return redirect()->route('admin.package-meals',[$request->package_id]);
@@ -67,6 +77,12 @@ class PackageMealController extends Controller
         }else{
             $meals = [];
         }
+        $package_types = PackageType::select('id','title_ar')->whereNull('parent_id')->get();
+        if(sizeof($package_types) > 0){
+            $sub_types = PackageType::select('id','title_ar')->where('parent_id',$id)->get();
+        }else{
+            $sub_types = [];
+        }
         $row = PackageMeal::where('id',$id)->first();
         $package_id = $row->package_id;
         if (!$row){
@@ -74,7 +90,7 @@ class PackageMealController extends Controller
             return redirect()->back();
         }
         return view('admin.pages.package_meals.edit',
-            compact('row','package_id','packages','meal_types','meals'));
+            compact('row','package_id','packages','meal_types','meals','package_types','sub_types'));
     }
 
     public function update(Request $request)
@@ -86,6 +102,7 @@ class PackageMealController extends Controller
             'meal_id' => 'required|exists:meals,id',
             'package_id' => 'required|exists:packages,id',
             'meal_type_id' => 'required|exists:meal_types,id',
+            'package_type_id' => 'required|exists:package_types,id',
         ]);
         if (!is_array($validator) && $validator->fails()) {
             return redirect()->back()->withErrors($validator);
