@@ -9,7 +9,7 @@ class PackageTypePriceResources extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -20,6 +20,7 @@ class PackageTypePriceResources extends JsonResource
             'days_count' => $this->PackageType->days_count,
             'price' => $this->price,
             'have_snacks' => $this->have_snacks,
+
         ];
     }
 }

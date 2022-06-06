@@ -49,7 +49,8 @@ class PackagesController extends Controller
         $data['package'] = (new PackageResources($package));
         //array shape resources
         $package_type_prices = PackageTypePrice::where('package_id', $package_id)
-            ->where('package_type_id', $sub_package_type_id)->get();
+//            ->where('package_type_id', $sub_package_type_id)
+            ->get();
         $data['package_types_prices'] = (PackageTypePriceResources::collection($package_type_prices));
 
 
@@ -59,11 +60,14 @@ class PackagesController extends Controller
     public function package_meal_types(Request $request, $type, $package_pricec_id)
     {
         $package = PackageTypePrice::find($package_pricec_id);
+
         if (!$package) {
             return response()->json(['status' => 401, 'msg' => trans('lang.you_should_choose_valid_package_type')]);
         }
+        $package_type_count = $package->PackageType->meal_count;
         if ($type == 'main') {
-            $package_type_prices = PackageMealType::where('price', null)->where('package_type_price_id', $package_pricec_id)->get();
+            $package_type_prices = PackageMealType::where('price', null)->where('package_type_price_id', $package_pricec_id)->limit($package_type_count)->get();
+
         } else {
             $package_type_prices = PackageMealType::where('price', '!=', null)->where('package_type_price_id', $package_pricec_id)->get();
         }
@@ -100,7 +104,7 @@ class PackagesController extends Controller
     public function package_menu_meals(Request $request)
     {
         $lang = request()->header('lang');
-        $two_dayes = Carbon::now()->addDay(1);
+        $two_dayes = Carbon::now()->addDay();
         $validator = Validator::make($request->all(), [
             'package_type_price_id' => 'required|exists:package_type_prices,id',
             'selected_date' => 'required|after:' . $two_dayes,
@@ -135,7 +139,15 @@ class PackagesController extends Controller
         } else {
             $main_meal_types = $main_meal_types->where('price', null);
         }
-        $main_meal_types = $main_meal_types->where('package_type_price_id', $request->package_type_price_id)->orderBy('id', 'asc')->get();
+
+        $packageTypePrice = PackageTypePrice::find($request->package_type_price_id);
+        $meal_count = $packageTypePrice->PackageType->meal_count;
+
+
+        $main_meal_types = $main_meal_types->where('package_type_price_id', $request->package_type_price_id)
+            ->orderBy('id', 'asc')
+            ->limit($meal_count)
+            ->get();
 
         if (!$request->meal_type_id) {
             $data['main_meal_types'] = (PackageMealTypeCustomResources::collection($main_meal_types));
