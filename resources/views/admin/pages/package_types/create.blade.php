@@ -15,7 +15,16 @@
                 <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
                     <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: #F48120">
-                        إضافة سلايدر
+                        إضافة نوع باقة فرعي
+                        @isset($packageType)
+                            <h1 class="d-flex align-items-center fw-bolder fs-3 my-1" style="color: forestgreen">
+                                &nbsp;
+                                ]
+                                {{$packageType->title_ar}}
+                                [
+                                &nbsp;
+                            </h1>
+                        @endif
                     </h1>
                     <!--end::Title-->
                     <!--begin::Separator-->
@@ -25,7 +34,7 @@
                     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('admin.package-types')}}" class="text-muted text-hover-primary">السلايدر</a>
+                            <a href="{{route('admin.package-types')}}" class="text-muted text-hover-primary">انواع الباقات</a>
                         </li>
                         <!--end::Item-->
                         <li class="breadcrumb-item">
@@ -53,6 +62,7 @@
                 <!--begin::Form-->
                 <form action="{{route('admin.package-types.store')}}" method="post" enctype="multipart/form-data" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10" >
                     @csrf
+                    <input type="hidden" name="parent_id" value="{{$packageType->id}}">
                     <!--begin::Aside column-->
                     <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px">
                         <!--begin::Thumbnail settings-->
@@ -107,7 +117,7 @@
                             <div class="card-header">
                                 <!--begin::Card title-->
                                 <div class="card-title">
-                                    <h2>الحالة</h2>
+                                    <h2>عدد ايام الباقة</h2>
                                 </div>
                                 <!--end::Card title-->
                                 <!--begin::Card toolbar-->
@@ -120,43 +130,65 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <select name="active" required class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="إختر الحالة" id="kt_ecommerce_add_product_status_select">
-                                    <option></option>
-                                    <option value="1" selected="selected">مفعل</option>
-                                    <option value="0">غير مفعل</option>
-                                </select>
+                                <input type="number" required disabled name="days_count"  value="{{$packageType->days_count}}" class="form-control mb-2" placeholder="عدد أيام الباقة" value="" />
+
                                 <!--end::Select2-->
                                 <!--begin::Description-->
-{{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
-                                <!--end::Description-->
+                            {{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
+                            <!--end::Description-->
                                 <!--begin::Datepicker-->
-{{--                                <div class="d-none mt-10">--}}
-{{--                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>--}}
-{{--                                    <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" />--}}
-{{--                                </div>--}}
-                                <!--end::Datepicker-->
+                            {{--                                <div class="d-none mt-10">--}}
+                            {{--                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>--}}
+                            {{--                                    <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" />--}}
+                            {{--                                </div>--}}
+                            <!--end::Datepicker-->
                             </div>
                             <!--end::Card body-->
                         </div>
                         <!--end::Status-->
+
+                        <!--begin::Status-->
+                            <div class="card card-flush py-4">
+                                <!--begin::Card header-->
+                                <div class="card-header">
+                                    <!--begin::Card title-->
+                                    <div class="card-title">
+                                        <h2>عدد وجبات الباقة</h2>
+                                    </div>
+                                    <!--end::Card title-->
+                                    <!--begin::Card toolbar-->
+                                    <div class="card-toolbar">
+                                        <div class="rounded-circle bg-primary w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+                                    </div>
+                                    <!--begin::Card toolbar-->
+                                </div>
+                                <!--end::Card header-->
+                                <!--begin::Card body-->
+                                <div class="card-body pt-0">
+                                    <!--begin::Select2-->
+                                    <input type="number" required name="meal_count"  value="" class="form-control mb-2" placeholder="عدد وجبات الباقة" value="" />
+
+                                    <!--end::Select2-->
+                                    <!--begin::Description-->
+                                {{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
+                                <!--end::Description-->
+                                    <!--begin::Datepicker-->
+                                {{--                                <div class="d-none mt-10">--}}
+                                {{--                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>--}}
+                                {{--                                    <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" />--}}
+                                {{--                                </div>--}}
+                                <!--end::Datepicker-->
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Status-->
+
 
                     </div>
                     <!--end::Aside column-->
                     <!--begin::Main column-->
                     <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
                         <!--begin:::Tabs-->
-{{--                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-n2">--}}
-{{--                            <!--begin:::Tab item-->--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a class="nav-link text-active-warning pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">بيانات السلايدر</a>--}}
-{{--                            </li>--}}
-{{--                            <!--end:::Tab item-->--}}
-{{--                            <!--begin:::Tab item-->--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Advanced</a>--}}
-{{--                            </li>--}}
-{{--                            <!--end:::Tab item-->--}}
-{{--                        </ul>--}}
                         <!--end:::Tabs-->
                         <!--begin::Tab content-->
                         <div class="tab-content">
@@ -167,7 +199,7 @@
                                     <div class="card card-flush py-4">
                                         <div class="card-header">
                                             <div class="card-title">
-                                                <h2>بيانات السلايدر</h2>
+                                                <h2>بيانات نوع الباقة</h2>
                                             </div>
                                         </div>
                                         <br>
@@ -177,23 +209,23 @@
                                             <!--begin::Input group-->
                                             <div class="mb-10 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required form-label">عنوان السلايدر</label>
+                                                <label class="required form-label">عنوان نوع الباقة (بالعري)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" required name="title" class="form-control mb-2" placeholder="عنوان السلايدر" value="" />
+                                                <input type="text" required name="title_ar" value="" class="form-control mb-2" placeholder="عنوان النوع  باقة" value="" />
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
-{{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}
-                                                <!--end::Description-->
+                                            {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}
+                                            <!--end::Description-->
                                             </div>
                                             <!--end::Input group-->
 
                                             <div class="mb-10 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required form-label">رابط توجيه السلايدر</label>
+                                                <label class="required form-label">عنوان نوع الباقة (الإنجليزي)</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" required name="url" class="form-control mb-2" placeholder="رابط توجيه السلايدر" value="" />
+                                                <input type="text" required name="title_en" value="" class="form-control mb-2" placeholder="رابط توجيه النوع  باقة" value="" />
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
                                             {{--                                                <div class="text-muted fs-7">A product name is required and recommended to be unique.</div>--}}
