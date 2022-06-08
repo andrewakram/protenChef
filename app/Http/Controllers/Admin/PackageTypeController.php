@@ -17,9 +17,17 @@ class PackageTypeController extends Controller
         return view('admin.pages.package_types.index');
     }
 
-    public function create()
+    public function details($id)
     {
-        return view('admin.pages.package_types.create');
+        $packageType = PackageType::findOrFail($id);
+        return view('admin.pages.package_types.sub_types',compact('packageType'));
+    }
+
+    public function create($parent_id)
+    {
+        $packageType = PackageType::findOrFail($parent_id);
+
+        return view('admin.pages.package_types.create',compact('packageType'));
     }
 
     public function store(Request $request)
@@ -40,6 +48,8 @@ class PackageTypeController extends Controller
         $row->title = $request->title;
         $row->url = $request->url;
         $row->active = $request->active;
+        $row->meal_count = $request->meal_count;
+        $row->parent_id = $request->parent_id;
         $row->save();
             session()->flash('success', 'تم الإضافة بنجاح');
         return redirect()->route('admin.package_types');
@@ -128,7 +138,7 @@ class PackageTypeController extends Controller
     {
         $auth = Auth::guard('admin')->user();
         $model = PackageType::query();
-
+        $model->whereNull('parent_id');
         return DataTables::eloquent($model)
             ->addIndexColumn()
             ->editColumn('image',function ($row){
@@ -145,9 +155,51 @@ class PackageTypeController extends Controller
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
 //                if ($auth->can('sliders.update')) {
+                    $buttons .= '<a href="'.route('admin.package-types.details',[$row->id]).'" class="btn btn-warning btn-circle btn-sm m-1" title="عرض">
+                            <i class="fa fa-eye"></i>
+                        </a>';
                     $buttons .= '<a href="'.route('admin.package-types.edit',[$row->id]).'" class="btn btn-primary btn-circle btn-sm m-1" title="تعديل">
                             <i class="fa fa-edit"></i>
                         </a>';
+
+//                }
+//                if ($auth->can('sliders.delete')) {
+//                    $buttons .= '<a class="btn btn-danger btn-sm delete btn-circle m-1" data-id="'.$row->id.'"  title="حذف">
+//                            <i class="fa fa-trash"></i>
+//                        </a>';
+//                }
+                return $buttons;
+            })
+            ->rawColumns(['actions','days_count','image'])
+            ->make();
+
+    }
+
+    public function getDataDetails($id)
+    {
+        $auth = Auth::guard('admin')->user();
+        $model = PackageType::query();
+        $model->where('parent_id',$id);
+        return DataTables::eloquent($model)
+            ->addIndexColumn()
+            ->editColumn('image',function ($row){
+                return '<a class="symbol symbol-50px"><span class="symbol-label" style="background-image:url('.$row->image.');"></span></a>';
+            })
+            ->editColumn('days_count',function ($row){
+                return "<b class='badge badge-dark'>$row->days_count</b>";
+            })
+//            ->addColumn('select',function ($row){
+//                return '<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+//                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="'.$row->id.'" />
+//                                    </div>';
+//            })
+            ->addColumn('actions', function ($row) use ($auth){
+                $buttons = '';
+//                if ($auth->can('sliders.update')) {
+                $buttons .= '<a href="'.route('admin.package-types.edit',[$row->id]).'" class="btn btn-primary btn-circle btn-sm m-1" title="تعديل">
+                            <i class="fa fa-edit"></i>
+                        </a>';
+
 //                }
 //                if ($auth->can('sliders.delete')) {
 //                    $buttons .= '<a class="btn btn-danger btn-sm delete btn-circle m-1" data-id="'.$row->id.'"  title="حذف">

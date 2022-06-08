@@ -226,13 +226,17 @@ Route::group([
             Route::group(['prefix' => 'package-types', 'as' => '.package-types'], function () {
                 Route::get('/', 'PackageTypeController@index');
                 Route::get('getData', 'PackageTypeController@getData')->name('.datatable');
-                Route::get('/create', 'PackageTypeController@create')->name('.create');
+                Route::get('/create/{parent_id}', 'PackageTypeController@create')->name('.create');
                 Route::post('/store', 'PackageTypeController@store')->name('.store');
                 Route::get('/edit/{id}', 'PackageTypeController@edit')->name('.edit');
                 Route::post('/update', 'PackageTypeController@update')->name('.update');
                 Route::get('/show/{id}', 'PackageTypeController@show')->name('.show');
                 Route::post('/delete', 'PackageTypeController@delete')->name('.delete');
                 Route::post('/delete-multi', 'PackageTypeController@deleteMulti')->name('.deleteMulti');
+
+                Route::get('/details/{id}', 'PackageTypeController@details')->name('.details');
+                Route::get('getData/details/{id}', 'PackageTypeController@getDataDetails')->name('.datatable-details');
+
             });
             Route::group(['prefix' => 'package_types_settings/dynamic_types', 'as' => '.package_types_settings.dynamic_types'], function () {
                 Route::get('/', 'PackageSettings\DynamicTypesController@index');

@@ -118,7 +118,7 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <input type="text" required disabled name="days_count" value="{{$row->days_count}}" class="form-control mb-2" placeholder="عدد أيام الباقة" value="" />
+                                <input type="number" required disabled name="days_count" @if($row->parent_id != Null) readonly @endif value="{{$row->ParentPackageType->days_count}}" class="form-control mb-2" placeholder="عدد أيام الباقة" value="" />
 
                                 <!--end::Select2-->
                                 <!--begin::Description-->
@@ -134,6 +134,45 @@
                             <!--end::Card body-->
                         </div>
                         <!--end::Status-->
+
+                        @if($row->parent_id != Null)
+                            <!--begin::Status-->
+                                <div class="card card-flush py-4">
+                                    <!--begin::Card header-->
+                                    <div class="card-header">
+                                        <!--begin::Card title-->
+                                        <div class="card-title">
+                                            <h2>عدد وجبات الباقة</h2>
+                                        </div>
+                                        <!--end::Card title-->
+                                        <!--begin::Card toolbar-->
+                                        <div class="card-toolbar">
+                                            <div class="rounded-circle bg-primary w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+                                        </div>
+                                        <!--begin::Card toolbar-->
+                                    </div>
+                                    <!--end::Card header-->
+                                    <!--begin::Card body-->
+                                    <div class="card-body pt-0">
+                                        <!--begin::Select2-->
+                                        <input type="number" required name="meal_count"  value="{{$row->meal_count}}" class="form-control mb-2" placeholder="عدد وجبات الباقة" value="" />
+
+                                        <!--end::Select2-->
+                                        <!--begin::Description-->
+                                    {{--                                <div class="text-muted fs-7">Set the product status.</div>--}}
+                                    <!--end::Description-->
+                                        <!--begin::Datepicker-->
+                                    {{--                                <div class="d-none mt-10">--}}
+                                    {{--                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>--}}
+                                    {{--                                    <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" />--}}
+                                    {{--                                </div>--}}
+                                    <!--end::Datepicker-->
+                                    </div>
+                                    <!--end::Card body-->
+                                </div>
+                                <!--end::Status-->
+                        @endif
+
 
                     </div>
                     <!--end::Aside column-->
