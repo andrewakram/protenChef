@@ -53,7 +53,6 @@ class OrderController extends Controller
 
     public function edit($id)
     {
-
         $meal_types = MealType::select('id','title_ar')->get();
         if(sizeof($meal_types) > 0){
             $meals = Meal::where('meal_type_id',$meal_types[0]->id)->select('id','title_ar')->get();
@@ -61,7 +60,7 @@ class OrderController extends Controller
             $meals = [];
         }
 
-        $row = Order::whereId($id)->first();
+        $row = Order::findOrFail($id);
         $status = $row->status;
         if (!$row){
             session()->flash('error', 'الحقل غير موجود');

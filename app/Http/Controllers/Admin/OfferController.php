@@ -53,7 +53,7 @@ class OfferController extends Controller
     public function edit($id)
     {
 
-        $row = Offer::where('id',$id)->first();
+        $row = Offer::findOrFail($id);
         if (!$row){
             session()->flash('error', 'الحقل غير موجود');
             return redirect()->back();
