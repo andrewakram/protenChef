@@ -50,14 +50,13 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
             Route::post('/change-password', [AuthController::class, 'changePassword']);
             Route::post('/update-profile', [AuthController::class, 'UpdateProfile']);
         });
-
     });
 
     Route::group(['prefix' => "user", 'middleware' => ['auth:api','check_active']], function () {
         //home
         Route::get('/home', [HomeController::class, 'home']);
-        Route::get('/package_parent_type', [PackagesController::class, 'package_parent_type']);
-        Route::get('/package_types/{package_id}/{sub_package_type_id}', [PackagesController::class, 'package_types']);
+        Route::get('/package_parent_type/{package_id}/{sub_package_type_id}', [PackagesController::class, 'package_parent_type']);
+        Route::get('/package_types/{package_id}', [PackagesController::class, 'package_types']);
         Route::get('/package_meal_types/{type}/{package_pricec_id}', [PackagesController::class, 'package_meal_types']);
         Route::get('/package_price_details/{package_pricec_id}', [PackagesController::class, 'package_price_details']);
         Route::get('/package_menu_meals', [PackagesController::class, 'package_menu_meals']);

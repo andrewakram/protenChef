@@ -30,16 +30,22 @@ use TymonJWTAuthExceptionsJWTException;
 class PackagesController extends Controller
 {
 
-    public function package_parent_type(Request $request)
+    public function package_parent_type(Request $request ,$package_id,$sub_package_type_id)
     {
-        $package_parent_type = PackageType::whereNull('parent_id')->with('SubPackages')->get();
-        $data = PackageTypeResource::collection($package_parent_type);
+//        $package_parent_type = PackageType::whereNull('parent_id')->with('SubPackages')->get();
+//        $data = PackageTypeResource::collection($package_parent_type);
+        $package_type_prices = PackageTypePrice::where('package_id', $package_id)
+            ->where('package_type_id', $sub_package_type_id)
+            ->get();
+        $data['package_types_prices'] = (PackageTypePriceResources::collection($package_type_prices));
+
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
 
+
     }
 
-    public function package_types(Request $request, $package_id, $sub_package_type_id)
+    public function package_types(Request $request, $package_id)
     {
         $package = Package::find($package_id);
         if (!$package) {
@@ -47,11 +53,10 @@ class PackagesController extends Controller
         }
         //object shape resources
         $data['package'] = (new PackageResources($package));
+
+        $package_parent_type = PackageType::whereNull('parent_id')->get();
+        $data = PackageTypeResource::collection($package_parent_type);
         //array shape resources
-        $package_type_prices = PackageTypePrice::where('package_id', $package_id)
-//            ->where('package_type_id', $sub_package_type_id)
-            ->get();
-        $data['package_types_prices'] = (PackageTypePriceResources::collection($package_type_prices));
 
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
