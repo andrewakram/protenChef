@@ -57,7 +57,7 @@ class PackagesController extends Controller
         $data['package'] = (new PackageResources($package));
 
         $package_parent_type = PackageType::whereNull('parent_id')->get();
-        $data['package_parent_types'] = PackageTypeResource::collection($package_parent_type);
+        $data['package_types_prices'] = PackageTypeResource::collection($package_parent_type);
         //array shape resources
 
 
