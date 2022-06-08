@@ -31,6 +31,8 @@ class PackageType extends Model
         return $this->belongsTo(PackageType::class,'parent_id');
     }
 
+
+
     public function getImageAttribute($image)
     {
         if (!empty($image)) {

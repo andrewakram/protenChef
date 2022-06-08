@@ -30,12 +30,14 @@ use TymonJWTAuthExceptionsJWTException;
 class PackagesController extends Controller
 {
 
-    public function package_parent_type(Request $request ,$package_id,$sub_package_type_id)
+    public function package_parent_type(Request $request)
     {
 //        $package_parent_type = PackageType::whereNull('parent_id')->with('SubPackages')->get();
 //        $data = PackageTypeResource::collection($package_parent_type);
-        $package_type_prices = PackageTypePrice::where('package_id', $package_id)
-            ->where('package_type_id', $sub_package_type_id)
+        $package_type = PackageType::where('parent_id', $request->package_type_id)->pluck('id')->toArray();
+
+        $package_type_prices = PackageTypePrice::where('package_id', $request->package_id)
+            ->whereIn('package_type_id', $package_type)
             ->get();
         $data['package_types_prices'] = (PackageTypePriceResources::collection($package_type_prices));
 
@@ -45,9 +47,9 @@ class PackagesController extends Controller
 
     }
 
-    public function package_types(Request $request, $package_id)
+    public function package_types(Request $request)
     {
-        $package = Package::find($package_id);
+        $package = Package::find($request->package_id);
         if (!$package) {
             return response()->json(['status' => 401, 'msg' => trans('lang.you_should_choose_valid_package')]);
         }
@@ -55,26 +57,28 @@ class PackagesController extends Controller
         $data['package'] = (new PackageResources($package));
 
         $package_parent_type = PackageType::whereNull('parent_id')->get();
-        $data = PackageTypeResource::collection($package_parent_type);
+        $data['package_parent_types'] = PackageTypeResource::collection($package_parent_type);
         //array shape resources
 
 
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));
     }
 
-    public function package_meal_types(Request $request, $type, $package_pricec_id)
+    public function package_meal_types(Request $request, $type)
     {
-        $package = PackageTypePrice::find($package_pricec_id);
+        $package = PackageTypePrice::find($request->package_price_id);
 
         if (!$package) {
             return response()->json(['status' => 401, 'msg' => trans('lang.you_should_choose_valid_package_type')]);
         }
         $package_type_count = $package->PackageType->meal_count;
         if ($type == 'main') {
-            $package_type_prices = PackageMealType::where('price', null)->where('package_type_price_id', $package_pricec_id)->limit($package_type_count)->get();
+            $package_type_prices = PackageMealType::where('price', null)
+                ->where('package_type_price_id', $request->package_price_id)->limit($package_type_count)->get();
 
         } else {
-            $package_type_prices = PackageMealType::where('price', '!=', null)->where('package_type_price_id', $package_pricec_id)->get();
+            $package_type_prices = PackageMealType::where('price', '!=', null)
+                ->where('package_type_price_id', $request->package_price_id)->get();
         }
         $data = (PackageMealTypeResources::collection($package_type_prices));
         return response()->json(msgdata($request, success(), trans('lang.success'), $data));

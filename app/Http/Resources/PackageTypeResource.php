@@ -17,7 +17,7 @@ class PackageTypeResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'sub_packages'=>  $this->SubPackages
+
         ];
     }
 }
