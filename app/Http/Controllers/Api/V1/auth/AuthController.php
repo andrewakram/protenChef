@@ -339,6 +339,16 @@ class AuthController extends Controller
                     'active' => 1,
                     'provider' => 'facebook'
                 ]);
+            }elseif($request->social_type == 'apple') {
+                // apple
+                $user = User::create([
+                    'social_id' => $request->social_id,
+                    'fcm_token' => $request->device_token,
+                    'email' => $request->email,
+                    'email_verified_at' => Carbon::now(),
+                    'active' => 1,
+                    'provider' => 'apple'
+                ]);
             } else {
                 // google
                 $user = User::create([
