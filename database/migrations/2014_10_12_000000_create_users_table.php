@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('active')->default(0)->comment('0->unactive and 1->Active');
             $table->tinyInteger('suspend')->default(0)->comment('0->unsuspended and 1->suspended');
 
-            $table->enum('provider', ['google', 'facebook', 'other'])->default('other');
+            $table->enum('provider', ['google', 'facebook', 'other','apple'])->default('other');
             $table->longText('social_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
