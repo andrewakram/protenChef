@@ -286,9 +286,9 @@ class AuthController extends Controller
     public function socialLogin(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'social_type' => 'required|in:facebook,google',
+            'social_type' => 'required|in:facebook,google,apple',
             'social_id' => 'required',
-            'email' => 'required',
+            'email' => 'nullable',
         ]);
         if (!is_array($validator) && $validator->fails()) {
             return response()->json(['status' => 401, 'msg' => $validator->messages()->first()]);
