@@ -52,7 +52,7 @@ Route::group(['prefix' => "V1", 'namespace' => 'V1'], function () {
         });
     });
 
-    Route::group(['prefix' => "user", 'middleware' => ['auth:api','check_active']], function () {
+    Route::group(['prefix' => "user"], function () {
         //home
         Route::get('/home', [HomeController::class, 'home']);
         Route::get('/package_parent_type', [PackagesController::class, 'package_parent_type']);
