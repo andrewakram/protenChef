@@ -118,7 +118,7 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <input type="number" required disabled name="days_count" @if($row->parent_id) readonly @endif value="{{$row->ParentPackageType->days_count}}" class="form-control mb-2" placeholder="عدد أيام الباقة" value="" />
+                                <input type="number" required disabled name="days_count" @if($row->parent_id) readonly @endif value="{{$row->ParentPackageType->days_count}}" class="form-control mb-2" placeholder="عدد أيام الباقة" />
 
                                 <!--end::Select2-->
                                 <!--begin::Description-->
