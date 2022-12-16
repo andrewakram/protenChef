@@ -142,20 +142,19 @@ class PackagesController extends Controller
             $meal_type_id = $request->meal_type_id;
         }
 
+        $packageTypePrice = PackageTypePrice::find($request->package_type_price_id);
+        $meal_count = $packageTypePrice->PackageType->meal_count;
+
         $main_meal_types = PackageMealType::query();
         if ($request->meal_type == 'sub') {
             $main_meal_types = $main_meal_types->where('price', '!=', null);
         } else {
-            $main_meal_types = $main_meal_types->where('price', null);
+            $main_meal_types = $main_meal_types->limit($meal_count)->where('price', null);
         }
-
-        $packageTypePrice = PackageTypePrice::find($request->package_type_price_id);
-        $meal_count = $packageTypePrice->PackageType->meal_count;
-
 
         $main_meal_types = $main_meal_types->where('package_type_price_id', $request->package_type_price_id)
             ->orderBy('id', 'asc')
-            ->limit($meal_count)
+            // ->limit($meal_count)
             ->get();
 
         if (!$request->meal_type_id) {
