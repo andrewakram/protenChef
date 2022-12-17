@@ -35,8 +35,8 @@ class PackageTypeController extends Controller
         $validator = Validator::make($request->all(), [
             'title_ar' => 'required',
             'title_en' => 'required',
-            'days_count' => 'required',
-            'type' => 'required|in:1,2,3,4,5',
+            // 'days_count' => 'required',
+            // 'type' => 'required|in:1,2,3,4,5',
             'image' => 'required|image|mimes:png,jpg,jpeg',
         ]);
         if (!is_array($validator) && $validator->fails()) {
@@ -45,14 +45,15 @@ class PackageTypeController extends Controller
 
         $row = new PackageType();
         $row->image = $request->image;
-        $row->title = $request->title;
-        $row->url = $request->url;
-        $row->active = $request->active;
+        $row->title_ar = $request->title_ar;
+        $row->title_en = $request->title_en;
+        // $row->url = $request->url;
+        // $row->active = $request->active;
         $row->meal_count = $request->meal_count;
         $row->parent_id = $request->parent_id;
         $row->save();
-            session()->flash('success', 'تم الإضافة بنجاح');
-        return redirect()->route('admin.package_types');
+        session()->flash('success', 'تم الإضافة بنجاح');
+        return redirect()->route('admin.package-types.details',[$request->parent_id]);
     }
 
     public function edit($id)
@@ -155,10 +156,10 @@ class PackageTypeController extends Controller
             ->addColumn('actions', function ($row) use ($auth){
                 $buttons = '';
 //                if ($auth->can('sliders.update')) {
-                    $buttons .= '<a href="'.route('admin.package-types.details',[$row->id]).'" class="btn btn-warning btn-circle btn-sm m-1" title="عرض">
+                $buttons .= '<a href="'.route('admin.package-types.details',[$row->id]).'" class="btn btn-warning btn-circle btn-sm m-1" title="عرض">
                             <i class="fa fa-eye"></i>
                         </a>';
-                    $buttons .= '<a href="'.route('admin.package-types.edit',[$row->id]).'" class="btn btn-primary btn-circle btn-sm m-1" title="تعديل">
+                $buttons .= '<a href="'.route('admin.package-types.edit',[$row->id]).'" class="btn btn-primary btn-circle btn-sm m-1" title="تعديل">
                             <i class="fa fa-edit"></i>
                         </a>';
 
